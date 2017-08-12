@@ -133,6 +133,8 @@ namespace loopier
     // reset all attributes
     void resetClip(const string clipname);
     // move to
+    /// \brief Move clip
+    /// \param  x,y   float     Normalized position.  Will be scaled according to window dimensions
     void moveClipTo(const string clipname, const float x, const float y);
     // set anchor point
     // scale -- resize

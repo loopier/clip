@@ -197,7 +197,7 @@ void loopier::setClipAlpha(const string clipname, const float alpha)
 
 loopier::Clip::Clip(string& clipname, string& path)
 : name(clipname)
-, extension(".mov")
+, extension("mov")
 , path(path)
 , x(0)
 , y(0)
@@ -209,6 +209,7 @@ loopier::Clip::Clip(string& clipname, string& path)
 {
     name = ofFile(clipname).getBaseName();
     extension = ofFile(clipname).getExtension();
+    if (extension.length() < 1) extension = "mov";
 }
 
 loopier::Clip::~Clip()
@@ -323,8 +324,8 @@ float loopier::Clip::getScale() const
 
 void loopier::Clip::setPosition(const float newX, const float newY)
 {
-    x = newX;
-    y = newY;
+    x = newX * ofGetWidth();
+    y = newY * ofGetHeight();
     
     ofLogVerbose() << "Clip::" << __FUNCTION__ << "\t" << name << " \tx: " << x << " - y: " << y;
 }

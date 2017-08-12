@@ -37,7 +37,7 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         string name = msg.getArgAsString(0);
         string command = msg.getArgAsString(1);
         
-//        if (command == "new")               loopier::newClip(name)
+        if (command == "new")               loopier::newClip(name);
         
         if (command == "reset")             loopier::resetClip(name);
         if (command == "scaleup")           loopier::scaleUpClip(name, msg.getArgAsFloat(2));
@@ -76,8 +76,7 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-    loopier::moveClipTo("default", x, y);
-}
+    }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
