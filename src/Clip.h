@@ -16,6 +16,7 @@ namespace loopier
     class Clip
     {
     public:
+        Clip();
         /// \param name     String  Name of clip instance
         /// \param filename String  Name of movie file with extension or not
         ///                         It's not alwas the same as 'name,' because
@@ -56,6 +57,7 @@ namespace loopier
         void hideName();
         
     private:
+        ofVideoPlayer   player;
         string  name;
         string  filebasename;
         string  extension;
@@ -65,11 +67,10 @@ namespace loopier
         float   scale;
         bool    fullscreen;
         float   alpha; ///< Transparency of the clip
-        ofVideoPlayer   player;
         
         bool    bDrawName;
         
-        Clip(); // Disable default constructor.  All clips must have a name
+//        Clip(); // Disable default constructor.  All clips must have a name
         
         void updateFullscreen();
         

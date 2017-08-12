@@ -52,7 +52,7 @@ void loopier::listClipNames()
     string msg = "Number of clips:\t" + ofToString(clips.size());
     loopier::ClipMap::iterator it;
     for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
-        msg += "\n\t" + it->first + "\t" + (*it->second).getName();
+        msg += "\n\t" + it->first;
     }
     
     ofLogNotice() << msg;
@@ -98,12 +98,21 @@ loopier::ClipPtr loopier::newClip(string name, string path)
 {
     string basename = ofFile(name).getBaseName();
     path += basename + "/";
+    string extension = ofFile(name).getExtension();
+    
+    string str = "Creating new clip -";
+    str += "\n\tname given: " + name;
+    str += "\n\textension: " + extension;
+    str += "\n\tbase name: " + basename;
+    name = basename;
+    str += "\n\tfinal name: " + name;
+    ofLogVerbose() << str;
     
     // check if there's already a clip with this name
     if (clips.count(name) > 0) {
-        string warning = "There's already a clip named " + name + "\n";
+        string warning = "There's already a clip named '" + name + "'.  ";
         name = name + ofToString(clips.count(name));
-        warning += "Renaming it to " + name;
+        warning += "Renaming it to '" + name + "'.";
         ofSystemAlertDialog(warning);
         ofLogWarning() << warning;
     }
@@ -227,10 +236,10 @@ void loopier::setClipAlpha(const string clipname, const float alpha)
 //------------------------------------------
 //  CONSTRUCTORS
 //------------------------------------------
-//loopier::Clip::Clip()
-//{
-//    // --- DISABLED ---
-//}
+loopier::Clip::Clip()
+{
+    // --- DISABLED ---
+}
 
 loopier::Clip::Clip(string& clipname, string& filename, string& path)
 : name(clipname)
