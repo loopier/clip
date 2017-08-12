@@ -6,6 +6,7 @@ void ofApp::setup(){
     ofBackground(0,0,0);
     ofSetVerticalSync(true);
     
+    applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip";
     init();
     
 //    osc.listenToPort(54321);
@@ -113,16 +114,18 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 void ofApp::init()
 {
-    // check if ~/Library/Application support exists
-    ofDirectory dir(ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip");
+    // check if ~/Library/Application Support/Clip exists
+    ofDirectory dir(applicationSupportPath);
     ofLogVerbose()  <<  __FUNCTION__
                     << ":\tLooking for " << dir.getAbsolutePath();
     if (dir.exists()) {
         ofLogVerbose() <<  "Done";
     } else {
-        ofLogWarning()  << dir.getAbsolutePath() << " doesn't exist.\n"
+        ofLogError()  << dir.getAbsolutePath() << " doesn't exist.\n"
                         << "\tPlease create it and put the resources and config files in there.\n"
                         << "\tYou can find default directory structure and files in the !!! TODO !!!.";
+        ofLogNotice() << __FUNCTION__ << ":\tQuit application.";
+        ofExit();
     }
     
     // create folder if it doesn't exist

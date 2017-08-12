@@ -28,6 +28,7 @@ class ofApp : public ofBaseApp{
     void processOscMessage(ofxOscMessage & msg);
 		
     OscManager osc;
+    string  applicationSupportPath; ///< Path to the directory with resources and config files
     
 private:
     /// \brief Creates a folder in ~/Library/Application Support/Clip/
