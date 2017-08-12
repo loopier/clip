@@ -32,7 +32,7 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
     loopier::printOscMessage(msg, "OSC:");
     
     // commands affecting all clips
-    if (msg.getAddress() == "/loopier/clips") {
+    if (msg.getAddress() == "/loopier/clip/clips") {
         string command = msg.getArgAsString(0);
         
         if (command == "clearall")  loopier::clearClips();
@@ -44,7 +44,7 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
     }
     
     // messages have the format /loopier/clip "name" "command" [arg1, ... , argN]
-    if (msg.getAddress() == "/loopier/clip") {
+    if (msg.getAddress() == "/loopier/clip/clip") {
         
         string name = msg.getArgAsString(0);
         string command = msg.getArgAsString(1);
@@ -63,12 +63,11 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         if (command == "play")             loopier::playClip(name);
         if (command == "stop")             loopier::stopClip(name);
         if (command == "pause")            loopier::pauseClip(name);
-        if (command == "changeloopstate")  loopier::toggleClipLoopState(name);
         if (command == "loop") {
             string state = msg.getArgAsString(2);
-            if (state == "none")        loopier::setClipLoopState(name, ofLoopType(OF_LOOP_NONE));
-            if (state == "normal")      loopier::setClipLoopState(name, ofLoopType(OF_LOOP_NORMAL));
-            if (state == "palindrome")  loopier::setClipLoopState(name, ofLoopType(OF_LOOP_PALINDROME));
+            if (state == "none")        loopier::setClipLoopState(name, OF_LOOP_NONE);
+            if (state == "normal")      loopier::setClipLoopState(name, OF_LOOP_NORMAL);
+            if (state == "palindrome")  loopier::setClipLoopState(name, OF_LOOP_PALINDROME);
         }
         
         // ATTRIBUTES

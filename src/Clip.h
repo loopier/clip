@@ -38,7 +38,6 @@ namespace loopier
         void play();
         void stop();
         void pause(bool bPause=true);
-        void toggleLoopState();
         void setLoopState(const ofLoopType state);
         
         void setScale(const float newScale);
@@ -140,8 +139,7 @@ namespace loopier
     // end at frame|normalized X
     // get total duration in seconds
     // get total number of frames
-    // loop state !!! FIX: Not working
-    void toggleClipLoopState(const string clipname);
+    /// \brief Set loop state (none | normal | palindrome)
     void setClipLoopState(const string clipname, const ofLoopType state);
     // pause at last frame when not looping
     // go to frame

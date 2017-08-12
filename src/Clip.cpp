@@ -148,11 +148,6 @@ void loopier::pauseClip(const string clipname)
     loopier::clips[clipname]->pause();
 }
 
-void loopier::toggleClipLoopState(const string clipname)
-{
-    loopier::clips[clipname]->toggleLoopState();
-}
-
 void loopier::setClipLoopState(const string clipname, const ofLoopType state)
 {
     loopier::clips[clipname]->setLoopState(state);
@@ -338,29 +333,10 @@ void loopier::Clip::pause(bool bPause)
     ofLogVerbose() << "pause: " << name ;
 }
 
-void loopier::Clip::toggleLoopState()
-{
-    string state = "";
-    if (player.getLoopState() == OF_LOOP_NONE) {
-        player.setLoopState(OF_LOOP_NORMAL);
-        state = "normal";
-    } else if (player.getLoopState() == OF_LOOP_NORMAL) {
-        player.setLoopState(OF_LOOP_PALINDROME);
-        state = "palindrome";
-    } else {
-        player.setLoopState(OF_LOOP_NONE);
-        state = "none";
-    }
-    
-    ofLogVerbose() << "loop: " << state << " " << player.getLoopState();
-}
-
 void loopier::Clip::setLoopState(const ofLoopType state)
 {
-    ofLogVerbose() << "Clip::" << __FUNCTION__ << "\t" << player.isInitialized();
-    ofLogVerbose() << "Clip::" << __FUNCTION__ << "\t" << player.isLoaded();
-    ofExit();
-//    player.setLoopState(state);
+    player.setLoopState(state);
+    if (player.isPaused()) player.play();
 }
 
 void loopier::Clip::setScale(const float newScale)
