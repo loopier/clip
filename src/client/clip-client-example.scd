@@ -39,23 +39,28 @@ m.sendMsg("/loopier/clip/clip", "default", "alpha",0.5);
 m.sendMsg("/loopier/clip/clip", "stress", "new");
 m.sendMsg("/loopier/clip/clip", "stress", "moveto", 1.0.rand, 1.0.rand);
 )
-m.sendMsg("/loopier/clip/clip", "stress", "moveto", 1.0.rand, 1.0.rand);
-m.sendMsg("/loopier/clip/clip", "stress", "togglefullscreen");
+// change it's transparency
+m.sendMsg("/loopier/clip/clip", "stress", "alpha",0.5);
 // create another clip with the same name.  App will rename it to 'stress1' and
 // warn you about this
 (
 m.sendMsg("/loopier/clip/clip", "stress", "new");
 m.sendMsg("/loopier/clip/clip", "stress1", "moveto", 1.0.rand, 1.0.rand);
 )
+// eval several times to move it around
 m.sendMsg("/loopier/clip/clip", "stress1", "moveto", 1.0.rand, 1.0.rand);
 
 // create a new clip named 'mamma' with alpha channel (transparent background)
+// give it a random size and position at creation-time
+(
 m.sendMsg("/loopier/clip/clip", "mamma", "new");
-// fool around with it.
+m.sendMsg("/loopier/clip/clip", "mamma", "moveto", 1.0.rand, 1.0.rand);
+m.sendMsg("/loopier/clip/clip", "mamma", "scale", 2.0.rand.postln);
+)
+// fool around with it
 (
 m.sendMsg("/loopier/clip/clip", "mamma", "moveto", 1.0.rand, 1.0.rand);
 m.sendMsg("/loopier/clip/clip", "mamma", "scale", 2.0.rand.postln);
-m.sendMsg("/loopier/clip/clip", "mamma", "alpha",0.5);
 )
 
 // CONSOLE COMMANDS
