@@ -277,10 +277,14 @@ void loopier::Clip::update()
 void loopier::Clip::draw()
 {
     ofSetColor(255,255,255, 255 * alpha);
-    float posx = (fullscreen? 0 : x);
-    float posy = (fullscreen? 0 : y);
-    player.draw(posx, posy, width, height);
-    if (bDrawName)  ofDrawBitmapString(name, posx, posy);
+    
+    if (fullscreen) {
+        player.draw(0, 0, ofGetWidth(), ofGetHeight());
+    } else {
+        player.draw(x, y, width, height);
+        if (bDrawName)  ofDrawBitmapString(name, x, y);
+    }
+    
 }
 
 void loopier::Clip::reset()
@@ -380,19 +384,6 @@ ofPoint loopier::Clip::getPosition() const
 void loopier::Clip::toggleFullscreen()
 {
     fullscreen = !fullscreen;
-    updateFullscreen();
-}
-
-void loopier::Clip::updateFullscreen()
-{
-    if (fullscreen) {
-        width = ofGetWidth();
-        height = ofGetHeight();
-    } else {
-        width = player.getWidth() * getScale();
-        height = player.getHeight() * getScale();
-    }
-    
     ofLogVerbose() << name << " fullscreen: "<< (fullscreen? "on" : "off");
 }
 
