@@ -291,7 +291,7 @@ void loopier::Clip::reset()
 {
     width = player.getWidth();
     height = player.getHeight();
-    player.setAnchorPoint(width/2, height/2);
+    player.setAnchorPercent(0.5, 0.5);
     x = ofGetWidth() / 2;
     y = ofGetHeight() / 2;
     scale = 1.0;
@@ -384,6 +384,7 @@ ofPoint loopier::Clip::getPosition() const
 void loopier::Clip::toggleFullscreen()
 {
     fullscreen = !fullscreen;
+    fullscreen? player.setAnchorPercent(0, 0) : player.setAnchorPercent(0.5, 0.5);
     ofLogVerbose() << name << " fullscreen: "<< (fullscreen? "on" : "off");
 }
 

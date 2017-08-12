@@ -116,7 +116,10 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-    }
+    float fx = float(x)/float(ofGetWidth());
+    float fy = float(y)/float(ofGetHeight());
+    clips["default"]->setPosition(fx, fy);
+}
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
