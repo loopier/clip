@@ -12,7 +12,7 @@
 //      INTERFACE FUNCTIONS
 //------------------------------------------------------------------------------------------
 
-void loopier::printOscMessage(const ofxOscMessage& m, const string& prepend)
+void loopier::printOscMessage(const ofxOscMessage& m, const string& prepend, const ofLogLevel& loglevel)
 {
     //    ofLogVerbose() << typeid(this).name() << "::" << __FUNCTION__;
     string msg;
@@ -40,7 +40,8 @@ void loopier::printOscMessage(const ofxOscMessage& m, const string& prepend)
         msg += "\t";
     }
     
-    ofLogVerbose() << msg;
+    if (loglevel == OF_LOG_NOTICE)  ofLogNotice() << msg;
+    if (loglevel == OF_LOG_VERBOSE) ofLogVerbose() << msg;
 }
 
 
@@ -67,7 +68,7 @@ loopier::OscManager::~OscManager()
 void loopier::OscManager::setup()
 {
     receiver.setup(listenPort);
-    ofLogVerbose() << __FUNCTION__  << ": Listening to port " << listenPort;
+    ofLogNotice() << "OSC listening on port " << listenPort;
 }
 
 void loopier::OscManager::update()
@@ -75,7 +76,7 @@ void loopier::OscManager::update()
     while (receiver.hasWaitingMessages()) {
         ofxOscMessage m;
         if (receiver.getNextMessage(m)) {
-            loopier::printOscMessage(m, "OscManager:\t New OSC message:");
+            loopier::printOscMessage(m, "OscManager::update\t OSC message received:", OF_LOG_VERBOSE);
             
             // notify all the listeners about this message and send it to them
             ofNotifyEvent(newOscMessageEvent, m, this);

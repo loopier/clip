@@ -6,19 +6,20 @@ void ofApp::setup(){
     ofBackground(0,0,0);
     ofSetVerticalSync(true);
     
-    applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip";
+    applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/";
     init();
     
 //    osc.listenToPort(54321);
     osc.setup();
     ofAddListener(osc.newOscMessageEvent, this, &ofApp::processOscMessage);
     
-    loopier::newClip("movies/stress.mov", "democlip");
+    string moviespath = applicationSupportPath + "resources/movies/";
+    loopier::newClip("default.mov", moviespath);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    loopier::updateClips();
+//    loopier::updateClips();
 }
 
 //--------------------------------------------------------------
@@ -28,7 +29,7 @@ void ofApp::draw(){
 
 void ofApp::processOscMessage(ofxOscMessage & msg)
 {
-    loopier::printOscMessage(msg, "ofApp: processing OSC message:");
+    loopier::printOscMessage(msg, "OSC:");
     
     // messages have the format /loopier/clip "name" "command" [arg1, ... , argN]
     if (msg.getAddress() == "/loopier/clip") {
@@ -75,7 +76,7 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-    loopier::moveClipTo("democlip", x, y);
+    loopier::moveClipTo("default", x, y);
 }
 
 //--------------------------------------------------------------
@@ -119,7 +120,7 @@ void ofApp::init()
     ofLogVerbose()  <<  __FUNCTION__
                     << ":\tLooking for " << dir.getAbsolutePath();
     if (dir.exists()) {
-        ofLogVerbose() <<  "Done";
+        ofLogVerbose() <<  __FUNCTION__ <<  ":\tDirectory found.";
     } else {
         ofLogError()  << dir.getAbsolutePath() << " doesn't exist.\n"
                         << "\tPlease create it and put the resources and config files in there.\n"

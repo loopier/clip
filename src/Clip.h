@@ -16,11 +16,13 @@ namespace loopier
     class Clip
     {
     public:
-//        Clip();
-        Clip(string& clipname);
+//        Clip();  // DISABLED (private method)
+//        Clip(string& clipname);
+        /// \param path     String  Path to the movies (general) folder
+        Clip(string& clipname, string& path);
         virtual ~Clip();
         
-        void setup(string& moviePath, bool bPlay=true);
+        void setup(bool bPlay=true);
         void update();
         void draw();
         /// \brief  Resets clip to the default state
@@ -47,7 +49,8 @@ namespace loopier
         
     private:
         string  name;
-        string  basepath; ///< Parent directory containing the clip files
+        string  extension;
+        string  path; ///< Parent directory containing the clip files
         float   x, y;
         float   width, height;
         float   scale;
@@ -59,6 +62,7 @@ namespace loopier
         
         void updateFullscreen();
         
+        // ----- HELPERS -----
     };
     
     //------------------------------------------
@@ -80,9 +84,16 @@ namespace loopier
     // 
     
     // ----- MANAGE CLIPS -----
-    /// \brief  Creates a new clip with the movie in the given path and
-    ///     adds it to loopier::clips
-    loopier::ClipPtr newClip(string path, string name="");
+    /// \brief  Creates a new clip with the given movie file
+    /// \param  name    String  Name of the movie file (with or without extension).
+    ///                         The application will look in the path for a directory named after 'name'.
+    /// \param  path    String  Path to the parent directory of the subdirectory holding the movie file.
+    ///                         E.g. If the movie file is named 'mymovie.mov', it should be
+    ///                         located in a subfolder named 'mymovie'.  The 'path' variable
+    ///                         should be the path to the directory where the subdirectory
+    ///                         'mymovie' resides.
+    loopier::ClipPtr newClip(string name);
+    loopier::ClipPtr newClip(string name, string path);
     /// \brief  Adds the given clip to loopier::clips
     void addClip(ClipPtr clip);
     void removeClip(ClipPtr clip);

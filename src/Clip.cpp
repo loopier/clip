@@ -8,33 +8,32 @@
 
 #include "Clip.h"
 
-//------------------------------------------------------------------------------------------
-//      CLASS FUNCTIONS
-//------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------
+//-------------------------------------------------------------------
+//      INTERFACE FUNCTIONS
+//-------------------------------------------------------------------
+//-------------------------------------------------------------------
 
 loopier::ClipMap loopier::clips; // the list of clips available everywhere
 
 //------------------------------------------
 //  MANAGE CLIPS
 //------------------------------------------
-loopier::ClipPtr loopier::newClip(string path, string name)
+loopier::ClipPtr loopier::newClip(string name)
 {
-    if (name == "") {
-        name = "clip-";
-        name += ofToString(ofGetYear());
-        name += ofToString(ofGetMonth());
-        name += ofToString(ofGetDay());
-        name += ofToString(ofGetHours());
-        name += ofToString(ofGetMinutes());
-        name += ofToString(ofGetSeconds());
-    }
+    loopier::newClip(name, ofFilePath::getUserHomeDir()+"/Library/Application Support/Clip/resources/movies/");
+}
+
+loopier::ClipPtr loopier::newClip(string name, string path)
+{
+    string basename = ofFile(name).getBaseName();
+    path += basename + "/";
+    loopier::ClipPtr clip(new loopier::Clip(name, path));
+    clip->setup();
+    clips[clip->getName()] = clip;
     
-    loopier::ClipPtr clip(new loopier::Clip(name));
-    clip->setup(path);
-    clips[name] = clip;
-    
-    ofLogVerbose() << "Created " << name << " from " << path;
-    ofLogVerbose() << "Number of clips: " << clips.size();
+    ofLogNotice() << "Number of clips: " << clips.size();
     return clip;
 }
 
@@ -166,25 +165,40 @@ void loopier::setClipAlpha(const string clipname, const float alpha)
 }
 
 
-//------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------
+//-------------------------------------------------------------------
 //      CLASS METHODS
-//------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------
+//-------------------------------------------------------------------
 
-loopier::Clip::Clip()
-: name("noname")
-, x(0)
-, y(0)
-, width(640)
-, height(400)
-, scale(1.0)
-, fullscreen(false)
-, alpha(1.0)
-{
-    
-}
 
-loopier::Clip::Clip(string& clipname)
+//------------------------------------------
+//  CONSTRUCTORS
+//------------------------------------------
+//loopier::Clip::Clip()
+//{
+//    // --- DISABLED ---
+//}
+
+//loopier::Clip::Clip(string& clipname)
+//: name(clipname)
+//, extension("mov")
+//, basepath(ofFilePath::getUserHomeDir()+"/Library/Application Support/Clip/resources/resources/movies/")
+//, x(0)
+//, y(0)
+//, width(640)
+//, height(400)
+//, scale(1.0)
+//, fullscreen(false)
+//, alpha(1.0)
+//{
+//    removeExtensionFromName();
+//}
+
+loopier::Clip::Clip(string& clipname, string& path)
 : name(clipname)
+, extension(".mov")
+, path(path)
 , x(0)
 , y(0)
 , width(640)
@@ -193,7 +207,8 @@ loopier::Clip::Clip(string& clipname)
 , fullscreen(false)
 , alpha(1.0)
 {
-    
+    name = ofFile(clipname).getBaseName();
+    extension = ofFile(clipname).getExtension();
 }
 
 loopier::Clip::~Clip()
@@ -201,9 +216,11 @@ loopier::Clip::~Clip()
     
 }
 
-void loopier::Clip::setup(string& moviePath,bool bPlay)
+void loopier::Clip::setup(bool bPlay)
 {
-    player.load(moviePath);
+    string fullpath = path + name + "." + extension;
+    ofLogNotice() << "Clip '" << name << "'\t-\tLoading " << fullpath;
+    player.load(fullpath);
     reset();
     
     player.setLoopState(OF_LOOP_NORMAL);
@@ -309,7 +326,7 @@ void loopier::Clip::setPosition(const float newX, const float newY)
     x = newX;
     y = newY;
     
-    ofLogVerbose() << name << " position: " << x << " - " << y;
+    ofLogVerbose() << "Clip::" << __FUNCTION__ << "\t" << name << " \tx: " << x << " - y: " << y;
 }
 
 void loopier::Clip::setPosition(const ofPoint& newPosition)
@@ -345,3 +362,8 @@ void loopier::Clip::setAlpha(const float newAlpha)
 {
     alpha = newAlpha;
 }
+
+//------------------------------------------------------------------------------------------
+//      HELPERS
+//------------------------------------------------------------------------------------------
+

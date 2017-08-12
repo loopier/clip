@@ -47,7 +47,7 @@ namespace loopier {
     /// \param  prepend     String          Something to write before the
     ///                                     message address (e.g. who's asking
     ///                                     to print it)
-    void printOscMessage(const ofxOscMessage& m, const string& prepend="");
+    void printOscMessage(const ofxOscMessage& m, const string& prepend="", const ofLogLevel& loglevel=OF_LOG_NOTICE);
 }
 
 #endif /* OscManager_hpp */
