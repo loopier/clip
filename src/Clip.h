@@ -47,8 +47,13 @@ namespace loopier
         
         void setAlpha(const float newAlpha);
         
+        void toggleName();
+        void showName();
+        void hideName();
+        
     private:
         string  name;
+        string  filebasename;
         string  extension;
         string  path; ///< Parent directory containing the clip files
         float   x, y;
@@ -57,6 +62,8 @@ namespace loopier
         bool    fullscreen;
         float   alpha; ///< Transparency of the clip
         ofVideoPlayer   player;
+        
+        bool    bDrawName;
         
         Clip(); // Disable default constructor.  All clips must have a name
         
@@ -84,6 +91,10 @@ namespace loopier
     // 
     
     // ----- MANAGE CLIPS -----
+    
+    void updateClips();
+    void drawClips();
+    
     /// \brief  Creates a new clip with the given movie file
     /// \param  name    String  Name of the movie file (with or without extension).
     ///                         The application will look in the path for a directory named after 'name'.
@@ -94,12 +105,16 @@ namespace loopier
     ///                         'mymovie' resides.
     loopier::ClipPtr newClip(string name);
     loopier::ClipPtr newClip(string name, string path);
+    
     /// \brief  Adds the given clip to loopier::clips
     void addClip(ClipPtr clip);
     void removeClip(ClipPtr clip);
     void removeClipAt(const int index);
-    void updateClips();
-    void drawClips();
+    
+    /// \brief  Shows names of clips
+    void toggleClipNames();
+    void showClipNames();
+    void hideClipNames();
     
     // ----- USE ONE CLIP -----
     // play

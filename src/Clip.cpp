@@ -18,7 +18,56 @@
 loopier::ClipMap loopier::clips; // the list of clips available everywhere
 
 //------------------------------------------
-//  MANAGE CLIPS
+//  UPDATE CLIPS
+//------------------------------------------
+void loopier::updateClips()
+{
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        (*it->second).update();
+    }
+}
+
+//------------------------------------------
+//  DRAW CLIPS
+//------------------------------------------
+void loopier::drawClips()
+{
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        (*it->second).draw();
+    }
+}
+
+//------------------------------------------
+//  SHOW CLIP NAMES
+//------------------------------------------
+void loopier::toggleClipNames()
+{
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        (*it->second).toggleName();
+    }
+}
+
+void loopier::showClipNames()
+{
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        (*it->second).showName();
+    }
+}
+
+void loopier::hideClipNames()
+{
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        (*it->second).hideName();
+    }
+}
+
+//------------------------------------------
+//  SINGLE CLIP MANAGEMENT
 //------------------------------------------
 loopier::ClipPtr loopier::newClip(string name)
 {
@@ -50,28 +99,6 @@ void loopier::removeClip(ClipPtr clip)
 void loopier::removeClipAt(const int index)
 {
     // !!! TODO
-}
-
-//------------------------------------------
-//  UPDATE CLIPS
-//------------------------------------------
-void loopier::updateClips()
-{
-    loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
-        (*it->second).update();
-    }
-}
-
-//------------------------------------------
-//  DRAW CLIPS
-//------------------------------------------
-void loopier::drawClips()
-{
-    loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
-        (*it->second).draw();
-    }
 }
 
 //------------------------------------------
@@ -206,8 +233,9 @@ loopier::Clip::Clip(string& clipname, string& path)
 , scale(1.0)
 , fullscreen(false)
 , alpha(1.0)
+, bDrawName(false)
 {
-    name = ofFile(clipname).getBaseName();
+    filebasename = ofFile(clipname).getBaseName();
     extension = ofFile(clipname).getExtension();
     if (extension.length() < 1) extension = "mov";
 }
@@ -219,7 +247,7 @@ loopier::Clip::~Clip()
 
 void loopier::Clip::setup(bool bPlay)
 {
-    string fullpath = path + name + "." + extension;
+    string fullpath = path + filebasename + "." + extension;
     ofLogNotice() << "Clip '" << name << "'\t-\tLoading " << fullpath;
     player.load(fullpath);
     reset();
@@ -240,6 +268,7 @@ void loopier::Clip::draw()
     float posx = (fullscreen? 0 : x);
     float posy = (fullscreen? 0 : y);
     player.draw(posx, posy, width, height);
+    if (bDrawName)  ofDrawBitmapString(name, posx, posy);
 }
 
 void loopier::Clip::reset()
@@ -362,6 +391,21 @@ void loopier::Clip::updateFullscreen()
 void loopier::Clip::setAlpha(const float newAlpha)
 {
     alpha = newAlpha;
+}
+
+void loopier::Clip::toggleName()
+{
+    bDrawName = !bDrawName;
+}
+
+void loopier::Clip::showName()
+{
+    bDrawName = false;
+}
+
+void loopier::Clip::hideName()
+{
+    bDrawName = false;
 }
 
 //------------------------------------------------------------------------------------------

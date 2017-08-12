@@ -31,6 +31,15 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
 {
     loopier::printOscMessage(msg, "OSC:");
     
+    // commands affecting all clips
+    if (msg.getAddress() == "/loopier/clips") {
+        string command = msg.getArgAsString(0);
+        
+        if (command == "togglenames")   loopier::toggleClipNames();
+        if (command == "shownames")     loopier::showClipNames();
+        if (command == "hidenames")     loopier::hideClipNames();
+    }
+    
     // messages have the format /loopier/clip "name" "command" [arg1, ... , argN]
     if (msg.getAddress() == "/loopier/clip") {
         
