@@ -33,6 +33,7 @@
 		C4782ECC372420ACE0615B74 /* OscPrintReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC8881B3C8C0A1C45F042E7A /* OscPrintReceivedElements.cpp */; };
 		C9109422648B170B07A778CF /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E3405C5AE387BDDC2AD19473 /* SyphonNameboundClient.m */; };
 		DB5240691F3E02AC0058310F /* OscManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB5240671F3E02AC0058310F /* OscManager.cpp */; };
+		DB94759B1F3F63A0002BF3FB /* ConsoleUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB94759A1F3F63A0002BF3FB /* ConsoleUI.cpp */; };
 		DBBA97011F3CB74A00A84413 /* Clip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBBA96FF1F3CB74A00A84413 /* Clip.cpp */; };
 		E1A3FD40C8BCD507345F1126 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D58DCB2C0AEFDE6171E29540 /* Syphon.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -125,6 +126,8 @@
 		DB5240671F3E02AC0058310F /* OscManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OscManager.cpp; sourceTree = "<group>"; };
 		DB5240681F3E02AC0058310F /* OscManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscManager.h; sourceTree = "<group>"; };
 		DB52406D1F3E2D220058310F /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		DB9475981F3F5B75002BF3FB /* ConsoleUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsoleUI.h; sourceTree = "<group>"; };
+		DB94759A1F3F63A0002BF3FB /* ConsoleUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleUI.cpp; sourceTree = "<group>"; };
 		DBBA96FF1F3CB74A00A84413 /* Clip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clip.cpp; sourceTree = "<group>"; };
 		DBBA97001F3CB74A00A84413 /* Clip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Clip.h; sourceTree = "<group>"; };
 		DF49D76C45D5DB505A234880 /* ofxOscMessage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscMessage.cpp; path = ../../../addons/ofxOsc/src/ofxOscMessage.cpp; sourceTree = SOURCE_ROOT; };
@@ -401,6 +404,8 @@
 				DB5240671F3E02AC0058310F /* OscManager.cpp */,
 				DB5240681F3E02AC0058310F /* OscManager.h */,
 				DB52406D1F3E2D220058310F /* utils.h */,
+				DB9475981F3F5B75002BF3FB /* ConsoleUI.h */,
+				DB94759A1F3F63A0002BF3FB /* ConsoleUI.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -551,6 +556,7 @@
 				1F558B76FB3412843DDAA031 /* ofxSyphonClient.mm in Sources */,
 				8D60C222CBD3F869382832E9 /* ofxSyphonServer.mm in Sources */,
 				11DF9AB1B4EAA63E3B190CA0 /* ofxSyphonServerDirectory.mm in Sources */,
+				DB94759B1F3F63A0002BF3FB /* ConsoleUI.cpp in Sources */,
 				1C87F8FFB88028E3812D6D5F /* ofxSyphonClient.mm in Sources */,
 				6128C78736040054DBD6E16F /* ofxSyphonServer.mm in Sources */,
 				EB9532932BCA33ABA5B520CA /* ofxSyphonServerDirectory.mm in Sources */,

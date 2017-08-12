@@ -15,9 +15,17 @@
 void loopier::printOscMessage(const ofxOscMessage& m, const string& prepend, const ofLogLevel& loglevel)
 {
     //    ofLogVerbose() << typeid(this).name() << "::" << __FUNCTION__;
+    string msg = prepend + "\t";
+    msg += loopier::getPrintableOscMessage(m);
+    
+    if (loglevel == OF_LOG_NOTICE)  ofLogNotice() << msg;
+    if (loglevel == OF_LOG_VERBOSE) ofLogVerbose() << msg;
+}
+
+string loopier::getPrintableOscMessage(const ofxOscMessage& m)
+{
     string msg;
-    msg = prepend + "\t";
-    msg += m.getAddress();
+    msg = m.getAddress();
     msg += "\t";
     for(int i = 0; i < m.getNumArgs(); i++){
         // get the argument type
@@ -40,8 +48,7 @@ void loopier::printOscMessage(const ofxOscMessage& m, const string& prepend, con
         msg += "\t";
     }
     
-    if (loglevel == OF_LOG_NOTICE)  ofLogNotice() << msg;
-    if (loglevel == OF_LOG_VERBOSE) ofLogVerbose() << msg;
+    return msg;
 }
 
 

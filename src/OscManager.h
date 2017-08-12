@@ -48,6 +48,7 @@ namespace loopier {
     ///                                     message address (e.g. who's asking
     ///                                     to print it)
     void printOscMessage(const ofxOscMessage& m, const string& prepend="", const ofLogLevel& loglevel=OF_LOG_NOTICE);
+    string getPrintableOscMessage(const ofxOscMessage& m);
 }
 
 #endif /* OscManager_hpp */

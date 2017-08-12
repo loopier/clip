@@ -25,11 +25,34 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     loopier::drawClips();
+    console.draw();
 }
 
 void ofApp::processOscMessage(ofxOscMessage & msg)
 {
     loopier::printOscMessage(msg, "OSC:");
+    console.print(loopier::getPrintableOscMessage(msg));
+    
+    // console commands
+    if (msg.getAddress() == "/loopier/clip/console") {
+        string command = msg.getArgAsString(0);
+        
+        if (command == "color") {
+            ofColor c;
+            if (msg.getNumArgs() == 2)  c = ofColor(msg.getArgAsFloat(1) * 255);
+            if (msg.getNumArgs() == 3)  c = ofColor(msg.getArgAsFloat(1) * 255, msg.getArgAsFloat(2) * 255);
+            if (msg.getNumArgs() == 4)  c = ofColor(msg.getArgAsFloat(1) * 255, msg.getArgAsFloat(2) * 255,
+                                                    msg.getArgAsFloat(3) * 255);
+            // RGBA doesn't work (?)
+//            if (msg.getNumArgs() == 5)  c = ofColor(msg.getArgAsFloat(1) * 255, msg.getArgAsFloat(2) * 255,
+//                                                    msg.getArgAsFloat(3) * 255, msg.getArgAsFloat(4)) * 255;
+            loopier::ConsoleUI::setColor(c);
+        }
+        
+        if (command == "prompt")    loopier::ConsoleUI::setPrompt(msg.getArgAsString(1));
+        if (command == "print")     loopier::ConsoleUI::print(msg.getArgAsString(1));
+        if (command == "lines")     loopier::ConsoleUI::setMaxLines(msg.getArgAsInt(1));
+    }
     
     // commands affecting all clips
     if (msg.getAddress() == "/loopier/clip/clips") {
