@@ -121,10 +121,14 @@ void ofApp::init()
     if (dir.exists()) {
         ofLogVerbose() <<  __FUNCTION__ <<  ":\tDirectory found.";
     } else {
-        ofLogError()  << dir.getAbsolutePath() << " doesn't exist.\n"
-                        << "\tPlease create it and put the resources and config files in there.\n"
-                        << "\tYou can find default directory structure and files in the !!! TODO !!!.";
-        ofLogNotice() << __FUNCTION__ << ":\tQuit application.";
+        string msg = "ERROR!!!\n\n";
+        msg += dir.getAbsolutePath() + " doesn't exist.\n\n";
+        msg += "Please create it and put the resources and config files in there.\n\n";
+        msg += "You can find default directory structure and files in the README file.\n\n";
+        msg += "Quitting application.";
+        
+        ofLogError()  << msg;
+        ofSystemAlertDialog(msg);
         ofExit();
     }
     
