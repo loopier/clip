@@ -35,7 +35,8 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
     if (msg.getAddress() == "/loopier/clips") {
         string command = msg.getArgAsString(0);
         
-        if (command == "listnames")     loopier::listClipNames();
+        if (command == "clearall")  loopier::clearClips();
+        if (command == "listnames") loopier::listClipNames();
         
         if (command == "togglenames")   loopier::toggleClipNames();
         if (command == "shownames")     loopier::showClipNames();

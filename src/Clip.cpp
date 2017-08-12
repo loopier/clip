@@ -42,16 +42,9 @@ void loopier::drawClips()
 //------------------------------------------
 //  CLIP LIST UTILS
 //------------------------------------------
-vector<string> loopier::getClipNames()
+void loopier::clearClips()
 {
-    vector<string> names;
-    
-    loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
-        names.push_back(it->first);
-    }
-    
-    return names;
+    loopier::clips.clear();
 }
 
 void loopier::listClipNames()
@@ -123,19 +116,9 @@ loopier::ClipPtr loopier::newClip(string name, string path)
     return clip;
 }
 
-void loopier::addClip(const ClipPtr clip)
+void loopier::removeClip(const string& name)
 {
-    loopier::clips[clip->getName()] = clip;
-}
-
-void loopier::removeClip(ClipPtr clip)
-{
-    // !!! TODO
-}
-
-void loopier::removeClipAt(const int index)
-{
-    // !!! TODO
+    loopier::clips.erase(name);
 }
 
 //------------------------------------------

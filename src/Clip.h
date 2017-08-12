@@ -96,10 +96,9 @@ namespace loopier
     void drawClips();
     
     // ----- CLIP LIST UTILS-----
-    
-    /// \brief  returns the list of names of all clips
-    vector<string> getClipNames();
-    /// \brief  prints the list of clip names to console
+    /// \brief  Clear content
+    void clearClips();
+    /// \brief  Prints the list of clip names to console
     void listClipNames();
     
     // ----- SHOW CLIP NAMES----
@@ -121,11 +120,7 @@ namespace loopier
     ///                         'mymovie' resides.
     loopier::ClipPtr newClip(string name);
     loopier::ClipPtr newClip(string name, string path);
-    
-    /// \brief  Adds the given clip to loopier::clips
-    void addClip(ClipPtr clip);
-    void removeClip(ClipPtr clip);
-    void removeClipAt(const int index);
+    void removeClip(const string& name);
     
     // ----- USE ONE CLIP -----
     // play
