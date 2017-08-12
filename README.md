@@ -1,4 +1,4 @@
-# clip
+# CLIP
 A live video editor via OSC (server)
 
 # Folder structure
