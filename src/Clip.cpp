@@ -171,8 +171,7 @@ loopier::Clip::Clip()
 , scale(1.0)
 , fullscreen(false)
 {
-    ofLogVerbose() << __FUNCTION__;
-    enableNewOscMessageListener();
+    
 }
 
 loopier::Clip::Clip(string& clipname)
@@ -184,19 +183,12 @@ loopier::Clip::Clip(string& clipname)
 , scale(1.0)
 , fullscreen(false)
 {
-    enableNewOscMessageListener();
+    
 }
 
 loopier::Clip::~Clip()
 {
-    ofLogVerbose() << __FUNCTION__ << ": Unregistering from incoming osc messages notifications";
-    ofRemoveListener(osc.newOscMessageEvent, this, &loopier::Clip::processOscMessage);
-}
-
-void loopier::Clip::enableNewOscMessageListener()
-{
-    ofLogVerbose() << "Clip: Registering to incoming osc messages notifications";
-    ofAddListener(osc.newOscMessageEvent, this, &loopier::Clip::processOscMessage);
+    
 }
 
 void loopier::Clip::setup(string& moviePath,bool bPlay)
@@ -335,10 +327,4 @@ void loopier::Clip::updateFullscreen()
     }
     
     ofLogVerbose() << name << " fullscreen: "<< (fullscreen? "on" : "off");
-}
-
-void loopier::Clip::processOscMessage(ofxOscMessage& inMessage)
-{
-    ofLogVerbose() <<  "Clip porcessing osc message";
-    loopier::printOscMessage(inMessage);
 }

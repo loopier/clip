@@ -12,11 +12,11 @@
 //      INTERFACE FUNCTIONS
 //------------------------------------------------------------------------------------------
 
-void loopier::printOscMessage(const ofxOscMessage& m)
+void loopier::printOscMessage(const ofxOscMessage& m, const string& prepend)
 {
     //    ofLogVerbose() << typeid(this).name() << "::" << __FUNCTION__;
     string msg;
-    msg = "New OSC message:\t";
+    msg = prepend + "\t";
     msg += m.getAddress();
     msg += "\t";
     for(int i = 0; i < m.getNumArgs(); i++){
@@ -74,12 +74,12 @@ void loopier::OscManager::update()
 {
     while (receiver.hasWaitingMessages()) {
         ofxOscMessage m;
-        receiver.getNextMessage(m);
-//        loopier::printOscMessage(m);
-        
-        
-        // notify all the listeners about this message and send it to them
-        ofNotifyEvent(newOscMessageEvent, m, this);
+        if (receiver.getNextMessage(m)) {
+            loopier::printOscMessage(m, "OscManager:\t New OSC message:");
+            
+            // notify all the listeners about this message and send it to them
+            ofNotifyEvent(newOscMessageEvent, m, this);
+        }
         
     }
     

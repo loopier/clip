@@ -12,6 +12,7 @@ void ofApp::setup(){
     
 //    osc.listenToPort(54321);
     osc.setup();
+    ofAddListener(osc.newOscMessageEvent, this, &ofApp::processOscMessage);
     
 //    clip.setup("movies/stress.mov");
 //    clip.setPosition(ofGetWidth()/2, ofGetHeight()/2);
@@ -33,41 +34,34 @@ void ofApp::draw(){
     loopier::drawClips();
 }
 
+void ofApp::processOscMessage(ofxOscMessage & msg)
+{
+    loopier::printOscMessage(msg, "ofApp: processing OSC message:");
+    
+    // messages have the format /loopier/clip "name" "command" [arg1, ... , argN]
+    if (msg.getAddress() == "/loopier/clip") {
+        
+        string name = msg.getArgAsString(0);
+        string command = msg.getArgAsString(1);
+        
+        if (command == "reset")             loopier::resetClip(name);
+        if (command == "scaleup")           loopier::scaleUpClip(name, msg.getArgAsFloat(2));
+        if (command == "scaledown")         loopier::scaleDownClip(name, msg.getArgAsFloat(2));
+        if (command == "scale")             loopier::scaleClip(name, msg.getArgAsFloat(2));
+        if (command == "resetscale")        loopier::resetClipScale(name);
+        if (command == "togglefullscreen")  loopier::toggleFullscreenClip(name);
+        
+        // PLAY
+        
+        if (command == "play")             loopier::playClip(name);
+        if (command == "stop")             loopier::stopClip(name);
+        if (command == "pause")            loopier::pauseClip(name);
+        if (command == "changeloopstate")  loopier::toggleClipLoopState(name);
+    }
+}
+
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    if (key == OF_KEY_BACKSPACE) {
-        loopier::resetClip("democlip");
-    }
-    if (key == '+') {
-        loopier::scaleUpClip("democlip");
-    }
-    if (key == '-') {
-        loopier::scaleDownClip("democlip", 0.2);
-    }
-    if (key == '2') {
-        loopier::scaleClip("democlip", 2.0);
-    }
-    if (key == '0') {
-        loopier::resetClipScale("democlip");
-    }
-    if (key == 'f') {
-        loopier::toggleFullscreenClip("democlip");
-    }
-    
-    // PLAY
-    
-    if (key == 'p') {
-        loopier::playClip("democlip");
-    }
-    if (key == 's') {
-        loopier::stopClip("democlip");
-    }
-    if (key == 'P') {
-        loopier::pauseClip("democlip");
-    }
-    if (key == 'l') {
-        loopier::toggleClipLoopState("democlip");
-    }
 }
 
 //--------------------------------------------------------------

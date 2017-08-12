@@ -43,7 +43,11 @@ namespace loopier {
     };
     
     /// \brief Print OSC message
-    void printOscMessage(const ofxOscMessage& m);
+    /// \param  m           ofxOscMessage   Message to print
+    /// \param  prepend     String          Something to write before the
+    ///                                     message address (e.g. who's asking
+    ///                                     to print it)
+    void printOscMessage(const ofxOscMessage& m, const string& prepend="");
 }
 
 #endif /* OscManager_hpp */

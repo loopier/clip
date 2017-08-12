@@ -10,7 +10,6 @@
 #define Clip_hpp
 
 #include "ofMain.h"
-#include "OscManager.h"
 
 namespace loopier
 {
@@ -53,20 +52,9 @@ namespace loopier
         bool    fullscreen;
         ofVideoPlayer   player;
         
-        OscManager osc;
-        
         Clip(); // Disable default constructor.  All clips must have a name
         
         void updateFullscreen();
-        
-        
-        //------------------------------------------
-        // OSC
-        //------------------------------------------
-        void enableNewOscMessageListener();
-        
-        /// \brief  Maps the incoming OSC message to a method in the class
-        void processOscMessage(ofxOscMessage& inMessage);
         
     };
     
