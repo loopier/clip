@@ -64,6 +64,12 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         if (command == "stop")             loopier::stopClip(name);
         if (command == "pause")            loopier::pauseClip(name);
         if (command == "changeloopstate")  loopier::toggleClipLoopState(name);
+        if (command == "loop") {
+            string state = msg.getArgAsString(2);
+            if (state == "none")        loopier::setClipLoopState(name, ofLoopType(OF_LOOP_NONE));
+            if (state == "normal")      loopier::setClipLoopState(name, ofLoopType(OF_LOOP_NORMAL));
+            if (state == "palindrome")  loopier::setClipLoopState(name, ofLoopType(OF_LOOP_PALINDROME));
+        }
         
         // ATTRIBUTES
         

@@ -144,6 +144,11 @@ void loopier::toggleClipLoopState(const string clipname)
     loopier::clips[clipname]->toggleLoopState();
 }
 
+void loopier::setClipLoopState(const string clipname, const ofLoopType state)
+{
+    loopier::clips[clipname]->setLoopState(state);
+}
+
 //------------------------------------------
 //  RESET
 //------------------------------------------
@@ -252,9 +257,7 @@ loopier::Clip::~Clip()
 
 void loopier::Clip::setup(bool bPlay)
 {
-    string fullpath = path + filebasename + "." + extension;
-    ofLogNotice() << "Clip '" << name << "'\t-\tLoading " << fullpath;
-    player.load(fullpath);
+    loadMovie();
     reset();
     
     player.setLoopState(OF_LOOP_NORMAL);
@@ -285,6 +288,13 @@ void loopier::Clip::reset()
     y = ofGetHeight() / 2;
     scale = 1.0;
     alpha = 1.0;
+}
+
+void loopier::Clip::loadMovie()
+{
+    string fullpath = path + filebasename + "." + extension;
+    ofLogNotice() << "Clip '" << name << "'\t-\tLoading " << fullpath;
+    player.load(fullpath);
 }
 
 void loopier::Clip::setName(const string &newName)
@@ -334,6 +344,14 @@ void loopier::Clip::toggleLoopState()
     }
     
     ofLogVerbose() << "loop: " << state << " " << player.getLoopState();
+}
+
+void loopier::Clip::setLoopState(const ofLoopType state)
+{
+    ofLogVerbose() << "Clip::" << __FUNCTION__ << "\t" << player.isInitialized();
+    ofLogVerbose() << "Clip::" << __FUNCTION__ << "\t" << player.isLoaded();
+    ofExit();
+//    player.setLoopState(state);
 }
 
 void loopier::Clip::setScale(const float newScale)

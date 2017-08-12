@@ -29,6 +29,7 @@ namespace loopier
         void draw();
         /// \brief  Resets clip to the default state
         void reset();
+        void loadMovie();
         
         void setName(const string& newName);
         string getName() const;
@@ -37,6 +38,7 @@ namespace loopier
         void stop();
         void pause(bool bPause=true);
         void toggleLoopState();
+        void setLoopState(const ofLoopType state);
         
         void setScale(const float newScale);
         float getScale() const;
@@ -129,16 +131,17 @@ namespace loopier
     void stopClip(const string clipname);
     // pause
     void pauseClip(const string clipname);
-    // load movie into clip
+    // change movie source
     // set speed
-    // set duration -- time it takes from frame X to frame N
-    // sub clip -- play from frame X to frame N
-    // start at frame X
-    // end at frame X
+    // set duration -- back to first frame after N seconds
+    // play range -- normalized [0.0-1.0]
+    // start at frame|normalized X
+    // end at frame|normalized X
     // get total duration in seconds
-    // get total number of rames
-    // loop -- loop(0..N], mirror
+    // get total number of frames
+    // loop state !!! FIX: Not working
     void toggleClipLoopState(const string clipname);
+    void setClipLoopState(const string clipname, const ofLoopType state);
     // pause at last frame when not looping
     // go to frame
     // set frame rate
