@@ -56,6 +56,7 @@ m.sendMsg("/loopier/clip/clip", "stress1", "moveto", 1.0.rand, 1.0.rand);
 m.sendMsg("/loopier/clip/clip", "mamma", "new");
 m.sendMsg("/loopier/clip/clip", "mamma", "moveto", 1.0.rand, 1.0.rand);
 m.sendMsg("/loopier/clip/clip", "mamma", "scale", 2.0.rand.postln);
+m.sendMsg("/loopier/clip/clip", "mamma", "loop", "palindrome");
 )
 // fool around with it
 (
