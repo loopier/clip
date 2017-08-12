@@ -16,10 +16,12 @@ namespace loopier
     class Clip
     {
     public:
-//        Clip();  // DISABLED (private method)
-//        Clip(string& clipname);
+        /// \param name     String  Name of clip instance
+        /// \param filename String  Name of movie file with extension or not
+        ///                         It's not alwas the same as 'name,' because
+        ///                         there can be several instances using the same file
         /// \param path     String  Path to the movies (general) folder
-        Clip(string& clipname, string& path);
+        Clip(string& clipname, string& filename, string& path);
         virtual ~Clip();
         
         void setup(bool bPlay=true);
@@ -88,12 +90,26 @@ namespace loopier
     
     extern ClipMap clips; ///< A list of all available (created) clips
     
-    // 
-    
-    // ----- MANAGE CLIPS -----
-    
+    //
+    // ----- UDPATE AND DRAW ALL CIPS-----
     void updateClips();
     void drawClips();
+    
+    // ----- CLIP LIST UTILS-----
+    
+    /// \brief  returns the list of names of all clips
+    vector<string> getClipNames();
+    /// \brief  prints the list of clip names to console
+    void listClipNames();
+    
+    // ----- SHOW CLIP NAMES----
+    
+    /// \brief  Shows names of clips
+    void toggleClipNames();
+    void showClipNames();
+    void hideClipNames();
+    
+    // ----- MANAGE SINGLE CLIPS -----
     
     /// \brief  Creates a new clip with the given movie file
     /// \param  name    String  Name of the movie file (with or without extension).
@@ -110,11 +126,6 @@ namespace loopier
     void addClip(ClipPtr clip);
     void removeClip(ClipPtr clip);
     void removeClipAt(const int index);
-    
-    /// \brief  Shows names of clips
-    void toggleClipNames();
-    void showClipNames();
-    void hideClipNames();
     
     // ----- USE ONE CLIP -----
     // play

@@ -40,6 +40,33 @@ void loopier::drawClips()
 }
 
 //------------------------------------------
+//  CLIP LIST UTILS
+//------------------------------------------
+vector<string> loopier::getClipNames()
+{
+    vector<string> names;
+    
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        names.push_back(it->first);
+    }
+    
+    return names;
+}
+
+void loopier::listClipNames()
+{
+    string msg = "Number of clips:\t" + ofToString(clips.size());
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        msg += "\n\t" + it->first + "\t" + (*it->second).getName();
+    }
+    
+    ofLogNotice() << msg;
+}
+
+
+//------------------------------------------
 //  SHOW CLIP NAMES
 //------------------------------------------
 void loopier::toggleClipNames()
@@ -78,11 +105,21 @@ loopier::ClipPtr loopier::newClip(string name, string path)
 {
     string basename = ofFile(name).getBaseName();
     path += basename + "/";
-    loopier::ClipPtr clip(new loopier::Clip(name, path));
+    
+    // check if there's already a clip with this name
+    if (clips.count(name) > 0) {
+        string warning = "There's already a clip named " + name + "\n";
+        name = name + ofToString(clips.count(name));
+        warning += "Renaming it to " + name;
+        ofSystemAlertDialog(warning);
+        ofLogWarning() << warning;
+    }
+    
+    loopier::ClipPtr clip(new loopier::Clip(name, basename, path));
     clip->setup();
     clips[clip->getName()] = clip;
     
-    ofLogNotice() << "Number of clips: " << clips.size();
+    loopier::listClipNames();;
     return clip;
 }
 
@@ -207,22 +244,7 @@ void loopier::setClipAlpha(const string clipname, const float alpha)
 //    // --- DISABLED ---
 //}
 
-//loopier::Clip::Clip(string& clipname)
-//: name(clipname)
-//, extension("mov")
-//, basepath(ofFilePath::getUserHomeDir()+"/Library/Application Support/Clip/resources/resources/movies/")
-//, x(0)
-//, y(0)
-//, width(640)
-//, height(400)
-//, scale(1.0)
-//, fullscreen(false)
-//, alpha(1.0)
-//{
-//    removeExtensionFromName();
-//}
-
-loopier::Clip::Clip(string& clipname, string& path)
+loopier::Clip::Clip(string& clipname, string& filename, string& path)
 : name(clipname)
 , extension("mov")
 , path(path)
@@ -235,8 +257,8 @@ loopier::Clip::Clip(string& clipname, string& path)
 , alpha(1.0)
 , bDrawName(false)
 {
-    filebasename = ofFile(clipname).getBaseName();
-    extension = ofFile(clipname).getExtension();
+    filebasename = ofFile(filename).getBaseName();
+    extension = ofFile(filename).getExtension();
     if (extension.length() < 1) extension = "mov";
 }
 
