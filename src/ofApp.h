@@ -27,11 +27,10 @@ class ofApp : public ofBaseApp{
     
     void processOscMessage(ofxOscMessage & msg);
 		
-    ofVideoPlayer movie;
     OscManager osc;
     
-//    Clip clip("alo");
-    
-    // !!! TODO: add video manager class to handle all the clips
-    // !!! TODO: map incoming osc messages to methods to manipulate videos
+private:
+    /// \brief Creates a folder in ~/Library/Application Support/Clip/
+    ///     for all the resources and config files.
+    void init();
 };

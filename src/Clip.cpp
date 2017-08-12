@@ -157,6 +157,14 @@ void loopier::toggleFullscreenClipAt(const int index)
     // TODO
 }
 
+//------------------------------------------
+//  ALPHA
+//------------------------------------------
+void loopier::setClipAlpha(const string clipname, const float alpha)
+{
+    loopier::clips[clipname]->setAlpha(alpha);
+}
+
 
 //------------------------------------------------------------------------------------------
 //      CLASS METHODS
@@ -170,6 +178,7 @@ loopier::Clip::Clip()
 , height(400)
 , scale(1.0)
 , fullscreen(false)
+, alpha(1.0)
 {
     
 }
@@ -182,6 +191,7 @@ loopier::Clip::Clip(string& clipname)
 , height(400)
 , scale(1.0)
 , fullscreen(false)
+, alpha(1.0)
 {
     
 }
@@ -194,8 +204,7 @@ loopier::Clip::~Clip()
 void loopier::Clip::setup(string& moviePath,bool bPlay)
 {
     player.load(moviePath);
-    width = player.getWidth();
-    height = player.getHeight();
+    reset();
     
     player.setLoopState(OF_LOOP_NORMAL);
     if (bPlay)   player.play();
@@ -209,6 +218,7 @@ void loopier::Clip::update()
 
 void loopier::Clip::draw()
 {
+    ofSetColor(255,255,255, 255 * alpha);
     float posx = (fullscreen? 0 : x);
     float posy = (fullscreen? 0 : y);
     player.draw(posx, posy, width, height);
@@ -218,9 +228,11 @@ void loopier::Clip::reset()
 {
     width = player.getWidth();
     height = player.getHeight();
-    x = ofGetWidth() / 2 - player.getWidth() / 2;
-    y = ofGetHeight() / 2 - player.getHeight() / 2;
+    player.setAnchorPoint(width/2, height/2);
+    x = ofGetWidth() / 2;
+    y = ofGetHeight() / 2;
     scale = 1.0;
+    alpha = 1.0;
 }
 
 void loopier::Clip::setName(const string &newName)
@@ -327,4 +339,9 @@ void loopier::Clip::updateFullscreen()
     }
     
     ofLogVerbose() << name << " fullscreen: "<< (fullscreen? "on" : "off");
+}
+
+void loopier::Clip::setAlpha(const float newAlpha)
+{
+    alpha = newAlpha;
 }

@@ -23,8 +23,7 @@ namespace loopier
         void setup(string& moviePath, bool bPlay=true);
         void update();
         void draw();
-        /// \brief  Resets clip to the original size of the movie file
-        ///     and moves it to the center fo the screen
+        /// \brief  Resets clip to the default state
         void reset();
         
         void setName(const string& newName);
@@ -44,12 +43,16 @@ namespace loopier
         
         void toggleFullscreen();
         
+        void setAlpha(const float newAlpha);
+        
     private:
         string  name;
+        string  basepath; ///< Parent directory containing the clip files
         float   x, y;
         float   width, height;
         float   scale;
         bool    fullscreen;
+        float   alpha; ///< Transparency of the clip
         ofVideoPlayer   player;
         
         Clip(); // Disable default constructor.  All clips must have a name
@@ -132,6 +135,7 @@ namespace loopier
     void toggleFullscreenClipAt(const int index);
     // tint
     // transparency
+    void setClipAlpha(const string clipname, const float alpha);
     // blendmodes
     // reset attributes -- factory defaults
     

@@ -3,34 +3,25 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetLogLevel(OF_LOG_VERBOSE);
-    ofBackground(255, 255, 255);
+    ofBackground(0,0,0);
     ofSetVerticalSync(true);
     
-    movie.load("movies/stress.mov");
-    movie.setLoopState(OF_LOOP_NORMAL);
-    movie.play();
+    init();
     
 //    osc.listenToPort(54321);
     osc.setup();
     ofAddListener(osc.newOscMessageEvent, this, &ofApp::processOscMessage);
     
-//    clip.setup("movies/stress.mov");
-//    clip.setPosition(ofGetWidth()/2, ofGetHeight()/2);
-//    clip.setScale(1.5);
     loopier::newClip("movies/stress.mov", "democlip");
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-//    movie.update();
-//    clip.update();
     loopier::updateClips();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-//    movie.draw(0,0);
-//    clip.draw();
     loopier::drawClips();
 }
 
@@ -43,6 +34,8 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         
         string name = msg.getArgAsString(0);
         string command = msg.getArgAsString(1);
+        
+//        if (command == "new")               loopier::newClip(name)
         
         if (command == "reset")             loopier::resetClip(name);
         if (command == "scaleup")           loopier::scaleUpClip(name, msg.getArgAsFloat(2));
@@ -57,6 +50,11 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         if (command == "stop")             loopier::stopClip(name);
         if (command == "pause")            loopier::pauseClip(name);
         if (command == "changeloopstate")  loopier::toggleClipLoopState(name);
+        
+        // ATTRIBUTES
+        
+        if (command == "moveto")    loopier::moveClipTo(name, msg.getArgAsFloat(2), msg.getArgAsFloat(3));
+        if (command == "alpha")     loopier::setClipAlpha(name, msg.getArgAsFloat(2));
     }
 }
 
@@ -111,4 +109,22 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+void ofApp::init()
+{
+    // check if ~/Library/Application support exists
+    ofDirectory dir(ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip");
+    ofLogVerbose()  <<  __FUNCTION__
+                    << ":\tLooking for " << dir.getAbsolutePath();
+    if (dir.exists()) {
+        ofLogVerbose() <<  "Done";
+    } else {
+        ofLogWarning()  << dir.getAbsolutePath() << " doesn't exist.\n"
+                        << "\tPlease create it and put the resources and config files in there.\n"
+                        << "\tYou can find default directory structure and files in the !!! TODO !!!.";
+    }
+    
+    // create folder if it doesn't exist
+    // load config/settings
 }
