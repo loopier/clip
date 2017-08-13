@@ -3,6 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetLogLevel(OF_LOG_VERBOSE);
+    ofSetWindowPosition(ofGetScreenWidth(), 0);
+    ofSetFullscreen(true);
     ofBackground(0,0,0);
     ofSetVerticalSync(true);
     
@@ -116,9 +118,16 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         
         string command = msg.getArgAsString(0);
         
-        if (command == "quit") {
-            ofExit();
+        if      (command == "fullscreen")   ofToggleFullscreen();
+        else if (command == "move") {
+            ofSetFullscreen(false);
+            float x = msg.getArgAsFloat(1) * ofGetScreenWidth();
+            float y = msg.getArgAsFloat(2) * ofGetScreenHeight();
+            ofSetWindowPosition(x, y);
         }
+        else if (command == "quit")         ofExit();
+        
+        else { printOscMessageMisstypingWarning(); return; }
     }
     
     else { printOscMessageMisstypingWarning(); return; }

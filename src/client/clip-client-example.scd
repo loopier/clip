@@ -85,6 +85,14 @@ m.sendMsg("/loopier/clip/console", "color", 1, 0.5, 0);
 // RGB with alpha -- seems it's not working
 // m.sendMsg("/loopier/clip/console", "color", 1, 1, 0, 0.5);
 
+// APPLICATION COMMANDS
+// toggle fullscreen
+m.sendMsg("/loopier/clip", "fullscreen")
+// move the application window
+m.sendMsg("/loopier/clip", "move", 1.0, 0)
+// quit the application from the client
+m.sendMsg("/loopier/clip", "quit")
+
 // If you want to control it with patterns
 s.boot;
 p = ProxySpace.push(s);
