@@ -21,6 +21,7 @@ namespace loopier {
         static float    x, y;
         static float    lineseparation;
         static ofColor  color;
+        static bool     bHide;
         
     public:
         static void draw();
@@ -28,6 +29,9 @@ namespace loopier {
         static void setPrompt(const string & p);
         static void setColor(const ofColor & c);
         static void setMaxLines(const int max);
+        static void toggle();
+        static void show();
+        static void hide();
     };
 }
 

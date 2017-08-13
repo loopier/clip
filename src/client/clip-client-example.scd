@@ -71,6 +71,10 @@ m.sendMsg("/loopier/clip/console", "print", "hello world");
 m.sendMsg("/loopier/clip/console", "prompt", ">> ");
 // set the maximum number of lilnes displayed
 m.sendMsg("/loopier/clip/console", "lines", 20);
+// show or hide
+m.sendMsg("/loopier/clip/console", "toggle");
+m.sendMsg("/loopier/clip/console", "show");
+m.sendMsg("/loopier/clip/console", "hide");
 // changing color with normalized values (1 = 255)
 // Grayscale
 m.sendMsg("/loopier/clip/console", "color", 0.75);

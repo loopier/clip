@@ -52,6 +52,9 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         if (command == "prompt")    loopier::ConsoleUI::setPrompt(msg.getArgAsString(1));
         if (command == "print")     loopier::ConsoleUI::print(msg.getArgAsString(1));
         if (command == "lines")     loopier::ConsoleUI::setMaxLines(msg.getArgAsInt(1));
+        if (command == "toggle")    loopier::ConsoleUI::toggle();
+        if (command == "show")    loopier::ConsoleUI::show();
+        if (command == "hide")    loopier::ConsoleUI::hide();
     }
     
     // commands affecting all clips
