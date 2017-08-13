@@ -125,9 +125,9 @@ namespace loopier
     ///                         located in a subfolder named 'mymovie'.  The 'path' variable
     ///                         should be the path to the directory where the subdirectory
     ///                         'mymovie' resides.
-    loopier::ClipPtr newClip(string name);
-    loopier::ClipPtr newClip(string name, string path);
-    void removeClip(const string& name);
+    loopier::ClipPtr newClip(string clipname);
+    loopier::ClipPtr newClip(string clipname, string path);
+    void removeClip(const string& clipname);
     
     // ----- USE ONE CLIP -----
     // play

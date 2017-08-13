@@ -3,6 +3,21 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetLogLevel(OF_LOG_VERBOSE);
+    
+    /// -------------------------------------------------------------------------------
+    /// --------------  TESTING     --------------
+    /// -------------------------------------------------------------------------------
+//    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
+//    
+//    loopier::Video::preload();
+//    player = loopier::Video::getPlayer("mamma");
+//    player->play();
+//    ofExit();
+//    return;
+    /// -------------------------------------------------------------------------------
+    /// --------------  END OF TEST --------------
+    /// -------------------------------------------------------------------------------
+    
     ofSetWindowPosition(ofGetScreenWidth(), 0);
     ofSetFullscreen(true);
     ofBackground(0,0,0);
@@ -28,6 +43,11 @@ void ofApp::update(){
 void ofApp::draw(){
     loopier::drawClips();
     console.draw();
+}
+
+void ofApp::exit()
+{
+    ofLogVerbose() << "!!! REMOVE return FROM ofApp::setup()!!!";
 }
 
 void ofApp::processOscMessage(ofxOscMessage & msg)

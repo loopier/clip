@@ -16,19 +16,28 @@
 
 namespace loopier {
     
-    typedef ofVideoPlayer               Player;
-    typedef shared_ptr<VideoPlayer>     PlayerPtr;
-    typedef vector<VideoPlayerPtr>      PlayerList;
-    typedef map<string, VideoPlayerPtr> PlayerMap;
+    typedef ofVideoPlayer               VideoPlayer;
+    typedef shared_ptr<VideoPlayer>     VideoPlayerPtr;
+    typedef vector<VideoPlayerPtr>      VideoPlayerList;
+    typedef map<string, VideoPlayerPtr> VideoPlayerMap;
     
     class Video
     {
     public:
-        /// \brief Loads resources from the path
-        static void preload(const string & path);
+        static void             setMoviesPath(const string & newPath);
+        /// \brief  Loads resources from the basepath
+        static void             preload();
+        static vector<string>   getPlayerNames();
+        static void             printNames();
+        static bool             playerExists(const string & playername);
+        /// \brief  Returns a pointer to a player
+        static VideoPlayerPtr   getPlayer(const string & playername);
     private:
-        string basepath;
-        string moviespath;
+        static string           moviespath;
+        static VideoPlayerMap   players;
+        
+        /// \brief  Creates a new video player and adds it to the players list.
+        static void newPlayerFromFile(const string & playername, const string & path);
     };
 }
 

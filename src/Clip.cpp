@@ -101,16 +101,17 @@ void loopier::hideClipNames()
 //------------------------------------------
 //  SINGLE CLIP MANAGEMENT
 //------------------------------------------
-loopier::ClipPtr loopier::newClip(string name)
+loopier::ClipPtr loopier::newClip(string clipname)
 {
-    loopier::newClip(name, ofFilePath::getUserHomeDir()+"/Library/Application Support/Clip/resources/movies/");
+    loopier::newClip(clipname, ofFilePath::getUserHomeDir()+"/Library/Application Support/Clip/resources/movies/");
 }
 
-loopier::ClipPtr loopier::newClip(string name, string path)
+loopier::ClipPtr loopier::newClip(string clipname, string path)
 {
-    string basename = ofFile(name).getBaseName();
+    string basename = ofFile(clipname).getBaseName();
     path += basename + "/";
-    string extension = ofFile(name).getExtension();
+    string extension = ofFile(clipname).getExtension();
+    string name = clipname;
     
     string str = "Creating new clip -";
     str += "\n\tname given: " + name;
@@ -137,9 +138,9 @@ loopier::ClipPtr loopier::newClip(string name, string path)
     return clip;
 }
 
-void loopier::removeClip(const string& name)
+void loopier::removeClip(const string& clipname)
 {
-    loopier::clips.erase(name);
+    loopier::clips.erase(clipname);
 }
 
 //------------------------------------------
