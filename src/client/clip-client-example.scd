@@ -31,8 +31,10 @@ m.sendMsg("/loopier/clip/clip", "default", "pause");
 m.sendMsg("/loopier/clip/clip", "default", "loop", "none");
 m.sendMsg("/loopier/clip/clip", "default", "loop", "normal");
 m.sendMsg("/loopier/clip/clip", "default", "loop", "palindrome");
+// change movie speed
+m.sendMsg("/loopier/clip/clip", "default", "speed", 2);
 // change transparency
-m.sendMsg("/loopier/clip/clip", "default", "alpha",0.5);
+m.sendMsg("/loopier/clip/clip", "default", "alpha", 0.5);
 
 // create a new clip named 'stress'
 (
@@ -52,8 +54,8 @@ m.sendMsg("/loopier/clip/clip", "stress1", "moveto", 1.0.rand, 1.0.rand);
 
 // create a new clip named 'mamma' with alpha channel (transparent background)
 // give it a random size and position at creation-time
-(
 m.sendMsg("/loopier/clip/clip", "mamma", "new");
+(
 m.sendMsg("/loopier/clip/clip", "mamma", "moveto", 1.0.rand, 1.0.rand);
 m.sendMsg("/loopier/clip/clip", "mamma", "scale", 2.0.rand.postln);
 m.sendMsg("/loopier/clip/clip", "mamma", "loop", "palindrome");
