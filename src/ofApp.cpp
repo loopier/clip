@@ -103,12 +103,22 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
             else { printOscMessageMisstypingWarning(); return; }
         }
         
-        // ATTRIBUTES
+        // attributes
         
         else if (command == "moveto")    loopier::moveClipTo(name, msg.getArgAsFloat(2), msg.getArgAsFloat(3));
         else if (command == "alpha")     loopier::setClipAlpha(name, msg.getArgAsFloat(2));
         
         else { printOscMessageMisstypingWarning(); return; }
+    }
+    
+    // application commands
+    else if (msg.getAddress() == "/loopier/clip") {
+        
+        string command = msg.getArgAsString(0);
+        
+        if (command == "quit") {
+            ofExit();
+        }
     }
     
     else { printOscMessageMisstypingWarning(); return; }
