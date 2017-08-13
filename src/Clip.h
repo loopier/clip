@@ -102,6 +102,10 @@ namespace loopier
     void clearClips();
     /// \brief  Prints the list of clip names to console
     void listClipNames();
+    /// \brief  Checks if a clip with that name exists.  If it doesn't logs a warning.
+    /// \param  clipname    String
+    /// \returns    True if there's a clip that matches the name
+    bool clipExists(const string clipname);
     
     // ----- SHOW CLIP NAMES----
     
@@ -166,9 +170,7 @@ namespace loopier
     void scaleDownClip(const string clipname, const float amount=0.1);
     void resetClipScale(const string clipname);
     // toggle fullscreen
-    void toggleFullscreenClip(ClipPtr clip);
     void toggleFullscreenClip(const string clipname);
-    void toggleFullscreenClipAt(const int index);
     // tint
     // transparency
     void setClipAlpha(const string clipname, const float alpha);

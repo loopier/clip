@@ -58,6 +58,18 @@ void loopier::listClipNames()
     ofLogNotice() << msg;
 }
 
+bool loopier::clipExists(const string clipname)
+{
+    bool b = clips.count(clipname);
+    
+    if (!b) {
+        ofLogWarning() << "\tTrying to acces a clip named '" << clipname << "'.\n"
+        <<  "\t\t\tIt doesn't exist.  Skipping action.";
+    }
+    
+    return clips.count(clipname);
+}
+
 
 //------------------------------------------
 //  SHOW CLIP NAMES
@@ -135,21 +147,25 @@ void loopier::removeClip(const string& name)
 //------------------------------------------
 void loopier::playClip(const string clipname)
 {
+    if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->play();
 }
 
 void loopier::stopClip(const string clipname)
 {
+    if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->stop();
 }
 
 void loopier::pauseClip(const string clipname)
 {
+    if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->pause();
 }
 
 void loopier::setClipLoopState(const string clipname, const ofLoopType state)
 {
+    if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->setLoopState(state);
 }
 
@@ -158,6 +174,7 @@ void loopier::setClipLoopState(const string clipname, const ofLoopType state)
 //------------------------------------------
 void loopier::resetClip(const string clipname)
 {
+    if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->reset();
 }
 
@@ -166,6 +183,7 @@ void loopier::resetClip(const string clipname)
 //------------------------------------------
 void loopier::moveClipTo(const string clipname, const float x, const float y)
 {
+    if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->setPosition(x, y);
 }
 
@@ -174,42 +192,36 @@ void loopier::moveClipTo(const string clipname, const float x, const float y)
 //------------------------------------------
 void loopier::scaleClip(const string clipname, const float scale)
 {
+    if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->setScale(scale);
 }
 
 void loopier::scaleUpClip(const string clipname, const float amount)
 {
+    if(!loopier::clipExists(clipname)) return;
+    
     ClipPtr clip = loopier::clips[clipname];
     clip->setScale( clip->getScale() + amount );
 }
 
 void loopier::scaleDownClip(const string clipname, const float amount)
 {
+    if(!loopier::clipExists(clipname)) return;
+    
     ClipPtr clip = loopier::clips[clipname];
     clip->setScale( clip->getScale() - amount );
 }
 
 void loopier::resetClipScale(const string clipname)
 {
+    if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->setScale(1.0);
-}
-
-//------------------------------------------
-//  FULLSCREEN
-//------------------------------------------
-void loopier::toggleFullscreenClip(ClipPtr clip)
-{
-    // !!! TODO
 }
 
 void loopier::toggleFullscreenClip(const string clipname)
 {
+    if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->toggleFullscreen();
-}
-
-void loopier::toggleFullscreenClipAt(const int index)
-{
-    // TODO
 }
 
 //------------------------------------------
@@ -217,6 +229,7 @@ void loopier::toggleFullscreenClipAt(const int index)
 //------------------------------------------
 void loopier::setClipAlpha(const string clipname, const float alpha)
 {
+    if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->setAlpha(alpha);
 }
 
