@@ -41,4 +41,6 @@ private:
     ///     you need to add more controls, this is where you should add them.
     ///     It maps OSC messages to function calls or groups of function calls
     void processOscMessage(ofxOscMessage & msg);
+    /// \brief  Prints a message to the console if there's a typo
+    void printOscMessageMisstypingWarning();
 };

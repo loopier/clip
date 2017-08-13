@@ -39,68 +39,85 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         
         if (command == "color") {
             ofColor c;
-            if (msg.getNumArgs() == 2)  c = ofColor(msg.getArgAsFloat(1) * 255);
-            if (msg.getNumArgs() == 3)  c = ofColor(msg.getArgAsFloat(1) * 255, msg.getArgAsFloat(2) * 255);
-            if (msg.getNumArgs() == 4)  c = ofColor(msg.getArgAsFloat(1) * 255, msg.getArgAsFloat(2) * 255,
+            if (msg.getNumArgs() == 2)      c = ofColor(msg.getArgAsFloat(1) * 255);
+            else if (msg.getNumArgs() == 3) c = ofColor(msg.getArgAsFloat(1) * 255, msg.getArgAsFloat(2) * 255);
+            else if (msg.getNumArgs() == 4) c = ofColor(msg.getArgAsFloat(1) * 255, msg.getArgAsFloat(2) * 255,
                                                     msg.getArgAsFloat(3) * 255);
             // RGBA doesn't work (?)
 //            if (msg.getNumArgs() == 5)  c = ofColor(msg.getArgAsFloat(1) * 255, msg.getArgAsFloat(2) * 255,
 //                                                    msg.getArgAsFloat(3) * 255, msg.getArgAsFloat(4)) * 255;
+            else { printOscMessageMisstypingWarning(); return; }
+            
             loopier::ConsoleUI::setColor(c);
         }
         
-        if (command == "prompt")    loopier::ConsoleUI::setPrompt(msg.getArgAsString(1));
-        if (command == "print")     loopier::ConsoleUI::print(msg.getArgAsString(1));
-        if (command == "lines")     loopier::ConsoleUI::setMaxLines(msg.getArgAsInt(1));
-        if (command == "toggle")    loopier::ConsoleUI::toggle();
-        if (command == "show")    loopier::ConsoleUI::show();
-        if (command == "hide")    loopier::ConsoleUI::hide();
+        else if (command == "prompt")    loopier::ConsoleUI::setPrompt(msg.getArgAsString(1));
+        else if (command == "print")     loopier::ConsoleUI::print(msg.getArgAsString(1));
+        else if (command == "lines")     loopier::ConsoleUI::setMaxLines(msg.getArgAsInt(1));
+        else if (command == "toggle")    loopier::ConsoleUI::toggle();
+        else if (command == "show")    loopier::ConsoleUI::show();
+        else if (command == "hide")    loopier::ConsoleUI::hide();
+        
+        else { printOscMessageMisstypingWarning(); return; }
     }
     
     // commands affecting all clips
-    if (msg.getAddress() == "/loopier/clip/clips") {
+    else if (msg.getAddress() == "/loopier/clip/clips") {
         string command = msg.getArgAsString(0);
         
         if (command == "clearall")  loopier::clearClips();
-        if (command == "listnames") loopier::listClipNames();
+        else if (command == "listnames") loopier::listClipNames();
         
-        if (command == "togglenames")   loopier::toggleClipNames();
-        if (command == "shownames")     loopier::showClipNames();
-        if (command == "hidenames")     loopier::hideClipNames();
+        else if (command == "togglenames")   loopier::toggleClipNames();
+        else if (command == "shownames")     loopier::showClipNames();
+        else if (command == "hidenames")     loopier::hideClipNames();
+        
+        else { printOscMessageMisstypingWarning(); return; }
     }
     
     // messages have the format /loopier/clip "name" "command" [arg1, ... , argN]
-    if (msg.getAddress() == "/loopier/clip/clip") {
+    else if (msg.getAddress() == "/loopier/clip/clip") {
         
         string name = msg.getArgAsString(0);
         string command = msg.getArgAsString(1);
         
         if (command == "new")               loopier::newClip(name);
         
-        if (command == "reset")             loopier::resetClip(name);
-        if (command == "scaleup")           loopier::scaleUpClip(name, msg.getArgAsFloat(2));
-        if (command == "scaledown")         loopier::scaleDownClip(name, msg.getArgAsFloat(2));
-        if (command == "scale")             loopier::scaleClip(name, msg.getArgAsFloat(2));
-        if (command == "resetscale")        loopier::resetClipScale(name);
-        if (command == "togglefullscreen")  loopier::toggleFullscreenClip(name);
+        else if (command == "reset")             loopier::resetClip(name);
+        else if (command == "scaleup")           loopier::scaleUpClip(name, msg.getArgAsFloat(2));
+        else if (command == "scaledown")         loopier::scaleDownClip(name, msg.getArgAsFloat(2));
+        else if (command == "scale")             loopier::scaleClip(name, msg.getArgAsFloat(2));
+        else if (command == "resetscale")        loopier::resetClipScale(name);
+        else if (command == "togglefullscreen")  loopier::toggleFullscreenClip(name);
         
         // PLAY
         
-        if (command == "play")             loopier::playClip(name);
-        if (command == "stop")             loopier::stopClip(name);
-        if (command == "pause")            loopier::pauseClip(name);
-        if (command == "loop") {
+        else if (command == "play")             loopier::playClip(name);
+        else if (command == "stop")             loopier::stopClip(name);
+        else if (command == "pause")            loopier::pauseClip(name);
+        else if (command == "loop") {
             string state = msg.getArgAsString(2);
             if (state == "none")        loopier::setClipLoopState(name, OF_LOOP_NONE);
-            if (state == "normal")      loopier::setClipLoopState(name, OF_LOOP_NORMAL);
-            if (state == "palindrome")  loopier::setClipLoopState(name, OF_LOOP_PALINDROME);
+            else if (state == "normal")      loopier::setClipLoopState(name, OF_LOOP_NORMAL);
+            else if (state == "palindrome")  loopier::setClipLoopState(name, OF_LOOP_PALINDROME);
+            else { printOscMessageMisstypingWarning(); return; }
         }
         
         // ATTRIBUTES
         
-        if (command == "moveto")    loopier::moveClipTo(name, msg.getArgAsFloat(2), msg.getArgAsFloat(3));
-        if (command == "alpha")     loopier::setClipAlpha(name, msg.getArgAsFloat(2));
+        else if (command == "moveto")    loopier::moveClipTo(name, msg.getArgAsFloat(2), msg.getArgAsFloat(3));
+        else if (command == "alpha")     loopier::setClipAlpha(name, msg.getArgAsFloat(2));
+        
+        else { printOscMessageMisstypingWarning(); return; }
     }
+    
+    else { printOscMessageMisstypingWarning(); return; }
+}
+
+void ofApp::printOscMessageMisstypingWarning()
+{
+    ofLogWarning() << "OSC message not found.  Double-check your message.";
+    console.print("WARNING!:\t Check your message, there seems to be a typo and it wasn't processed.");
 }
 
 //--------------------------------------------------------------
