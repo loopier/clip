@@ -104,6 +104,7 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
             else if (state == "palindrome")  loopier::setClipLoopState(name, OF_LOOP_PALINDROME);
             else { printOscMessageMisstypingWarning(); return; }
         }
+        else if (command == "speed")            loopier::setClipSpeed(name, msg.getArgAsFloat(2));
         
         // attributes
         

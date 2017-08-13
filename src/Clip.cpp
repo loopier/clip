@@ -163,6 +163,12 @@ void loopier::pauseClip(const string clipname)
     loopier::clips[clipname]->pause();
 }
 
+void loopier::setClipSpeed(const string clipname, const float speed)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setSpeed(speed);
+}
+
 void loopier::setClipLoopState(const string clipname, const ofLoopType state)
 {
     if(!loopier::clipExists(clipname)) return;
@@ -354,6 +360,11 @@ void loopier::Clip::setLoopState(const ofLoopType state)
 {
     player.setLoopState(state);
     if (player.isPaused()) player.play();
+}
+
+void loopier::Clip::setSpeed(const float newSpeed)
+{
+    player.setSpeed(newSpeed);
 }
 
 void loopier::Clip::setScale(const float newScale)

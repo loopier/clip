@@ -39,6 +39,7 @@ namespace loopier
         void stop();
         void pause(bool bPause=true);
         void setLoopState(const ofLoopType state);
+        void setSpeed(const float newSpeed);
         
         void setScale(const float newScale);
         float getScale() const;
@@ -137,6 +138,7 @@ namespace loopier
     void pauseClip(const string clipname);
     // change movie source
     // set speed
+    void setClipSpeed(const string clipname, const float speed);
     // set duration -- back to first frame after N seconds
     // play range -- normalized [0.0-1.0]
     // start at frame|normalized X
