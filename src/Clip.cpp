@@ -7,275 +7,6 @@
 //
 
 #include "Clip.h"
-
-
-loopier::ClipMap loopier::clips; // the list of clips available everywhere
-
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
-//      INTERFACE FUNCTIONS
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
-
-//------------------------------------------
-//  MANAGE CLIPS
-//------------------------------------------
-
-
-//---------------------------------------------------------------------------
-loopier::ClipPtr loopier::newClip(string clipname)
-{
-    return loopier::newClip(clipname, "default");
-}
-
-//---------------------------------------------------------------------------
-loopier::ClipPtr loopier::newClip(string clipname, string moviename)
-{
-    loopier::ClipPtr clip(new loopier::Clip(clipname, moviename));
-    clip->setup();
-    clips[clip->getName()] = clip;
-    return clip;
-}
-//---------------------------------------------------------------------------
-void loopier::removeClip(const string& clipname)
-{
-    loopier::clips.erase(clipname);
-}
-
-//---------------------------------------------------------------------------
-void loopier::clearClips()
-{
-    loopier::clips.clear();
-}
-
-//------------------------------------------
-//  UPDATE and DRAW CLIPS
-//------------------------------------------
-
-//---------------------------------------------------------------------------
-void loopier::updateClips()
-{
-    loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
-        (*it->second).update();
-    }
-}
-
-//---------------------------------------------------------------------------
-void loopier::drawClips()
-{
-    loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
-        (*it->second).draw();
-    }
-}
-
-//------------------------------------------
-//  CLIP LIST UTILS
-//------------------------------------------
-
-//---------------------------------------------------------------------------
-void loopier::listClipNames()
-{
-    string msg = "Number of clips:\t" + ofToString(clips.size());
-    loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
-        msg += "\n\t" + it->first;
-    }
-    
-    ofLogNotice() << msg;
-}
-
-//---------------------------------------------------------------------------
-void loopier::listClips()
-{
-    string msg = "Number of clips:\t" + ofToString(clips.size());
-    loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
-        (*it->second).listMovies();
-    }
-    
-//    ofLogNotice() << msg;
-}
-
-//---------------------------------------------------------------------------
-bool loopier::clipExists(const string clipname)
-{
-    bool b = clips.count(clipname);
-    
-    if (!b) {
-        ofLogError() << "\tTrying to acces a clip named '" << clipname << "'.\n"
-        <<  "\t\t\tIt doesn't exist.  Skipping action.";
-    }
-    
-    return clips.count(clipname);
-}
-
-
-//------------------------------------------
-//  SHOW CLIP NAMES
-//------------------------------------------
-void loopier::toggleClipNames()
-{
-    loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
-        (*it->second).toggleName();
-    }
-}
-
-void loopier::showClipNames()
-{
-    loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
-        (*it->second).showName();
-    }
-}
-
-void loopier::hideClipNames()
-{
-    loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
-        (*it->second).hideName();
-    }
-}
-
-//------------------------------------------
-//  SINGLE CLIP MANAGEMENT
-//------------------------------------------
-
-
-//------------------------------------------
-//  PLAY CLIPS
-//------------------------------------------
-void loopier::addMovieToClip(const string clipname, const string moviename)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->addMovie(moviename);
-}
-
-void loopier::playClip(const string clipname)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->play();
-}
-
-void loopier::stopClip(const string clipname)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->stop();
-}
-
-void loopier::pauseClip(const string clipname)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->pause();
-}
-
-void loopier::setClipSpeed(const string clipname, const float speed)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setSpeed(speed);
-}
-
-void loopier::setClipLoopState(const string clipname, const ofLoopType state)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setLoopState(state);
-}
-
-//------------------------------------------
-//  RESET
-//------------------------------------------
-void loopier::resetClip(const string clipname)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->reset();
-}
-
-//------------------------------------------
-//  MOVE CLIP
-//------------------------------------------
-void loopier::moveClipTo(const string clipname, const float x, const float y)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setPosition(x, y);
-}
-
-//------------------------------------------
-//  SCALE CLIP
-//------------------------------------------
-void loopier::scaleClip(const string clipname, const float scale)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setScale(scale);
-}
-
-void loopier::scaleUpClip(const string clipname, const float amount)
-{
-    if(!loopier::clipExists(clipname)) return;
-    
-    ClipPtr clip = loopier::clips[clipname];
-    clip->setScale( clip->getScale() + amount );
-}
-
-void loopier::scaleDownClip(const string clipname, const float amount)
-{
-    if(!loopier::clipExists(clipname)) return;
-    
-    ClipPtr clip = loopier::clips[clipname];
-    clip->setScale( clip->getScale() - amount );
-}
-
-void loopier::resetClipScale(const string clipname)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setScale(1.0);
-}
-
-void loopier::toggleFullscreenClip(const string clipname)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->toggleFullscreen();
-}
-
-//------------------------------------------
-//  ALPHA
-//------------------------------------------
-void loopier::setClipAlpha(const string clipname, const float alpha)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setAlpha(alpha);
-}
-
-//------------------------------------------
-//  MANAGING CLIP'S MOVIES
-//------------------------------------------
-void loopier::listClipMovies(const string clipname)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->listMovies();
-}
-
-void loopier::setClipMovie(const string clipname, const int index)
-{
-    if(!loopier::clipExists(clipname)) return;
-    
-    loopier::clips[clipname]->setMovie(index);
-    loopier::clips[clipname]->setPlayMovieSequence(false);
-}
-
-void loopier::playClipMovieSequence(const string clipname)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setPlayMovieSequence(true);
-}
-
-void loopier::setClipMovieSequenceOrder(const string clipname, const string sequence)
-{
-    if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setMovieSequenceOrder(sequence);
-}
-
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
 //      CLASS METHODS
@@ -592,4 +323,279 @@ void loopier::Clip::updateSequence()
     ofLogWarning() << "!!! TODO:\t\t" << __PRETTY_FUNCTION__ << ": \t" << sequenceIndex << ": \t" << movieIndex;
     
     
+}
+
+//-------------------------------------------------------------------
+//-------------------------------------------------------------------
+//      *********       END OF CLASS        ************
+//-------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+//      PUBLIC INTERFACE FUNCTIONS
+//-------------------------------------------------------------------
+//-------------------------------------------------------------------
+
+
+loopier::ClipMap loopier::clips; // the list of clips available everywhere
+
+
+//------------------------------------------
+//  MANAGE CLIPS
+//------------------------------------------
+
+
+//---------------------------------------------------------------------------
+loopier::ClipPtr loopier::newClip(string clipname)
+{
+    return loopier::newClip(clipname, "default");
+}
+
+//---------------------------------------------------------------------------
+loopier::ClipPtr loopier::newClip(string clipname, string moviename)
+{
+    loopier::ClipPtr clip(new loopier::Clip(clipname, moviename));
+    clip->setup();
+    clips[clip->getName()] = clip;
+    return clip;
+}
+//---------------------------------------------------------------------------
+void loopier::removeClip(const string& clipname)
+{
+    loopier::clips.erase(clipname);
+}
+
+//---------------------------------------------------------------------------
+void loopier::clearClips()
+{
+    loopier::clips.clear();
+}
+
+//------------------------------------------
+//  UPDATE and DRAW CLIPS
+//------------------------------------------
+
+//---------------------------------------------------------------------------
+void loopier::updateClips()
+{
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        (*it->second).update();
+    }
+}
+
+//---------------------------------------------------------------------------
+void loopier::drawClips()
+{
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        (*it->second).draw();
+    }
+}
+
+//------------------------------------------
+//  CLIP LIST UTILS
+//------------------------------------------
+
+//---------------------------------------------------------------------------
+void loopier::listClipNames()
+{
+    string msg = "Number of clips:\t" + ofToString(clips.size());
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        msg += "\n\t" + it->first;
+    }
+    
+    ofLogNotice() << msg;
+}
+
+//---------------------------------------------------------------------------
+void loopier::listClips()
+{
+    string msg = "Number of clips:\t" + ofToString(clips.size());
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        (*it->second).listMovies();
+    }
+    
+//    ofLogNotice() << msg;
+}
+
+//---------------------------------------------------------------------------
+bool loopier::clipExists(const string clipname)
+{
+    bool b = clips.count(clipname);
+    
+    if (!b) {
+        ofLogError() << "\tTrying to acces a clip named '" << clipname << "'.\n"
+        <<  "\t\t\tIt doesn't exist.  Skipping action.";
+    }
+    
+    return clips.count(clipname);
+}
+
+
+//------------------------------------------
+//  SHOW CLIP NAMES
+//------------------------------------------
+void loopier::toggleClipNames()
+{
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        (*it->second).toggleName();
+    }
+}
+
+void loopier::showClipNames()
+{
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        (*it->second).showName();
+    }
+}
+
+void loopier::hideClipNames()
+{
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        (*it->second).hideName();
+    }
+}
+
+//------------------------------------------
+//  SINGLE CLIP MANAGEMENT
+//------------------------------------------
+
+
+//------------------------------------------
+//  PLAY CLIPS
+//------------------------------------------
+void loopier::addMovieToClip(const string clipname, const string moviename)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->addMovie(moviename);
+}
+
+void loopier::playClip(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->play();
+}
+
+void loopier::stopClip(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->stop();
+}
+
+void loopier::pauseClip(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->pause();
+}
+
+void loopier::setClipSpeed(const string clipname, const float speed)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setSpeed(speed);
+}
+
+void loopier::setClipLoopState(const string clipname, const ofLoopType state)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setLoopState(state);
+}
+
+//------------------------------------------
+//  RESET
+//------------------------------------------
+void loopier::resetClip(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->reset();
+}
+
+//------------------------------------------
+//  MOVE CLIP
+//------------------------------------------
+void loopier::moveClipTo(const string clipname, const float x, const float y)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setPosition(x, y);
+}
+
+//------------------------------------------
+//  SCALE CLIP
+//------------------------------------------
+void loopier::scaleClip(const string clipname, const float scale)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setScale(scale);
+}
+
+void loopier::scaleUpClip(const string clipname, const float amount)
+{
+    if(!loopier::clipExists(clipname)) return;
+    
+    ClipPtr clip = loopier::clips[clipname];
+    clip->setScale( clip->getScale() + amount );
+}
+
+void loopier::scaleDownClip(const string clipname, const float amount)
+{
+    if(!loopier::clipExists(clipname)) return;
+    
+    ClipPtr clip = loopier::clips[clipname];
+    clip->setScale( clip->getScale() - amount );
+}
+
+void loopier::resetClipScale(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setScale(1.0);
+}
+
+void loopier::toggleFullscreenClip(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->toggleFullscreen();
+}
+
+//------------------------------------------
+//  ALPHA
+//------------------------------------------
+void loopier::setClipAlpha(const string clipname, const float alpha)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setAlpha(alpha);
+}
+
+//------------------------------------------
+//  MANAGING CLIP'S MOVIES
+//------------------------------------------
+void loopier::listClipMovies(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->listMovies();
+}
+
+void loopier::setClipMovie(const string clipname, const int index)
+{
+    if(!loopier::clipExists(clipname)) return;
+    
+    loopier::clips[clipname]->setMovie(index);
+    loopier::clips[clipname]->setPlayMovieSequence(false);
+}
+
+void loopier::playClipMovieSequence(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setPlayMovieSequence(true);
+}
+
+void loopier::setClipMovieSequenceOrder(const string clipname, const string sequence)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setMovieSequenceOrder(sequence);
 }
