@@ -39,6 +39,8 @@ namespace loopier
         void setSpeed(const float newSpeed);
         
         void setScale(const float newScale);
+        void setScaleX(const float newScale);
+        void setScaleY(const float newScale);
         float getScale() const;
         
         void setPosition(const float newX, const float newY);
@@ -52,6 +54,11 @@ namespace loopier
         void toggleName();
         void showName();
         void hideName();
+        
+        //------------------------------------------------------------------------------------------
+        //  Transforms
+        void flipV();
+        void flipH();
         
         //------------------------------------------------------------------------------------------
         //      MANAGING MOVIES
@@ -96,6 +103,10 @@ namespace loopier
         float   alpha; ///< Transparency of the clip
         
         bool    bDrawName;
+        
+        // transforms
+        bool    bFlipV; ///< Flip vertically
+        bool    bFlipH; ///< Flip horizontally
         
         ofLoopType  loopState;    ///< See ofSetLoopState(...)
         bool        bPlaySequence; ///< If true, all movies are played in sequence order.
@@ -208,9 +219,17 @@ namespace loopier
     // set anchor point
     // scale -- resize
     void scaleClip(const string clipname, const float scale);
+    /// \brief  Change width of Clip
+    /// \param  clipname    String
+    /// \param  scale       Float   Signed and normalized -- positive or negative float -- 1 is default
+    void setClipWidth(const string clipname, const float width);
+    void setClipHeight(const string clipname, const float height);
+    void scaleClip(const string clipname, const float scale);
     void scaleUpClip(const string clipname, const float amount=0.1);
     void scaleDownClip(const string clipname, const float amount=0.1);
     void resetClipScale(const string clipname);
+    void setClipVFlip(const string clipname);
+    void setClipHFlip(const string clipname);
     // toggle fullscreen
     void toggleFullscreenClip(const string clipname);
     // tint

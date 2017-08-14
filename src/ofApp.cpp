@@ -114,12 +114,16 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         if      (command == "new" && msg.getNumArgs() <= 2)  loopier::newClip(name);
         else if (command == "new" && msg.getNumArgs() >= 3)  loopier::newClip(name, msg.getArgAsString(2));
         
-        else if (command == "reset")             loopier::resetClip(name);
-        else if (command == "scaleup")           loopier::scaleUpClip(name, msg.getArgAsFloat(2));
-        else if (command == "scaledown")         loopier::scaleDownClip(name, msg.getArgAsFloat(2));
-        else if (command == "scale")             loopier::scaleClip(name, msg.getArgAsFloat(2));
-        else if (command == "resetscale")        loopier::resetClipScale(name);
-        else if (command == "togglefullscreen")  loopier::toggleFullscreenClip(name);
+        else if (command == "reset")            loopier::resetClip(name);
+        else if (command == "scaleup")          loopier::scaleUpClip(name, msg.getArgAsFloat(2));
+        else if (command == "scaledown")        loopier::scaleDownClip(name, msg.getArgAsFloat(2));
+        else if (command == "scale")            loopier::scaleClip(name, msg.getArgAsFloat(2));
+        else if (command == "xscale")           loopier::setClipWidth(name, msg.getArgAsFloat(2));
+        else if (command == "yscale")           loopier::setClipHeight(name, msg.getArgAsFloat(2));
+        else if (command == "resetscale")       loopier::resetClipScale(name);
+        else if (command == "vflip")            loopier::setClipVFlip(name);
+        else if (command == "hflip")            loopier::setClipHFlip(name);
+        else if (command == "togglefullscreen") loopier::toggleFullscreenClip(name);
         
         // PLAY
         
