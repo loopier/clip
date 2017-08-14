@@ -4,6 +4,7 @@
 #include "OscManager.h"
 #include "Clip.h"
 #include "ConsoleUI.h"
+#include "Video.h"
 
 using namespace loopier;
 
@@ -13,6 +14,7 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+        void exit();
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -27,7 +29,6 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
 private:
-    
     ConsoleUI   console;
     OscManager  osc;
     string  applicationSupportPath; ///< Path to the directory with resources and config files

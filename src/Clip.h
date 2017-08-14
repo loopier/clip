@@ -4,12 +4,13 @@
 //
 //  Created by roger on 10/08/2017.
 //
-//
+//  A Clip is a collection of movies.
 
 #ifndef Clip_hpp
 #define Clip_hpp
 
 #include "ofMain.h"
+#include "Video.h"
 
 namespace loopier
 {
@@ -17,12 +18,9 @@ namespace loopier
     {
     public:
         Clip();
-        /// \param name     String  Name of clip instance
-        /// \param filename String  Name of movie file with extension or not
-        ///                         It's not alwas the same as 'name,' because
-        ///                         there can be several instances using the same file
-        /// \param path     String  Path to the movies (general) folder
-        Clip(string& clipname, string& filename, string& path);
+        /// \param name         String  Name of clip instance
+        /// \param moviename   String  Name of movie.  See 'addMovie(...)'
+        Clip(string& clipname, string& moviename);
         virtual ~Clip();
         
         void setup(bool bPlay=true);
@@ -30,7 +28,6 @@ namespace loopier
         void draw();
         /// \brief  Resets clip to the default state
         void reset();
-        void loadMovie();
         
         void setName(const string& newName);
         string getName() const;
@@ -56,15 +53,26 @@ namespace loopier
         void showName();
         void hideName();
         
+        //------------------------------------------------------------------------------------------
+        //      MANAGING MOVIES
+        //------------------------------------------------------------------------------------------
+        /// \brief  Prints a list of the moviefiles this clip contains
+        void        listMovies();
+        
+        /// \brief  Adds a movie to the list
+        /// \param  moviename   String  The name of the movie added.
+        ///                             If the movie doesn't exist it gets the default.
+        /// \returns    The movie added
+        MoviePtr    addMovie(const string & moviename);
+        
     private:
-        ofVideoPlayer   player;
+        MoviePtr  movie; ///< The movie that is currently used
+        MovieList movies;
+        
         string  name;
-        string  filebasename;
-        string  extension;
-        string  path; ///< Parent directory containing the clip files
         float   x, y;
         float   width, height;
-        float   scale;
+        float   scale, scaleX, scaleY;
         bool    fullscreen;
         float   alpha; ///< Transparency of the clip
         
@@ -72,7 +80,7 @@ namespace loopier
         
 //        Clip(); // Disable default constructor.  All clips must have a name
         
-        void updateFullscreen();
+        
         
         // ----- HELPERS -----
     };
@@ -87,22 +95,40 @@ namespace loopier
     //  loopier::nameOfFunction(...)
     //------------------------------------------
     
-    typedef shared_ptr<Clip> ClipPtr;
-    typedef vector<ClipPtr> ClipList;
-    typedef map<string, ClipPtr> ClipMap;
+    typedef shared_ptr<Clip>        ClipPtr;
+    typedef vector<ClipPtr>         ClipList;
+    typedef map<string, ClipPtr>    ClipMap;
     
     extern ClipMap clips; ///< A list of all available (created) clips
     
-    //
-    // ----- UDPATE AND DRAW ALL CIPS-----
+    
+    // ----- MANAGE CLIPS-----
+    
+    /// \brief  Creates a new clip with the given movie file
+    /// \param  name    String  Name of the movie file (with or without extension).
+    ///                         The application will look in the path for a directory named after 'name'.
+    /// \param  path    String  Path to the parent directory of the subdirectory holding the movie file.
+    ///                         E.g. If the movie file is named 'mymovie.mov', it should be
+    ///                         located in a subfolder named 'mymovie'.  The 'path' variable
+    ///                         should be the path to the directory where the subdirectory
+    ///                         'mymovie' resides.
+    loopier::ClipPtr newClip(string clipname);
+    loopier::ClipPtr newClip(string clipname, string path);
+    void removeClip(const string& clipname);
+    /// \brief  Clear content
+    void clearClips();
+    
+    // ----- UDPATE AND DRAW ALL CLIPS-----
+    
     void updateClips();
     void drawClips();
     
     // ----- CLIP LIST UTILS-----
-    /// \brief  Clear content
-    void clearClips();
+    
     /// \brief  Prints the list of clip names to console
     void listClipNames();
+    /// \brief  Prints the list of clips and their contents
+    void listClips();
     /// \brief  Checks if a clip with that name exists.  If it doesn't logs a warning.
     /// \param  clipname    String
     /// \returns    True if there's a clip that matches the name
@@ -117,19 +143,9 @@ namespace loopier
     
     // ----- MANAGE SINGLE CLIPS -----
     
-    /// \brief  Creates a new clip with the given movie file
-    /// \param  name    String  Name of the movie file (with or without extension).
-    ///                         The application will look in the path for a directory named after 'name'.
-    /// \param  path    String  Path to the parent directory of the subdirectory holding the movie file.
-    ///                         E.g. If the movie file is named 'mymovie.mov', it should be
-    ///                         located in a subfolder named 'mymovie'.  The 'path' variable
-    ///                         should be the path to the directory where the subdirectory
-    ///                         'mymovie' resides.
-    loopier::ClipPtr newClip(string name);
-    loopier::ClipPtr newClip(string name, string path);
-    void removeClip(const string& name);
-    
     // ----- USE ONE CLIP -----
+    /// \brief  Adds a movie to a clip
+    void addMovieToClip(const string clipname, const string moviename);
     // play
     void playClip(const string clipname);
     // stop
@@ -180,6 +196,8 @@ namespace loopier
     // reset attributes -- factory defaults
     
     
+    // ----- SINGLE CLIP UTILS -----
+    void listClipMovies(const string clipname);
 }
 
 #endif /* Clip_hpp */
