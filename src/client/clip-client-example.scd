@@ -2,7 +2,10 @@
 m = NetAddr("localhost", 12345);
 
 
-// CLIP LIST COMMANDS
+
+//------------------------------------------------------------------
+//   CLIP LIST COMMANDS
+//------------------------------------------------------------------
 
 // print list of clips to (app's) console
 m.sendMsg("/loopier/clip/clips", "listnames");
@@ -13,7 +16,11 @@ m.sendMsg("/loopier/clip/clips", "togglenames");
 m.sendMsg("/loopier/clip/clips", "shownames");
 m.sendMsg("/loopier/clip/clips", "hidenames");
 
-// SINGLE CLIP COMMANDS
+
+//------------------------------------------------------------------
+//  SINGLE CLIP COMANDS
+//------------------------------------------------------------------
+
 // move, scale, reset...
 m.sendMsg("/loopier/clip/clip", "exampleclip", "reset");
 m.sendMsg("/loopier/clip/clip", "exampleclip", "scaleup", 0.1);
@@ -39,6 +46,10 @@ m.sendMsg("/loopier/clip/clip", "exampleclip", "alpha", 0.5);
 m.sendMsg("/loopier/clip/clip", "exampleclip", "listmovies");
 // add a movie to the clip
 m.sendMsg("/loopier/clip/clip", "exampleclip", "addmovie", "mamma");
+
+//------------------------------------------------------------------
+//  ANOTHER CLIP
+//------------------------------------------------------------------
 
 // create a new clip named 'anotherclip'
 m.sendMsg("/loopier/clip/clip", "anotherclip", "new", "stress");
@@ -69,7 +80,11 @@ m.sendMsg("/loopier/clip/clip", "mamma", "moveto", 1.0.rand, 1.0.rand);
 m.sendMsg("/loopier/clip/clip", "mamma", "scale", 2.0.rand.postln);
 )
 
-// CONSOLE COMMANDS
+
+//------------------------------------------------------------------
+//  CONSOLE COMMANDS
+//------------------------------------------------------------------
+
 // print something
 m.sendMsg("/loopier/clip/console", "print", "hello world");
 // change prompt
