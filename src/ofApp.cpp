@@ -7,12 +7,11 @@ void ofApp::setup(){
     /// -------------------------------------------------------------------------------
     /// --------------  TESTING     --------------
     /// -------------------------------------------------------------------------------
-//    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
+
+
 //    
-//    loopier::Video::preload();
-//    player = loopier::Video::getPlayer("mamma");
-//    player->play();
 //    ofExit();
+//    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
 //    return;
     /// -------------------------------------------------------------------------------
     /// --------------  END OF TEST --------------
@@ -30,8 +29,9 @@ void ofApp::setup(){
     osc.setup();
     ofAddListener(osc.newOscMessageEvent, this, &ofApp::processOscMessage);
     
+    loopier::Video::preloadMovies();
     string moviespath = applicationSupportPath + "resources/movies/";
-    loopier::newClip("default.mov", moviespath);
+    loopier::newClip("exampleclip");
 }
 
 //--------------------------------------------------------------
@@ -103,7 +103,8 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         string name = msg.getArgAsString(0);
         string command = msg.getArgAsString(1);
         
-        if (command == "new")               loopier::newClip(name);
+        if      (command == "new" && msg.getNumArgs() <= 2)  loopier::newClip(name);
+        else if (command == "new" && msg.getNumArgs() >= 3)  loopier::newClip(name, msg.getArgAsString(2));
         
         else if (command == "reset")             loopier::resetClip(name);
         else if (command == "scaleup")           loopier::scaleUpClip(name, msg.getArgAsFloat(2));
@@ -130,6 +131,9 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         
         else if (command == "moveto")    loopier::moveClipTo(name, msg.getArgAsFloat(2), msg.getArgAsFloat(3));
         else if (command == "alpha")     loopier::setClipAlpha(name, msg.getArgAsFloat(2));
+        
+        else if (command == "listmovies")   loopier::listClipMovies(name);
+        else if (command == "addmovie")     loopier::addMovieToClip(name, msg.getArgAsString(2));
         
         else { printOscMessageMisstypingWarning(); return; }
     }

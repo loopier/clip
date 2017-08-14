@@ -408,8 +408,8 @@
 				DBADBBDA1F40AE08002D4C51 /* Video.h */,
 				DB5240671F3E02AC0058310F /* OscManager.cpp */,
 				DB5240681F3E02AC0058310F /* OscManager.h */,
-				DB9475981F3F5B75002BF3FB /* ConsoleUI.h */,
 				DB94759A1F3F63A0002BF3FB /* ConsoleUI.cpp */,
+				DB9475981F3F5B75002BF3FB /* ConsoleUI.h */,
 				DB52406D1F3E2D220058310F /* utils.h */,
 			);
 			path = src;

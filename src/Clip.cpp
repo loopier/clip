@@ -9,16 +9,43 @@
 #include "Clip.h"
 
 
+loopier::ClipMap loopier::clips; // the list of clips available everywhere
+
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
 //      INTERFACE FUNCTIONS
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
 
-loopier::ClipMap loopier::clips; // the list of clips available everywhere
+//------------------------------------------
+//  MANAGE CLIPS
+//------------------------------------------
+
+loopier::ClipPtr loopier::newClip(string clipname)
+{
+    return loopier::newClip(clipname, "default");
+}
+
+loopier::ClipPtr loopier::newClip(string clipname, string moviename)
+{
+    loopier::ClipPtr clip(new loopier::Clip(clipname, moviename));
+    clip->setup();
+    clips[clip->getName()] = clip;
+    return clip;
+}
+
+void loopier::removeClip(const string& clipname)
+{
+    loopier::clips.erase(clipname);
+}
+
+void loopier::clearClips()
+{
+    loopier::clips.clear();
+}
 
 //------------------------------------------
-//  UPDATE CLIPS
+//  UPDATE and DRAW CLIPS
 //------------------------------------------
 void loopier::updateClips()
 {
@@ -28,9 +55,6 @@ void loopier::updateClips()
     }
 }
 
-//------------------------------------------
-//  DRAW CLIPS
-//------------------------------------------
 void loopier::drawClips()
 {
     loopier::ClipMap::iterator it;
@@ -42,10 +66,6 @@ void loopier::drawClips()
 //------------------------------------------
 //  CLIP LIST UTILS
 //------------------------------------------
-void loopier::clearClips()
-{
-    loopier::clips.clear();
-}
 
 void loopier::listClipNames()
 {
@@ -58,12 +78,23 @@ void loopier::listClipNames()
     ofLogNotice() << msg;
 }
 
+void loopier::listClips()
+{
+    string msg = "Number of clips:\t" + ofToString(clips.size());
+    loopier::ClipMap::iterator it;
+    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+        (*it->second).listMovies();
+    }
+    
+//    ofLogNotice() << msg;
+}
+
 bool loopier::clipExists(const string clipname)
 {
     bool b = clips.count(clipname);
     
     if (!b) {
-        ofLogWarning() << "\tTrying to acces a clip named '" << clipname << "'.\n"
+        ofLogError() << "\tTrying to acces a clip named '" << clipname << "'.\n"
         <<  "\t\t\tIt doesn't exist.  Skipping action.";
     }
     
@@ -101,51 +132,17 @@ void loopier::hideClipNames()
 //------------------------------------------
 //  SINGLE CLIP MANAGEMENT
 //------------------------------------------
-loopier::ClipPtr loopier::newClip(string clipname)
-{
-    loopier::newClip(clipname, ofFilePath::getUserHomeDir()+"/Library/Application Support/Clip/resources/movies/");
-}
 
-loopier::ClipPtr loopier::newClip(string clipname, string path)
-{
-    string basename = ofFile(clipname).getBaseName();
-    path += basename + "/";
-    string extension = ofFile(clipname).getExtension();
-    string name = clipname;
-    
-    string str = "Creating new clip -";
-    str += "\n\tname given: " + name;
-    str += "\n\textension: " + extension;
-    str += "\n\tbase name: " + basename;
-    name = basename;
-    str += "\n\tfinal name: " + name;
-    ofLogVerbose() << str;
-    
-    // check if there's already a clip with this name
-    if (clips.count(name) > 0) {
-        string warning = "There's already a clip named '" + name + "'.  ";
-        name = name + ofToString(clips.count(name));
-        warning += "Renaming it to '" + name + "'.";
-        ofSystemAlertDialog(warning);
-        ofLogWarning() << warning;
-    }
-    
-    loopier::ClipPtr clip(new loopier::Clip(name, basename, path));
-    clip->setup();
-    clips[clip->getName()] = clip;
-    
-    loopier::listClipNames();;
-    return clip;
-}
-
-void loopier::removeClip(const string& clipname)
-{
-    loopier::clips.erase(clipname);
-}
 
 //------------------------------------------
 //  PLAY CLIPS
 //------------------------------------------
+void loopier::addMovieToClip(const string clipname, const string moviename)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->addMovie(moviename);
+}
+
 void loopier::playClip(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
@@ -240,6 +237,14 @@ void loopier::setClipAlpha(const string clipname, const float alpha)
     loopier::clips[clipname]->setAlpha(alpha);
 }
 
+//------------------------------------------
+//  SINGLE CLIP UTILS
+//------------------------------------------
+void loopier::listClipMovies(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->listMovies();
+}
 
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
@@ -256,22 +261,20 @@ loopier::Clip::Clip()
     // --- DISABLED ---
 }
 
-loopier::Clip::Clip(string& clipname, string& filename, string& path)
+loopier::Clip::Clip(string& clipname, string& moviename)
 : name(clipname)
-, extension("mov")
-, path(path)
 , x(0)
 , y(0)
 , width(640)
 , height(400)
 , scale(1.0)
+, scaleX(1.0)
+, scaleY(1.0)
 , fullscreen(false)
 , alpha(1.0)
 , bDrawName(false)
 {
-    filebasename = ofFile(filename).getBaseName();
-    extension = ofFile(filename).getExtension();
-    if (extension.length() < 1) extension = "mov";
+    addMovie(moviename);
 }
 
 loopier::Clip::~Clip()
@@ -281,17 +284,16 @@ loopier::Clip::~Clip()
 
 void loopier::Clip::setup(bool bPlay)
 {
-    loadMovie();
+    movie = movies[0];
+    movie->setLoopState(OF_LOOP_NORMAL);
+    if (bPlay)   movie->play();
+    
     reset();
-    
-    player.setLoopState(OF_LOOP_NORMAL);
-    if (bPlay)   player.play();
-    
 }
 
 void loopier::Clip::update()
 {
-    player.update();
+    movie->update();
 }
 
 void loopier::Clip::draw()
@@ -299,9 +301,9 @@ void loopier::Clip::draw()
     ofSetColor(255,255,255, 255 * alpha);
     
     if (fullscreen) {
-        player.draw(0, 0, ofGetWidth(), ofGetHeight());
+        movie->draw(0, 0, ofGetWidth(), ofGetHeight());
     } else {
-        player.draw(x, y, width, height);
+        movie->draw(x, y, width, height);
         if (bDrawName)  ofDrawBitmapString(name, x, y);
     }
     
@@ -309,20 +311,15 @@ void loopier::Clip::draw()
 
 void loopier::Clip::reset()
 {
-    width = player.getWidth();
-    height = player.getHeight();
-    player.setAnchorPercent(0.5, 0.5);
+    width = movie->getWidth();
+    height = movie->getHeight();
+    movie->setAnchorPercent(0.5, 0.5);
     x = ofGetWidth() / 2;
     y = ofGetHeight() / 2;
     scale = 1.0;
+    scaleX = scale;
+    scaleY = scale;
     alpha = 1.0;
-}
-
-void loopier::Clip::loadMovie()
-{
-    string fullpath = path + filebasename + "." + extension;
-    ofLogNotice() << "Clip '" << name << "'\t-\tLoading " << fullpath;
-    player.load(fullpath);
 }
 
 void loopier::Clip::setName(const string &newName)
@@ -338,34 +335,34 @@ string loopier::Clip::getName() const
 
 void loopier::Clip::play()
 {
-    player.isPlaying()? player.setPaused(true) : player.play();
+    movie->isPlaying()? movie->setPaused(true) : movie->play();
     
-    ofLogVerbose() << (player.isPlaying()? "play: " : "pause: ") << name ;
+    ofLogVerbose() << (movie->isPlaying()? "play: " : "pause: ") << name ;
 }
 
 void loopier::Clip::stop()
 {
-    player.stop();
+    movie->stop();
     
     ofLogVerbose() << "stop: " << name ;
 }
 
 void loopier::Clip::pause(bool bPause)
 {
-    player.setPaused(bPause);
+    movie->setPaused(bPause);
     
     ofLogVerbose() << "pause: " << name ;
 }
 
 void loopier::Clip::setLoopState(const ofLoopType state)
 {
-    player.setLoopState(state);
-    if (player.isPaused()) player.play();
+    movie->setLoopState(state);
+    if (movie->isPaused()) movie->play();
 }
 
 void loopier::Clip::setSpeed(const float newSpeed)
 {
-    player.setSpeed(newSpeed);
+    movie->setSpeed(newSpeed);
 }
 
 void loopier::Clip::setScale(const float newScale)
@@ -377,8 +374,8 @@ void loopier::Clip::setScale(const float newScale)
         scale = 0.1;
     }
     
-    width = player.getWidth() * scale;
-    height = player.getHeight() * scale;
+    width = movie->getWidth() * scale;
+    height = movie->getHeight() * scale;
     
     ofLogVerbose() << name << " scale: " << scale;
 }
@@ -409,7 +406,7 @@ ofPoint loopier::Clip::getPosition() const
 void loopier::Clip::toggleFullscreen()
 {
     fullscreen = !fullscreen;
-    fullscreen? player.setAnchorPercent(0, 0) : player.setAnchorPercent(0.5, 0.5);
+    fullscreen? movie->setAnchorPercent(0, 0) : movie->setAnchorPercent(0.5, 0.5);
     ofLogVerbose() << name << " fullscreen: "<< (fullscreen? "on" : "off");
 }
 
@@ -431,6 +428,36 @@ void loopier::Clip::showName()
 void loopier::Clip::hideName()
 {
     bDrawName = false;
+}
+
+//------------------------------------------------------------------------------------------
+//      MANAGING MOVIES
+//------------------------------------------------------------------------------------------
+void loopier::Clip::listMovies()
+{
+    string msg = "'" + name + "' has " + ofToString(movies.size()) + " movies:";
+    
+    for (int i = 0; i < movies.size(); i++)
+    {
+        msg += "\n\t" + ofToString(i) + "\t" + movies[i]->getMoviePath();
+    }
+    
+    ofLogNotice() << msg;
+}
+
+
+//------------------------------------------------------------------------------------------
+//      PRIVATE METHODS
+//------------------------------------------------------------------------------------------
+
+loopier::MoviePtr loopier::Clip::addMovie(const string & moviename)
+{
+    MoviePtr movie = make_shared<Movie>(loopier::Video::copyMovie(moviename));
+    movies.push_back(movie);
+    
+    ofLogVerbose() << "'" << moviename << "' movie added to clip '" << name << "'";
+    
+    return movie;
 }
 
 //------------------------------------------------------------------------------------------

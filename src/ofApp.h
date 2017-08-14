@@ -29,7 +29,6 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
 private:
-    VideoPlayerPtr player;
     ConsoleUI   console;
     OscManager  osc;
     string  applicationSupportPath; ///< Path to the directory with resources and config files
