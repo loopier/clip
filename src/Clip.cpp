@@ -249,7 +249,21 @@ void loopier::listClipMovies(const string clipname)
 void loopier::setClipMovie(const string clipname, const int index)
 {
     if(!loopier::clipExists(clipname)) return;
+    
     loopier::clips[clipname]->setMovie(index);
+    loopier::clips[clipname]->setPlayMovieSequence(false);
+}
+
+void loopier::playClipMovieSequence(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setPlayMovieSequence(true);
+}
+
+void loopier::setClipMovieSequenceOrder(const string clipname, const string sequence)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setMovieSequenceOrder(sequence);
 }
 
 //-------------------------------------------------------------------
@@ -281,6 +295,7 @@ loopier::Clip::Clip(string& clipname, string& moviename)
 , fullscreen(false)
 , alpha(1.0)
 , bDrawName(false)
+, loopState(OF_LOOP_NORMAL)
 {
     addMovie(moviename);
 }
@@ -292,8 +307,9 @@ loopier::Clip::~Clip()
 
 void loopier::Clip::setup(bool bPlay)
 {
+    sequenceOrder.push_back(0);
     movie = movies[0];
-    movie->setLoopState(OF_LOOP_NORMAL);
+    movie->setLoopState(loopState);
     if (bPlay)   movie->play();
     
     reset();
@@ -301,6 +317,7 @@ void loopier::Clip::setup(bool bPlay)
 
 void loopier::Clip::update()
 {
+    if (bPlaySequence) updateSequence();
     movie->update();
 }
 
@@ -366,7 +383,8 @@ void loopier::Clip::pause(bool bPause)
 
 void loopier::Clip::setLoopState(const ofLoopType state)
 {
-    movie->setLoopState(state);
+    loopState = state;
+    movie->setLoopState(loopState);
     if (movie->isPaused()) movie->play();
 }
 
@@ -470,6 +488,7 @@ loopier::MoviePtr loopier::Clip::addMovie(const string & moviename)
 
 void loopier::Clip::setMovie(int index)
 {
+    movie->stop();
     index = min(index, int(movies.size()-1));
     movie = movies[index];
     movie->play();
@@ -478,7 +497,59 @@ void loopier::Clip::setMovie(int index)
     ofLogVerbose() << "'" << name << "' set current movie to: " << movie->getMoviePath();
 }
 
+void loopier::Clip::setPlayMovieSequence(const bool & bseq)
+{
+    bPlaySequence = bseq;
+    if (bseq)   movie->setLoopState(OF_LOOP_NONE);
+    else        movie->setLoopState(loopState);
+}
+
+void loopier::Clip::setMovieSequenceOrder(const vector<int>& newSequence)
+{
+    
+    sequenceIndex = 0;
+    
+    sequenceOrder.clear();
+    sequenceOrder = newSequence;
+    
+    string msg = "Sequence oder for " + name + ": ";
+    for(int i=0; i < sequenceOrder.size(); i++) {
+        msg += ofToString(sequenceOrder[i]) + " ";
+    }
+    
+    ofLogVerbose() << msg;
+}
+
+void loopier::Clip::setMovieSequenceOrder(const string& newSequence)
+{
+    vector<string>  tokens  = ofSplitString(newSequence, ",", true, true);
+    vector<int>     itokens;
+    
+    for (int i = 0; i < tokens.size(); i++) {
+        itokens.push_back(ofToInt(tokens[i]));
+    }
+    
+    setMovieSequenceOrder(itokens);
+}
+
 //------------------------------------------------------------------------------------------
-//      HELPERS
+//      PRIVATE METHODS
 //------------------------------------------------------------------------------------------
 
+void loopier::Clip::updateSequence()
+{
+    // Just change movie when movieis done
+    if (!movie->getIsMovieDone())   return;
+    
+    // make sure the sequence index is in bounds
+    sequenceIndex = (sequenceIndex + 1) % sequenceOrder.size();
+    // make sure the movie index is in bounds
+    int movieIndex = sequenceOrder[sequenceIndex] % movies.size();
+    
+    setMovie(movieIndex);
+    movie->setLoopState(OF_LOOP_NONE);
+    
+    ofLogWarning() << "!!! TODO:\t\t" << __PRETTY_FUNCTION__ << ": \t" << sequenceIndex << ": \t" << movieIndex;
+    
+    
+}

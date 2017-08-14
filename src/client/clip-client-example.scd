@@ -65,6 +65,12 @@ m.sendMsg("/loopier/clip/clip", "exampleclip", "setmovie", 1);
 // back to the first movie
 m.sendMsg("/loopier/clip/clip", "exampleclip", "setmovie", 0);
 
+// SEQUENCE
+// add yet another movie
+m.sendMsg("/loopier/clip/clip", "exampleclip", "addmovie", "crashtest");
+// and set a sequence
+m.sendMsg("/loopier/clip/clip", "exampleclip", "sequence", "0,1,2");
+
 //------------------------------------------------------------------
 //  ANOTHER CLIP
 //------------------------------------------------------------------
