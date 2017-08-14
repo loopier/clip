@@ -73,10 +73,12 @@ void loopier::Clip::draw()
     ofSetColor(255,255,255, 255 * alpha);
     
     if (fullscreen) {
-        movie->setAnchorPercent(0, 0);
-        movie->draw(0, 0, ofGetWidth(), ofGetHeight());
+        int fx = ofGetWidth() / 2;
+        int fy = ofGetHeight() / 2;
+        int fw = ofGetWidth() * ofSign(scaleX);
+        int fh = ofGetHeight() * ofSign(scaleY);
+        movie->draw(fx, fy, fw, fh);
     } else {
-        movie->setAnchorPercent(anchorPercentX, anchorPercentY);
         movie->draw(x, y, width, height);
         if (bDrawName)  ofDrawBitmapString(name, x, y);
     }
@@ -88,6 +90,8 @@ void loopier::Clip::reset()
 {
     width = movie->getWidth();
     height = movie->getHeight();
+    anchorPercentX = 0.5;
+    anchorPercentY = 0.5;
     movie->setAnchorPercent(anchorPercentX, anchorPercentY);
     x = ofGetWidth() / 2;
     y = ofGetHeight() / 2;
@@ -154,17 +158,27 @@ void loopier::Clip::setScale(const float newScale)
     
     scale = newScale;
     
-    if (scale <= 0.1) {
-        scale = 0.1;
-    }
-    
-    scaleX = scale;
-    scaleY = scale;
+    setScaleX(newScale);
+    setScaleY(newScale);
     
     width = movie->getWidth() * scaleX;
     height = movie->getHeight() * scaleY;
     
     ofLogVerbose() << name << " scale: " << scale;
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setScaleX(const float newScale)
+{
+    scaleX = newScale * ofSign(scaleX);
+    width = movie->getWidth() * scaleX;
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setScaleY(const float newScale)
+{
+    scaleY = newScale * ofSign(scaleY);
+    height = movie->getHeight() * scaleY;
 }
 
 //---------------------------------------------------------------------------
@@ -198,7 +212,6 @@ ofPoint loopier::Clip::getPosition() const
 void loopier::Clip::toggleFullscreen()
 {
     fullscreen = !fullscreen;
-    fullscreen? movie->setAnchorPercent(0, 0) : movie->setAnchorPercent(0.5, 0.5);
     ofLogVerbose() << name << " fullscreen: "<< (fullscreen? "on" : "off");
 }
 
@@ -224,6 +237,21 @@ void loopier::Clip::showName()
 void loopier::Clip::hideName()
 {
     bDrawName = false;
+}
+
+//------------------------------------------------------------------------------------------
+//      TRANSFORMS
+//------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+void loopier::Clip::flipV()
+{
+    setScaleY(scaleY * ofSign(scaleY) * (-1));
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::flipH()
+{
+    setScaleX(scaleX * ofSign(scaleX) * (-1));
 }
 
 //------------------------------------------------------------------------------------------
@@ -260,7 +288,6 @@ void loopier::Clip::setMovie(int index)
     index = min(index, int(movies.size()-1));
     movie = movies[index];
     movie->play();
-    movie->setAnchorPercent(anchorPercentX, anchorPercentY);
     
     ofLogVerbose() << "'" << name << "' set current movie to: " << movie->getMoviePath();
 }
@@ -539,6 +566,20 @@ void loopier::scaleClip(const string clipname, const float scale)
 }
 
 //---------------------------------------------------------------------------
+void loopier::setClipWidth(const string clipname, const float width)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setScaleX(width);
+}
+
+//---------------------------------------------------------------------------
+void loopier::setClipHeight(const string clipname, const float height)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setScaleY(height);
+}
+
+//---------------------------------------------------------------------------
 void loopier::scaleUpClip(const string clipname, const float amount)
 {
     if(!loopier::clipExists(clipname)) return;
@@ -561,6 +602,20 @@ void loopier::resetClipScale(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->setScale(1.0);
+}
+
+//---------------------------------------------------------------------------
+void loopier::setClipVFlip(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->flipV();
+}
+
+//---------------------------------------------------------------------------
+void loopier::setClipHFlip(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->flipH();
 }
 
 //---------------------------------------------------------------------------
