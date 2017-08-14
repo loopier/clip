@@ -17,7 +17,7 @@ namespace loopier
     class Clip
     {
     public:
-        Clip();
+//        Clip();
         /// \param name         String  Name of clip instance
         /// \param moviename   String  Name of movie.  See 'addMovie(...)'
         Clip(string& clipname, string& moviename);
@@ -103,7 +103,7 @@ namespace loopier
         vector<int> sequenceOrder; ///< Each element is a movie index.  They'll be played in order.
         
         
-//        Clip(); // Disable default constructor.  All clips must have a name
+        Clip(); // Disable default constructor.  All clips must have a name
         
         /// \brief  Moves on to next movie when current is done
         void updateSequence();

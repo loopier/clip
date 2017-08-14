@@ -21,11 +21,14 @@ loopier::ClipMap loopier::clips; // the list of clips available everywhere
 //  MANAGE CLIPS
 //------------------------------------------
 
+
+//---------------------------------------------------------------------------
 loopier::ClipPtr loopier::newClip(string clipname)
 {
     return loopier::newClip(clipname, "default");
 }
 
+//---------------------------------------------------------------------------
 loopier::ClipPtr loopier::newClip(string clipname, string moviename)
 {
     loopier::ClipPtr clip(new loopier::Clip(clipname, moviename));
@@ -33,12 +36,13 @@ loopier::ClipPtr loopier::newClip(string clipname, string moviename)
     clips[clip->getName()] = clip;
     return clip;
 }
-
+//---------------------------------------------------------------------------
 void loopier::removeClip(const string& clipname)
 {
     loopier::clips.erase(clipname);
 }
 
+//---------------------------------------------------------------------------
 void loopier::clearClips()
 {
     loopier::clips.clear();
@@ -47,6 +51,8 @@ void loopier::clearClips()
 //------------------------------------------
 //  UPDATE and DRAW CLIPS
 //------------------------------------------
+
+//---------------------------------------------------------------------------
 void loopier::updateClips()
 {
     loopier::ClipMap::iterator it;
@@ -55,6 +61,7 @@ void loopier::updateClips()
     }
 }
 
+//---------------------------------------------------------------------------
 void loopier::drawClips()
 {
     loopier::ClipMap::iterator it;
@@ -67,6 +74,7 @@ void loopier::drawClips()
 //  CLIP LIST UTILS
 //------------------------------------------
 
+//---------------------------------------------------------------------------
 void loopier::listClipNames()
 {
     string msg = "Number of clips:\t" + ofToString(clips.size());
@@ -78,6 +86,7 @@ void loopier::listClipNames()
     ofLogNotice() << msg;
 }
 
+//---------------------------------------------------------------------------
 void loopier::listClips()
 {
     string msg = "Number of clips:\t" + ofToString(clips.size());
@@ -89,6 +98,7 @@ void loopier::listClips()
 //    ofLogNotice() << msg;
 }
 
+//---------------------------------------------------------------------------
 bool loopier::clipExists(const string clipname)
 {
     bool b = clips.count(clipname);
@@ -276,11 +286,13 @@ void loopier::setClipMovieSequenceOrder(const string clipname, const string sequ
 //------------------------------------------
 //  CONSTRUCTORS
 //------------------------------------------
+//---------------------------------------------------------------------------
 loopier::Clip::Clip()
 {
     // --- DISABLED ---
 }
 
+//---------------------------------------------------------------------------
 loopier::Clip::Clip(string& clipname, string& moviename)
 : name(clipname)
 , x(0)
@@ -300,11 +312,13 @@ loopier::Clip::Clip(string& clipname, string& moviename)
     addMovie(moviename);
 }
 
+//---------------------------------------------------------------------------
 loopier::Clip::~Clip()
 {
     
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::setup(bool bPlay)
 {
     sequenceOrder.push_back(0);
@@ -315,12 +329,14 @@ void loopier::Clip::setup(bool bPlay)
     reset();
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::update()
 {
     if (bPlaySequence) updateSequence();
     movie->update();
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::draw()
 {
     ofSetColor(255,255,255, 255 * alpha);
@@ -336,6 +352,7 @@ void loopier::Clip::draw()
     
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::reset()
 {
     width = movie->getWidth();
@@ -349,17 +366,20 @@ void loopier::Clip::reset()
     alpha = 1.0;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::setName(const string &newName)
 {
     ofLogVerbose() << name << " changing name to: " << scale;
     name = newName;
 }
 
+//---------------------------------------------------------------------------
 string loopier::Clip::getName() const
 {
     return name;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::play()
 {
     movie->isPlaying()? movie->setPaused(true) : movie->play();
@@ -367,6 +387,7 @@ void loopier::Clip::play()
     ofLogVerbose() << (movie->isPlaying()? "play: " : "pause: ") << name ;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::stop()
 {
     movie->stop();
@@ -374,6 +395,7 @@ void loopier::Clip::stop()
     ofLogVerbose() << "stop: " << name ;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::pause(bool bPause)
 {
     movie->setPaused(bPause);
@@ -381,6 +403,7 @@ void loopier::Clip::pause(bool bPause)
     ofLogVerbose() << "pause: " << name ;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::setLoopState(const ofLoopType state)
 {
     loopState = state;
@@ -388,11 +411,13 @@ void loopier::Clip::setLoopState(const ofLoopType state)
     if (movie->isPaused()) movie->play();
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::setSpeed(const float newSpeed)
 {
     movie->setSpeed(newSpeed);
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::setScale(const float newScale)
 {
     
@@ -411,11 +436,13 @@ void loopier::Clip::setScale(const float newScale)
     ofLogVerbose() << name << " scale: " << scale;
 }
 
+//---------------------------------------------------------------------------
 float loopier::Clip::getScale() const
 {
     return scale;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::setPosition(const float newX, const float newY)
 {
     x = newX * ofGetWidth();
@@ -424,16 +451,19 @@ void loopier::Clip::setPosition(const float newX, const float newY)
     ofLogVerbose() << "Clip::" << __FUNCTION__ << "\t" << name << " \tx: " << x << " - y: " << y;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::setPosition(const ofPoint& newPosition)
 {
     setPosition(newPosition.x, newPosition.y);
 }
 
+//---------------------------------------------------------------------------
 ofPoint loopier::Clip::getPosition() const
 {
     return ofPoint(x,y);
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::toggleFullscreen()
 {
     fullscreen = !fullscreen;
@@ -441,21 +471,25 @@ void loopier::Clip::toggleFullscreen()
     ofLogVerbose() << name << " fullscreen: "<< (fullscreen? "on" : "off");
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::setAlpha(const float newAlpha)
 {
     alpha = newAlpha;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::toggleName()
 {
     bDrawName = !bDrawName;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::showName()
 {
     bDrawName = false;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::hideName()
 {
     bDrawName = false;
@@ -476,6 +510,7 @@ void loopier::Clip::listMovies()
     ofLogNotice() << msg;
 }
 
+//---------------------------------------------------------------------------
 loopier::MoviePtr loopier::Clip::addMovie(const string & moviename)
 {
     MoviePtr movie = make_shared<Movie>(loopier::Video::copyMovie(moviename));
@@ -486,6 +521,7 @@ loopier::MoviePtr loopier::Clip::addMovie(const string & moviename)
     return movie;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::setMovie(int index)
 {
     movie->stop();
@@ -497,6 +533,7 @@ void loopier::Clip::setMovie(int index)
     ofLogVerbose() << "'" << name << "' set current movie to: " << movie->getMoviePath();
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::setPlayMovieSequence(const bool & bseq)
 {
     bPlaySequence = bseq;
@@ -504,6 +541,7 @@ void loopier::Clip::setPlayMovieSequence(const bool & bseq)
     else        movie->setLoopState(loopState);
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::setMovieSequenceOrder(const vector<int>& newSequence)
 {
     
@@ -520,6 +558,7 @@ void loopier::Clip::setMovieSequenceOrder(const vector<int>& newSequence)
     ofLogVerbose() << msg;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Clip::setMovieSequenceOrder(const string& newSequence)
 {
     vector<string>  tokens  = ofSplitString(newSequence, ",", true, true);
@@ -536,6 +575,7 @@ void loopier::Clip::setMovieSequenceOrder(const string& newSequence)
 //      PRIVATE METHODS
 //------------------------------------------------------------------------------------------
 
+//---------------------------------------------------------------------------
 void loopier::Clip::updateSequence()
 {
     // Just change movie when movieis done
