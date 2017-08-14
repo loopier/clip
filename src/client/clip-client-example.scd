@@ -44,8 +44,19 @@ m.sendMsg("/loopier/clip/clip", "exampleclip", "reset");
 m.sendMsg("/loopier/clip/clip", "exampleclip", "scaleup", 0.1);
 m.sendMsg("/loopier/clip/clip", "exampleclip", "scaledown", 0.05);
 m.sendMsg("/loopier/clip/clip", "exampleclip", "scale", 2.0.rand);
+m.sendMsg("/loopier/clip/clip", "exampleclip", "xscale", 0.5);
+m.sendMsg("/loopier/clip/clip", "exampleclip", "yscale", 3);
 m.sendMsg("/loopier/clip/clip", "exampleclip", "resetscale");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "togglefullscreen");
+// vertical flip
+m.sendMsg("/loopier/clip/clip", "exampleclip", "vflip");
+// horizontal flip
+m.sendMsg("/loopier/clip/clip", "exampleclip", "hflip");
+// toggle fullscreen
+m.sendMsg("/loopier/clip/clip", "exampleclip", "fullscreen");
+// toggle visibility
+m.sendMsg("/loopier/clip/clip", "exampleclip", "togglevisibility");
+m.sendMsg("/loopier/clip/clip", "exampleclip", "show");
+m.sendMsg("/loopier/clip/clip", "exampleclip", "hide");
 // Dimensions of window are normalized.  So moving is always between 0 and 1
 m.sendMsg("/loopier/clip/clip", "exampleclip", "moveto", 1.0.rand, 1.0.rand);
 
