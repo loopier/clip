@@ -47,12 +47,11 @@ namespace loopier {
         static void             setMoviesPath(const string & newPath);
         /// \brief  Loads resources from the basepath
         static void             preloadMovies();
-        static vector<string>   getMovieNames();// !!! FIX:  used to be -- getPlayerNames();
+        static vector<string>   getMovieNames();
         /// \brief  Prints available players to console
-        static void             listMovieNames();// !!! FIX:  used to be -- listPlayerNames();
-        static bool             movieExists(const string & moviename);// !!! FIX:  used to be -- playerExists(const string & playername);
-        /// \brief  Returns a copy of the movie
-        static Movie            copyMovie(const string & moviename);// !!! FIX:  used to be -- getPlayer(const string & playername);
+        static void             listMovieNames();
+        static bool             movieExists(const string & moviename);
+        static const string     getMoviePath(const string & moviename);
     private:
         static string   moviespath;
         static MovieMap movies;

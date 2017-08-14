@@ -87,10 +87,10 @@ void loopier::Video::listMovieNames()
 }
 
 //---------------------------------------------------------------------------
-loopier::Movie loopier::Video::copyMovie(const string & moviename)
+const string loopier::Video::getMoviePath(const string & moviename)
 {
     if (!movieExists(moviename))  return;
-    return  movies[moviename];
+    return  movies[moviename].getMoviePath();
 }
 
 //---------------------------------------------------------------------------

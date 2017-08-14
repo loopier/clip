@@ -7,8 +7,15 @@ void ofApp::setup(){
     /// -------------------------------------------------------------------------------
     /// --------------  TESTING     --------------
     /// -------------------------------------------------------------------------------
-
-
+    
+//    loopier::Video::preloadMovies();
+//    
+//    loopier::newClip("defo");
+//    loopier::addMovieToClip("defo", "mamma");
+//    
+//    loopier::newClip("mamamia", "mamma");
+//    
+//    loopier::listClips();
 //    
 //    ofExit();
 //    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
