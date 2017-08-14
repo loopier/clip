@@ -35,8 +35,9 @@ loopier::Clip::Clip(string& clipname, string& moviename)
 , scaleY(1.0)
 , anchorPercentX(0.5)
 , anchorPercentY(0.5)
-, fullscreen(false)
 , alpha(1.0)
+, bFullscreen(false)
+, bVisible(true)
 , bDrawName(false)
 , loopState(OF_LOOP_NORMAL)
 {
@@ -70,9 +71,11 @@ void loopier::Clip::update()
 //---------------------------------------------------------------------------
 void loopier::Clip::draw()
 {
+    if (!bVisible) return;
+    
     ofSetColor(255,255,255, 255 * alpha);
     
-    if (fullscreen) {
+    if (bFullscreen) {
         int fx = ofGetWidth() / 2;
         int fy = ofGetHeight() / 2;
         int fw = ofGetWidth() * ofSign(scaleX);
@@ -211,8 +214,29 @@ ofPoint loopier::Clip::getPosition() const
 //---------------------------------------------------------------------------
 void loopier::Clip::toggleFullscreen()
 {
-    fullscreen = !fullscreen;
-    ofLogVerbose() << name << " fullscreen: "<< (fullscreen? "on" : "off");
+    bFullscreen = !bFullscreen;
+    ofLogVerbose() << "'" << name << "' fullscreen: "<< (bFullscreen? "on" : "off");
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::toggleVisibility()
+{
+    bVisible = !bVisible;
+    ofLogVerbose() << "'" << name << "' visibility: "<< (bVisible? "on" : "off");
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::show()
+{
+    bVisible = true;
+    ofLogVerbose() << "'" << name << "' visibility: on";
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::hide()
+{
+    bVisible = false;
+    ofLogVerbose() << "'" << name << "' visibility: off";
 }
 
 //---------------------------------------------------------------------------
@@ -618,11 +642,38 @@ void loopier::setClipHFlip(const string clipname)
     loopier::clips[clipname]->flipH();
 }
 
+//------------------------------------------
+//  FULSCREEN
+//------------------------------------------
 //---------------------------------------------------------------------------
 void loopier::toggleFullscreenClip(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->toggleFullscreen();
+}
+
+//------------------------------------------
+//  VISIBILITY
+//------------------------------------------
+//---------------------------------------------------------------------------
+void loopier::toggleClipVisibility(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->toggleVisibility();
+}
+
+//---------------------------------------------------------------------------
+void loopier::showClip(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->show();
+}
+
+//---------------------------------------------------------------------------
+void loopier::hideClip(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->hide();
 }
 
 //------------------------------------------

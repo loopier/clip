@@ -48,6 +48,9 @@ namespace loopier
         ofPoint getPosition() const;
         
         void toggleFullscreen();
+        void toggleVisibility();
+        void show();
+        void hide();
         
         void setAlpha(const float newAlpha);
         
@@ -99,10 +102,11 @@ namespace loopier
         float   width, height;
         float   scale, scaleX, scaleY;
         float   anchorPercentX, anchorPercentY;
-        bool    fullscreen;
         float   alpha; ///< Transparency of the clip
         
+        bool    bFullscreen;
         bool    bDrawName;
+        bool    bVisible;
         
         // transforms
         bool    bFlipV; ///< Flip vertically
@@ -190,24 +194,8 @@ namespace loopier
     // change movie source
     // set speed
     void setClipSpeed(const string clipname, const float speed);
-    // set duration -- back to first frame after N seconds
-    // play range -- normalized [0.0-1.0]
-    // start at frame|normalized X
-    // end at frame|normalized X
-    // get total duration in seconds
-    // get total number of frames
     /// \brief Set loop state (none | normal | palindrome)
     void setClipLoopState(const string clipname, const ofLoopType state);
-    // pause at last frame when not looping
-    // go to frame
-    // set frame rate
-    // get frame rate
-    // sync all clips
-    // sync one clip with another clip
-    
-    // ----- ARRANGE CLIPS -----
-    // to front / set front clip
-    // set clip depth
     
     // ----- CLIP ATTRIBUTES -----
     // reset all attributes
@@ -232,10 +220,13 @@ namespace loopier
     void setClipHFlip(const string clipname);
     // toggle fullscreen
     void toggleFullscreenClip(const string clipname);
+    /// \brief  Toggle clip visibility
+    void toggleClipVisibility(const string clipname);
+    void showClip(const string clipname);
+    void hideClip(const string clipname);
     // tint
     // transparency
     void setClipAlpha(const string clipname, const float alpha);
-    // blendmodes
     // reset attributes -- factory defaults
     
     
