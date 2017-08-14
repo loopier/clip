@@ -8,16 +8,15 @@
 
 #include "Video.h"
 
-
-loopier::VideoPlayerMap  loopier::Video::players;
-string  loopier::Video::moviespath = "/Users/roger/Library/Application Support/Clip/resources/movies";
+loopier::MovieMap   loopier::Video::movies;
+string              loopier::Video::moviespath = "/Users/roger/Library/Application Support/Clip/resources/movies";
 
 void loopier::Video::setMoviesPath(const string & newPath)
 {
     moviespath = newPath;
 }
 
-void loopier::Video::preload()
+void loopier::Video::preloadMovies()
 {
     ofLogVerbose() << "Preloading movie files:";
     
@@ -40,56 +39,59 @@ void loopier::Video::preload()
         
         for (int x = 0; x < files.size(); x++) {
             ofFile file = files[x];
-            newPlayerFromFile(file.getBaseName(), file.getAbsolutePath());
+            newMovieFromFile(file.getBaseName(), file.getAbsolutePath());
         }
     }
     
     ofLogVerbose() << "Finished loading movie files";
-    printNames();
+    listMovieNames();
 }
 
-void loopier::Video::newPlayerFromFile(const string & playername, const string & path)
+void loopier::Video::newMovieFromFile(const string & moviename, const string & path)
 {
-    VideoPlayerPtr player(new VideoPlayer());
-    player->load(path);
-    loopier::Video::players[playername] = player;
-    ofLogVerbose()  << playername << " : " << ofFile(path).getFileName() << "\tadded to player list " ;
+    Movie movie;
+    movie.load(path);
+    loopier::Video::movies[moviename] = movie;
+    ofLogVerbose()  << moviename << " : " << ofFile(path).getFileName() << "\tadded to movie list " ;
 }
 
-vector<string>  loopier::Video::getPlayerNames()
+vector<string>  loopier::Video::getMovieNames()
 {
     vector<string> names;
     
-    loopier::VideoPlayerMap::iterator it;
-    for (it = loopier::Video::players.begin(); it != loopier::Video::players.end(); ++it) {
+    loopier::MovieMap::iterator it;
+    for (it = loopier::Video::movies.begin(); it != loopier::Video::movies.end(); ++it) {
         names.push_back(it->first);
     }
     
     return names;
 }
 
-void loopier::Video::printNames()
+void loopier::Video::listMovieNames()
 {
-    loopier::VideoPlayerMap::iterator it;
-    for (it = loopier::Video::players.begin(); it != loopier::Video::players.end(); ++it) {
-        
-        ofLogVerbose() << (it->first) << "\t:\t" << ofFile((*it->second).getMoviePath()).getFileName();
+    if (movies.size() < 1) {
+        ofLogError() << "Sorry, no movies available";
+        return;
     }
     
+    loopier::MovieMap::iterator it;
+    for (it = loopier::Video::movies.begin(); it != loopier::Video::movies.end(); ++it) {
+        ofLogNotice() << (it->first) << "\t:\t" << ofFile((it->second).getMoviePath()).getFileName();
+    }
 }
 
-loopier::VideoPlayerPtr    loopier::Video::getPlayer(const string & playername)
+loopier::Movie loopier::Video::copyMovie(const string & moviename)
 {
-    if (!playerExists(playername))  return;
-    return  players[playername];
+    if (!movieExists(moviename))  return;
+    return  movies[moviename];
 }
 
-bool    loopier::Video::playerExists(const string & playername)
+bool loopier::Video::movieExists(const string & moviename)
 {
-    bool b = players.count(playername);
+    bool b = movies.count(moviename);
     
     if (!b) {
-        ofLogWarning() << "\tTrying to acces a player named '" << playername << "'.\n"
+        ofLogWarning() << "\tTrying to acces a movie named '" << moviename << "'.\n"
         <<  "\t\t\tIt doesn't exist.  Skipping action.";
     }
     
