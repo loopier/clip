@@ -100,8 +100,9 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
     // messages have the format /loopier/clip "name" "command" [arg1, ... , argN]
     else if (msg.getAddress() == "/loopier/clip/clip") {
         
-        string name = msg.getArgAsString(0);
-        string command = msg.getArgAsString(1);
+        string  name = msg.getArgAsString(0);
+        string  command = msg.getArgAsString(1);
+        int     numargs = msg.getNumArgs();
         
         if      (command == "new" && msg.getNumArgs() <= 2)  loopier::newClip(name);
         else if (command == "new" && msg.getNumArgs() >= 3)  loopier::newClip(name, msg.getArgAsString(2));
@@ -132,8 +133,11 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         else if (command == "moveto")    loopier::moveClipTo(name, msg.getArgAsFloat(2), msg.getArgAsFloat(3));
         else if (command == "alpha")     loopier::setClipAlpha(name, msg.getArgAsFloat(2));
         
+        // managing movies
+        
         else if (command == "listmovies")   loopier::listClipMovies(name);
         else if (command == "addmovie")     loopier::addMovieToClip(name, msg.getArgAsString(2));
+        else if (command == "setmovie")     loopier::setClipMovie(name, msg.getArgAsInt(2));
         
         else { printOscMessageMisstypingWarning(); return; }
     }

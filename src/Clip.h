@@ -64,6 +64,8 @@ namespace loopier
         ///                             If the movie doesn't exist it gets the default.
         /// \returns    The movie added
         MoviePtr    addMovie(const string & moviename);
+        /// \brief  Sets the movie to be displayed
+        void        setMovie(int index);
         
     private:
         MoviePtr  movie; ///< The movie that is currently used
@@ -73,6 +75,7 @@ namespace loopier
         float   x, y;
         float   width, height;
         float   scale, scaleX, scaleY;
+        float   anchorPercentX, anchorPercentY;
         bool    fullscreen;
         float   alpha; ///< Transparency of the clip
         
@@ -196,8 +199,12 @@ namespace loopier
     // reset attributes -- factory defaults
     
     
-    // ----- SINGLE CLIP UTILS -----
+    // ----- MANAGING CLIP'S MOVIES  -----
     void listClipMovies(const string clipname);
+    /// \brief  Changes the movie being displayed
+    /// \param  clipname    String  Name of clip
+    /// \param  index       Int     Index of the movie in the clip's movie list
+    void setClipMovie(const string clipname, const int index);
 }
 
 #endif /* Clip_hpp */

@@ -238,12 +238,18 @@ void loopier::setClipAlpha(const string clipname, const float alpha)
 }
 
 //------------------------------------------
-//  SINGLE CLIP UTILS
+//  MANAGING CLIP'S MOVIES
 //------------------------------------------
 void loopier::listClipMovies(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->listMovies();
+}
+
+void loopier::setClipMovie(const string clipname, const int index)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setMovie(index);
 }
 
 //-------------------------------------------------------------------
@@ -270,6 +276,8 @@ loopier::Clip::Clip(string& clipname, string& moviename)
 , scale(1.0)
 , scaleX(1.0)
 , scaleY(1.0)
+, anchorPercentX(0.5)
+, anchorPercentY(0.5)
 , fullscreen(false)
 , alpha(1.0)
 , bDrawName(false)
@@ -301,8 +309,10 @@ void loopier::Clip::draw()
     ofSetColor(255,255,255, 255 * alpha);
     
     if (fullscreen) {
+        movie->setAnchorPercent(0, 0);
         movie->draw(0, 0, ofGetWidth(), ofGetHeight());
     } else {
+        movie->setAnchorPercent(anchorPercentX, anchorPercentY);
         movie->draw(x, y, width, height);
         if (bDrawName)  ofDrawBitmapString(name, x, y);
     }
@@ -313,7 +323,7 @@ void loopier::Clip::reset()
 {
     width = movie->getWidth();
     height = movie->getHeight();
-    movie->setAnchorPercent(0.5, 0.5);
+    movie->setAnchorPercent(anchorPercentX, anchorPercentY);
     x = ofGetWidth() / 2;
     y = ofGetHeight() / 2;
     scale = 1.0;
@@ -374,8 +384,11 @@ void loopier::Clip::setScale(const float newScale)
         scale = 0.1;
     }
     
-    width = movie->getWidth() * scale;
-    height = movie->getHeight() * scale;
+    scaleX = scale;
+    scaleY = scale;
+    
+    width = movie->getWidth() * scaleX;
+    height = movie->getHeight() * scaleY;
     
     ofLogVerbose() << name << " scale: " << scale;
 }
@@ -445,11 +458,6 @@ void loopier::Clip::listMovies()
     ofLogNotice() << msg;
 }
 
-
-//------------------------------------------------------------------------------------------
-//      PRIVATE METHODS
-//------------------------------------------------------------------------------------------
-
 loopier::MoviePtr loopier::Clip::addMovie(const string & moviename)
 {
     MoviePtr movie = make_shared<Movie>(loopier::Video::copyMovie(moviename));
@@ -458,6 +466,16 @@ loopier::MoviePtr loopier::Clip::addMovie(const string & moviename)
     ofLogVerbose() << "'" << moviename << "' movie added to clip '" << name << "'";
     
     return movie;
+}
+
+void loopier::Clip::setMovie(int index)
+{
+    index = min(index, int(movies.size()-1));
+    movie = movies[index];
+    movie->play();
+    movie->setAnchorPercent(anchorPercentX, anchorPercentY);
+    
+    ofLogVerbose() << "'" << name << "' set current movie to: " << movie->getMoviePath();
 }
 
 //------------------------------------------------------------------------------------------

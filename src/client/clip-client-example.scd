@@ -18,18 +18,12 @@ m.sendMsg("/loopier/clip/clips", "hidenames");
 
 
 //------------------------------------------------------------------
-//  SINGLE CLIP COMANDS
+//  SINGLE CLIP COMMANDS
 //------------------------------------------------------------------
 
-// move, scale, reset...
-m.sendMsg("/loopier/clip/clip", "exampleclip", "reset");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "scaleup", 0.1);
-m.sendMsg("/loopier/clip/clip", "exampleclip", "scaledown", 0.05);
-m.sendMsg("/loopier/clip/clip", "exampleclip", "scale", 2.0.rand);
-m.sendMsg("/loopier/clip/clip", "exampleclip", "resetscale");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "togglefullscreen");
-// Dimensions of window are normalized.  So moving is always between 0 and 1
-m.sendMsg("/loopier/clip/clip", "exampleclip", "moveto", 1.0.rand, 1.0.rand);
+
+// PLAYING   ------------------------------------------------------
+
 // play, pause or stop movie
 m.sendMsg("/loopier/clip/clip", "exampleclip", "play");
 m.sendMsg("/loopier/clip/clip", "exampleclip", "stop");
@@ -40,12 +34,36 @@ m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "normal");
 m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "palindrome");
 // change movie speed
 m.sendMsg("/loopier/clip/clip", "exampleclip", "speed", 2);
+
+// LOOK & FEEL  ------------------------------------------------------
+
+// DIMENSIONS
+
+// move, scale, reset...
+m.sendMsg("/loopier/clip/clip", "exampleclip", "reset");
+m.sendMsg("/loopier/clip/clip", "exampleclip", "scaleup", 0.1);
+m.sendMsg("/loopier/clip/clip", "exampleclip", "scaledown", 0.05);
+m.sendMsg("/loopier/clip/clip", "exampleclip", "scale", 2.0.rand);
+m.sendMsg("/loopier/clip/clip", "exampleclip", "resetscale");
+m.sendMsg("/loopier/clip/clip", "exampleclip", "togglefullscreen");
+// Dimensions of window are normalized.  So moving is always between 0 and 1
+m.sendMsg("/loopier/clip/clip", "exampleclip", "moveto", 1.0.rand, 1.0.rand);
+
+// COLOR
+
 // change transparency
 m.sendMsg("/loopier/clip/clip", "exampleclip", "alpha", 0.5);
+
+// MANAGING MOVIES  ------------------------------------------------
+
 // list the movies in the clip
 m.sendMsg("/loopier/clip/clip", "exampleclip", "listmovies");
 // add a movie to the clip
 m.sendMsg("/loopier/clip/clip", "exampleclip", "addmovie", "mamma");
+// play the new movie
+m.sendMsg("/loopier/clip/clip", "exampleclip", "setmovie", 1);
+// back to the first movie
+m.sendMsg("/loopier/clip/clip", "exampleclip", "setmovie", 0);
 
 //------------------------------------------------------------------
 //  ANOTHER CLIP
