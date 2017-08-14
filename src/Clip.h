@@ -17,7 +17,7 @@ namespace loopier
     class Clip
     {
     public:
-        Clip();
+//        Clip();
         /// \param name         String  Name of clip instance
         /// \param moviename   String  Name of movie.  See 'addMovie(...)'
         Clip(string& clipname, string& moviename);
@@ -64,6 +64,24 @@ namespace loopier
         ///                             If the movie doesn't exist it gets the default.
         /// \returns    The movie added
         MoviePtr    addMovie(const string & moviename);
+        /// \brief  Sets the movie to be displayed
+        void        setMovie(int index);
+        /// \brief  If True is passed, all movies will be played one after the other. See 'setSequenceOrder(...)'
+        void        setPlayMovieSequence(const bool & bseq=true);
+        /// \brief  Sets the order in which the movies will be played.
+        /// \description    Movies can be played more than once.  Just put their index wherever you want them
+        ///                 to be played.  E.g.: {0,1,2,3..} would play them in order; while {1, 0, 0, 3...}
+        ///                 would play the second movie, then twice the first one, skip the third and play
+        ///                 the forth one... -- REMBEMBER: First movie is index:'0'!!
+        /// \param  sequence    Vector<int>     A list of numbers: {0,3,4,1,2,3,4,...}
+        void        setMovieSequenceOrder(const vector<int>& newSequence);
+        /// \brief  Sets the order in which the movies will be played.
+        /// \description    Movies can be played more than once.  Just put their index wherever you want them
+        ///                 to be played.  E.g.: "0,1,2,3" would play them in order; while "1, 0, 0, 3"
+        ///                 would play the second movie, then twice the first one, skip the third and play
+        ///                 the forth one... -- REMBEMBER: First movie is index:'0'!!
+        /// \param  sequence    String      A list of numbers: "0,2,0,1,2"
+        void        setMovieSequenceOrder(const string& newSequence);
         
     private:
         MoviePtr  movie; ///< The movie that is currently used
@@ -73,16 +91,22 @@ namespace loopier
         float   x, y;
         float   width, height;
         float   scale, scaleX, scaleY;
+        float   anchorPercentX, anchorPercentY;
         bool    fullscreen;
         float   alpha; ///< Transparency of the clip
         
         bool    bDrawName;
         
-//        Clip(); // Disable default constructor.  All clips must have a name
+        ofLoopType  loopState;    ///< See ofSetLoopState(...)
+        bool        bPlaySequence; ///< If true, all movies are played in sequence order.
+        int         sequenceIndex; ///< Used to keep track of the sequence order.
+        vector<int> sequenceOrder; ///< Each element is a movie index.  They'll be played in order.
         
         
+        Clip(); // Disable default constructor.  All clips must have a name
         
-        // ----- HELPERS -----
+        /// \brief  Moves on to next movie when current is done
+        void updateSequence();
     };
     
     //------------------------------------------
@@ -196,8 +220,16 @@ namespace loopier
     // reset attributes -- factory defaults
     
     
-    // ----- SINGLE CLIP UTILS -----
+    // ----- MANAGING CLIP'S MOVIES  -----
     void listClipMovies(const string clipname);
+    /// \brief  Changes the movie being displayed
+    /// \param  clipname    String  Name of clip
+    /// \param  index       Int     Index of the movie in the clip's movie list
+    void setClipMovie(const string clipname, const int index);
+    void playClipMovieSequence(const string clipname);
+    
+    /// \brief  See Clip::setSequenceOrder(...)
+    void setClipMovieSequenceOrder(const string clipname, const string sequence);
 }
 
 #endif /* Clip_hpp */

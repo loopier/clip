@@ -8,14 +8,17 @@
 
 #include "Video.h"
 
+//---------------------------------------------------------------------------
 loopier::MovieMap   loopier::Video::movies;
 string              loopier::Video::moviespath = "/Users/roger/Library/Application Support/Clip/resources/movies";
 
+//---------------------------------------------------------------------------
 void loopier::Video::setMoviesPath(const string & newPath)
 {
     moviespath = newPath;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Video::preloadMovies()
 {
     ofLogVerbose() << "Preloading movie files:";
@@ -47,6 +50,7 @@ void loopier::Video::preloadMovies()
     listMovieNames();
 }
 
+//---------------------------------------------------------------------------
 void loopier::Video::newMovieFromFile(const string & moviename, const string & path)
 {
     Movie movie;
@@ -55,6 +59,7 @@ void loopier::Video::newMovieFromFile(const string & moviename, const string & p
     ofLogVerbose()  << moviename << " : " << ofFile(path).getFileName() << "\tadded to movie list " ;
 }
 
+//---------------------------------------------------------------------------
 vector<string>  loopier::Video::getMovieNames()
 {
     vector<string> names;
@@ -67,6 +72,7 @@ vector<string>  loopier::Video::getMovieNames()
     return names;
 }
 
+//---------------------------------------------------------------------------
 void loopier::Video::listMovieNames()
 {
     if (movies.size() < 1) {
@@ -80,12 +86,14 @@ void loopier::Video::listMovieNames()
     }
 }
 
-loopier::Movie loopier::Video::copyMovie(const string & moviename)
+//---------------------------------------------------------------------------
+const string loopier::Video::getMoviePath(const string & moviename)
 {
     if (!movieExists(moviename))  return;
-    return  movies[moviename];
+    return  movies[moviename].getMoviePath();
 }
 
+//---------------------------------------------------------------------------
 bool loopier::Video::movieExists(const string & moviename)
 {
     bool b = movies.count(moviename);

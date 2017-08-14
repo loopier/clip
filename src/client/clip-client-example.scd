@@ -2,7 +2,10 @@
 m = NetAddr("localhost", 12345);
 
 
-// CLIP LIST COMMANDS
+
+//------------------------------------------------------------------
+//   CLIP LIST COMMANDS
+//------------------------------------------------------------------
 
 // print list of clips to (app's) console
 m.sendMsg("/loopier/clip/clips", "listnames");
@@ -13,16 +16,14 @@ m.sendMsg("/loopier/clip/clips", "togglenames");
 m.sendMsg("/loopier/clip/clips", "shownames");
 m.sendMsg("/loopier/clip/clips", "hidenames");
 
-// SINGLE CLIP COMMANDS
-// move, scale, reset...
-m.sendMsg("/loopier/clip/clip", "exampleclip", "reset");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "scaleup", 0.1);
-m.sendMsg("/loopier/clip/clip", "exampleclip", "scaledown", 0.05);
-m.sendMsg("/loopier/clip/clip", "exampleclip", "scale", 2.0.rand);
-m.sendMsg("/loopier/clip/clip", "exampleclip", "resetscale");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "togglefullscreen");
-// Dimensions of window are normalized.  So moving is always between 0 and 1
-m.sendMsg("/loopier/clip/clip", "exampleclip", "moveto", 1.0.rand, 1.0.rand);
+
+//------------------------------------------------------------------
+//  SINGLE CLIP COMMANDS
+//------------------------------------------------------------------
+
+
+// PLAYING   ------------------------------------------------------
+
 // play, pause or stop movie
 m.sendMsg("/loopier/clip/clip", "exampleclip", "play");
 m.sendMsg("/loopier/clip/clip", "exampleclip", "stop");
@@ -33,12 +34,46 @@ m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "normal");
 m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "palindrome");
 // change movie speed
 m.sendMsg("/loopier/clip/clip", "exampleclip", "speed", 2);
+
+// LOOK & FEEL  ------------------------------------------------------
+
+// DIMENSIONS
+
+// move, scale, reset...
+m.sendMsg("/loopier/clip/clip", "exampleclip", "reset");
+m.sendMsg("/loopier/clip/clip", "exampleclip", "scaleup", 0.1);
+m.sendMsg("/loopier/clip/clip", "exampleclip", "scaledown", 0.05);
+m.sendMsg("/loopier/clip/clip", "exampleclip", "scale", 2.0.rand);
+m.sendMsg("/loopier/clip/clip", "exampleclip", "resetscale");
+m.sendMsg("/loopier/clip/clip", "exampleclip", "togglefullscreen");
+// Dimensions of window are normalized.  So moving is always between 0 and 1
+m.sendMsg("/loopier/clip/clip", "exampleclip", "moveto", 1.0.rand, 1.0.rand);
+
+// COLOR
+
 // change transparency
 m.sendMsg("/loopier/clip/clip", "exampleclip", "alpha", 0.5);
+
+// MANAGING MOVIES  ------------------------------------------------
+
 // list the movies in the clip
 m.sendMsg("/loopier/clip/clip", "exampleclip", "listmovies");
 // add a movie to the clip
 m.sendMsg("/loopier/clip/clip", "exampleclip", "addmovie", "mamma");
+// play the new movie
+m.sendMsg("/loopier/clip/clip", "exampleclip", "setmovie", 1);
+// back to the first movie
+m.sendMsg("/loopier/clip/clip", "exampleclip", "setmovie", 0);
+
+// SEQUENCE
+// add yet another movie
+m.sendMsg("/loopier/clip/clip", "exampleclip", "addmovie", "crashtest");
+// and set a sequence
+m.sendMsg("/loopier/clip/clip", "exampleclip", "sequence", "0,1,2");
+
+//------------------------------------------------------------------
+//  ANOTHER CLIP
+//------------------------------------------------------------------
 
 // create a new clip named 'anotherclip'
 m.sendMsg("/loopier/clip/clip", "anotherclip", "new", "stress");
@@ -69,7 +104,11 @@ m.sendMsg("/loopier/clip/clip", "mamma", "moveto", 1.0.rand, 1.0.rand);
 m.sendMsg("/loopier/clip/clip", "mamma", "scale", 2.0.rand.postln);
 )
 
-// CONSOLE COMMANDS
+
+//------------------------------------------------------------------
+//  CONSOLE COMMANDS
+//------------------------------------------------------------------
+
 // print something
 m.sendMsg("/loopier/clip/console", "print", "hello world");
 // change prompt
