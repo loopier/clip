@@ -212,11 +212,11 @@ Application commands
 
 
 #### Toggle fullscreen
-  > `/loopier/clip "fullreen`
+  > `/loopier/clip "fullscreen"`
 
 
 #### Move the application window`
-  > `/loopier/clip "move 1.0`
+  > `/loopier/clip "move" 1.0`
 
 
 #### Quit
