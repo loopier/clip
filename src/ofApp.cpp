@@ -123,7 +123,10 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         else if (command == "resetscale")       loopier::resetClipScale(name);
         else if (command == "vflip")            loopier::setClipVFlip(name);
         else if (command == "hflip")            loopier::setClipHFlip(name);
-        else if (command == "togglefullscreen") loopier::toggleFullscreenClip(name);
+        else if (command == "fullscreen")       loopier::toggleFullscreenClip(name);
+        else if (command == "togglevisibility") loopier::toggleClipVisibility(name);
+        else if (command == "show")             loopier::showClip(name);
+        else if (command == "hide")             loopier::hideClip(name);
         
         // PLAY
         
