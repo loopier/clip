@@ -52,6 +52,7 @@ namespace loopier
         void show();
         void hide();
         
+        void setColor(const ofColor& newColor);
         void setAlpha(const float newAlpha);
         
         void toggleName();
@@ -102,6 +103,7 @@ namespace loopier
         float   width, height;
         float   scale, scaleX, scaleY;
         float   anchorPercentX, anchorPercentY;
+        ofColor color; ///< Tint
         float   alpha; ///< Transparency of the clip
         
         bool    bFullscreen;
@@ -225,6 +227,8 @@ namespace loopier
     void showClip(const string clipname);
     void hideClip(const string clipname);
     // tint
+    void setClipColor(const string clipname, const float & grayscale);
+    void setClipColor(const string clipname, const string & color);
     // transparency
     void setClipAlpha(const string clipname, const float alpha);
     // reset attributes -- factory defaults

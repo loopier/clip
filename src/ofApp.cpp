@@ -145,8 +145,9 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         
         // attributes
         
-        else if (command == "moveto")    loopier::moveClipTo(name, msg.getArgAsFloat(2), msg.getArgAsFloat(3));
-        else if (command == "alpha")     loopier::setClipAlpha(name, msg.getArgAsFloat(2));
+        else if (command == "moveto")   loopier::moveClipTo(name, msg.getArgAsFloat(2), msg.getArgAsFloat(3));
+        else if (command == "color")    loopier::setClipColor(name, msg.getArgAsString(2));
+        else if (command == "alpha")    loopier::setClipAlpha(name, msg.getArgAsFloat(2));
         
         // managing movies
         

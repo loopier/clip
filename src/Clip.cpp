@@ -33,6 +33,7 @@ loopier::Clip::Clip(string& clipname, string& moviename)
 , scaleY(1.0)
 , anchorPercentX(0.5)
 , anchorPercentY(0.5)
+, color(ofColor(255))
 , alpha(1.0)
 , bFullscreen(false)
 , bVisible(true)
@@ -71,7 +72,7 @@ void loopier::Clip::draw()
 {
     if (!bVisible) return;
     
-    ofSetColor(255,255,255, 255 * alpha);
+    ofSetColor(color);
     
     if (bFullscreen) {
         int fx = ofGetWidth() / 2;
@@ -99,6 +100,7 @@ void loopier::Clip::reset()
     scale = 1.0;
     scaleX = scale;
     scaleY = scale;
+    color = ofColor(255);
     alpha = 1.0;
 }
 
@@ -238,9 +240,18 @@ void loopier::Clip::hide()
 }
 
 //---------------------------------------------------------------------------
+void loopier::Clip::setColor(const ofColor & newColor)
+{
+    color = newColor;
+    color.a = alpha * 255;
+    ofLogVerbose() << __PRETTY_FUNCTION__ << color;
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::setAlpha(const float newAlpha)
 {
     alpha = newAlpha;
+    color.a;
 }
 
 //---------------------------------------------------------------------------
@@ -655,7 +666,42 @@ void loopier::hideClip(const string clipname)
 }
 
 //---------------------------------------------------------------------------
-//  ALPHA
+//  COLOR
+//---------------------------------------------------------------------------
+void loopier::setClipColor(const string clipname, const string& color)
+{
+    if(!loopier::clipExists(clipname)) return;
+    
+    vector<string> tokens = ofSplitString(color, ",", true, true);
+    
+    ofColor c;
+    
+    if (tokens.size() == 1) {
+        c = ofColor(ofToFloat(tokens[0]) * 255);
+    } else if (tokens.size() == 2) {
+        c = ofColor(ofToFloat(tokens[0]) * 255);
+        loopier::clips[clipname]->setAlpha(ofToFloat(tokens[1]));
+    } else {
+        c.r = ofToFloat(tokens[0]) * 255;
+        c.g = ofToFloat(tokens[1]) * 255;
+        c.b = ofToFloat(tokens[2]) * 255;
+    }
+    if (tokens.size() == 4) {
+        loopier::clips[clipname]->setAlpha(ofToFloat(tokens[3]));
+    }
+    
+    ofLogVerbose() << __PRETTY_FUNCTION__ << "\t" << c;
+    
+    loopier::clips[clipname]->setColor(c);
+}
+
+void loopier::setClipColor(const string clipname, const float& grayscale)
+{
+    if(!loopier::clipExists(clipname)) return;
+    
+    loopier::clips[clipname]->setColor(ofColor(grayscale * 255));
+}
+
 //---------------------------------------------------------------------------
 void loopier::setClipAlpha(const string clipname, const float alpha)
 {

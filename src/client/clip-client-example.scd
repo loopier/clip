@@ -65,7 +65,14 @@ m.sendMsg("/loopier/clip/clip", "exampleclip", "hide");
 m.sendMsg("/loopier/clip/clip", "exampleclip", "moveto", 1.0.rand, 1.0.rand);
 
 // COLOR
-
+// grayscale - 0.0 being black, 1.0 being white - It's a STRING argument!!
+m.sendMsg("/loopier/clip/clip", "hattoo", "color", "0.4");
+// grayscale with alfa - 0.0 being transparent, 1.0 being opaque
+m.sendMsg("/loopier/clip/clip", "hattoo", "color", "1,0.5");
+// RGB
+m.sendMsg("/loopier/clip/clip", "hattoo", "color", "1, 0.5, 0");
+// RGBA
+m.sendMsg("/loopier/clip/clip", "hattoo", "color", "1, 0, 1,0.5");
 // change transparency
 m.sendMsg("/loopier/clip/clip", "exampleclip", "alpha", 0.5);
 

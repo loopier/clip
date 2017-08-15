@@ -137,6 +137,23 @@ Single clip commands
 
   Window max size is `1.0`
 
+### Color
+
+#### Grayscale
+  > `/loopier/clip/clip "hattoo" "color" "0.4"`
+
+  `0.0` being black, `1.0` being white - **It's a `STRING` argument!!**
+
+#### Grayscale with alfa
+  > `/loopier/clip/clip "hattoo" "color" "1,0.5"`
+
+  `0.0` being transparent, `1.0` being opaque
+
+#### RGB
+  > `/loopier/clip/clip "hattoo" "color" "1, 0.5, 0"`
+
+#### RGBA
+  > `/loopier/clip/clip "hattoo" "color" "1, 0, 1,0.5"`
 
 #### Change transparency
 
