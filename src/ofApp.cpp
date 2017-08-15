@@ -29,6 +29,8 @@ void ofApp::setup(){
     ofBackground(0,0,0);
     ofSetVerticalSync(true);
     
+    loopier::ConsoleUI::setup();
+    
     applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/";
     init();
     
@@ -79,6 +81,7 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
             
             loopier::ConsoleUI::setColor(c);
         }
+        else if (command == "alpha")    loopier::ConsoleUI::setAlpha(msg.getArgAsFloat(1));
         
         else if (command == "prompt")   loopier::ConsoleUI::setPrompt(msg.getArgAsString(1));
         else if (command == "print")    loopier::ConsoleUI::print(msg.getArgAsString(1));
@@ -86,6 +89,9 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         else if (command == "toggle")   loopier::ConsoleUI::toggle();
         else if (command == "show")     loopier::ConsoleUI::show();
         else if (command == "hide")     loopier::ConsoleUI::hide();
+        else if (command == "moveto")   loopier::ConsoleUI::setPosition(msg.getArgAsFloat(1), msg.getArgAsFloat(2));
+        else if (command == "font")     loopier::ConsoleUI::setFont(msg.getArgAsString(1));
+        else if (command == "fontsize") loopier::ConsoleUI::setFontSize(msg.getArgAsInt(1));
         
         else { printOscMessageMisstypingWarning(); return; }
     }

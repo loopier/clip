@@ -136,7 +136,7 @@ m.sendMsg("/loopier/clip/console", "print", "hello world");
 // change prompt
 m.sendMsg("/loopier/clip/console", "prompt", ">> ");
 // set the maximum number of lilnes displayed
-m.sendMsg("/loopier/clip/console", "lines", 20);
+m.sendMsg("/loopier/clip/console", "lines", 1);
 // show or hide
 m.sendMsg("/loopier/clip/console", "toggle");
 m.sendMsg("/loopier/clip/console", "show");
@@ -148,10 +148,19 @@ m.sendMsg("/loopier/clip/console", "color", 0.75);
 m.sendMsg("/loopier/clip/console", "color", 1, 0.5);
 // RGB
 m.sendMsg("/loopier/clip/console", "color", 1, 0.5, 0);
+// set transparency
+m.sendMsg("/loopier/clip/console", "alpha", 0.5);
 // RGB with alpha -- seems it's not working
 // m.sendMsg("/loopier/clip/console", "color", 1, 1, 0, 0.5);
+m.sendMsg("/loopier/clip/console", "moveto", 0.5, 0.9)
 
-// APPLICATION COMMANDS
+m.sendMsg("/loopier/clip/console", "font", "OCRAStd.otf")
+m.sendMsg("/loopier/clip/console", "fontsize", 24)
+
+
+//------------------------------------------------------------------
+//  APPLICATION COMMANDS
+//------------------------------------------------------------------
 // toggle fullscreen
 m.sendMsg("/loopier/clip", "fullscreen")
 // move the application window

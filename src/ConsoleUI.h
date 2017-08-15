@@ -19,23 +19,33 @@ namespace loopier {
         static string           errorPrompt;
         static vector<string>   msg;
         static int              maxLines;
-        static float    x, y;
+        static int      x, y;
+        static float    lineX, lineY;
         static float    lineseparation;
         static ofColor  color;
+        static int      alpha;
         static ofColor  defaultColor;
         static ofColor  errorColor;
         static bool     bHide;
+        static ofTrueTypeFont   font;
+        static int              fontSize;
+        static string           fontName;
         
     public:
+        static void setup();
         static void draw();
         static void print(const string & s);
         static void printError(const string & s);
         static void setPrompt(const string & p);
         static void setColor(const ofColor & c);
+        static void setAlpha(const float & a);
         static void setMaxLines(const int max);
         static void toggle();
         static void show();
         static void hide();
+        static void setPosition(const float & newX, const float & newY);
+        static void setFont(const string & newFontName);
+        static void setFontSize(const int & newSize);
     };
 }
 
