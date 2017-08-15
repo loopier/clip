@@ -21,6 +21,8 @@ m.sendMsg("/loopier/clip/clips", "hidenames");
 //  SINGLE CLIP COMMANDS
 //------------------------------------------------------------------
 
+// create a clip
+m.sendMsg("/loopier/clip/clip", "exampleclip", "new");
 
 // PLAYING   ------------------------------------------------------
 
