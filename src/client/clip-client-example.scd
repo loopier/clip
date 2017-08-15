@@ -16,13 +16,15 @@ m.sendMsg("/loopier/clip/clips", "togglenames");
 m.sendMsg("/loopier/clip/clips", "shownames");
 m.sendMsg("/loopier/clip/clips", "hidenames");
 
-
 //------------------------------------------------------------------
 //  SINGLE CLIP COMMANDS
 //------------------------------------------------------------------
 
-// create a clip
+// create a clip with the 'default.mov' movie (if movie name is not provided it will pick 'default')
+m.sendMsg("/loopier/clip/clip", "exampleclip", "new", "mamma");
 m.sendMsg("/loopier/clip/clip", "exampleclip", "new");
+// create a clip with the 'default.mov' movie (if movie name is not provided it will pick 'default')
+m.sendMsg("/loopier/clip/clip", "exampleclip", "remove");
 
 // PLAYING   ------------------------------------------------------
 

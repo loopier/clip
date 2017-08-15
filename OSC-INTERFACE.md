@@ -19,7 +19,12 @@ Clip list commands
 
 
 #### Create a clip
-  > `/loopier/clip/clip "clipname" "new" "moviename"` - If no movie name is provided, it will get the default.
+  > `/loopier/clip/clip "clipname" "new" "moviename"`
+
+  If no movie name is provided, it will get the default.
+
+#### Delete a clip
+  > `/loopier/clip/clip "clipname" "remove"`
 
 
 #### Print list of clips to (app's) console
@@ -53,15 +58,23 @@ Single clip commands
 
 
 #### Loop (3 modes)
-  > `/loopier/clip/clip "exampleclip" "loop" "none"` - stops at the end of the movie.
+  > `/loopier/clip/clip "exampleclip" "loop" "none"`
 
-  > `/loopier/clip/clip "exampleclip" "loop" "normal"` - starts over and over again.
+  tops at the end of the movie.
 
-  > `/loopier/clip/clip "exampleclip" "loop" "palindrome"` - bounces back and forth from beginning to end and back to the beginning.
+  > `/loopier/clip/clip "exampleclip" "loop" "normal"`
+
+  starts over and over again.
+
+  > `/loopier/clip/clip "exampleclip" "loop" "palindrome"`
+
+  bounces back and forth from beginning to end and back to the beginning.
 
 
 #### Speed
-  > `/loopier/clip/clip "exampleclip" "speed" 2.0` - with `1.0` being normal speed.  Any negative value will play the movie backwards.
+  > `/loopier/clip/clip "exampleclip" "speed" 2.0`
+
+  with `1.0` being normal speed.  Any negative value will play the movie backwards.
 
 ---
 ### Reset
@@ -73,7 +86,9 @@ Single clip commands
 ### Size
 
 #### Scale to any size
-  > `/loopier/clip/clip "exampleclip", "scale", 2.0.rand` - with `1.0` being default size.  You can try negative values for fun.
+  > `/loopier/clip/clip "exampleclip", "scale", 2.0.rand`
+
+  with `1.0` being default size.  You can try negative values for fun.
 
 
 #### Increase size by a given amount
@@ -118,7 +133,9 @@ Single clip commands
 
 #### Move to a position (normalized)
 
-  > `/loopier/clip/clip "exampleclip", "moveto", 1.0.rand, 1.0.rand` - Window max size is `1.0`
+  > `/loopier/clip/clip "exampleclip", "moveto", 1.0.rand, 1.0.rand`
+
+  Window max size is `1.0`
 
 
 #### Change transparency
@@ -155,6 +172,8 @@ You need to provide the name of an existing movie.  There's a command to get a l
 
   Pass a list of numbers (indexes of movies in the clip) indicating the order in which you want to play the movies. They can be repeated any number of times and can be in any order.
   For example:
+
+
 
   - `"0,1,2"` will play 3 clips in order.
 

@@ -16,16 +16,20 @@ namespace loopier {
     {
     private:
         static string           prompt;
+        static string           errorPrompt;
         static vector<string>   msg;
         static int              maxLines;
         static float    x, y;
         static float    lineseparation;
         static ofColor  color;
+        static ofColor  defaultColor;
+        static ofColor  errorColor;
         static bool     bHide;
         
     public:
         static void draw();
         static void print(const string & s);
+        static void printError(const string & s);
         static void setPrompt(const string & p);
         static void setColor(const ofColor & c);
         static void setMaxLines(const int max);

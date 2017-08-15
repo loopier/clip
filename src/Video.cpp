@@ -7,6 +7,7 @@
 //
 
 #include "Video.h"
+#include "ConsoleUI.h"
 
 //---------------------------------------------------------------------------
 loopier::MovieMap   loopier::Video::movies;
@@ -24,7 +25,9 @@ void loopier::Video::preloadMovies()
     ofLogVerbose() << "Preloading movie files:";
     
     if (!ofDirectory(moviespath).exists()) {
-        ofLogError() << __PRETTY_FUNCTION__ << "\tDirectory not found:\t" << moviespath ;
+        string msg = "\tDirectory not found:\t" + moviespath;
+        ofLogError() << __PRETTY_FUNCTION__ << "\t" << msg;
+        loopier::ConsoleUI::printError(msg);
         return;
     }
     
@@ -76,7 +79,9 @@ vector<string>  loopier::Video::getMovieNames()
 void loopier::Video::listMovieNames()
 {
     if (movies.size() < 1) {
-        ofLogError() << "Sorry, no movies available";
+        string msg = "Sorry, no movies available";
+        ofLogError() << msg;
+        loopier::ConsoleUI::printError(msg);
         return;
     }
     

@@ -38,7 +38,7 @@ void ofApp::setup(){
     
     loopier::Video::preloadMovies();
     string moviespath = applicationSupportPath + "resources/movies/";
-    loopier::newClip("exampleclip");
+//    loopier::newClip("exampleclip");
 }
 
 //--------------------------------------------------------------
@@ -94,7 +94,7 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
     else if (msg.getAddress() == "/loopier/clip/clips") {
         string command = msg.getArgAsString(0);
         
-        if (command == "clearall")  loopier::clearClips();
+        if      (command == "clearall")  loopier::clearClips();
         else if (command == "listnames") loopier::listClipNames();
         
         else if (command == "togglenames")   loopier::toggleClipNames();
@@ -111,8 +111,9 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         string  command = msg.getArgAsString(1);
         int     numargs = msg.getNumArgs();
         
-        if      (command == "new" && msg.getNumArgs() <= 2)  loopier::newClip(name);
-        else if (command == "new" && msg.getNumArgs() >= 3)  loopier::newClip(name, msg.getArgAsString(2));
+        if      (command == "new" && msg.getNumArgs() <= 2) loopier::newClip(name);
+        else if (command == "new" && msg.getNumArgs() >= 3) loopier::newClip(name, msg.getArgAsString(2));
+        else if (command == "remove")                       loopier::removeClip(name);
         
         else if (command == "reset")            loopier::resetClip(name);
         else if (command == "scaleup")          loopier::scaleUpClip(name, msg.getArgAsFloat(2));
@@ -135,7 +136,7 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         else if (command == "pause")            loopier::pauseClip(name);
         else if (command == "loop") {
             string state = msg.getArgAsString(2);
-            if (state == "none")        loopier::setClipLoopState(name, OF_LOOP_NONE);
+            if      (state == "none")        loopier::setClipLoopState(name, OF_LOOP_NONE);
             else if (state == "normal")      loopier::setClipLoopState(name, OF_LOOP_NORMAL);
             else if (state == "palindrome")  loopier::setClipLoopState(name, OF_LOOP_PALINDROME);
             else { printOscMessageMisstypingWarning(); return; }
@@ -255,6 +256,7 @@ void ofApp::init()
         msg += "Quitting application.";
         
         ofLogError()  << msg;
+        loopier::ConsoleUI::printError(msg);
         ofSystemAlertDialog(msg);
         ofExit();
     }
