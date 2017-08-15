@@ -60,7 +60,7 @@ void ofApp::exit()
 void ofApp::processOscMessage(ofxOscMessage & msg)
 {
     loopier::printOscMessage(msg, "OSC:");
-    console.print(loopier::getPrintableOscMessage(msg));
+    console.print(loopier::getSimplifiedOscMessage(msg));
     
     // console commands
     if (msg.getAddress() == "/loopier/clip/console") {
@@ -80,12 +80,12 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
             loopier::ConsoleUI::setColor(c);
         }
         
-        else if (command == "prompt")    loopier::ConsoleUI::setPrompt(msg.getArgAsString(1));
-        else if (command == "print")     loopier::ConsoleUI::print(msg.getArgAsString(1));
-        else if (command == "lines")     loopier::ConsoleUI::setMaxLines(msg.getArgAsInt(1));
-        else if (command == "toggle")    loopier::ConsoleUI::toggle();
-        else if (command == "show")    loopier::ConsoleUI::show();
-        else if (command == "hide")    loopier::ConsoleUI::hide();
+        else if (command == "prompt")   loopier::ConsoleUI::setPrompt(msg.getArgAsString(1));
+        else if (command == "print")    loopier::ConsoleUI::print(msg.getArgAsString(1));
+        else if (command == "lines")    loopier::ConsoleUI::setMaxLines(msg.getArgAsInt(1));
+        else if (command == "toggle")   loopier::ConsoleUI::toggle();
+        else if (command == "show")     loopier::ConsoleUI::show();
+        else if (command == "hide")     loopier::ConsoleUI::hide();
         
         else { printOscMessageMisstypingWarning(); return; }
     }
@@ -97,9 +97,9 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         if      (command == "clearall")  loopier::clearClips();
         else if (command == "listnames") loopier::listClipNames();
         
-        else if (command == "togglenames")   loopier::toggleClipNames();
-        else if (command == "shownames")     loopier::showClipNames();
-        else if (command == "hidenames")     loopier::hideClipNames();
+        else if (command == "togglenames")  loopier::toggleClipNames();
+        else if (command == "shownames")    loopier::showClipNames();
+        else if (command == "hidenames")    loopier::hideClipNames();
         
         else { printOscMessageMisstypingWarning(); return; }
     }

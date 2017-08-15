@@ -51,6 +51,33 @@ string loopier::getPrintableOscMessage(const ofxOscMessage& m)
     return msg;
 }
 
+string loopier::getSimplifiedOscMessage(const ofxOscMessage& m)
+{
+    string msg;
+    msg = m.getAddress();
+    msg += "\t";
+    for(int i = 0; i < m.getNumArgs(); i++){
+        // display the argument - make sure we get the right type
+        if(m.getArgType(i) == OFXOSC_TYPE_INT32){
+            msg += ofToString(m.getArgAsInt32(i));
+        }
+        else if(m.getArgType(i) == OFXOSC_TYPE_FLOAT){
+            msg += ofToString(m.getArgAsFloat(i));
+        }
+        else if(m.getArgType(i) == OFXOSC_TYPE_STRING){
+//            msg += "\"" + m.getArgAsString(i) + "\"";
+            msg += m.getArgAsString(i);
+        }
+        else{
+            msg += "unknown";
+        }
+        
+        msg += " ";
+    }
+    
+    return msg;
+}
+
 
 //------------------------------------------------------------------------------------------
 //      CLASS METHODS
