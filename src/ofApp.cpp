@@ -24,8 +24,8 @@ void ofApp::setup(){
     /// --------------  END OF TEST --------------
     /// -------------------------------------------------------------------------------
     
-    ofSetWindowPosition(ofGetScreenWidth(), 0);
-    ofSetFullscreen(true);
+//    ofSetWindowPosition(ofGetScreenWidth(), 0);
+//    ofSetFullscreen(true);
     ofBackground(0,0,0);
     ofSetVerticalSync(true);
     

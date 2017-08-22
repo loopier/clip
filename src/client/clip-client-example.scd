@@ -136,7 +136,7 @@ m.sendMsg("/loopier/clip/console", "print", "hello world");
 // change prompt
 m.sendMsg("/loopier/clip/console", "prompt", ">> ");
 // set the maximum number of lilnes displayed
-m.sendMsg("/loopier/clip/console", "lines", 1);
+m.sendMsg("/loopier/clip/console", "lines", 5);
 // show or hide
 m.sendMsg("/loopier/clip/console", "toggle");
 m.sendMsg("/loopier/clip/console", "show");
@@ -155,6 +155,7 @@ m.sendMsg("/loopier/clip/console", "alpha", 0.5);
 m.sendMsg("/loopier/clip/console", "moveto", 0.5, 0.9)
 
 m.sendMsg("/loopier/clip/console", "font", "OCRAStd.otf")
+m.sendMsg("/loopier/clip/console", "font", "Andale Mono.ttf")
 m.sendMsg("/loopier/clip/console", "fontsize", 24)
 
 
