@@ -304,8 +304,8 @@ void loopier::Clip::listMovies()
 //---------------------------------------------------------------------------
 loopier::MoviePtr loopier::Clip::addMovie(const string & moviename)
 {
-    MoviePtr movie(new Movie());
-    movie->load(loopier::Video::getMoviePath(moviename));
+    MoviePtr movie(new MoviePlayer());
+    movie->load(loopier::Movie::getMoviePath(moviename));
     movies.push_back(movie);
     
     ofLogVerbose() << "'" << moviename << "' movie added to clip '" << name << "'";

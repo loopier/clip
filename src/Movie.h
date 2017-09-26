@@ -1,5 +1,5 @@
 //
-//  Video.h
+//  Movie.h
 //  clip
 //
 //  Created by roger on 13/08/2017.
@@ -27,21 +27,21 @@
 //      other clips are doing.
 //  -------------------------------------------------------
 
-#ifndef Video_h
-#define Video_h
+#ifndef Movie_h
+#define Movie_h
 
 #include "ofMain.h"
 
 namespace loopier {
-    
-    typedef ofVideoPlayer       Movie;
-    typedef shared_ptr<Movie>   MoviePtr;
+
+    typedef ofVideoPlayer       MoviePlayer;
+    typedef shared_ptr<MoviePlayer>   MoviePtr;
     typedef vector<MoviePtr>    MovieList;
-    typedef map<string, Movie>  MovieMap;
+    typedef map<string, MoviePlayer>  MovieMap;
+
     
-    
-    
-    class Video
+
+    class Movie
     {
     public:
         static void             setMoviesPath(const string & newPath);
@@ -55,7 +55,7 @@ namespace loopier {
     private:
         static string   moviespath;
         static MovieMap movies;
-        
+
         /// \brief  Creates a new video player and adds it to the players list.
         static void newMovieFromFile(const string & moviename, const string & path);
     };

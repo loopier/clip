@@ -4,7 +4,7 @@
 #include "OscManager.h"
 #include "Clip.h"
 #include "ConsoleUI.h"
-#include "Video.h"
+#include "Movie.h"
 
 using namespace loopier;
 
@@ -27,16 +27,16 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-    
+
 private:
     ConsoleUI   console;
     OscManager  osc;
     string  applicationSupportPath; ///< Path to the directory with resources and config files
-    
+
     /// \brief  Creates a folder in ~/Library/Application Support/Clip/
     ///     for all the resources and config files.
     void init();
-    
+
     /// \brief  Maps OSC messages to behavieours (commands).
     /// \description    This is what allows the application to be controlled via OSC. If
     ///     you need to add more controls, this is where you should add them.
