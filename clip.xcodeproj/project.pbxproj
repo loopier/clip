@@ -34,6 +34,7 @@
 		C9109422648B170B07A778CF /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E3405C5AE387BDDC2AD19473 /* SyphonNameboundClient.m */; };
 		DB5240691F3E02AC0058310F /* OscManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB5240671F3E02AC0058310F /* OscManager.cpp */; };
 		DB85FD8A1F7A445200A7B85D /* Movie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB85FD881F7A445200A7B85D /* Movie.cpp */; };
+		DB85FD931F7A4EFD00A7B85D /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB85FD911F7A4EFD00A7B85D /* Camera.cpp */; };
 		DB94759B1F3F63A0002BF3FB /* ConsoleUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB94759A1F3F63A0002BF3FB /* ConsoleUI.cpp */; };
 		DBBA97011F3CB74A00A84413 /* Clip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBBA96FF1F3CB74A00A84413 /* Clip.cpp */; };
 		E1A3FD40C8BCD507345F1126 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D58DCB2C0AEFDE6171E29540 /* Syphon.framework */; };
@@ -129,6 +130,8 @@
 		DB52406D1F3E2D220058310F /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		DB85FD881F7A445200A7B85D /* Movie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Movie.cpp; sourceTree = "<group>"; };
 		DB85FD891F7A445200A7B85D /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
+		DB85FD911F7A4EFD00A7B85D /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		DB85FD921F7A4EFD00A7B85D /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		DB9475981F3F5B75002BF3FB /* ConsoleUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsoleUI.h; sourceTree = "<group>"; };
 		DB94759A1F3F63A0002BF3FB /* ConsoleUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleUI.cpp; sourceTree = "<group>"; };
 		DBBA96FF1F3CB74A00A84413 /* Clip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clip.cpp; sourceTree = "<group>"; };
@@ -411,6 +414,8 @@
 				DB94759A1F3F63A0002BF3FB /* ConsoleUI.cpp */,
 				DB9475981F3F5B75002BF3FB /* ConsoleUI.h */,
 				DB52406D1F3E2D220058310F /* utils.h */,
+				DB85FD911F7A4EFD00A7B85D /* Camera.cpp */,
+				DB85FD921F7A4EFD00A7B85D /* Camera.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -546,6 +551,7 @@
 				DB5240691F3E02AC0058310F /* OscManager.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
+				DB85FD931F7A4EFD00A7B85D /* Camera.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				DBBA97011F3CB74A00A84413 /* Clip.cpp in Sources */,
