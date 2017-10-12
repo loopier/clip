@@ -13,9 +13,6 @@
 
 #include "ofMain.h"
 
-#inculde "ofVideoGrabber.h"
-
-
 class Camera{
 	
 public:

@@ -1,3 +1,6 @@
+ofxCv
+ofxGui
+ofxOpenCv
 ofxOsc
 ofxSyphon
 ofxUVC

@@ -41,22 +41,26 @@ void ofApp::setup(){
     loopier::Movie::preloadMovies();
     string moviespath = applicationSupportPath + "resources/movies/";
 //    loopier::newClip("exampleclip");
+    
+    loopier::newRecorder();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     loopier::updateClips();
+    loopier::updateRecorder();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     loopier::drawClips();
     console.draw();
+    loopier::drawRecorder();
 }
 
 void ofApp::exit()
 {
-    ofLogVerbose() << "!!! REMOVE return FROM ofApp::setup()!!!";
+//    ofLogVerbose() << "!!! REMOVE return FROM ofApp::setup()!!!";
 }
 
 void ofApp::processOscMessage(ofxOscMessage & msg)
