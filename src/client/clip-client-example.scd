@@ -168,6 +168,10 @@ m.sendMsg("/loopier/clip/recorder", "minArea", 10)
 m.sendMsg("/loopier/clip/recorder", "maxArea", 390)
 // detect holes inside blobs
 m.sendMsg("/loopier/clip/recorder", "holes", true)
+// visibility
+m.sendMsg("/loopier/clip/recorder", "togglevisibility")
+m.sendMsg("/loopier/clip/recorder", "show")
+m.sendMsg("/loopier/clip/recorder", "hide")
 
 //------------------------------------------------------------------
 //  APPLICATION COMMANDS

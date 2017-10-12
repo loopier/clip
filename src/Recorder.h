@@ -32,12 +32,17 @@ namespace loopier {
         void setThreshold(float newThreshold);
         void setHoles(bool bHoles);
         
+        void toggleVisibility();
+        void show();
+        void hide();
+        
     private:
         ofVideoGrabber cam;
         ofxCv::ContourFinder contourFinder;
         
         float   minArea, maxArea, threshold;
         bool    holes;
+        bool    visible;
         
 //        ofxPanel gui;
 //        ofParameter<float> minArea, maxArea, threshold;
@@ -54,6 +59,10 @@ namespace loopier {
     void setRecorderMaxArea(float newArea);
     void setRecorderThreshold(float newThreshold);
     void setRecorderHoles(bool bHoles);
+    
+    void toggleRecorderVisibility();
+    void showRecorder();
+    void hideRecorder();
 }
 
 

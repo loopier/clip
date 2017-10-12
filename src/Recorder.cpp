@@ -16,6 +16,7 @@ loopier::Recorder::Recorder()
 , maxArea(200)
 , threshold(128)
 , holes(false)
+, visible(true)
 {
     
 }
@@ -40,6 +41,8 @@ void loopier::Recorder::setup(){
 
 //---------------------------------------------------------
 void loopier::Recorder::update(){
+    if (!visible)   return;
+    
     cam.update();
     
     if(cam.isFrameNew()) {
@@ -53,6 +56,8 @@ void loopier::Recorder::update(){
 
 //---------------------------------------------------------
 void loopier::Recorder::draw(){
+    if (!visible)   return;
+    
     cam.draw(0,0);
     contourFinder.draw();
 //    gui.draw();
@@ -81,6 +86,21 @@ void loopier::Recorder::setThreshold(float newThreshold)
 void loopier::Recorder::setHoles(bool bHoles)
 {
     holes = bHoles;
+}
+
+void loopier::Recorder::toggleVisibility()
+{
+    visible = !visible;
+}
+
+void loopier::Recorder::show()
+{
+    visible = true;
+}
+
+void loopier::Recorder::hide()
+{
+    visible = false;
 }
 
 //      END OF CLASS METHODS
@@ -123,4 +143,19 @@ void loopier::setRecorderThreshold(float newThreshold)
 void loopier::setRecorderHoles(bool bHoles)
 {
     recorder.setHoles(bHoles);
+}
+
+void loopier::toggleRecorderVisibility()
+{
+    recorder.toggleVisibility();
+}
+
+void loopier::showRecorder()
+{
+    recorder.show();
+}
+
+void loopier::hideRecorder()
+{
+    recorder.hide();
 }
