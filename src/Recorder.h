@@ -27,6 +27,11 @@ namespace loopier {
         void draw();
         void exit();
         
+        void setMinArea(float newArea);
+        void setMaxArea(float newArea);
+        void setThreshold(float newThreshold);
+        void setHoles(bool bHoles);
+        
     private:
         ofVideoGrabber cam;
         ofxCv::ContourFinder contourFinder;
@@ -44,6 +49,11 @@ namespace loopier {
     void newRecorder();
     void updateRecorder();
     void drawRecorder();
+    
+    void setRecorderMinArea(float newArea);
+    void setRecorderMaxArea(float newArea);
+    void setRecorderThreshold(float newThreshold);
+    void setRecorderHoles(bool bHoles);
 }
 
 

@@ -63,6 +63,26 @@ void loopier::Recorder::exit(){
     
 }
 
+void loopier::Recorder::setMinArea(float newArea)
+{
+    minArea = newArea;
+}
+
+void loopier::Recorder::setMaxArea(float newArea)
+{
+    maxArea = newArea;
+}
+
+void loopier::Recorder::setThreshold(float newThreshold)
+{
+    threshold = newThreshold;
+}
+
+void loopier::Recorder::setHoles(bool bHoles)
+{
+    holes = bHoles;
+}
+
 //      END OF CLASS METHODS
 //-------------------------------------------------------------------------------------------------------------
 
@@ -83,4 +103,24 @@ void loopier::updateRecorder() {
 
 void loopier::drawRecorder() {
     recorder.draw();
+}
+
+void loopier::setRecorderMinArea(float newArea)
+{
+    recorder.setMinArea(newArea);
+}
+
+void loopier::setRecorderMaxArea(float newArea)
+{
+    recorder.setMaxArea(newArea);
+}
+
+void loopier::setRecorderThreshold(float newThreshold)
+{
+    recorder.setThreshold(newThreshold);
+}
+
+void loopier::setRecorderHoles(bool bHoles)
+{
+    recorder.setHoles(bHoles);
 }

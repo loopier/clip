@@ -158,6 +158,16 @@ m.sendMsg("/loopier/clip/console", "font", "OCRAStd.otf")
 m.sendMsg("/loopier/clip/console", "font", "Andale Mono.ttf")
 m.sendMsg("/loopier/clip/console", "fontsize", 24)
 
+//------------------------------------------------------------------
+//  RECORDER COMMANDS
+//------------------------------------------------------------------
+// change blob detection threshold
+m.sendMsg("/loopier/clip/recorder", "threshold", 100)
+// change detected blob sizes
+m.sendMsg("/loopier/clip/recorder", "minArea", 10)
+m.sendMsg("/loopier/clip/recorder", "maxArea", 390)
+// detect holes inside blobs
+m.sendMsg("/loopier/clip/recorder", "holes", true)
 
 //------------------------------------------------------------------
 //  APPLICATION COMMANDS

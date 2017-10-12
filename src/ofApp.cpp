@@ -53,9 +53,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    loopier::drawRecorder();
     loopier::drawClips();
     console.draw();
-    loopier::drawRecorder();
 }
 
 void ofApp::exit()
@@ -167,6 +167,19 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         else if (command == "playsequence") loopier::playClipMovieSequence(name);
         else if (command == "sequence")     loopier::setClipMovieSequenceOrder(name, msg.getArgAsString(2));
 
+        else { printOscMessageMisstypingWarning(); return; }
+    }
+    
+    // messages have the format /loopier/clip "name" "command" [arg1, ... , argN]
+    else if (msg.getAddress() == "/loopier/clip/recorder") {
+        string command = msg.getArgAsString(0);
+        int numArgs = msg.getNumArgs();
+        
+        if (command == "threshold") loopier::setRecorderThreshold(msg.getArgAsFloat(1));
+        else if (command == "minArea") loopier::setRecorderMinArea(msg.getArgAsFloat(1));
+        else if (command == "maxArea") loopier::setRecorderMaxArea(msg.getArgAsFloat(1));
+        else if (command == "holes") loopier::setRecorderHoles(msg.getArgAsBool(1));
+        
         else { printOscMessageMisstypingWarning(); return; }
     }
 
