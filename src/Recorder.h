@@ -39,6 +39,8 @@ namespace loopier {
     private:
         ofVideoGrabber cam;
         ofxCv::ContourFinder contourFinder;
+        ofFbo   maskFbo;
+        ofPath  blobPath;
         
         float   minArea, maxArea, threshold;
         bool    holes;

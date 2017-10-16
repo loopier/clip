@@ -165,7 +165,7 @@ m.sendMsg("/loopier/clip/console", "fontsize", 24)
 m.sendMsg("/loopier/clip/recorder", "threshold", 100)
 // change detected blob sizes
 m.sendMsg("/loopier/clip/recorder", "minArea", 10)
-m.sendMsg("/loopier/clip/recorder", "maxArea", 390)
+m.sendMsg("/loopier/clip/recorder", "maxArea", 250)
 // detect holes inside blobs
 m.sendMsg("/loopier/clip/recorder", "holes", true)
 // visibility

@@ -32,6 +32,8 @@ void loopier::Recorder::setup(){
     cam.setDeviceID(1);
     cam.setup(ofGetWidth(), ofGetHeight());
     
+    maskFbo.allocate(cam.getWidth(), cam.getHeight());
+    
 //    gui.setup();
 //    gui.add(minArea.set("Min area", 10, 1, 100));
 //    gui.add(maxArea.set("Max area", 200, 1, 500));
@@ -51,6 +53,23 @@ void loopier::Recorder::update(){
         contourFinder.setThreshold(threshold);
         contourFinder.findContours(cam);
         contourFinder.setFindHoles(holes);
+        
+        
+        vector<ofPolyline> polys = contourFinder.getPolylines();
+        ofSetColor(255, 255, 255);
+        ofFill();
+        maskFbo.begin();
+        ofBackground(0);
+        for (int i = 0; i < polys.size(); i++) {
+            ofPolyline poly = polys.at(i);
+            ofBeginShape();
+            for( int i = 0; i < poly.getVertices().size(); i++) {
+                ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+            }
+            ofEndShape();
+        }
+        maskFbo.end();
+        cam.getTexture().setAlphaMask(maskFbo.getTexture());
     }
 }
 
@@ -60,6 +79,7 @@ void loopier::Recorder::draw(){
     
     cam.draw(0,0);
     contourFinder.draw();
+//    maskFbo.draw(0,0);
 //    gui.draw();
 }
 
@@ -102,6 +122,7 @@ void loopier::Recorder::hide()
 {
     visible = false;
 }
+
 
 //      END OF CLASS METHODS
 //-------------------------------------------------------------------------------------------------------------
