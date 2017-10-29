@@ -1,13 +1,13 @@
 //
-//  Recorder.h
+//  VideoInput.h
 //  clip
 //
 //  Created by roger on 26/09/2017.
 //  Copyright 2017 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef _Recorder
-#define _Recorder
+#ifndef _VideoInput
+#define _VideoInput
 
 
 #include "ofMain.h"
@@ -16,11 +16,11 @@
 
 namespace loopier {
     
-    class Recorder{
+    class VideoInput{
         
     public:
-        Recorder();
-        virtual ~Recorder();
+        VideoInput();
+        virtual ~VideoInput();
         
         void setup();
         void update();
@@ -51,20 +51,20 @@ namespace loopier {
 //        ofParameter<bool> holes;
     };
     
-    extern Recorder recorder;
+    extern VideoInput videoInput;
     
-    void newRecorder();
-    void updateRecorder();
-    void drawRecorder();
+    void newVideoInput();
+    void updateVideoInput();
+    void drawVideoInput();
     
-    void setRecorderMinArea(float newArea);
-    void setRecorderMaxArea(float newArea);
-    void setRecorderThreshold(float newThreshold);
-    void setRecorderHoles(bool bHoles);
+    void setVideoInputMinArea(float newArea);
+    void setVideoInputMaxArea(float newArea);
+    void setVideoInputThreshold(float newThreshold);
+    void setVideoInputHoles(bool bHoles);
     
-    void toggleRecorderVisibility();
-    void showRecorder();
-    void hideRecorder();
+    void toggleVideoInputVisibility();
+    void showVideoInput();
+    void hideVideoInput();
 }
 
 

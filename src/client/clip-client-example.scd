@@ -159,19 +159,19 @@ m.sendMsg("/loopier/clip/console", "font", "Andale Mono.ttf")
 m.sendMsg("/loopier/clip/console", "fontsize", 24)
 
 //------------------------------------------------------------------
-//  RECORDER COMMANDS
+//  VIDEO INPUT COMMANDS
 //------------------------------------------------------------------
 // change blob detection threshold
-m.sendMsg("/loopier/clip/recorder", "threshold", 100)
+m.sendMsg("/loopier/clip/videoinput", "threshold", 100)
 // change detected blob sizes
-m.sendMsg("/loopier/clip/recorder", "minArea", 10)
-m.sendMsg("/loopier/clip/recorder", "maxArea", 250)
+m.sendMsg("/loopier/clip/videoinput", "minArea", 10)
+m.sendMsg("/loopier/clip/videoinput", "maxArea", 250)
 // detect holes inside blobs
-m.sendMsg("/loopier/clip/recorder", "holes", true)
+m.sendMsg("/loopier/clip/videoinput", "holes", true)
 // visibility
-m.sendMsg("/loopier/clip/recorder", "togglevisibility")
-m.sendMsg("/loopier/clip/recorder", "show")
-m.sendMsg("/loopier/clip/recorder", "hide")
+m.sendMsg("/loopier/clip/videoinput", "togglevisibility")
+m.sendMsg("/loopier/clip/videoinput", "show")
+m.sendMsg("/loopier/clip/videoinput", "hide")
 
 //------------------------------------------------------------------
 //  APPLICATION COMMANDS

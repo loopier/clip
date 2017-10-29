@@ -5,7 +5,7 @@
 #include "Clip.h"
 #include "ConsoleUI.h"
 #include "Movie.h"
-#include "Recorder.h"
+#include "VideoInput.h"
 
 using namespace loopier;
 

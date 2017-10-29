@@ -42,18 +42,18 @@ void ofApp::setup(){
     string moviespath = applicationSupportPath + "resources/movies/";
 //    loopier::newClip("exampleclip");
     
-    loopier::newRecorder();
+    loopier::newVideoInput();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     loopier::updateClips();
-    loopier::updateRecorder();
+    loopier::updateVideoInput();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    loopier::drawRecorder();
+    loopier::drawVideoInput();
     loopier::drawClips();
     console.draw();
 }
@@ -170,18 +170,18 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         else { printOscMessageMisstypingWarning(); return; }
     }
     
-    // messages have the format /loopier/clip/recorder "command" [arg1, ... , argN]
-    else if (msg.getAddress() == "/loopier/clip/recorder") {
+    // messages have the format /loopier/clip/videoinput "command" [arg1, ... , argN]
+    else if (msg.getAddress() == "/loopier/clip/videoinput") {
         string command = msg.getArgAsString(0);
         int numArgs = msg.getNumArgs();
         
-        if (command == "threshold") loopier::setRecorderThreshold(msg.getArgAsFloat(1));
-        else if (command == "minArea") loopier::setRecorderMinArea(msg.getArgAsFloat(1));
-        else if (command == "maxArea") loopier::setRecorderMaxArea(msg.getArgAsFloat(1));
-        else if (command == "holes") loopier::setRecorderHoles(msg.getArgAsBool(1));
-        else if (command == "togglevisibility") loopier::toggleRecorderVisibility();
-        else if (command == "show") loopier::showRecorder();
-        else if (command == "hide") loopier::hideRecorder();
+        if (command == "threshold") loopier::setVideoInputThreshold(msg.getArgAsFloat(1));
+        else if (command == "minArea") loopier::setVideoInputMinArea(msg.getArgAsFloat(1));
+        else if (command == "maxArea") loopier::setVideoInputMaxArea(msg.getArgAsFloat(1));
+        else if (command == "holes") loopier::setVideoInputHoles(msg.getArgAsBool(1));
+        else if (command == "togglevisibility") loopier::toggleVideoInputVisibility();
+        else if (command == "show") loopier::showVideoInput();
+        else if (command == "hide") loopier::hideVideoInput();
         
         else { printOscMessageMisstypingWarning(); return; }
     }

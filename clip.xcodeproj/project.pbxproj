@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0546D1A38E13BD319CC9755B /* OscReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9BF3AA0D4FAA89D0F8A0E545 /* OscReceivedElements.cpp */; };
-		08AA5AD1AC60429816BB3150 /* Recorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D759483A848ED62AAFD5C059 /* Recorder.cpp */; };
+		08AA5AD1AC60429816BB3150 /* VideoInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D759483A848ED62AAFD5C059 /* VideoInput.cpp */; };
 		0969E39FDCF334FEB7803F7E /* Movie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5D9DB42AF5992839545AED8 /* Movie.cpp */; };
 		10B69DE456AED1288FC9316B /* Tracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A810DF70319A10353588F5DB /* Tracker.cpp */; };
 		11DF9AB1B4EAA63E3B190CA0 /* ofxSyphonServerDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = E723BEF4C55D236E24639608 /* ofxSyphonServerDirectory.mm */; };
@@ -310,7 +310,7 @@
 		BB79A53F3B94B89DA0650682 /* OscManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OscManager.h; path = src/OscManager.h; sourceTree = SOURCE_ROOT; };
 		BBAF9D981351C596CA67CAF9 /* hybridtracker.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = hybridtracker.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/contrib/hybridtracker.hpp; sourceTree = SOURCE_ROOT; };
 		BC8881B3C8C0A1C45F042E7A /* OscPrintReceivedElements.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = OscPrintReceivedElements.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscPrintReceivedElements.cpp; sourceTree = SOURCE_ROOT; };
-		BCC37E245CAE99111AC66D5C /* Recorder.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Recorder.h; path = src/Recorder.h; sourceTree = SOURCE_ROOT; };
+		BCC37E245CAE99111AC66D5C /* VideoInput.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = VideoInput.h; path = src/VideoInput.h; sourceTree = SOURCE_ROOT; };
 		BEF38204F609705438504665 /* ofxSyphonClient.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = ofxSyphonClient.mm; path = ../../../addons/ofxSyphon/src/Syphon/ofxSyphonClient.mm; sourceTree = SOURCE_ROOT; };
 		C1A2E81B4FD0713346D7E806 /* affine.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = affine.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/affine.hpp; sourceTree = SOURCE_ROOT; };
 		C1C56D20A1A57DC44096BFE7 /* ofxCvContourFinder.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCvContourFinder.h; path = ../../../addons/ofxOpenCv/src/ofxCvContourFinder.h; sourceTree = SOURCE_ROOT; };
@@ -348,7 +348,7 @@
 		D5A3AFF36064B2CACAD31716 /* composite_index.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = composite_index.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/composite_index.h; sourceTree = SOURCE_ROOT; };
 		D5BB6F0357B6422E1B1656B4 /* ofxCvColorImage.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCvColorImage.h; path = ../../../addons/ofxOpenCv/src/ofxCvColorImage.h; sourceTree = SOURCE_ROOT; };
 		D6426FE9886FD3B4A831A446 /* exposure_compensate.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = exposure_compensate.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/stitching/detail/exposure_compensate.hpp; sourceTree = SOURCE_ROOT; };
-		D759483A848ED62AAFD5C059 /* Recorder.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Recorder.cpp; path = src/Recorder.cpp; sourceTree = SOURCE_ROOT; };
+		D759483A848ED62AAFD5C059 /* VideoInput.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = VideoInput.cpp; path = src/VideoInput.cpp; sourceTree = SOURCE_ROOT; };
 		D76A59E7B3601E76351C9BDB /* cvaux.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = cvaux.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv/cvaux.h; sourceTree = SOURCE_ROOT; };
 		D78ADDA555C8F6724E9AD292 /* UVCCameraControl.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = UVCCameraControl.m; path = ../../../addons/ofxUVC/src/UVCCameraControl.m; sourceTree = SOURCE_ROOT; };
 		D847EBE484F4F500F9CF2549 /* ofxCvImage.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCvImage.h; path = ../../../addons/ofxOpenCv/src/ofxCvImage.h; sourceTree = SOURCE_ROOT; };
@@ -1189,8 +1189,8 @@
 				78DF487A1EEEBC4ACCE5AB9C /* Movie.h */,
 				D110A575A8CA4CF91ECCBDF7 /* OscManager.cpp */,
 				BB79A53F3B94B89DA0650682 /* OscManager.h */,
-				D759483A848ED62AAFD5C059 /* Recorder.cpp */,
-				BCC37E245CAE99111AC66D5C /* Recorder.h */,
+				D759483A848ED62AAFD5C059 /* VideoInput.cpp */,
+				BCC37E245CAE99111AC66D5C /* VideoInput.h */,
 				7C39EAC4AD92BF1D4365B8BC /* utils.h */,
 			);
 			path = src;
@@ -1359,7 +1359,7 @@
 				791F924F68D495823E51152F /* ConsoleUI.cpp in Sources */,
 				0969E39FDCF334FEB7803F7E /* Movie.cpp in Sources */,
 				CCAF7622973DABAB7ACE8634 /* OscManager.cpp in Sources */,
-				08AA5AD1AC60429816BB3150 /* Recorder.cpp in Sources */,
+				08AA5AD1AC60429816BB3150 /* VideoInput.cpp in Sources */,
 				B6840996567E78436F7ECFAB /* ETF.cpp in Sources */,
 				F76B4A79BD8DE4854141CB47 /* fdog.cpp in Sources */,
 				EBCDE831EFAE08274E799C97 /* Calibration.cpp in Sources */,

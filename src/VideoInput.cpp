@@ -1,17 +1,17 @@
 //
-//  Recorder.cpp
+//  VideoInput.cpp
 //  clip
 //
 //  Created by roger on 26/09/2017.
 //  Copyright 2017 __MyCompanyName__. All rights reserved.
 //
 
-#include "Recorder.h"
+#include "VideoInput.h"
 
 using namespace ofxCv;
 using namespace cv;
 
-loopier::Recorder::Recorder()
+loopier::VideoInput::VideoInput()
 : minArea(10)
 , maxArea(200)
 , threshold(128)
@@ -21,13 +21,13 @@ loopier::Recorder::Recorder()
     
 }
 
-loopier::Recorder::~Recorder()
+loopier::VideoInput::~VideoInput()
 {
     
 }
 
 //---------------------------------------------------------
-void loopier::Recorder::setup(){
+void loopier::VideoInput::setup(){
     cam.listDevices();
     cam.setDeviceID(1);
     cam.setup(ofGetWidth(), ofGetHeight());
@@ -42,7 +42,7 @@ void loopier::Recorder::setup(){
 }
 
 //---------------------------------------------------------
-void loopier::Recorder::update(){
+void loopier::VideoInput::update(){
     if (!visible)   return;
     
     cam.update();
@@ -74,7 +74,7 @@ void loopier::Recorder::update(){
 }
 
 //---------------------------------------------------------
-void loopier::Recorder::draw(){
+void loopier::VideoInput::draw(){
     if (!visible)   return;
     
     cam.draw(0,0);
@@ -84,41 +84,41 @@ void loopier::Recorder::draw(){
 }
 
 //---------------------------------------------------------
-void loopier::Recorder::exit(){
+void loopier::VideoInput::exit(){
     
 }
 
-void loopier::Recorder::setMinArea(float newArea)
+void loopier::VideoInput::setMinArea(float newArea)
 {
     minArea = newArea;
 }
 
-void loopier::Recorder::setMaxArea(float newArea)
+void loopier::VideoInput::setMaxArea(float newArea)
 {
     maxArea = newArea;
 }
 
-void loopier::Recorder::setThreshold(float newThreshold)
+void loopier::VideoInput::setThreshold(float newThreshold)
 {
     threshold = newThreshold;
 }
 
-void loopier::Recorder::setHoles(bool bHoles)
+void loopier::VideoInput::setHoles(bool bHoles)
 {
     holes = bHoles;
 }
 
-void loopier::Recorder::toggleVisibility()
+void loopier::VideoInput::toggleVisibility()
 {
     visible = !visible;
 }
 
-void loopier::Recorder::show()
+void loopier::VideoInput::show()
 {
     visible = true;
 }
 
-void loopier::Recorder::hide()
+void loopier::VideoInput::hide()
 {
     visible = false;
 }
@@ -131,52 +131,52 @@ void loopier::Recorder::hide()
 //      PUBLIC INTERFACE FUNCTIONS
 
 
-// Global recorder
-loopier::Recorder loopier::recorder;
+// Global VideoInput
+loopier::VideoInput loopier::videoInput;
 
-void loopier::newRecorder() {
-    recorder.setup();
+void loopier::newVideoInput() {
+    videoInput.setup();
 }
 
-void loopier::updateRecorder() {
-    recorder.update();
+void loopier::updateVideoInput() {
+    videoInput.update();
 }
 
-void loopier::drawRecorder() {
-    recorder.draw();
+void loopier::drawVideoInput() {
+    videoInput.draw();
 }
 
-void loopier::setRecorderMinArea(float newArea)
+void loopier::setVideoInputMinArea(float newArea)
 {
-    recorder.setMinArea(newArea);
+    videoInput.setMinArea(newArea);
 }
 
-void loopier::setRecorderMaxArea(float newArea)
+void loopier::setVideoInputMaxArea(float newArea)
 {
-    recorder.setMaxArea(newArea);
+    videoInput.setMaxArea(newArea);
 }
 
-void loopier::setRecorderThreshold(float newThreshold)
+void loopier::setVideoInputThreshold(float newThreshold)
 {
-    recorder.setThreshold(newThreshold);
+    videoInput.setThreshold(newThreshold);
 }
 
-void loopier::setRecorderHoles(bool bHoles)
+void loopier::setVideoInputHoles(bool bHoles)
 {
-    recorder.setHoles(bHoles);
+    videoInput.setHoles(bHoles);
 }
 
-void loopier::toggleRecorderVisibility()
+void loopier::toggleVideoInputVisibility()
 {
-    recorder.toggleVisibility();
+    videoInput.toggleVisibility();
 }
 
-void loopier::showRecorder()
+void loopier::showVideoInput()
 {
-    recorder.show();
+    videoInput.show();
 }
 
-void loopier::hideRecorder()
+void loopier::hideVideoInput()
 {
-    recorder.hide();
+    videoInput.hide();
 }
