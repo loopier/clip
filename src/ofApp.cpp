@@ -8,18 +8,11 @@ void ofApp::setup(){
     /// --------------  TESTING     --------------
     /// -------------------------------------------------------------------------------
 
-//    loopier::Movie::preloadMovies();
-//
-//    loopier::newClip("defo");
-//    loopier::addMovieToClip("defo", "mamma");
-//
-//    loopier::newClip("mamamia", "mamma");
-//
-//    loopier::listClips();
-//
-//    ofExit();
-//    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
-//    return;
+    framePlayer.setup();
+
+    ofExit();
+    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
+    return;
     /// -------------------------------------------------------------------------------
     /// --------------  END OF TEST --------------
     /// -------------------------------------------------------------------------------

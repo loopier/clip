@@ -6,6 +6,7 @@
 #include "ConsoleUI.h"
 #include "Movie.h"
 #include "VideoInput.h"
+#include "FramePlayer.h";
 
 using namespace loopier;
 
@@ -33,6 +34,7 @@ private:
     ConsoleUI   console;
     OscManager  osc;
     string  applicationSupportPath; ///< Path to the directory with resources and config files
+    FramePlayer     framePlayer;
 
     /// \brief  Creates a folder in ~/Library/Application Support/Clip/
     ///     for all the resources and config files.
