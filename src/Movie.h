@@ -22,7 +22,8 @@
 //  It's a map of string and OBJECT -- NOT POINTER --!!!!
 //  It will be used as a static variable.
 //  This is because we want the movies in the map to be unique.  Otherwise, modifying
-//      one from one clip would modify all the equal movies of all the other clips that have it.
+//      one from one instance of a clip would modify all the equal movies of all the other
+//      instances of clips that have it.
 //  We want each clip to have unique movies so it can fool with them independently from
 //      other clips are doing.
 //  -------------------------------------------------------
