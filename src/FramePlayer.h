@@ -15,6 +15,8 @@
 
 namespace loopier {
     
+    /// !!! TODO: these enums to loopierTypes.h or somehting
+    
     /// \brief Direction of the play head when playing
     enum PlayDirection {
         PLAY_DIRECTION_NORMAL   = 1,    ///< forward

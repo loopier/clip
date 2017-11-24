@@ -142,6 +142,7 @@ void loopier::Clip::pause(bool bPause)
 }
 
 //---------------------------------------------------------------------------
+/// !!! FIX: Change ofLoopType to loopier::LoopType -- chack FramePlayer class
 void loopier::Clip::setLoopState(const ofLoopType state)
 {
     loopState = state;
@@ -389,6 +390,7 @@ void loopier::Clip::updateSequence()
 
 //-------------------------------------------------------------------------------------------------------------
 //      PUBLIC INTERFACE FUNCTIONS
+/// !!! TODO: Move clip's interface function to clips.h file
 
 
 loopier::ClipMap loopier::clips; // the list of clips available everywhere
