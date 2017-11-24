@@ -8,11 +8,14 @@ void ofApp::setup(){
     /// --------------  TESTING     --------------
     /// -------------------------------------------------------------------------------
 
-    framePlayer.setup();
-
-    ofExit();
-    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
-    return;
+//    framePlayer.setPath("/Users/roger/Library/Application Support/Clip/resources/frames/");
+//    framePlayer.load("manwalk");
+//    
+//    ofLogVerbose() << "Total frames: " << framePlayer.getTotalNumFrames();
+//
+//    ofExit();
+//    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
+//    return;
     /// -------------------------------------------------------------------------------
     /// --------------  END OF TEST --------------
     /// -------------------------------------------------------------------------------
@@ -49,6 +52,8 @@ void ofApp::draw(){
     loopier::drawVideoInput();
     loopier::drawClips();
     console.draw();
+    
+    framePlayer.draw();
 }
 
 void ofApp::exit()
@@ -216,7 +221,7 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
+    
 }
 
 //--------------------------------------------------------------
