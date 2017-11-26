@@ -10,18 +10,8 @@
 #include "ConsoleUI.h"
 
 loopier::FramePlayer::FramePlayer()
-: name("default")
-, path("/Users/roger/Library/Application Support/Clip/resources/frames/")
-, speed(1.0)
-, frameRate(ofGetFrameRate())
+: BasePlayer()
 , lastFrameTime(0.0)
-, position(0.0)
-, currentFrame(0)
-, loopState(LOOP_NORMAL)
-, playDirection(PLAY_DIRECTION_NORMAL)
-, bLoaded(false)
-, bPlay(true)
-, anchor(100,100)
 {
     
 }
@@ -53,8 +43,8 @@ void loopier::FramePlayer::update()
     
     lastFrameTime = 0;
     
-    if (playDirection == PLAY_DIRECTION_NORMAL)         nextFrame();
-    else if (playDirection == PLAY_DIRECTION_REVERSE)   previousFrame();
+    if (playDirection == loopier::PlayDirection::normal)         nextFrame();
+    else if (playDirection == loopier::PlayDirection::reverse)   previousFrame();
 }
 
 //---------------------------------------------------------
@@ -88,16 +78,17 @@ bool loopier::FramePlayer::load(string newName)
     
     ofLogVerbose() << "Preloading frame image files:";
     
-    if (!ofDirectory(path).exists()) {
-        string msg = "\tDirectory not found:\t" + name;
-        ofLogError() << __PRETTY_FUNCTION__ << "\t" << msg;
-        loopier::ConsoleUI::printError(msg);
-        return;
-    }
-    
     // iterate subfolders
     ofDirectory dir(absolutePath);
+    
+    dir.allowExt("png");
+    dir.allowExt("jpg");
+    dir.allowExt("gif");
+    
     vector<ofFile> files = dir.getFiles();
+    
+    bLoaded = files.size();
+    
     ofFile file;
     ofImage img;
     
@@ -113,7 +104,7 @@ bool loopier::FramePlayer::load(string newName)
     }
     
     ofLogVerbose() << "Finished loading frame image files";
-    return true;
+    return bLoaded;
 }
 
 //---------------------------------------------------------
@@ -153,82 +144,11 @@ float loopier::FramePlayer::getHeight() const
 }
 
 //---------------------------------------------------------
-
-bool loopier::FramePlayer::isPaused() const
-{
-       return !bPlay;
-}
-
-//---------------------------------------------------------
-bool loopier::FramePlayer::isLoaded() const
-{
-       return bLoaded;
-    
-}
-
-//---------------------------------------------------------
-bool loopier::FramePlayer::isPlaying() const
-{
-       return bPlay;
-    
-}
-
-//---------------------------------------------------------
-float loopier::FramePlayer::getPosition() const
-{
-       return 1.0;
-    
-}
-
-//---------------------------------------------------------
-float loopier::FramePlayer::getSpeed() const
-{
-    return 1.0;
-}
-
-//---------------------------------------------------------
 float loopier::FramePlayer::getDuration() const
 {
     return 1.0;
 }
 
-//---------------------------------------------------------
-bool loopier::FramePlayer::getIsMovieDone() const
-{
-    return true;
-}
-
-//---------------------------------------------------------
-
-void loopier::FramePlayer::setPaused(bool bPause)
-{
-       
-}
-
-//---------------------------------------------------------
-void loopier::FramePlayer::setPosition(float pct)
-{
-       
-}
-
-//---------------------------------------------------------
-void loopier::FramePlayer::setLoopState(loopier::LoopType state)
-{
-    loopState = state;
-}
-
-//---------------------------------------------------------
-void loopier::FramePlayer::setPlayDirection(loopier::PlayDirection dir)
-{
-    playDirection = dir;
-}
-
-//---------------------------------------------------------
-void loopier::FramePlayer::changePlayDirection()
-{
-    if (playDirection == PLAY_DIRECTION_NORMAL) setPlayDirection(PLAY_DIRECTION_REVERSE);
-    else if (playDirection == PLAY_DIRECTION_REVERSE) setPlayDirection(PLAY_DIRECTION_NORMAL);
-}
 
 //---------------------------------------------------------
 void loopier::FramePlayer::setSpeed(float newSpeed)
@@ -239,23 +159,12 @@ void loopier::FramePlayer::setSpeed(float newSpeed)
 }
 
 //---------------------------------------------------------
-void loopier::FramePlayer::setFrameRate(float fps)
+void loopier::FramePlayer::setFrameRate(int fps)
 {
     frameRate = fps;
     speed = (60 / frameRate) / ofGetFrameRate();
 }
 
-//---------------------------------------------------------
-void loopier::FramePlayer::setFrame(int frame)
-{
-    currentFrame = frame;
-}
-
-//---------------------------------------------------------
-int loopier::FramePlayer::getCurrentFrame() const
-{
-    return currentFrame;
-}
 
 //---------------------------------------------------------
 int loopier::FramePlayer::getTotalNumFrames() const
@@ -263,23 +172,6 @@ int loopier::FramePlayer::getTotalNumFrames() const
     return frames.size();
 }
 
-//---------------------------------------------------------
-loopier::LoopType loopier::FramePlayer::getLoopState() const
-{
-    return loopState;
-}
-
-//---------------------------------------------------------
-loopier::PlayDirection loopier::FramePlayer::getPlayDirection() const
-{
-    return playDirection;
-}
-
-//---------------------------------------------------------
-float loopier::FramePlayer::getFrameRate() const
-{
-    return frameRate;
-}
 
 //---------------------------------------------------------
 void loopier::FramePlayer::firstFrame()
@@ -293,15 +185,15 @@ void loopier::FramePlayer::nextFrame()
     currentFrame++;
     
     if (currentFrame > frames.size() - 1) {
-        if (loopState == LOOP_NORMAL) {
+        if (loopState == loopier::LoopType::normal) {
             firstFrame();
-        } else if (loopState == LOOP_PALINDROME) {
+        } else if (loopState == loopier::LoopType::palindrome) {
             currentFrame--;
             changePlayDirection();
-        } else if (loopState == LOOP_NONE) {
+        } else if (loopState == loopier::LoopType::none) {
             currentFrame--;
             stop();
-        } else if (loopState == LOOP_ONCE) {
+        } else if (loopState == loopier::LoopType::once) {
             stop();
         }
     }
@@ -313,15 +205,15 @@ void loopier::FramePlayer::previousFrame()
     currentFrame--;
     
     if (currentFrame < 0) {
-        if (loopState == LOOP_NORMAL) {
+        if (loopState == loopier::LoopType::normal) {
             currentFrame = frames.size() - 1;
-        } else if (loopState == LOOP_PALINDROME) {
+        } else if (loopState == loopier::LoopType::palindrome) {
             currentFrame++;
             changePlayDirection();
-        } else if (loopState == LOOP_NONE) {
+        } else if (loopState == loopier::LoopType::none) {
             currentFrame++;
             stop();
-        } else if (loopState == LOOP_ONCE) {
+        } else if (loopState == loopier::LoopType::once) {
             stop();
         }
     }

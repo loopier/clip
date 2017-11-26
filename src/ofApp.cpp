@@ -7,15 +7,21 @@ void ofApp::setup(){
     /// -------------------------------------------------------------------------------
     /// --------------  TESTING     --------------
     /// -------------------------------------------------------------------------------
+    BasePlayerPtr   player(new FramePlayer);
+//    player->setPath("/Users/roger/Library/Application Support/Clip/resources/frames/");
+//    bool b = player->load("manwalk");
+    bool b = player->load("mamma");
+    
+//    ofLogVerbose() << "LOADED mandwalk: " << b;
+//    ofLogVerbose() << "Total frames: " << player->getTotalNumFrames();
+    
+//    ofDirectory dir("/Users/roger/Library/Application Support/Clip/resources/frames/empty");
+//    vector<ofFile> files = dir.getFiles();
+//    ofLogVerbose() << files.size();
 
-//    framePlayer.setPath("/Users/roger/Library/Application Support/Clip/resources/frames/");
-//    framePlayer.load("manwalk");
-//    
-//    ofLogVerbose() << "Total frames: " << framePlayer.getTotalNumFrames();
-//
-//    ofExit();
-//    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
-//    return;
+    ofExit();
+    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
+    return;
     /// -------------------------------------------------------------------------------
     /// --------------  END OF TEST --------------
     /// -------------------------------------------------------------------------------
@@ -52,8 +58,6 @@ void ofApp::draw(){
     loopier::drawVideoInput();
     loopier::drawClips();
     console.draw();
-    
-    framePlayer.draw();
 }
 
 void ofApp::exit()
