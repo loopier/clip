@@ -32,6 +32,8 @@ namespace loopier {
         /// \brief  Resets clip to the default state
         void reset();
         
+        void loadContents(string & filename);
+        
         void setName(const string& newName);
         string getName() const;
         
@@ -93,6 +95,7 @@ namespace loopier {
         
         Clip(); // Disable default constructor.  All clips must have a name
         
+        /// \brief
         
     };
     
@@ -118,7 +121,7 @@ namespace loopier {
     ///                         should be the path to the directory where the subdirectory
     ///                         'mymovie' resides.
     loopier::ClipPtr newClip(string clipname);
-    loopier::ClipPtr newClip(string clipname, string path);
+    loopier::ClipPtr newClip(string clipname, string filename);
     void removeClip(const string& clipname);
     /// \brief  Clear content
     void clearClips();

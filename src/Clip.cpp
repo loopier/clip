@@ -33,7 +33,7 @@ loopier::Clip::Clip(string& clipname, string& filename)
 , bDrawName(false)
 , loopState(OF_LOOP_NORMAL)
 {
-    
+    loadContents(filename);
 }
 
 //---------------------------------------------------------
@@ -93,6 +93,16 @@ void loopier::Clip::reset()
     scaleY = scale;
     color = ofColor(255);
     alpha = 1.0;
+}
+
+
+//---------------------------------------------------------------------------
+void loopier::Clip::loadContents(string & filename)
+{
+    PlayerPtr   player(new FramePlayer);
+    //    player->setPath("/Users/roger/Library/Application Support/Clip/resources/frames/");
+    //    bool b = player->load("manwalk");
+    bool b = player->load(filename);
 }
 
 //---------------------------------------------------------------------------
@@ -297,11 +307,11 @@ loopier::ClipPtr loopier::newClip(string clipname)
 }
 
 //---------------------------------------------------------------------------
-loopier::ClipPtr loopier::newClip(string clipname, string moviename)
+loopier::ClipPtr loopier::newClip(string clipname, string filename)
 {
-    loopier::ClipPtr clip(new loopier::Clip(clipname, moviename));
+    loopier::ClipPtr clip(new loopier::Clip(clipname, filename));
     clip->setup();
-//    clips[clip->getName()] = clip;
+    clips[clip->getName()] = clip;
     return clip;
 }
 //---------------------------------------------------------------------------

@@ -7,10 +7,10 @@ void ofApp::setup(){
     /// -------------------------------------------------------------------------------
     /// --------------  TESTING     --------------
     /// -------------------------------------------------------------------------------
-    PlayerPtr   player(new FramePlayer);
+//    PlayerPtr   player(new FramePlayer);
 //    player->setPath("/Users/roger/Library/Application Support/Clip/resources/frames/");
 //    bool b = player->load("manwalk");
-    bool b = player->load("mamma");
+//    bool b = player->load("mamma");
     
 //    ofLogVerbose() << "LOADED mandwalk: " << b;
 //    ofLogVerbose() << "Total frames: " << player->getTotalNumFrames();
@@ -18,6 +18,8 @@ void ofApp::setup(){
 //    ofDirectory dir("/Users/roger/Library/Application Support/Clip/resources/frames/empty");
 //    vector<ofFile> files = dir.getFiles();
 //    ofLogVerbose() << files.size();
+    
+    loopier::newClip("oneclip", "mamma");
 
     ofExit();
     ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
