@@ -28,6 +28,8 @@ m.sendMsg("/loopier/clip/clip", "exampleclip", "new");
 // create a clip with the 'default.mov' movie (if movie name is not provided it will pick 'default')
 m.sendMsg("/loopier/clip/clip", "exampleclip", "remove");
 
+m.sendMsg("/loopier/clip/clip", "exampleclip", "new", "manwalk");
+
 // PLAYING   ------------------------------------------------------
 
 // play, pause or stop movie
