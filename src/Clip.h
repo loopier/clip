@@ -17,6 +17,9 @@
 
 namespace loopier {
 
+    typedef shared_ptr<ClipContent>     ClipContentPtr;
+    typedef map<string, ClipContentPtr> ClipContentMap;
+    
     class Clip{
         
     public:
@@ -110,6 +113,7 @@ namespace loopier {
     // Non-member functions for interfacing (managing) clips
     //***************************************************************************
     extern ClipMap clips;
+    extern ClipContentMap clipContents;
     
     // ----- MANAGE CLIPS-----
     

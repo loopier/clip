@@ -297,7 +297,7 @@ void loopier::Clip::flipH()
 
 
 loopier::ClipMap loopier::clips; // the list of clips available everywhere
-
+loopier::ClipContentMap loopier::clipContents; // list of all available contents
 
 //---------------------------------------------------------------------------
 //  MANAGE CLIPS

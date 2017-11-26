@@ -16,7 +16,15 @@
 
 namespace loopier {
     
-    class ClipContent{}; // wrapper class for movies and image sequences
+    enum class ClipContentType {
+        frames,
+        movie
+    };
+    
+    // wrapper class for movies and image sequences
+    class ClipContent{
+        ClipContentType type;
+    };
     
     class BasePlayer{
         
