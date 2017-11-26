@@ -15,7 +15,7 @@
 
 namespace loopier {
     
-    class Movie: public ofVideoPlayer, public ClipContent{};
+    class MovieClipContent: public ofVideoPlayer, public ClipContent{};
     
     class MoviePlayer: public BasePlayer{
         
@@ -28,6 +28,7 @@ namespace loopier {
         void draw();
         void exit();
         
+        // !!! TODO: Copy from global map instead of loading file
         bool				load(string filename);
         
         void				play();
@@ -47,6 +48,7 @@ namespace loopier {
         void				nextFrame();
         void				previousFrame();
     private:
+        MovieClipContent movie;
     };
 }
 

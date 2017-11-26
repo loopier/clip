@@ -57,6 +57,9 @@ void loopier::Clip::update()
 {
 //    if (bPlaySequence) updateSequence();
 //    movie->update();
+    if (players.size() <= 0) return;
+    
+    players[0]->play();
 }
 
 //---------------------------------------------------------------------------
@@ -77,6 +80,9 @@ void loopier::Clip::draw()
 //        if (bDrawName)  ofDrawBitmapString(name, x, y);
 //    }
     
+    if (players.size() <= 0) return;
+    
+    players[0]->draw();
 }
 
 //---------------------------------------------------------------------------
@@ -98,14 +104,22 @@ void loopier::Clip::reset()
 
 
 //---------------------------------------------------------------------------
-void loopier::Clip::loadContents(string & filename)
+void loopier::Clip::loadContents(string & contentsname)
 {
-    // !!! TODO: Preload all files in a global vector and copy from there
-    PlayerPtr   frameplayer(new FramePlayer);
-    bool b = frameplayer->load(filename);
+    // copy contents to Player
+    // check if it's available
+    ClipContent content = loopier::clipContents.find(contentsname)->second;
+//    ofLogVerbose() << content.getTypeName();
+    if (content.getType() == ClipContentType::movie) {
+        PlayerPtr p(new MoviePlayer);
+        // !!! TODO: LOAD CONTENT
+        players.push_back(p);
+    } else if (content.getType() == ClipContentType::frames) {
+        PlayerPtr p(new FramePlayer);
+        // !!! TODO: LOAD CONTENT
+        players.push_back(p);
+    }
     
-    PlayerPtr   movplayer(new MoviePlayer);
-    b = movplayer->load(filename);
 }
 
 //---------------------------------------------------------------------------
@@ -346,11 +360,12 @@ int loopier::loadClipContents(string path)
 
 bool loopier::loadClipMovieContent(string path)
 {
-    loopier::Movie movie;
+    loopier::MovieClipContent movie;
     movie.load(path);
     if (!movie.isLoaded()) return false;
     ofFile file(path);
     loopier::clipContents[file.getBaseName()] = movie;
+    loopier::clipContents[file.getBaseName()].setType(loopier::ClipContentType::movie);
     return true;
 }
 
@@ -363,7 +378,7 @@ bool loopier::loadClipFramesContent(string path)
     
     vector<ofFile> files = dir.getFiles();
     
-    FrameList frames;
+    FrameClipContent frames;
     
     for (int i = 0; i < files.size(); i++) {
         ofImage img;
@@ -375,7 +390,8 @@ bool loopier::loadClipFramesContent(string path)
     string name = loopier::utils::trimNumbersFromBaseName(files[0].getBaseName());
     
     loopier::clipContents[name] = frames;
-    ofLogVerbose() << "Loaded " << frames.size() << " frames from " << name;
+    loopier::clipContents[name].setType(loopier::ClipContentType::frames);
+//    ofLogVerbose() << "Loaded " << frames.size() << " frames from " << name;
     return false;
 }
 

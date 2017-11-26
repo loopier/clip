@@ -36,7 +36,8 @@ namespace loopier {
         /// \brief  Resets clip to the default state
         void reset();
         
-        void loadContents(string & filename);
+        /// \brief  Loads content from the global clipContents map
+        void loadContents(string & contentsname);
         
         void setName(const string& newName);
         string getName() const;
@@ -74,7 +75,8 @@ namespace loopier {
         void flipH();
         
     private:
-        PlayerList players;
+        PlayerPtr   player;
+        PlayerList  players;
         
         string  name;
         float   x, y;

@@ -16,8 +16,8 @@
 
 namespace loopier {
     
-    //        typedef vector<ofImage> FrameList;
-    class FrameList: public vector<ofImage>, public ClipContent{};
+    typedef vector<ofImage> FrameList;
+    class FrameClipContent: public FrameList, public ClipContent{};
     
     class FramePlayer: public BasePlayer{
         
@@ -30,6 +30,7 @@ namespace loopier {
         void draw();
         void exit();
         
+        // !!! TODO: Copy from global map instead of loading files
         bool				load(string filename);
         
         void				play();
@@ -52,7 +53,7 @@ namespace loopier {
         /// \brief  Inserts an image at the current frame
         void                addFrame(ofImage img);
     private:
-        FrameList   frames;
+        FrameClipContent   frames;
         float       lastFrameTime;
     };
     

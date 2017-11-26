@@ -23,6 +23,21 @@ namespace loopier {
     
     // wrapper class for movies and image sequences
     class ClipContent{
+    public:
+        ClipContentType getType() const {
+            return type;
+        };
+        
+        string getTypeName() const {
+            if      (type == ClipContentType::frames)   return "frames";
+            else if (type == ClipContentType::movie)    return "movie";
+        }
+        
+        void setType(ClipContentType newType) {
+            type = newType;
+        }
+        
+    protected:
         ClipContentType type;
     };
     
