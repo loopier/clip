@@ -12,22 +12,10 @@
 
 
 #include "ofMain.h"
+#include "Types.h"
 
 namespace loopier {
-    
-    /// \brief Direction of the play head when playing
-    enum class PlayDirection {
-        normal   = 1,    ///< forward
-        reverse  = -1    ///< backwards
-    };
-    
-//    typedef ofLoopType LoopType;
-    enum class LoopType {
-        none        = OF_LOOP_NONE, // Freezes at last frame
-        palindrome  = OF_LOOP_PALINDROME,
-        normal      = OF_LOOP_NORMAL,
-        once        = 0x03  // Plays once and then disappears
-    };
+
     
     class BasePlayer{
         
@@ -98,7 +86,9 @@ namespace loopier {
         ofPoint anchor; // Drawing 'center'
     };
     
-    typedef shared_ptr<BasePlayer> BasePlayerPtr;
+    typedef shared_ptr<BasePlayer>      PlayerPtr;
+    typedef vector<PlayerPtr>           PlayerList;
+    typedef map<string, PlayerPtr>  PlayerMap;
 }
 
 #endif
