@@ -18,7 +18,7 @@
 namespace loopier {
 
     typedef shared_ptr<ClipContent>     ClipContentPtr;
-    typedef map<string, ClipContentPtr> ClipContentMap;
+    typedef map<string, ClipContent> ClipContentMap;
     
     class Clip{
         
@@ -116,6 +116,11 @@ namespace loopier {
     extern ClipContentMap clipContents;
     
     // ----- MANAGE CLIPS-----
+    
+    /// \brief  Load all clip contents in given path to 'clipContents' map
+    ///         Each clip is named after it's foldername
+    /// \returns    int     Number of clips loaded
+    int loadClipContents(string path="");
     
     /// \brief  Creates a new clip with the given movie file
     /// \param  name    String  Name of the movie file (with or without extension).

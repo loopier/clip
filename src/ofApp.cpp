@@ -19,11 +19,11 @@ void ofApp::setup(){
 //    vector<ofFile> files = dir.getFiles();
 //    ofLogVerbose() << files.size();
     
-    loopier::newClip("oneclip", "mamma");
-
-    ofExit();
-    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
-    return;
+//    loopier::newClip("oneclip", "mamma");
+//
+//    ofExit();
+//    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
+//    return;
     /// -------------------------------------------------------------------------------
     /// --------------  END OF TEST --------------
     /// -------------------------------------------------------------------------------
@@ -37,6 +37,8 @@ void ofApp::setup(){
 
     applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/";
     init();
+    
+    loopier::loadClipContents(applicationSupportPath + "resources/players/");
 
 //    osc.listenToPort(54321);
     osc.setup();

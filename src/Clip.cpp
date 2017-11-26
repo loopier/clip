@@ -292,7 +292,20 @@ void loopier::Clip::flipH()
 
 //***************************************************************************
 //***************************************************************************
+
+
+
+
+
+
 //      NON-MEMBER PUBLIC INTERFACE FUNCTIONS
+
+
+
+
+
+
+
 //***************************************************************************
 
 
@@ -301,6 +314,38 @@ loopier::ClipContentMap loopier::clipContents; // list of all available contents
 
 //---------------------------------------------------------------------------
 //  MANAGE CLIPS
+
+int loopier::loadClipContents(string path)
+{
+    if (path == "") path = "/Users/roger/Library/Application Support/Clip/resources/players/";
+    
+    ofLogVerbose() << "Loading clip contents from: " << path;
+    
+    ofDirectory dir(path);
+    vector<ofFile> subdirs = dir.getFiles();
+    
+    for (int i = 0; i < subdirs.size(); i++) {
+        if (subdirs[i].isDirectory()) {
+            vector<ofFile> files = ofDirectory(subdirs[i]).getFiles();
+            for (int x = 0; x < files.size(); x++) {
+                string ext = files[x].getExtension();
+                ofLogVerbose() << files[x].getBaseName() << "\t" << ext;
+                
+                if (ext == "mov") {
+                    // load movie into global movies map
+                    loopier::Movie movie;
+                    movie.load(files[x].getAbsolutePath());
+                    loopier::clipContents[files[x].getBaseName()] = movie;
+                } else if (ext == "png" || ext == "jpg" || ext == "gif") {
+                    // get basename without '_xxx'
+                    // load frames into gloabl frames map
+                }
+            }
+        }
+    }
+    
+    ofLogVerbose() << "CLIP CONTENTS: " << loopier::clipContents.size();
+}
 
 //---------------------------------------------------------------------------
 loopier::ClipPtr loopier::newClip(string clipname)
