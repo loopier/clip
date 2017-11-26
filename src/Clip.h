@@ -121,6 +121,8 @@ namespace loopier {
     ///         Each clip is named after it's foldername
     /// \returns    int     Number of clips loaded
     int loadClipContents(string path="");
+    bool loadClipMovieContent(string path);
+    bool loadClipFramesContent(string path);
     
     /// \brief  Creates a new clip with the given movie file
     /// \param  name    String  Name of the movie file (with or without extension).

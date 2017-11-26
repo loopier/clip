@@ -21,6 +21,12 @@ void ofApp::setup(){
     
 //    loopier::newClip("oneclip", "mamma");
 //
+    
+//
+//    ofDirectory dir("/Users/roger/Library/Application Support/Clip/resources/players/manwalk");
+//    dir.listDir();
+//    ofLogVerbose() << dir.getName(0);
+    
 //    ofExit();
 //    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
 //    return;

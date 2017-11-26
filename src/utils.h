@@ -38,6 +38,19 @@ namespace loopier {
 //            ofLogVerbose() << __FUNCTION__ << "():\t" << dir.listDir(path);
             return names;
         }
+        
+        /// \brief  Remove numbers from consecutive numbered framenames preceded by '_'
+        string trimNumbersFromBaseName(string name)
+        {
+            vector<string> result = ofSplitString(name, "_");
+            string basename = "";
+            
+            for (int i = 0; i < result.size()-1; i++) {
+                basename += result[i];
+            }
+            
+            return basename;
+        }
     }
 }
 

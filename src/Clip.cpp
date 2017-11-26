@@ -8,6 +8,7 @@
 
 #include "Clip.h"
 #include "ConsoleUI.h"
+#include "utils.h"
 
 //---------------------------------------------------------
 loopier::Clip::Clip(){
@@ -327,24 +328,55 @@ int loopier::loadClipContents(string path)
     for (int i = 0; i < subdirs.size(); i++) {
         if (subdirs[i].isDirectory()) {
             vector<ofFile> files = ofDirectory(subdirs[i]).getFiles();
-            for (int x = 0; x < files.size(); x++) {
-                string ext = files[x].getExtension();
-                ofLogVerbose() << files[x].getBaseName() << "\t" << ext;
-                
-                if (ext == "mov") {
-                    // load movie into global movies map
-                    loopier::Movie movie;
-                    movie.load(files[x].getAbsolutePath());
-                    loopier::clipContents[files[x].getBaseName()] = movie;
-                } else if (ext == "png" || ext == "jpg" || ext == "gif") {
-                    // get basename without '_xxx'
-                    // load frames into gloabl frames map
-                }
+            string ext = files[0].getExtension();
+            // movies
+            if ( ext == "mov") {
+                loopier::loadClipMovieContent(files[0].getAbsolutePath());
+            }
+            // frames
+            else if (ext == "png" || ext == "jpg" || ext == "gif") {
+                string p = subdirs[i].getAbsolutePath();
+                loopier::loadClipFramesContent(subdirs[i].getAbsolutePath());
             }
         }
     }
     
     ofLogVerbose() << "CLIP CONTENTS: " << loopier::clipContents.size();
+}
+
+bool loopier::loadClipMovieContent(string path)
+{
+    loopier::Movie movie;
+    movie.load(path);
+    if (!movie.isLoaded()) return false;
+    ofFile file(path);
+    loopier::clipContents[file.getBaseName()] = movie;
+    return true;
+}
+
+bool loopier::loadClipFramesContent(string path)
+{
+    ofDirectory dir(path);
+    dir.allowExt("png");
+    dir.allowExt("jpg");
+    dir.allowExt("gif");
+    
+    vector<ofFile> files = dir.getFiles();
+    
+    FrameList frames;
+    
+    for (int i = 0; i < files.size(); i++) {
+        ofImage img;
+        ofLogVerbose() << files[i].getAbsolutePath();
+        img.load(files[i].getAbsolutePath());
+        frames.push_back(img);
+    }
+    
+    string name = loopier::utils::trimNumbersFromBaseName(files[0].getBaseName());
+    
+    loopier::clipContents[name] = frames;
+    ofLogVerbose() << "Loaded " << frames.size() << " frames from " << name;
+    return false;
 }
 
 //---------------------------------------------------------------------------
