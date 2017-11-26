@@ -5,7 +5,7 @@
 //  Created by roger on 26/11/2017.
 //  Copyright 2017 __MyCompanyName__. All rights reserved.
 //
-//  Base class for all classes that can be played
+//  Base class for all classes that can be played like a movie
 
 #ifndef _BasePlayer
 #define _BasePlayer
