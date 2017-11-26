@@ -16,7 +16,7 @@
 #include "MoviePlayer.h"
 
 namespace loopier {
-    
+
     class Clip{
         
     public:

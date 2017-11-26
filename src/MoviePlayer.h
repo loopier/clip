@@ -15,6 +15,7 @@
 
 namespace loopier {
     
+    class Movie: public ofVideoPlayer, public ClipContent{};
     
     class MoviePlayer: public BasePlayer{
         

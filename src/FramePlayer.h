@@ -18,7 +18,8 @@ namespace loopier {
     
     
     
-    typedef vector<ofImage> FrameList;
+    //        typedef vector<ofImage> FrameList;
+    class FrameList: public vector<ofImage>, public ClipContent{};
     
     class FramePlayer: public BasePlayer{
         

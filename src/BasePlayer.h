@@ -15,7 +15,8 @@
 #include "Types.h"
 
 namespace loopier {
-
+    
+    class ClipContent{}; // wrapper class for movies and image sequences
     
     class BasePlayer{
         
