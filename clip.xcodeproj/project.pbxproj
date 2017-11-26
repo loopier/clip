@@ -1196,9 +1196,9 @@
 				DBDC4C481FCAEA9B00C02CC3 /* BasePlayer.h */,
 				DB6E39081FC7302C0016954C /* FramePlayer.cpp */,
 				DB6E39091FC7302C0016954C /* FramePlayer.h */,
-				DBDC4C4D1FCB0C3000C02CC3 /* Types.h */,
 				DBDC4C4E1FCB17A300C02CC3 /* MoviePlayer.cpp */,
 				DBDC4C4F1FCB17A300C02CC3 /* MoviePlayer.h */,
+				DBDC4C4D1FCB0C3000C02CC3 /* Types.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

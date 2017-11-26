@@ -104,7 +104,7 @@ void loopier::Clip::loadContents(string & filename)
     bool b = frameplayer->load(filename);
     
     PlayerPtr   movplayer(new MoviePlayer);
-    b = frameplayer->load(filename);
+    b = movplayer->load(filename);
 }
 
 //---------------------------------------------------------------------------
