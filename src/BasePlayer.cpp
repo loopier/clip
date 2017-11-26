@@ -51,8 +51,7 @@ void    loopier::BasePlayer::exit()
 //---------------------------------------------------------
 void    loopier::BasePlayer::setPath(string newPath)
 {
-    ofLogNotice() << __PRETTY_FUNCTION__ << " is not implemented";
-    
+    path = newPath;
 }
 
 //---------------------------------------------------------
@@ -65,15 +64,13 @@ bool    loopier::BasePlayer::load(string newName)
 //---------------------------------------------------------
 void    loopier::BasePlayer::setName(string newName)
 {
-    ofLogNotice() << __PRETTY_FUNCTION__ << " is not implemented";
-    
+    name = newName;
 }
 
 //---------------------------------------------------------
 string  loopier::BasePlayer::getName() const
 {
-    ofLogNotice() << __PRETTY_FUNCTION__ << " is not implemented";
-    
+    return name;
 }
 
 //---------------------------------------------------------

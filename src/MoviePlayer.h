@@ -1,14 +1,13 @@
 //
-//  FramePlayer.h
+//  MoviePlayer.h
 //  clip
 //
-//  Created by roger on 23/11/2017.
+//  Created by roger on 26/11/2017.
 //  Copyright 2017 __MyCompanyName__. All rights reserved.
 //
-//  This class plays sequences of images like a movie (like ofVideoPlayer)
 
-#ifndef _FramePlayer
-#define _FramePlayer
+#ifndef _MoviePlayer
+#define _MoviePlayer
 
 
 #include "ofMain.h"
@@ -17,14 +16,11 @@
 namespace loopier {
     
     
-    
-    typedef vector<ofImage> FrameList;
-    
-    class FramePlayer: public BasePlayer{
+    class MoviePlayer: public BasePlayer{
         
     public:
-        FramePlayer();
-        virtual ~FramePlayer();
+        MoviePlayer();
+        virtual ~MoviePlayer();
         
         void setup();
         void update();
@@ -49,13 +45,8 @@ namespace loopier {
         void				firstFrame();
         void				nextFrame();
         void				previousFrame();
-        
-        /// \brief  Inserts an image at the current frame
-        void                addFrame(ofImage img);
     private:
-        FrameList   frames;
-        float       lastFrameTime;
     };
-    
 }
+
 #endif

@@ -42,8 +42,9 @@ void ofApp::setup(){
     osc.setup();
     ofAddListener(osc.newOscMessageEvent, this, &ofApp::processOscMessage);
 
-    loopier::Movie::preloadMovies();
-    string moviespath = applicationSupportPath + "resources/movies/";
+    // TODO: Preload movies and frames in global vectors
+//    loopier::Movie::preloadMovies();
+//    string moviespath = applicationSupportPath + "resources/movies/";
 //    loopier::newClip("exampleclip");
     
     loopier::newVideoInput();

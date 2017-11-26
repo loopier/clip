@@ -61,18 +61,11 @@ void loopier::FramePlayer::exit()
        
 }
 
-
 //---------------------------------------------------------
-void loopier::FramePlayer::setPath(string newPath)
+bool loopier::FramePlayer::load(string filename)
 {
-    path = newPath;
-}
-
-//---------------------------------------------------------
-bool loopier::FramePlayer::load(string newName)
-{
-    if (newName != "-") name = newName;
-    else                name = "default";
+    // !!! TODO: Copy from global vector fo contents
+    name = filename;
     
     string absolutePath = path + name;
     
@@ -105,18 +98,6 @@ bool loopier::FramePlayer::load(string newName)
     
     ofLogVerbose() << "Finished loading frame image files";
     return bLoaded;
-}
-
-//---------------------------------------------------------
-void loopier::FramePlayer::setName(string newName)
-{
-    name = newName;
-}
-
-//---------------------------------------------------------
-string loopier::FramePlayer::getName() const
-{
-    return name;
 }
 
 //---------------------------------------------------------

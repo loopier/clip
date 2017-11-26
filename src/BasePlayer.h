@@ -28,11 +28,11 @@ namespace loopier {
         
         
         virtual     void                setPath(string newPath);
-        virtual     bool				load(string newName = "-");
+        virtual     bool				load(string filename);
         virtual     void                setName(string newName);
         virtual     string              getName() const;
         
-        virtual     void				play();
+        virtual     void				play() = 0;
         virtual     void				stop();
         
         virtual     float 				getWidth() const;

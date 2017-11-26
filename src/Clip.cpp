@@ -99,10 +99,12 @@ void loopier::Clip::reset()
 //---------------------------------------------------------------------------
 void loopier::Clip::loadContents(string & filename)
 {
-    PlayerPtr   player(new FramePlayer);
-    //    player->setPath("/Users/roger/Library/Application Support/Clip/resources/frames/");
-    //    bool b = player->load("manwalk");
-    bool b = player->load(filename);
+    // !!! TODO: Preload all files in a global vector and copy from there
+    PlayerPtr   frameplayer(new FramePlayer);
+    bool b = frameplayer->load(filename);
+    
+    PlayerPtr   movplayer(new MoviePlayer);
+    b = frameplayer->load(filename);
 }
 
 //---------------------------------------------------------------------------

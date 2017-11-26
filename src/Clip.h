@@ -13,6 +13,7 @@
 #include "ofMain.h"
 #include "Types.h"
 #include "FramePlayer.h"
+#include "MoviePlayer.h"
 
 namespace loopier {
     

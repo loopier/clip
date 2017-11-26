@@ -4,9 +4,7 @@
 #include "OscManager.h"
 #include "Clip.h"
 #include "ConsoleUI.h"
-#include "Movie.h"
 #include "VideoInput.h"
-#include "FramePlayer.h";
 
 using namespace loopier;
 
