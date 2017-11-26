@@ -143,6 +143,9 @@ namespace loopier {
     
     // ----- CLIP LIST UTILS-----
     
+    /// \brief  Prints the list of available movies and frame collections
+    void listClipContentNames();
+    
     /// \brief  Prints the list of clip names to console
     void listClipNames();
     /// \brief  Prints the list of clips and their contents

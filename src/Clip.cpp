@@ -397,6 +397,18 @@ void loopier::drawClips()
 //---------------------------------------------------------------------------
 //  CLIP LIST UTILS
 //---------------------------------------------------------------------------
+void loopier::listClipContentNames()
+{
+    string msg = "Number of clip contents:\t" + ofToString(loopier::clipContents.size());
+    loopier::ClipContentMap::iterator it;
+    for (it = loopier::clipContents.begin(); it != loopier::clipContents.end(); ++it) {
+        msg += "\n\t" + it->first;
+    }
+    
+    ofLogNotice() << msg;
+}
+
+
 void loopier::listClipNames()
 {
     string msg = "Number of clips:\t" + ofToString(clips.size());

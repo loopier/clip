@@ -113,6 +113,8 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
 
         if      (command == "clearall")  loopier::clearClips();
         else if (command == "listnames") loopier::listClipNames();
+        
+        else if (command == "listcontents") loopier::listClipContentNames();
 
         else if (command == "togglenames")  loopier::toggleClipNames();
         else if (command == "shownames")    loopier::showClipNames();
