@@ -42,7 +42,7 @@ namespace loopier {
         void play();
         void stop();
         void pause(bool bPause=true);
-        void setLoopState(const ofLoopType state);
+        void setLoopState(const LoopType state);
         void setSpeed(const float newSpeed);
         
         void setScale(const float newScale);
@@ -90,7 +90,7 @@ namespace loopier {
         bool    bFlipV; ///< Flip vertically
         bool    bFlipH; ///< Flip horizontally
         
-        ofLoopType  loopState;    ///< See ofSetLoopState(...)
+        LoopType    loopState;    ///< See ofSetLoopState(...)
         bool        bPlaySequence; ///< If true, all movies are played in sequence order.
         int         sequenceIndex; ///< Used to keep track of the sequence order.
         vector<int> sequenceOrder; ///< Each element is a movie index.  They'll be played in order.
@@ -179,7 +179,7 @@ namespace loopier {
     // set speed
     void setClipSpeed(const string clipname, const float speed);
     /// \brief Set loop state (none | normal | palindrome)
-    void setClipLoopState(const string clipname, const ofLoopType state);
+    void setClipLoopState(const string clipname, const LoopType state);
     
     // ----- CLIP ATTRIBUTES -----
     // reset all attributes

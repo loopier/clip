@@ -161,9 +161,10 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         else if (command == "pause")            loopier::pauseClip(name);
         else if (command == "loop") {
             string state = msg.getArgAsString(2);
-            if      (state == "none")        loopier::setClipLoopState(name, OF_LOOP_NONE);
-            else if (state == "normal")      loopier::setClipLoopState(name, OF_LOOP_NORMAL);
-            else if (state == "palindrome")  loopier::setClipLoopState(name, OF_LOOP_PALINDROME);
+            if      (state == "none")        loopier::setClipLoopState(name, loopier::LoopType::none);
+            else if (state == "normal")      loopier::setClipLoopState(name, loopier::LoopType::normal);
+            else if (state == "palindrome")  loopier::setClipLoopState(name, loopier::LoopType::palindrome);
+            else if (state == "once")  loopier::setClipLoopState(name, loopier::LoopType::once);
             else { printOscMessageMisstypingWarning(); return; }
         }
         else if (command == "speed")            loopier::setClipSpeed(name, msg.getArgAsFloat(2));

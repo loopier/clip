@@ -23,6 +23,7 @@ namespace loopier {
         virtual     void                setup();
         virtual     void                update() = 0;
         virtual     void                draw() = 0;
+        virtual     void                draw(float x, float y, float w, float h) = 0;
         virtual     void                exit();
         
         
@@ -67,6 +68,8 @@ namespace loopier {
         virtual     void				firstFrame();
         virtual     void				nextFrame();
         virtual     void				previousFrame();
+        
+        virtual     void                setAnchorPercent(float x, float y);
     protected:
         BasePlayer();
         

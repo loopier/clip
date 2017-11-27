@@ -59,6 +59,14 @@ void loopier::FramePlayer::draw()
 }
 
 //---------------------------------------------------------
+void loopier::FramePlayer::draw(float x, float y, float w, float h)
+{
+    if (frames->size() <= 0) return;
+    
+    frames->at(currentFrame).draw(x, y, w, h);
+}
+
+//---------------------------------------------------------
 void loopier::FramePlayer::exit()
 {
        

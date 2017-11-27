@@ -32,7 +32,7 @@ loopier::Clip::Clip(string& clipname, string& resourcename)
 , bFullscreen(false)
 , bVisible(true)
 , bDrawName(false)
-, loopState(OF_LOOP_NORMAL)
+, loopState(LoopType::normal)
 {
     setResource(resourcename);
 }
@@ -46,48 +46,45 @@ loopier::Clip::~Clip(){
 void loopier::Clip::setup()
 {
     sequenceOrder.push_back(0);
-//    movie = movies[0];
-//    movie->setLoopState(loopState);
+    player->setLoopState(loopState);
     
-    reset();
+//    reset();
 }
 
 //---------------------------------------------------------------------------
 void loopier::Clip::update()
 {
 //    if (bPlaySequence) updateSequence();
-//    movie->update();
     player->update();
 }
 
 //---------------------------------------------------------------------------
 void loopier::Clip::draw()
 {
-//    if (!bVisible) return;
-//    
-//    ofSetColor(color);
-//    
-//    if (bFullscreen) {
-//        int fx = ofGetWidth() / 2;
-//        int fy = ofGetHeight() / 2;
-//        int fw = ofGetWidth() * ofSign(scaleX);
-//        int fh = ofGetHeight() * ofSign(scaleY);
-//        movie->draw(fx, fy, fw, fh);
-//    } else {
-//        movie->draw(x, y, width, height);
-//        if (bDrawName)  ofDrawBitmapString(name, x, y);
-//    }
-    player->draw();
+    if (!bVisible) return;
+    
+    ofSetColor(color);
+    
+    if (bFullscreen) {
+        int fx = ofGetWidth() / 2;
+        int fy = ofGetHeight() / 2;
+        int fw = ofGetWidth() * ofSign(scaleX);
+        int fh = ofGetHeight() * ofSign(scaleY);
+        player->draw(fx, fy, fw, fh);
+    } else {
+        player->draw(x, y, width, height);
+        if (bDrawName)  ofDrawBitmapString(name, x, y);
+    }
 }
 
 //---------------------------------------------------------------------------
 void loopier::Clip::reset()
 {
-//    width = movie->getWidth();
-//    height = movie->getHeight();
+    width = player->getWidth();
+    height = player->getHeight();
     anchorPercentX = 0.5;
     anchorPercentY = 0.5;
-//    movie->setAnchorPercent(anchorPercentX, anchorPercentY);
+    player->setAnchorPercent(anchorPercentX, anchorPercentY);
     x = ofGetWidth() / 2;
     y = ofGetHeight() / 2;
     scale = 1.0;
@@ -144,24 +141,23 @@ void loopier::Clip::stop()
 //---------------------------------------------------------------------------
 void loopier::Clip::pause(bool bPause)
 {
-//    movie->setPaused(bPause);
+    player->setPaused(bPause);
     
     ofLogVerbose() << "pause: " << name ;
 }
 
 //---------------------------------------------------------------------------
-/// !!! FIX: Change ofLoopType to loopier::LoopType -- chack FramePlayer class
-void loopier::Clip::setLoopState(const ofLoopType state)
+void loopier::Clip::setLoopState(const loopier::LoopType state)
 {
     loopState = state;
-//    movie->setLoopState(loopState);
-//    if (movie->isPaused()) movie->play();
+    player->setLoopState(loopState);
+    if (player->isPaused()) player->play();
 }
 
 //---------------------------------------------------------------------------
 void loopier::Clip::setSpeed(const float newSpeed)
 {
-//    movie->setSpeed(newSpeed);
+    player->setSpeed(newSpeed);
 }
 
 //---------------------------------------------------------------------------
@@ -173,8 +169,8 @@ void loopier::Clip::setScale(const float newScale)
     setScaleX(newScale);
     setScaleY(newScale);
     
-//    width = movie->getWidth() * scaleX;
-//    height = movie->getHeight() * scaleY;
+    width = player->getWidth() * scaleX;
+    height = player->getHeight() * scaleY;
     
     ofLogVerbose() << name << " scale: " << scale;
 }
@@ -183,14 +179,14 @@ void loopier::Clip::setScale(const float newScale)
 void loopier::Clip::setScaleX(const float newScale)
 {
     scaleX = newScale * ofSign(scaleX);
-//    width = movie->getWidth() * scaleX;
+    width = player->getWidth() * scaleX;
 }
 
 //---------------------------------------------------------------------------
 void loopier::Clip::setScaleY(const float newScale)
 {
     scaleY = newScale * ofSign(scaleY);
-//    height = movie->getHeight() * scaleY;
+    height = player->getHeight() * scaleY;
 }
 
 //---------------------------------------------------------------------------
@@ -574,7 +570,7 @@ void loopier::setClipSpeed(const string clipname, const float speed)
 }
 
 //---------------------------------------------------------------------------
-void loopier::setClipLoopState(const string clipname, const ofLoopType state)
+void loopier::setClipLoopState(const string clipname, const loopier::LoopType state)
 {
     if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->setLoopState(state);

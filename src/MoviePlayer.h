@@ -27,28 +27,29 @@ namespace loopier {
         MoviePlayer();
         virtual ~MoviePlayer();
         
-        void setup();
-        void update();
-        void draw();
-        void exit();
+        void    setup();
+        void    update();
+        void    draw();
+        void    draw(float x, float y, float w, float h);
+        void    exit();
         
         /// \brief  Copies frames from global map
-        bool				loadResource(string resourcename);
+        bool    loadResource(string resourcename);
         
-        void				play();
-        void				stop();
+        void    play();
+        void    stop();
         
-        float 				getWidth() const;
-        float 				getHeight() const;
+        float   getWidth() const;
+        float   getHeight() const;
         
-        float 				getDuration() const;
+        float   getDuration() const;
         
-        void                setSpeed(float newSpeed);
-        void                setFrameRate(int fps);
+        void    setSpeed(float newSpeed);
+        void    setFrameRate(int fps);
         
-        int					getTotalNumFrames() const;
+        int     getTotalNumFrames() const;
         
-        void				firstFrame();
+        void    firstFrame();
         void				nextFrame();
         void				previousFrame();
     private:

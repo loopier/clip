@@ -41,6 +41,12 @@ void loopier::MoviePlayer::draw(){
 }
 
 //---------------------------------------------------------
+void loopier::MoviePlayer::draw(float x, float y, float w, float h){
+    if (!movie) return;
+    movie->draw(x, y, w, h);
+}
+
+//---------------------------------------------------------
 void loopier::MoviePlayer::exit(){
     
 }

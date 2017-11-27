@@ -1,8 +1,6 @@
 // Connect to the server
 m = NetAddr("localhost", 12345);
 
-
-
 //------------------------------------------------------------------
 //   CLIP LIST COMMANDS
 //------------------------------------------------------------------
@@ -28,7 +26,8 @@ m.sendMsg("/loopier/clip/clip", "exampleclip", "new");
 // create a clip with the 'default.mov' movie (if movie name is not provided it will pick 'default')
 m.sendMsg("/loopier/clip/clip", "exampleclip", "remove");
 
-m.sendMsg("/loopier/clip/clip", "exampleclip", "new", "manwalk");
+m.sendMsg("/loopier/clip/clip", "manwalking", "new", "manwalk");
+m.sendMsg("/loopier/clip/clip", "anotherclip", "new", "mamma");
 
 // PLAYING   ------------------------------------------------------
 
@@ -40,6 +39,7 @@ m.sendMsg("/loopier/clip/clip", "exampleclip", "pause");
 m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "none");
 m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "normal");
 m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "palindrome");
+m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "once");
 // change movie speed
 m.sendMsg("/loopier/clip/clip", "exampleclip", "speed", 2);
 
