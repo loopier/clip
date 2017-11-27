@@ -1,6 +1,16 @@
 // Connect to the server
 m = NetAddr("localhost", 12345);
 
+// --- JUST FOR TESTING --- REMOVE WHEN DONE ---
+m.sendMsg("/loopier/clip/clip", "exampleclip", "new", "mamma");
+m.sendMsg("/loopier/clip/clip", "anotherclip", "new", "mamma");
+m.sendMsg("/loopier/clip/clip", "anotherclip", "moveto", 0.5.rand, 0.5.rand);
+m.sendMsg("/loopier/clip/clip", "anotherclip", "stop");
+m.sendMsg("/loopier/clip/clip", "anotherclip", "new", "countdown");
+m.sendMsg("/loopier/clip/clip", "manwalking", "new", "manwalk");
+m.sendMsg("/loopier/clip/clip", "manwalking", "moveto", 1.0.rand, 1.0.rand);
+// --- END OF TEST ---
+
 //------------------------------------------------------------------
 //   CLIP LIST COMMANDS
 //------------------------------------------------------------------
@@ -25,9 +35,6 @@ m.sendMsg("/loopier/clip/clip", "exampleclip", "new", "mamma");
 m.sendMsg("/loopier/clip/clip", "exampleclip", "new");
 // create a clip with the 'default.mov' movie (if movie name is not provided it will pick 'default')
 m.sendMsg("/loopier/clip/clip", "exampleclip", "remove");
-
-m.sendMsg("/loopier/clip/clip", "manwalking", "new", "manwalk");
-m.sendMsg("/loopier/clip/clip", "anotherclip", "new", "mamma");
 
 // PLAYING   ------------------------------------------------------
 
