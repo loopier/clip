@@ -111,8 +111,6 @@ namespace loopier {
     // Non-member functions for interfacing (managing) clips
     //***************************************************************************
     extern ClipMap      clips;      // the list of clips available everywhere
-    extern MovieMap     movies;     // list of all available movies
-    extern FrameListMap frameLists; // list of all available frames
     
     // ----- RESOURCE FILES-----
     

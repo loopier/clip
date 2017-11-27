@@ -19,6 +19,8 @@ namespace loopier {
     typedef shared_ptr<Movie>       MoviePtr;
     typedef map<string, MoviePtr>   MovieMap;
     
+    extern MovieMap     movies;     // list of all available movie files
+    
     class MoviePlayer: public BasePlayer{
         
     public:
@@ -52,6 +54,7 @@ namespace loopier {
     private:
         MoviePtr movie;
     };
+    
 }
 
 #endif

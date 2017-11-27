@@ -57,6 +57,7 @@ void loopier::Clip::update()
 {
 //    if (bPlaySequence) updateSequence();
 //    movie->update();
+    player->update();
 }
 
 //---------------------------------------------------------------------------
@@ -76,6 +77,7 @@ void loopier::Clip::draw()
 //        movie->draw(x, y, width, height);
 //        if (bDrawName)  ofDrawBitmapString(name, x, y);
 //    }
+    player->draw();
 }
 
 //---------------------------------------------------------------------------
@@ -313,8 +315,6 @@ void loopier::Clip::flipH()
 
 
 loopier::ClipMap        loopier::clips;
-loopier::MovieMap       loopier::movies;
-loopier::FrameListMap   loopier::frameLists;
 
 //---------------------------------------------------------------------------
 //  MANAGE RESOURCES

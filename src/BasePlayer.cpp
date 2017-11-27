@@ -76,15 +76,15 @@ string  loopier::BasePlayer::getName() const
 //---------------------------------------------------------
 void    loopier::BasePlayer::play()
 {
-    ofLogNotice() << __PRETTY_FUNCTION__ << " is not implemented";
-    
+    ofLogNotice() << "Started playing '" << name << "'";
+    bPlay = true;
 }
 
 //---------------------------------------------------------
 void    loopier::BasePlayer::stop()
 {
-    ofLogNotice() << __PRETTY_FUNCTION__ << " is not implemented";
-    
+    ofLogNotice() << "Stop playing '" << name << "'";
+    bPlay = false;
 }
 
 //---------------------------------------------------------

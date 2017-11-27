@@ -9,6 +9,9 @@
 #include "FramePlayer.h"
 #include "ConsoleUI.h"
 
+
+loopier::FrameListMap   loopier::frameLists;
+
 loopier::FramePlayer::FramePlayer()
 : BasePlayer()
 , lastFrameTime(0.0)
@@ -50,9 +53,9 @@ void loopier::FramePlayer::update()
 //---------------------------------------------------------
 void loopier::FramePlayer::draw()
 {
-    if (frames.size() <= 0) return;
+    if (frames->size() <= 0) return;
     
-    frames[currentFrame].draw(anchor.x, anchor.y);
+    frames->at(currentFrame).draw(anchor.x, anchor.y);
 }
 
 //---------------------------------------------------------
@@ -64,8 +67,8 @@ void loopier::FramePlayer::exit()
 //---------------------------------------------------------
 bool loopier::FramePlayer::loadResource(string resourcename)
 {
-    // !!! TODO: Copy from global vector fo contents
-//    name = filename;
+    
+    frames = make_shared<FrameList>(*loopier::frameLists.find(resourcename)->second);
     
     ofLogVerbose() << __PRETTY_FUNCTION__ << "Needs imlpementation";
     BasePlayer::loadResource(resourcename);
@@ -123,7 +126,7 @@ void loopier::FramePlayer::setFrameRate(int fps)
 //---------------------------------------------------------
 int loopier::FramePlayer::getTotalNumFrames() const
 {
-    return frames.size();
+    return frames->size();
 }
 
 
@@ -138,7 +141,7 @@ void loopier::FramePlayer::nextFrame()
 {
     currentFrame++;
     
-    if (currentFrame > frames.size() - 1) {
+    if (currentFrame > frames->size() - 1) {
         if (loopState == loopier::LoopType::normal) {
             firstFrame();
         } else if (loopState == loopier::LoopType::palindrome) {
@@ -160,7 +163,7 @@ void loopier::FramePlayer::previousFrame()
     
     if (currentFrame < 0) {
         if (loopState == loopier::LoopType::normal) {
-            currentFrame = frames.size() - 1;
+            currentFrame = frames->size() - 1;
         } else if (loopState == loopier::LoopType::palindrome) {
             currentFrame++;
             changePlayDirection();
@@ -176,8 +179,8 @@ void loopier::FramePlayer::previousFrame()
 //---------------------------------------------------------
 void loopier::FramePlayer::addFrame(ofImage img)
 {
-    vector<ofImage>::iterator pos = frames.begin() + currentFrame;
-    frames.insert(pos, img);
+    vector<ofImage>::iterator pos = frames->begin() + currentFrame;
+    frames->insert(pos, img);
     ofLogVerbose() << "Inserted new frame in '" << getName() << "' at: " << currentFrame;
     nextFrame();
 }

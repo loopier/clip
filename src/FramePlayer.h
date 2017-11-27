@@ -20,6 +20,8 @@ namespace loopier {
     typedef shared_ptr<FrameList>       FrameListPtr;
     typedef map<string, FrameListPtr>   FrameListMap;
     
+    extern FrameListMap frameLists; // list of all available frame image files
+    
     class FramePlayer: public BasePlayer{
         
     public:
@@ -54,7 +56,7 @@ namespace loopier {
         /// \brief  Inserts an image at the current frame
         void                addFrame(ofImage img);
     private:
-        FrameList   frames;
+        FrameListPtr   frames;
         float       lastFrameTime;
     };
     

@@ -8,8 +8,12 @@
 
 #include "MoviePlayer.h"
 
+
+loopier::MovieMap       loopier::movies;
+
 loopier::MoviePlayer::MoviePlayer()
 : BasePlayer()
+, movie(new Movie)
 {
     
 }
@@ -26,12 +30,14 @@ void loopier::MoviePlayer::setup(){
 
 //---------------------------------------------------------
 void loopier::MoviePlayer::update(){
-    
+    if (!movie) return;
+    movie->update();
 }
 
 //---------------------------------------------------------
 void loopier::MoviePlayer::draw(){
-//    movie->draw();
+    if (!movie) return;
+    movie->draw(anchor.x, anchor.y);
 }
 
 //---------------------------------------------------------
@@ -42,16 +48,17 @@ void loopier::MoviePlayer::exit(){
 //---------------------------------------------------------
 bool loopier::MoviePlayer::loadResource(string resourcename)
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << "Needs imlpementation";
+    movie = make_shared<Movie>(*loopier::movies.find(resourcename)->second);
     BasePlayer::loadResource(resourcename);
     ofLogVerbose() << "Finished loading '" << resourcename << "' movie files to '" << name << "' player";
+    bLoaded = movie->isLoaded();
     return bLoaded;
 }
 
 //---------------------------------------------------------
 void loopier::MoviePlayer::play()
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    movie->play();
 }
 
 //---------------------------------------------------------
