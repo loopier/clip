@@ -49,6 +49,7 @@ void loopier::MoviePlayer::exit(){
 bool loopier::MoviePlayer::loadResource(string resourcename)
 {
     movie = make_shared<Movie>(*loopier::movies.find(resourcename)->second);
+    play();
     BasePlayer::loadResource(resourcename);
     ofLogVerbose() << "Finished loading '" << resourcename << "' movie files to '" << name << "' player";
     bLoaded = movie->isLoaded();
@@ -64,7 +65,7 @@ void loopier::MoviePlayer::play()
 //---------------------------------------------------------
 void loopier::MoviePlayer::stop()
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    movie->stop();
 }
 
 //---------------------------------------------------------
