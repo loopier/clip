@@ -31,7 +31,7 @@ void loopier::MoviePlayer::update(){
 
 //---------------------------------------------------------
 void loopier::MoviePlayer::draw(){
-    movie.draw();
+//    movie->draw();
 }
 
 //---------------------------------------------------------
@@ -40,7 +40,7 @@ void loopier::MoviePlayer::exit(){
 }
 
 //---------------------------------------------------------
-bool loopier::MoviePlayer::load(string filename)
+bool loopier::MoviePlayer::load(string name)
 {
     ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
 }

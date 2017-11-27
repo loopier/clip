@@ -44,7 +44,7 @@ void ofApp::setup(){
     applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/";
     init();
     
-    loopier::loadClipContents(applicationSupportPath + "resources/players/");
+    loopier::loadResourceFiles(applicationSupportPath + "resources/");
 
 //    osc.listenToPort(54321);
     osc.setup();
@@ -120,7 +120,7 @@ void ofApp::processOscMessage(ofxOscMessage & msg)
         if      (command == "clearall")  loopier::clearClips();
         else if (command == "listnames") loopier::listClipNames();
         
-        else if (command == "listcontents") loopier::listClipContentNames();
+        else if (command == "listresources") loopier::listResourceNames();
 
         else if (command == "togglenames")  loopier::toggleClipNames();
         else if (command == "shownames")    loopier::showClipNames();

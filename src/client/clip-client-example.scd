@@ -8,7 +8,7 @@ m = NetAddr("localhost", 12345);
 //------------------------------------------------------------------
 
 // print list of clip  contents to (app's) console
-m.sendMsg("/loopier/clip/clips", "listcontents");
+m.sendMsg("/loopier/clip/clips", "listresources");
 // print list of clips to (app's) console
 m.sendMsg("/loopier/clip/clips", "listnames");
 // clear all clips

@@ -16,31 +16,6 @@
 
 namespace loopier {
     
-    enum class ClipContentType {
-        frames,
-        movie
-    };
-    
-    // wrapper class for movies and image sequences
-    class ClipContent{
-    public:
-        ClipContentType getType() const {
-            return type;
-        };
-        
-        string getTypeName() const {
-            if      (type == ClipContentType::frames)   return "frames";
-            else if (type == ClipContentType::movie)    return "movie";
-        }
-        
-        void setType(ClipContentType newType) {
-            type = newType;
-        }
-        
-    protected:
-        ClipContentType type;
-    };
-    
     class BasePlayer{
         
     public:
@@ -52,7 +27,8 @@ namespace loopier {
         
         
         virtual     void                setPath(string newPath);
-        virtual     bool				load(string filename);
+        /// \brief  Copy from global map
+        virtual     bool				load(string name) = 0;
         virtual     void                setName(string newName);
         virtual     string              getName() const;
         
@@ -112,7 +88,7 @@ namespace loopier {
     
     typedef shared_ptr<BasePlayer>      PlayerPtr;
     typedef vector<PlayerPtr>           PlayerList;
-    typedef map<string, PlayerPtr>  PlayerMap;
+    typedef map<string, PlayerPtr>      PlayerMap;
 }
 
 #endif

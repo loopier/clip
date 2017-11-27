@@ -62,40 +62,14 @@ void loopier::FramePlayer::exit()
 }
 
 //---------------------------------------------------------
-bool loopier::FramePlayer::load(string filename)
+bool loopier::FramePlayer::load(string name)
 {
     // !!! TODO: Copy from global vector fo contents
-    name = filename;
+//    name = filename;
     
-    string absolutePath = path + name;
     
-    ofLogVerbose() << "Preloading frame image files:";
     
-    // iterate subfolders
-    ofDirectory dir(absolutePath);
-    
-    dir.allowExt("png");
-    dir.allowExt("jpg");
-    dir.allowExt("gif");
-    
-    vector<ofFile> files = dir.getFiles();
-    
-    bLoaded = files.size();
-    
-    ofFile file;
-    ofImage img;
-    
-    for ( int i = 0; i < files.size(); i++ ) {
-        file = files[i];
-        
-        if (file.isDirectory()) continue;
-        
-        img.load(file.getAbsolutePath());
-        addFrame(img);
-        
-//        ofLogVerbose() << "Base name: " << file.getBaseName() << "\t\t Path:" << file.getAbsolutePath();
-    }
-    
+    ofLogVerbose() << __PRETTY_FUNCTION__ << "Needs imlpementation";
     ofLogVerbose() << "Finished loading frame image files";
     return bLoaded;
 }

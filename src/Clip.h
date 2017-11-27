@@ -16,9 +16,6 @@
 #include "MoviePlayer.h"
 
 namespace loopier {
-
-    typedef shared_ptr<ClipContent>     ClipContentPtr;
-    typedef map<string, ClipContent> ClipContentMap;
     
     class Clip{
         
@@ -114,17 +111,24 @@ namespace loopier {
     //***************************************************************************
     // Non-member functions for interfacing (managing) clips
     //***************************************************************************
-    extern ClipMap clips;
-    extern ClipContentMap clipContents;
+    extern ClipMap      clips;      // the list of clips available everywhere
+    extern MovieMap     movies;     // list of all available movies
+    extern FrameListMap frameLists; // list of all available frames
+    
+    // ----- RESOURCE FILES-----
+    
+    /// \brief  Load all files into memory
+    int     loadResourceFiles(string path="");
+    bool    loadMovies(string path);
+    bool    loadFrameLists(string path);
+    
+    /// \brief  Prints the list of available movies and frame collections
+    void    listResourceNames();
+    void    listMovieNames();
+    void    listFrameListNames();
+    
     
     // ----- MANAGE CLIPS-----
-    
-    /// \brief  Load all clip contents in given path to 'clipContents' map
-    ///         Each clip is named after it's foldername
-    /// \returns    int     Number of clips loaded
-    int loadClipContents(string path="");
-    bool loadClipMovieContent(string path);
-    bool loadClipFramesContent(string path);
     
     /// \brief  Creates a new clip with the given movie file
     /// \param  name    String  Name of the movie file (with or without extension).
@@ -146,9 +150,6 @@ namespace loopier {
     void drawClips();
     
     // ----- CLIP LIST UTILS-----
-    
-    /// \brief  Prints the list of available movies and frame collections
-    void listClipContentNames();
     
     /// \brief  Prints the list of clip names to console
     void listClipNames();

@@ -15,7 +15,9 @@
 
 namespace loopier {
     
-    class MovieClipContent: public ofVideoPlayer, public ClipContent{};
+    typedef ofVideoPlayer           Movie;
+    typedef shared_ptr<Movie>       MoviePtr;
+    typedef map<string, MoviePtr>   MovieMap;
     
     class MoviePlayer: public BasePlayer{
         
@@ -28,8 +30,8 @@ namespace loopier {
         void draw();
         void exit();
         
-        // !!! TODO: Copy from global map instead of loading file
-        bool				load(string filename);
+        /// \brief  Copies frames from global map
+        bool				load(string name);
         
         void				play();
         void				stop();
@@ -48,7 +50,7 @@ namespace loopier {
         void				nextFrame();
         void				previousFrame();
     private:
-        MovieClipContent movie;
+        MoviePtr movie;
     };
 }
 

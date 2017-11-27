@@ -107,18 +107,6 @@ void loopier::Clip::reset()
 void loopier::Clip::loadContents(string & contentsname)
 {
     // copy contents to Player
-    // check if it's available
-    ClipContent content = loopier::clipContents.find(contentsname)->second;
-//    ofLogVerbose() << content.getTypeName();
-    if (content.getType() == ClipContentType::movie) {
-        PlayerPtr p(new MoviePlayer);
-        // !!! TODO: LOAD CONTENT
-        players.push_back(p);
-    } else if (content.getType() == ClipContentType::frames) {
-        PlayerPtr p(new FramePlayer);
-        // !!! TODO: LOAD CONTENT
-        players.push_back(p);
-    }
     
 }
 
@@ -324,76 +312,115 @@ void loopier::Clip::flipH()
 //***************************************************************************
 
 
-loopier::ClipMap loopier::clips; // the list of clips available everywhere
-loopier::ClipContentMap loopier::clipContents; // list of all available contents
+loopier::ClipMap        loopier::clips;
+loopier::MovieMap       loopier::movies;
+loopier::FrameListMap   loopier::frameLists;
 
 //---------------------------------------------------------------------------
-//  MANAGE CLIPS
+//  MANAGE RESOURCES
 
-int loopier::loadClipContents(string path)
+int loopier::loadResourceFiles(string path)
 {
-    if (path == "") path = "/Users/roger/Library/Application Support/Clip/resources/players/";
+    if (path == "") path = "/Users/roger/Library/Application Support/Clip/resources/";
     
-    ofLogVerbose() << "Loading clip contents from: " << path;
+    ofLogVerbose() << "Loading resource files from: " << path;
     
-    ofDirectory dir(path);
-    vector<ofFile> subdirs = dir.getFiles();
-    
-    for (int i = 0; i < subdirs.size(); i++) {
-        if (subdirs[i].isDirectory()) {
-            vector<ofFile> files = ofDirectory(subdirs[i]).getFiles();
-            string ext = files[0].getExtension();
-            // movies
-            if ( ext == "mov") {
-                loopier::loadClipMovieContent(files[0].getAbsolutePath());
-            }
-            // frames
-            else if (ext == "png" || ext == "jpg" || ext == "gif") {
-                string p = subdirs[i].getAbsolutePath();
-                loopier::loadClipFramesContent(subdirs[i].getAbsolutePath());
-            }
-        }
-    }
-    
-    ofLogVerbose() << "CLIP CONTENTS: " << loopier::clipContents.size();
+    loopier::loadMovies(path);
+    loopier::loadFrameLists(path);
 }
 
-bool loopier::loadClipMovieContent(string path)
+bool loopier::loadMovies(string path)
 {
-    loopier::MovieClipContent movie;
-    movie.load(path);
-    if (!movie.isLoaded()) return false;
-    ofFile file(path);
-    loopier::clipContents[file.getBaseName()] = movie;
-    loopier::clipContents[file.getBaseName()].setType(loopier::ClipContentType::movie);
+    ofLogVerbose() << "Loading movie files from: " << path;
+    
+    ofDirectory dir(path+"movies");
+    dir.allowExt("mov");
+    vector<ofFile> files = dir.getFiles();
+    
+    for (int i = 0; i < files.size(); i++) {
+        MoviePtr movie(new Movie);
+        movie->load(files[i].getAbsolutePath());
+        loopier::movies[files[i].getBaseName()] = movie;
+    }
+    
+    ofLogVerbose() << "Loaded " << loopier::movies.size() << " movie files";
+    
     return true;
 }
 
-bool loopier::loadClipFramesContent(string path)
+bool loopier::loadFrameLists(string path)
 {
-    ofDirectory dir(path);
-    dir.allowExt("png");
-    dir.allowExt("jpg");
-    dir.allowExt("gif");
+    ofLogVerbose() << "Loading frame image files from: " << path;
     
-    vector<ofFile> files = dir.getFiles();
+    ofDirectory dir(path+"frames");
     
-    FrameClipContent frames;
+    vector<ofFile> subdirs = dir.getFiles();
     
-    for (int i = 0; i < files.size(); i++) {
-        ofImage img;
-        ofLogVerbose() << files[i].getAbsolutePath();
-        img.load(files[i].getAbsolutePath());
-        frames.push_back(img);
+    for (int x = 0; x < subdirs.size(); x++) {
+        ofDirectory subdir = ofDirectory(subdirs[x]);
+        if (!subdir.isDirectory()) continue;
+        subdir.allowExt("png");
+        subdir.allowExt("jpg");
+        subdir.allowExt("gif");
+        
+        string name = subdirs[x].getBaseName(); // folder name used in map
+        vector<ofFile> files = subdir.getFiles(); // images in folder
+        
+        // skip empty folders
+        if (files.size() <= 0) {
+            ofLogWarning() << "'" << name << "' folder is empty.  Skipping";
+            continue;
+        }
+        
+        FrameListPtr frames(new FrameList);     // actual list of frames
+        
+        for (int i = 0; i < files.size(); i++) {
+            ofImage img;
+            img.load(files[i].getAbsolutePath());
+            frames->push_back(img);
+        }
+        ofLogVerbose() << "Loaded " << frames->size() << " frames from " << name;
+        loopier::frameLists[name] = frames;
     }
     
-    string name = loopier::utils::trimNumbersFromBaseName(files[0].getBaseName());
-    
-    loopier::clipContents[name] = frames;
-    loopier::clipContents[name].setType(loopier::ClipContentType::frames);
-//    ofLogVerbose() << "Loaded " << frames.size() << " frames from " << name;
     return false;
 }
+
+//---------------------------------------------------------------------------
+//  RESOURCES LIST UTILS
+//---------------------------------------------------------------------------
+void loopier::listResourceNames()
+{
+    ofLogNotice() << "Available Resources: ";
+    loopier::listMovieNames();
+    loopier::listFrameListNames();
+}
+
+void loopier::listMovieNames()
+{
+    string msg = "Number of movies:\t" + ofToString(loopier::movies.size());
+    loopier::MovieMap::iterator it;
+    for (it = loopier::movies.begin(); it != loopier::movies.end(); ++it) {
+        msg += "\n\t" + it->first;
+    }
+    
+    ofLogNotice() << msg;
+}
+
+void loopier::listFrameListNames()
+{
+    string msg = "Number of frame lists:\t" + ofToString(loopier::frameLists.size());
+    loopier::FrameListMap::iterator it;
+    for (it = loopier::frameLists.begin(); it != loopier::frameLists.end(); ++it) {
+        msg += "\n\t" + it->first;
+    }
+    
+    ofLogNotice() << msg;
+}
+
+
+//---------------------------------------------------------------------------
+//  MANAGE CLIPS
 
 //---------------------------------------------------------------------------
 loopier::ClipPtr loopier::newClip(string clipname)
@@ -442,20 +469,10 @@ void loopier::drawClips()
     }
 }
 
+
 //---------------------------------------------------------------------------
 //  CLIP LIST UTILS
 //---------------------------------------------------------------------------
-void loopier::listClipContentNames()
-{
-    string msg = "Number of clip contents:\t" + ofToString(loopier::clipContents.size());
-    loopier::ClipContentMap::iterator it;
-    for (it = loopier::clipContents.begin(); it != loopier::clipContents.end(); ++it) {
-        msg += "\n\t" + it->first;
-    }
-    
-    ofLogNotice() << msg;
-}
-
 
 void loopier::listClipNames()
 {
