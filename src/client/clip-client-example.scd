@@ -7,6 +7,10 @@ m.sendMsg("/loopier/clip/clip", "anotherclip", "new", "mamma");
 m.sendMsg("/loopier/clip/clip", "anotherclip", "moveto", 0.5.rand, 0.5.rand);
 m.sendMsg("/loopier/clip/clip", "anotherclip", "stop");
 m.sendMsg("/loopier/clip/clip", "anotherclip", "new", "countdown");
+m.sendMsg("/loopier/clip/clip", "exampleclip", "speed", 1.1);
+m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "palindrome");
+m.sendMsg("/loopier/clip/clip", "anotherclip", "loop", "palindrome");
+
 m.sendMsg("/loopier/clip/clip", "manwalking", "new", "manwalk");
 m.sendMsg("/loopier/clip/clip", "manwalking", "moveto", 1.0.rand, 1.0.rand);
 // --- END OF TEST ---

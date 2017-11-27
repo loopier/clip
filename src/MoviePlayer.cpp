@@ -78,22 +78,19 @@ void loopier::MoviePlayer::stop()
 //---------------------------------------------------------
 float loopier::MoviePlayer::getWidth() const
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-    return 1.0;
+    return movie->getWidth();
 }
 
 //---------------------------------------------------------
 float loopier::MoviePlayer::getHeight() const
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-    return 1.0;
+    return movie->getHeight();
 }
 
 //---------------------------------------------------------
 float loopier::MoviePlayer::getDuration() const
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-    return 1.0;
+    return movie->getDuration();
 }
 
 
@@ -109,43 +106,40 @@ void loopier::MoviePlayer::setLoopState(loopier::LoopType state)
 //---------------------------------------------------------
 void loopier::MoviePlayer::setSpeed(float newSpeed)
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    movie->setSpeed(newSpeed);
     speed = newSpeed;
-    frameRate = 60 / (speed * ofGetFrameRate());
-    ofLogVerbose() << frameRate << "\t" << speed;
 }
 
 //---------------------------------------------------------
 void loopier::MoviePlayer::setFrameRate(int fps)
 {
     ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-    frameRate = fps;
-    speed = (60 / frameRate) / ofGetFrameRate();
+//    frameRate = fps;
+//    speed = (60 / frameRate) / ofGetFrameRate();
 }
 
 
 //---------------------------------------------------------
 int loopier::MoviePlayer::getTotalNumFrames() const
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-    return 1;
+    return movie->getTotalNumFrames();
 }
 
 
 //---------------------------------------------------------
 void loopier::MoviePlayer::firstFrame()
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    movie->firstFrame();
 }
 
 //---------------------------------------------------------
 void loopier::MoviePlayer::nextFrame()
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    movie->nextFrame();
 }
 
 //---------------------------------------------------------
 void loopier::MoviePlayer::previousFrame()
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    movie->previousFrame();
 }

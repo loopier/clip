@@ -51,8 +51,8 @@ namespace loopier {
         int     getTotalNumFrames() const;
         
         void    firstFrame();
-        void				nextFrame();
-        void				previousFrame();
+        void    nextFrame();
+        void    previousFrame();
     private:
         MoviePtr movie;
     };
