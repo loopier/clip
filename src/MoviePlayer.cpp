@@ -97,6 +97,15 @@ float loopier::MoviePlayer::getDuration() const
 
 
 //---------------------------------------------------------
+void loopier::MoviePlayer::setLoopState(loopier::LoopType state)
+{
+    BasePlayer::setLoopState(state);
+    movie->setLoopState(ofLoopType(state));
+    movie->play();
+}
+
+
+//---------------------------------------------------------
 void loopier::MoviePlayer::setSpeed(float newSpeed)
 {
     ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";

@@ -44,6 +44,7 @@ namespace loopier {
         
         float   getDuration() const;
         
+        void    setLoopState(LoopType state);
         void    setSpeed(float newSpeed);
         void    setFrameRate(int fps);
         
