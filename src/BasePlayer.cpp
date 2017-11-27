@@ -57,7 +57,7 @@ void    loopier::BasePlayer::exit()
 //---------------------------------------------------------
 bool    loopier::BasePlayer::loadResource(string resourcename)
 {
-    name = resourcename;
+    name = resourcename + ofToString(ofGetElapsedTimeMillis());
     return true;
 }
 

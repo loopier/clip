@@ -54,7 +54,8 @@ void loopier::MoviePlayer::exit(){
 //---------------------------------------------------------
 bool loopier::MoviePlayer::loadResource(string resourcename)
 {
-    movie = make_shared<Movie>(*loopier::movies.find(resourcename)->second);
+    string path = loopier::movies.find(resourcename)->second->getMoviePath();
+    movie->load(path);
     play();
     BasePlayer::loadResource(resourcename);
     ofLogVerbose() << "Finished loading '" << resourcename << "' movie files to '" << name << "' player";

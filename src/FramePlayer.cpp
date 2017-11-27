@@ -75,7 +75,7 @@ void loopier::FramePlayer::exit()
 //---------------------------------------------------------
 bool loopier::FramePlayer::loadResource(string resourcename)
 {
-    
+    // copy frames
     frames = make_shared<FrameList>(*loopier::frameLists.find(resourcename)->second);
     
     ofLogVerbose() << __PRETTY_FUNCTION__ << "Needs imlpementation";
@@ -87,13 +87,14 @@ bool loopier::FramePlayer::loadResource(string resourcename)
 //---------------------------------------------------------
 void loopier::FramePlayer::play()
 {
-       
+    bPlay = true;
 }
 
 //---------------------------------------------------------
 void loopier::FramePlayer::stop()
 {
-       
+    bPlay = false;
+    currentFrame = 0;
 }
 
 //---------------------------------------------------------

@@ -98,7 +98,6 @@ void loopier::Clip::reset()
 //---------------------------------------------------------------------------
 void loopier::Clip::setResource(string & resourcename)
 {
-    // FIXME: Movies with the same source play exactly the same
     if (loopier::movies.count(resourcename)) {
         player = make_shared<MoviePlayer>();
         ofLogVerbose() << "'" << name << "'" << " will play the movie: " << resourcename << "'";
