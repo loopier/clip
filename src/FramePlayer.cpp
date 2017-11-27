@@ -16,7 +16,7 @@ loopier::FramePlayer::FramePlayer()
 : BasePlayer()
 , lastFrameTime(0.0)
 {
-    
+    frameRate = 12;
 }
 
 loopier::FramePlayer::~FramePlayer()
@@ -35,6 +35,7 @@ void loopier::FramePlayer::update()
 {
     if (!bPlay) return;
     
+    // FIXME: it crashes
     float rateRatio = (60 / getFrameRate()) / ofGetFrameRate();
     
     if (lastFrameTime < rateRatio ) {
@@ -100,19 +101,19 @@ void loopier::FramePlayer::stop()
 //---------------------------------------------------------
 float loopier::FramePlayer::getWidth() const
 {
-       return 1.0;
+    return frames->at(0).getWidth();
 }
 
 //---------------------------------------------------------
 float loopier::FramePlayer::getHeight() const
 {
-       return 1.0;
+    return frames->at(0).getHeight();
 }
 
 //---------------------------------------------------------
 float loopier::FramePlayer::getDuration() const
 {
-    return 1.0;
+    return frames->size() * (60 / frameRate);
 }
 
 
