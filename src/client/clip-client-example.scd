@@ -12,7 +12,12 @@ m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "palindrome");
 m.sendMsg("/loopier/clip/clip", "anotherclip", "loop", "palindrome");
 
 m.sendMsg("/loopier/clip/clip", "manwalking", "new", "manwalk");
-m.sendMsg("/loopier/clip/clip", "manwalking", "moveto", 1.0.rand, 1.0.rand);
+m.sendMsg("/loopier/clip/clip", "manwalking", "new", "mamma");
+m.sendMsg("/loopier/clip/clip", "manwalking", "loop", "palindrome");
+m.sendMsg("/loopier/clip/clip", "manwalking", "moveto", 0.5.rand, 0.5.rand);
+m.sendMsg("/loopier/clip/clip", "moonwalking", "new", "manwalk");
+m.sendMsg("/loopier/clip/clip", "moonwalking", "moveto", 0.5.rand, 0.5.rand);
+m.sendMsg("/loopier/clip/clip", "moonwalking", "speed", 1.1);
 // --- END OF TEST ---
 
 //------------------------------------------------------------------
@@ -81,17 +86,18 @@ m.sendMsg("/loopier/clip/clip", "exampleclip", "moveto", 1.0.rand, 1.0.rand);
 
 // COLOR
 // grayscale - 0.0 being black, 1.0 being white - It's a STRING argument!!
-m.sendMsg("/loopier/clip/clip", "hattoo", "color", "0.4");
+m.sendMsg("/loopier/clip/clip", "exampleclip", "color", "0.4");
 // grayscale with alfa - 0.0 being transparent, 1.0 being opaque
-m.sendMsg("/loopier/clip/clip", "hattoo", "color", "1,0.5");
+m.sendMsg("/loopier/clip/clip", "exampleclip", "color", "1,0.5");
 // RGB
-m.sendMsg("/loopier/clip/clip", "hattoo", "color", "1, 0.5, 0");
+m.sendMsg("/loopier/clip/clip", "exampleclip", "color", "1, 0.5, 0");
 // RGBA
-m.sendMsg("/loopier/clip/clip", "hattoo", "color", "1, 0, 1,0.5");
+m.sendMsg("/loopier/clip/clip", "exampleclip", "color", "1, 0, 1,0.5");
 // change transparency
 m.sendMsg("/loopier/clip/clip", "exampleclip", "alpha", 0.5);
 
 // MANAGING MOVIES  ------------------------------------------------
+/* DEPRECATED
 
 // list the movies in the clip
 m.sendMsg("/loopier/clip/clip", "exampleclip", "listmovies");
@@ -107,6 +113,7 @@ m.sendMsg("/loopier/clip/clip", "exampleclip", "setmovie", 0);
 m.sendMsg("/loopier/clip/clip", "exampleclip", "addmovie", "crashtest");
 // and set a sequence
 m.sendMsg("/loopier/clip/clip", "exampleclip", "sequence", "0,1,2");
+*/
 
 //------------------------------------------------------------------
 //  ANOTHER CLIP
