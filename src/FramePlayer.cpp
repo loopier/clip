@@ -62,15 +62,14 @@ void loopier::FramePlayer::exit()
 }
 
 //---------------------------------------------------------
-bool loopier::FramePlayer::load(string name)
+bool loopier::FramePlayer::loadResource(string resourcename)
 {
     // !!! TODO: Copy from global vector fo contents
 //    name = filename;
     
-    
-    
     ofLogVerbose() << __PRETTY_FUNCTION__ << "Needs imlpementation";
-    ofLogVerbose() << "Finished loading frame image files";
+    BasePlayer::loadResource(resourcename);
+    ofLogVerbose() << "Finished loading '" << resourcename << "' frame image files to '" << name << "' player";
     return bLoaded;
 }
 

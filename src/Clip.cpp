@@ -16,7 +16,7 @@ loopier::Clip::Clip(){
 }
 
 //---------------------------------------------------------------------------
-loopier::Clip::Clip(string& clipname, string& filename)
+loopier::Clip::Clip(string& clipname, string& resourcename)
 : name(clipname)
 , x(0)
 , y(0)
@@ -34,7 +34,7 @@ loopier::Clip::Clip(string& clipname, string& filename)
 , bDrawName(false)
 , loopState(OF_LOOP_NORMAL)
 {
-    loadContents(filename);
+    setResource(resourcename);
 }
 
 //---------------------------------------------------------
@@ -57,9 +57,6 @@ void loopier::Clip::update()
 {
 //    if (bPlaySequence) updateSequence();
 //    movie->update();
-    if (players.size() <= 0) return;
-    
-    players[0]->play();
 }
 
 //---------------------------------------------------------------------------
@@ -79,10 +76,6 @@ void loopier::Clip::draw()
 //        movie->draw(x, y, width, height);
 //        if (bDrawName)  ofDrawBitmapString(name, x, y);
 //    }
-    
-    if (players.size() <= 0) return;
-    
-    players[0]->draw();
 }
 
 //---------------------------------------------------------------------------
@@ -104,10 +97,17 @@ void loopier::Clip::reset()
 
 
 //---------------------------------------------------------------------------
-void loopier::Clip::loadContents(string & contentsname)
+void loopier::Clip::setResource(string & resourcename)
 {
-    // copy contents to Player
+    if (loopier::movies.count(resourcename)) {
+        player = make_shared<MoviePlayer>();
+        ofLogVerbose() << "'" << name << "'" << " will play the movie: " << resourcename << "'";
+    } else if (loopier::frameLists.count(resourcename)) {
+        player = make_shared<FramePlayer>();
+        ofLogVerbose() << "'" << name << "'" << " will play the frames: " << resourcename << "'";
+    }
     
+    player->loadResource(resourcename);
 }
 
 //---------------------------------------------------------------------------

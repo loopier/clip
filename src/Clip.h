@@ -22,7 +22,7 @@ namespace loopier {
     public:
         
         //        Clip(); -- DISABLED (Private)
-        Clip (string & clipname, string & filename);
+        Clip (string & clipname, string & resourcename);
         virtual ~Clip();
         
         void setup();
@@ -33,8 +33,8 @@ namespace loopier {
         /// \brief  Resets clip to the default state
         void reset();
         
-        /// \brief  Loads content from the global clipContents map
-        void loadContents(string & contentsname);
+        /// \brief  Loads movies or images into the Player
+        void setResource(string & resourcename);
         
         void setName(const string& newName);
         string getName() const;
@@ -73,7 +73,6 @@ namespace loopier {
         
     private:
         PlayerPtr   player;
-        PlayerList  players;
         
         string  name;
         float   x, y;

@@ -49,16 +49,16 @@ void    loopier::BasePlayer::exit()
 }
 
 //---------------------------------------------------------
-void    loopier::BasePlayer::setPath(string newPath)
-{
-    path = newPath;
-}
+//void    loopier::BasePlayer::setPath(string newPath)
+//{
+//    path = newPath;
+//}
 
 //---------------------------------------------------------
-bool    loopier::BasePlayer::load(string newName)
+bool    loopier::BasePlayer::loadResource(string resourcename)
 {
-    ofLogNotice() << __PRETTY_FUNCTION__ << " is not implemented";
-    return false;
+    name = resourcename;
+    return true;
 }
 
 //---------------------------------------------------------

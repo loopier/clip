@@ -31,7 +31,7 @@ namespace loopier {
         void exit();
         
         /// \brief  Copies frames from global map
-        bool				load(string name);
+        bool				loadResource(string resourcename);
         
         void				play();
         void				stop();

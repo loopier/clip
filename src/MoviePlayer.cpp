@@ -40,9 +40,12 @@ void loopier::MoviePlayer::exit(){
 }
 
 //---------------------------------------------------------
-bool loopier::MoviePlayer::load(string name)
+bool loopier::MoviePlayer::loadResource(string resourcename)
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    ofLogVerbose() << __PRETTY_FUNCTION__ << "Needs imlpementation";
+    BasePlayer::loadResource(resourcename);
+    ofLogVerbose() << "Finished loading '" << resourcename << "' movie files to '" << name << "' player";
+    return bLoaded;
 }
 
 //---------------------------------------------------------

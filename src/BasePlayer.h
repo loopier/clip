@@ -26,9 +26,9 @@ namespace loopier {
         virtual     void                exit();
         
         
-        virtual     void                setPath(string newPath);
+//        virtual     void                setPath(string newPath);
         /// \brief  Copy from global map
-        virtual     bool				load(string name) = 0;
+        virtual     bool				loadResource(string resourcename) = 0;
         virtual     void                setName(string newName);
         virtual     string              getName() const;
         
