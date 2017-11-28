@@ -12,13 +12,13 @@
 //---------------------------------------------------------
 //loopier::MessageMapper::MessageMapper()
 //{
-//    
+//
 //}
 //
 ////---------------------------------------------------------
 //loopier::MessageMapper::~MessageMapper()
 //{
-//    
+//
 //}
 
 //---------------------------------------------------------
@@ -27,7 +27,7 @@ void loopier::MessageMapper::setup()
     osc.setup();
     ofAddListener(osc.newOscMessageEvent, this, &loopier::MessageMapper::mapMessageToFunc);
     setupMap();
-    
+
     loopier::ConsoleUI::setup();
 }
 
@@ -35,14 +35,37 @@ void loopier::MessageMapper::setup()
 void loopier::MessageMapper::setupMap()
 {
     // Application commands
-    messageMap["/loopier/clip/quit"]        = &loopier::MessageMapper::quit;
-    messageMap["/loopier/clip/fullscreen"]  = &loopier::MessageMapper::fullscreen;
-    messageMap["/loopier/clip/move"]        = &loopier::MessageMapper::move;
-    
+    messageMap["/loopier/clip/app/quit"]        = &loopier::MessageMapper::quit;
+    messageMap["/loopier/clip/app/fullscreen"]  = &loopier::MessageMapper::fullscreen;
+    messageMap["/loopier/clip/app/move"]        = &loopier::MessageMapper::move;
+
     // One Clip commands
-    messageMap["/loopier/clip/clip/new"]    = &loopier::MessageMapper::newClip;
-    messageMap["/loopier/clip/clip/remove"] = &loopier::MessageMapper::removeClip;
-    
+    messageMap["/loopier/clip/clip/new"]                = &loopier::MessageMapper::newClip;
+    messageMap["/loopier/clip/clip/remove"]             = &loopier::MessageMapper::removeClip;
+    messageMap["/loopier/clip/clip/reset"]              = &loopier::MessageMapper::resetClip;
+    messageMap["/loopier/clip/clip/scaleup"]            = &loopier::MessageMapper::scaleUpClip;
+    messageMap["/loopier/clip/clip/scaledown"]          = &loopier::MessageMapper::scaleDownClip;
+    messageMap["/loopier/clip/clip/scale"]              = &loopier::MessageMapper::scaleClip;
+    messageMap["/loopier/clip/clip/xscale"]             = &loopier::MessageMapper::setClipWidth;
+    messageMap["/loopier/clip/clip/yscale"]             = &loopier::MessageMapper::setClipHeight;
+    messageMap["/loopier/clip/clip/resetscale"]         = &loopier::MessageMapper::resetClipScale;
+    messageMap["/loopier/clip/clip/vflip"]              = &loopier::MessageMapper::setClipVFlip;
+    messageMap["/loopier/clip/clip/hflip"]              = &loopier::MessageMapper::setClipHFlip;
+    messageMap["/loopier/clip/clip/fullscreen"]         = &loopier::MessageMapper::toggleFullscreenClip;
+    messageMap["/loopier/clip/clip/togglevisibility"]   = &loopier::MessageMapper::toggleClipVisibility;
+    messageMap["/loopier/clip/clip/show"]               = &loopier::MessageMapper::showClip;
+    messageMap["/loopier/clip/clip/hide"]               = &loopier::MessageMapper::hideClip;
+        // PLAY
+    messageMap["/loopier/clip/clip/play"]   = &loopier::MessageMapper::playClip;
+    messageMap["/loopier/clip/clip/stop"]   = &loopier::MessageMapper::stopClip;
+    messageMap["/loopier/clip/clip/pause"]  = &loopier::MessageMapper::pauseClip;
+    messageMap["/loopier/clip/clip/loop"]   = &loopier::MessageMapper::setClipLoopState;
+    messageMap["/loopier/clip/clip/speed"]  = &loopier::MessageMapper::setClipSpeed;
+    // attributes
+    messageMap["/loopier/clip/clip/moveto"] = &loopier::MessageMapper::moveClipTo;
+    messageMap["/loopier/clip/clip/color"]  = &loopier::MessageMapper::setClipColor;
+    messageMap["/loopier/clip/clip/alpha"]  = &loopier::MessageMapper::setClipAlpha;
+
     // Clip collection commands
     messageMap["/loopier/clip/clips/clearall"]      = &loopier::MessageMapper::clearClips;
     messageMap["/loopier/clip/clips/listnames"]     = &loopier::MessageMapper::listClipNames;
@@ -50,10 +73,10 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clips/togglenames"]   = &loopier::MessageMapper::toggleClipNames;
     messageMap["/loopier/clip/clips/shownames"]     = &loopier::MessageMapper::showClipNames;
     messageMap["/loopier/clip/clips/hidenames"]     = &loopier::MessageMapper::hideClipNames;
-    
+
     // Video input commands
     //  ...
-    
+
     // Console commands
     //  ...
 }
@@ -139,13 +162,161 @@ void loopier::MessageMapper::newClip(const Message & msg)
     else if (n == 2)    loopier::newClip(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
-
 //---------------------------------------------------------
 void loopier::MessageMapper::removeClip(const Message & msg)
 {
     loopier::removeClip(msg.getArgAsString(0));
 }
 
+//---------------------------------------------------------
+void loopier::MessageMapper::resetClip(const Message & msg)
+{
+    loopier::resetClip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::scaleUpClip(const Message & msg)
+{
+    loopier::scaleUpClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::scaleDownClip(const Message & msg)
+{
+    loopier::scaleDownClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::scaleClip(const Message & msg)
+{
+    loopier::scaleClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setClipWidth(const Message & msg)
+{
+    loopier::setClipWidth(msg.getArgAsString(0), msg.getArgAsFloat(1));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setClipHeight(const Message & msg)
+{
+    loopier::setClipHeight(msg.getArgAsString(0), msg.getArgAsFloat(1));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::resetClipScale(const Message & msg)
+{
+    loopier::resetClipScale(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setClipVFlip(const Message & msg)
+{
+    loopier::setClipVFlip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setClipHFlip(const Message & msg)
+{
+    loopier::setClipHFlip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::toggleFullscreenClip(const Message & msg)
+{
+    loopier::toggleFullscreenClip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::toggleClipVisibility(const Message & msg)
+{
+    loopier::toggleClipVisibility(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::showClip(const Message & msg)
+{
+    loopier::showClip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::hideClip(const Message & msg)
+{
+    loopier::hideClip(msg.getArgAsString(0));
+}
+
+
+// PLAY
+//---------------------------------------------------------
+void loopier::MessageMapper::playClip(const Message & msg)
+{
+    loopier::playClip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::stopClip(const Message & msg)
+{
+    loopier::stopClip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::pauseClip(const Message & msg)
+{
+    loopier::pauseClip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setClipLoopState(const Message & msg)
+{
+    string arg = msg.getArgAsString(1);
+    loopier::LoopType looptype = loopier::LoopType::normal;
+    
+    if      (arg == "palindrome")   looptype = loopier::LoopType::palindrome;
+    else if (arg == "none" )        looptype = loopier::LoopType::none;
+    else if (arg == "once" )        looptype = loopier::LoopType::once;
+    
+    loopier::setClipLoopState(msg.getArgAsString(0), looptype);
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setClipSpeed(const Message & msg)
+{
+    loopier::setClipSpeed(msg.getArgAsString(0), msg.getArgAsFloat(1));
+}
+
+// ATTRIBUTES
+//---------------------------------------------------------
+void loopier::MessageMapper::moveClipTo(const Message & msg)
+{
+    loopier::moveClipTo(msg.getArgAsString(0), msg.getArgAsFloat(1), msg.getArgAsFloat(2));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setClipColor(const Message & msg)
+{
+    ofColor color;
+    int numArgs = msg.getNumArgs();
+    
+    if      (numArgs == 1)  color = ofColor(msg.getArgAsFloat(1) * 255);
+    else if (numArgs == 2)  color = ofColor(msg.getArgAsFloat(1) * 255, msg.getArgAsFloat(2) * 255);
+    else if (numArgs == 3)  color = ofColor(msg.getArgAsFloat(1) * 255,
+                                            msg.getArgAsFloat(2) * 255,
+                                            msg.getArgAsFloat(3) * 255);
+    else if (numArgs == 4)  color = ofColor(msg.getArgAsFloat(1) * 255,
+                                            msg.getArgAsFloat(2) * 255,
+                                            msg.getArgAsFloat(3) * 255,
+                                            msg.getArgAsFloat(4) * 255);
+    
+    
+    loopier::setClipColor(msg.getArgAsString(0), color);
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setClipAlpha(const Message & msg)
+{
+    loopier::setClipAlpha(msg.getArgAsString(0), msg.getArgAsFloat(1));
+}
 
 
 

@@ -7,23 +7,6 @@ m.sendMsg("/loopier/clip/clip/new", "mamaclip", "mamma");
 m.sendMsg("/loopier/clip/clip/remove", "mamaclip");
 m.sendMsg("/loopier/clip/clip/new", "defaultclip");
 m.sendMsg("/loopier/clip/clip/new", "walkclip", "manwalk");
-
-
-m.sendMsg("/loopier/clip/clip", "anotherclip", "new", "mamma");
-m.sendMsg("/loopier/clip/clip", "anotherclip", "moveto", 0.5.rand, 0.5.rand);
-m.sendMsg("/loopier/clip/clip", "anotherclip", "stop");
-m.sendMsg("/loopier/clip/clip", "anotherclip", "new", "countdown");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "speed", 1.1);
-m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "palindrome");
-m.sendMsg("/loopier/clip/clip", "anotherclip", "loop", "palindrome");
-
-m.sendMsg("/loopier/clip/clip", "manwalking", "new", "manwalk");
-m.sendMsg("/loopier/clip/clip", "manwalking", "new", "mamma");
-m.sendMsg("/loopier/clip/clip", "manwalking", "loop", "palindrome");
-m.sendMsg("/loopier/clip/clip", "manwalking", "moveto", 0.5.rand, 0.5.rand);
-m.sendMsg("/loopier/clip/clip", "moonwalking", "new", "manwalk");
-m.sendMsg("/loopier/clip/clip", "moonwalking", "moveto", 0.5.rand, 0.5.rand);
-m.sendMsg("/loopier/clip/clip", "moonwalking", "speed", 1.1);
 // --- END OF TEST ---
 
 
@@ -47,61 +30,61 @@ m.sendMsg("/loopier/clip/clips/hidenames");
 //------------------------------------------------------------------
 
 // create a clip with the 'default.mov' movie (if movie name is not provided it will pick 'default')
-m.sendMsg("/loopier/clip/clip", "exampleclip", "new", "mamma");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "new");
+m.sendMsg("/loopier/clip/clip/new", "exampleclip", "mamma");
+m.sendMsg("/loopier/clip/clip/new", "exampleclip");
 // create a clip with the 'default.mov' movie (if movie name is not provided it will pick 'default')
-m.sendMsg("/loopier/clip/clip", "exampleclip", "remove");
+m.sendMsg("/loopier/clip/clip/remove", "exampleclip");
 
 // PLAYING   ------------------------------------------------------
 
 // play, pause or stop movie
-m.sendMsg("/loopier/clip/clip", "exampleclip", "play");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "stop");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "pause");
+m.sendMsg("/loopier/clip/clip/play", "exampleclip");
+m.sendMsg("/loopier/clip/clip/stop", "exampleclip");
+m.sendMsg("/loopier/clip/clip/pause", "exampleclip");
 // there are 3 kinds of loop
-m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "none");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "normal");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "palindrome");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "loop", "once");
+m.sendMsg("/loopier/clip/clip/loop", "exampleclip", "none");
+m.sendMsg("/loopier/clip/clip/loop", "exampleclip", "normal");
+m.sendMsg("/loopier/clip/clip/loop", "exampleclip", "palindrome");
+m.sendMsg("/loopier/clip/clip/loop", "exampleclip", "once");
 // change movie speed
-m.sendMsg("/loopier/clip/clip", "exampleclip", "speed", 2);
+m.sendMsg("/loopier/clip/clip/speed", "exampleclip", 2);
 
 // LOOK & FEEL  ------------------------------------------------------
 
 // DIMENSIONS
 
 // move, scale, reset...
-m.sendMsg("/loopier/clip/clip", "exampleclip", "reset");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "scaleup", 0.1);
-m.sendMsg("/loopier/clip/clip", "exampleclip", "scaledown", 0.05);
-m.sendMsg("/loopier/clip/clip", "exampleclip", "scale", 2.0.rand);
-m.sendMsg("/loopier/clip/clip", "exampleclip", "xscale", 0.5);
-m.sendMsg("/loopier/clip/clip", "exampleclip", "yscale", 3);
-m.sendMsg("/loopier/clip/clip", "exampleclip", "resetscale");
+m.sendMsg("/loopier/clip/clip/reset", "exampleclip");
+m.sendMsg("/loopier/clip/clip/scaleup", "exampleclip", 0.1);
+m.sendMsg("/loopier/clip/clip/scaledown", "exampleclip", 0.05);
+m.sendMsg("/loopier/clip/clip/scale", "exampleclip", 2.0.rand);
+m.sendMsg("/loopier/clip/clip/xscale", "exampleclip", 0.5);
+m.sendMsg("/loopier/clip/clip/yscale", "exampleclip", 3);
+m.sendMsg("/loopier/clip/clip/resetscale", "exampleclip", );
 // vertical flip
-m.sendMsg("/loopier/clip/clip", "exampleclip", "vflip");
+m.sendMsg("/loopier/clip/clip/vflip", "exampleclip");
 // horizontal flip
-m.sendMsg("/loopier/clip/clip", "exampleclip", "hflip");
+m.sendMsg("/loopier/clip/clip/hflip", "exampleclip");
 // toggle fullscreen
-m.sendMsg("/loopier/clip/clip", "exampleclip", "fullscreen");
+m.sendMsg("/loopier/clip/clip/fullscreen", "exampleclip");
 // toggle visibility
-m.sendMsg("/loopier/clip/clip", "exampleclip", "togglevisibility");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "show");
-m.sendMsg("/loopier/clip/clip", "exampleclip", "hide");
+m.sendMsg("/loopier/clip/clip/togglevisibility", "exampleclip");
+m.sendMsg("/loopier/clip/clip/show", "exampleclip");
+m.sendMsg("/loopier/clip/clip/hide", "exampleclip");
 // Dimensions of window are normalized.  So moving is always between 0 and 1
-m.sendMsg("/loopier/clip/clip", "exampleclip", "moveto", 1.0.rand, 1.0.rand);
+m.sendMsg("/loopier/clip/clip/moveto", "exampleclip", 0.5.rand, 0.5.rand);
 
 // COLOR
 // grayscale - 0.0 being black, 1.0 being white - It's a STRING argument!!
-m.sendMsg("/loopier/clip/clip", "exampleclip", "color", "0.4");
+m.sendMsg("/loopier/clip/clip/color", "exampleclip", 0.5);
 // grayscale with alfa - 0.0 being transparent, 1.0 being opaque
-m.sendMsg("/loopier/clip/clip", "exampleclip", "color", "1,0.5");
+m.sendMsg("/loopier/clip/clip/color", "exampleclip", 1, 15);
 // RGB
-m.sendMsg("/loopier/clip/clip", "exampleclip", "color", "1, 0.5, 0");
+m.sendMsg("/loopier/clip/clip/color", "exampleclip", 1, 0.5, 1);
 // RGBA
-m.sendMsg("/loopier/clip/clip", "exampleclip", "color", "1, 0, 1,0.5");
+m.sendMsg("/loopier/clip/clip/color", "exampleclip", 1, 0.5, 1, 0.5);
 // change transparency
-m.sendMsg("/loopier/clip/clip", "exampleclip", "alpha", 0.5);
+m.sendMsg("/loopier/clip/clip/alpha", "exampleclip", 0.5);
 
 // MANAGING MOVIES  ------------------------------------------------
 /* DEPRECATED
@@ -206,11 +189,11 @@ m.sendMsg("/loopier/clip/videoinput", "hide")
 //  APPLICATION COMMANDS
 //------------------------------------------------------------------
 // toggle fullscreen
-m.sendMsg("/loopier/clip/fullscreen")
+m.sendMsg("/loopier/clip/app/fullscreen")
 // move the application window
-m.sendMsg("/loopier/clip/move", 1.0, 0)
+m.sendMsg("/loopier/clip/app/move", 1.0, 0)
 // quit the application from the client
-m.sendMsg("/loopier/clip/quit")
+m.sendMsg("/loopier/clip/app/quit")
 
 // If you want to control it with patterns
 s.boot;

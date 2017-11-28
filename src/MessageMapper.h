@@ -19,45 +19,72 @@
 #include "OscManager.h"
 #include "Clip.h"
 #include "ConsoleUI.h"
+#include "Types.h"
 
 namespace loopier {
     typedef ofxOscMessage Message;
-    
+
 class MessageMapper{
-	
+
 public:
 //    MessageMapper();
 //    virtual MessageMapper();
-    
+
     void setup();
     void setupMap();
-    
+
 private:
     void printMessage(Message & msg);
     void mapMessageToFunc(Message & msg);
-    
+
     typedef void (MessageMapper::* mappedFunc)(const Message&);
-    
-    void quit(const Message & msg);
-    void fullscreen(const Message & msg);
-    void move(const Message & msg);
-    
-    void newClip    (const Message & msg);
-    void removeClip (const Message & msg);
-    
+
+    // Application commands
+    void quit       (const Message & msg);
+    void fullscreen (const Message & msg);
+    void move       (const Message & msg);
+
+    // One Clip commands
+    void newClip              (const Message & msg);
+    void removeClip           (const Message & msg);
+    void resetClip            (const Message & msg);
+    void scaleUpClip          (const Message & msg);
+    void scaleDownClip        (const Message & msg);
+    void scaleClip            (const Message & msg);
+    void setClipWidth         (const Message & msg);
+    void setClipHeight        (const Message & msg);
+    void resetClipScale       (const Message & msg);
+    void setClipVFlip         (const Message & msg);
+    void setClipHFlip         (const Message & msg);
+    void toggleFullscreenClip (const Message & msg);
+    void toggleClipVisibility (const Message & msg);
+    void showClip             (const Message & msg);
+    void hideClip             (const Message & msg);
+    // play
+    void playClip         (const Message & msg);
+    void stopClip         (const Message & msg);
+    void pauseClip        (const Message & msg);
+    void setClipLoopState (const Message & msg);
+    void setClipSpeed     (const Message & msg);
+    // attributes
+    void moveClipTo   (const Message & msg);
+    void setClipColor (const Message & msg);
+    void setClipAlpha (const Message & msg);
+
+    // Clip collection commands
     void clearClips         (const Message & msg);
     void listClipNames      (const Message & msg);
     void listResourceNames  (const Message & msg);
     void toggleClipNames    (const Message & msg);
     void showClipNames      (const Message & msg);
     void hideClipNames      (const Message & msg);
-    
+
     map<string, mappedFunc> messageMap;
     OscManager              osc;
-    
+
     ConsoleUI   console;
 };
-    
+
 }
 
 #endif

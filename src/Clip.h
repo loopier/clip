@@ -211,6 +211,7 @@ namespace loopier {
     // tint
     void setClipColor(const string clipname, const float & grayscale);
     void setClipColor(const string clipname, const string & color);
+    void setClipColor(const string clipname, const ofColor & color);
     // transparency
     void setClipAlpha(const string clipname, const float alpha);
     // reset attributes -- factory defaults

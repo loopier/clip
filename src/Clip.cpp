@@ -719,6 +719,11 @@ void loopier::setClipColor(const string clipname, const string& color)
     loopier::clips[clipname]->setColor(c);
 }
 
+void loopier::setClipColor(const string clipname, const ofColor & color)
+{
+    loopier::clips[clipname]->setColor(color);
+}
+
 void loopier::setClipColor(const string clipname, const float& grayscale)
 {
     if(!loopier::clipExists(clipname)) return;
