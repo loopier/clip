@@ -28,17 +28,17 @@ namespace loopier {
         
         ofEvent<ofxOscMessage> newOscMessageEvent;
         
-    private:
-        int listenPort;
-        
-        ofxOscReceiver receiver;
-        float counterfortest;
-        
+    private:        
         /// \brief Automatic update method
         /// \description    This class is subscribed to ofEvents().update so
         ///     it updates automatically with the app.  There's no need to call
         ///     update() from ofApp::update()
         void update(ofEventArgs& e);
+        
+        int listenPort;
+        
+        ofxOscReceiver receiver;
+        float counterfortest;
         
     };
     

@@ -46,9 +46,8 @@ void ofApp::setup(){
     
     loopier::loadResourceFiles(applicationSupportPath + "resources/");
 
-//    osc.listenToPort(54321);
-    osc.setup();
-    ofAddListener(osc.newOscMessageEvent, this, &ofApp::processOscMessage);
+    msgMapper.setup();
+    
 
     // TODO: Preload movies and frames in global vectors
 //    loopier::Movie::preloadMovies();

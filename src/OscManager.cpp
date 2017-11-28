@@ -8,6 +8,60 @@
 
 #include "OscManager.h"
 
+
+//------------------------------------------------------------------------------------------
+//      CLASS
+//------------------------------------------------------------------------------------------
+
+loopier::OscManager::OscManager()
+: listenPort(12345)
+{
+    ofLogVerbose() << __FUNCTION__ << ": Automatically listening to 'update' event";
+    // automatically update without needing to call it from ofApp
+    ofAddListener(ofEvents().update, this, &loopier::OscManager::update);
+    
+    counterfortest=0;
+}
+
+loopier::OscManager::~OscManager()
+{
+    ofRemoveListener(ofEvents().update, this, &loopier::OscManager::update);
+    ofLogVerbose() << __FUNCTION__ << ": OscManager object destroyed";
+}
+
+void loopier::OscManager::setup()
+{
+    receiver.setup(listenPort);
+    ofLogNotice() << "OSC listening on port " << listenPort;
+}
+
+void loopier::OscManager::update()
+{
+    while (receiver.hasWaitingMessages()) {
+        ofxOscMessage m;
+        if (receiver.getNextMessage(m)) {
+            loopier::printOscMessage(m, "OscManager::update\t OSC message received:", OF_LOG_VERBOSE);
+            
+            // notify all the listeners about this message and send it to them
+            ofNotifyEvent(newOscMessageEvent, m, this);
+        }
+        
+    }
+    
+    
+}
+
+void loopier::OscManager::update(ofEventArgs& e)
+{
+    update();
+}
+
+void loopier::OscManager::listenToPort(const int port)
+{
+    listenPort = port;
+    ofLogVerbose() << __FUNCTION__ << ": Now listening to port " << listenPort;
+}
+
 //------------------------------------------------------------------------------------------
 //      INTERFACE FUNCTIONS
 //------------------------------------------------------------------------------------------
@@ -78,56 +132,3 @@ string loopier::getSimplifiedOscMessage(const ofxOscMessage& m)
     return msg;
 }
 
-
-//------------------------------------------------------------------------------------------
-//      CLASS METHODS
-//------------------------------------------------------------------------------------------
-
-loopier::OscManager::OscManager()
-: listenPort(12345)
-{
-    ofLogVerbose() << __FUNCTION__ << ": Automatically listening to 'update' event";
-    // automatically update without needing to call it from ofApp
-    ofAddListener(ofEvents().update, this, &loopier::OscManager::update);
-    
-    counterfortest=0;
-}
-
-loopier::OscManager::~OscManager()
-{
-    ofRemoveListener(ofEvents().update, this, &loopier::OscManager::update);
-    ofLogVerbose() << __FUNCTION__ << ": OscManager object destroyed";
-}
-
-void loopier::OscManager::setup()
-{
-    receiver.setup(listenPort);
-    ofLogNotice() << "OSC listening on port " << listenPort;
-}
-
-void loopier::OscManager::update()
-{
-    while (receiver.hasWaitingMessages()) {
-        ofxOscMessage m;
-        if (receiver.getNextMessage(m)) {
-            loopier::printOscMessage(m, "OscManager::update\t OSC message received:", OF_LOG_VERBOSE);
-            
-            // notify all the listeners about this message and send it to them
-            ofNotifyEvent(newOscMessageEvent, m, this);
-        }
-        
-    }
-    
-    
-}
-
-void loopier::OscManager::update(ofEventArgs& e)
-{
-    update();
-}
-
-void loopier::OscManager::listenToPort(const int port)
-{
-    listenPort = port;
-    ofLogVerbose() << __FUNCTION__ << ": Now listening to port " << listenPort;
-}

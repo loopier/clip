@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "OscManager.h"
+#include "MessageMapper.h"
 #include "Clip.h"
 #include "ConsoleUI.h"
 #include "VideoInput.h"
@@ -31,7 +31,8 @@ class ofApp : public ofBaseApp{
 
 private:
     ConsoleUI   console;
-    OscManager  osc;
+    MessageMapper msgMapper;
+    
     string  applicationSupportPath; ///< Path to the directory with resources and config files
     
 
