@@ -32,15 +32,15 @@ m.sendMsg("/loopier/clip/clip", "moonwalking", "speed", 1.1);
 //------------------------------------------------------------------
 
 // print list of clip  contents to (app's) console
-m.sendMsg("/loopier/clip/clips", "listresources");
+m.sendMsg("/loopier/clip/clips/listresources");
 // print list of clips to (app's) console
-m.sendMsg("/loopier/clip/clips", "listnames");
+m.sendMsg("/loopier/clip/clips/listnames");
 // clear all clips
-m.sendMsg("/loopier/clip/clips", "clearall");
+m.sendMsg("/loopier/clip/clips/clearall");
 // show names
-m.sendMsg("/loopier/clip/clips", "togglenames");
-m.sendMsg("/loopier/clip/clips", "shownames");
-m.sendMsg("/loopier/clip/clips", "hidenames");
+m.sendMsg("/loopier/clip/clips/togglenames");
+m.sendMsg("/loopier/clip/clips/shownames");
+m.sendMsg("/loopier/clip/clips/hidenames");
 
 //------------------------------------------------------------------
 //  SINGLE CLIP COMMANDS
