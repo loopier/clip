@@ -43,7 +43,7 @@ void loopier::FramePlayer::update()
         return;
     }
     
-    ofLogVerbose() << lastFrameTime << "\t" << frameRate << " / " << ofGetFrameRate() << "\t" << rateRatio;
+//    ofLogVerbose() << lastFrameTime << "\t" << frameRate << " / " << ofGetFrameRate() << "\t" << rateRatio;
     
     lastFrameTime = 0;
     
