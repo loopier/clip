@@ -72,15 +72,14 @@ void loopier::printOscMessage(const ofxOscMessage& m, const string& prepend, con
     string msg = prepend + "\t";
     msg += loopier::getPrintableOscMessage(m);
     
-    if (loglevel == OF_LOG_NOTICE)  ofLogNotice() << msg;
-    if (loglevel == OF_LOG_VERBOSE) ofLogVerbose() << msg;
+    ofLogNotice() << msg;
 }
 
 string loopier::getPrintableOscMessage(const ofxOscMessage& m)
 {
     string msg;
     msg = m.getAddress();
-    msg += "\t";
+    msg += " \t";
     for(int i = 0; i < m.getNumArgs(); i++){
         // get the argument type
         msg += m.getArgTypeName(i);
@@ -109,7 +108,7 @@ string loopier::getSimplifiedOscMessage(const ofxOscMessage& m)
 {
     string msg;
     msg = m.getAddress();
-    msg += "\t";
+    msg += " \t";
     for(int i = 0; i < m.getNumArgs(); i++){
         // display the argument - make sure we get the right type
         if(m.getArgType(i) == OFXOSC_TYPE_INT32){

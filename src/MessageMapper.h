@@ -18,6 +18,7 @@
 #include "ofMain.h"
 #include "OscManager.h"
 #include "Clip.h"
+#include "ConsoleUI.h"
 
 namespace loopier {
     typedef ofxOscMessage Message;
@@ -30,18 +31,20 @@ public:
     
     void setup();
     void setupMap();
-    void update();
     
 private:
+    void printMessage(Message & msg);
     void mapMessageToFunc(Message & msg);
     
     typedef void (MessageMapper::* mappedFunc)(const Message&);
     
-    
-    void newClip(const Message & msg);
+    void newClip    (const Message & msg);
+    void removeClip (const Message & msg);
     
     map<string, mappedFunc> messageMap;
     OscManager              osc;
+    
+    ConsoleUI   console;
 };
     
 }

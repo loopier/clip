@@ -2,7 +2,13 @@
 m = NetAddr("localhost", 12345);
 
 // --- JUST FOR TESTING --- REMOVE WHEN DONE ---
-m.sendMsg("/loopier/clip/clip", "exampleclip", "new", "mamma");
+m.sendMsg("/loopier/clip/clip/aisfjalsdfij");
+m.sendMsg("/loopier/clip/clip/new", "mamaclip", "mamma");
+m.sendMsg("/loopier/clip/clip/remove", "mamaclip");
+m.sendMsg("/loopier/clip/clip/new", "defaultclip");
+m.sendMsg("/loopier/clip/clip/new", "walkclip", "manwalk");
+
+
 m.sendMsg("/loopier/clip/clip", "anotherclip", "new", "mamma");
 m.sendMsg("/loopier/clip/clip", "anotherclip", "moveto", 0.5.rand, 0.5.rand);
 m.sendMsg("/loopier/clip/clip", "anotherclip", "stop");
@@ -19,6 +25,7 @@ m.sendMsg("/loopier/clip/clip", "moonwalking", "new", "manwalk");
 m.sendMsg("/loopier/clip/clip", "moonwalking", "moveto", 0.5.rand, 0.5.rand);
 m.sendMsg("/loopier/clip/clip", "moonwalking", "speed", 1.1);
 // --- END OF TEST ---
+
 
 //------------------------------------------------------------------
 //   CLIP LIST COMMANDS
