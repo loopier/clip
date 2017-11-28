@@ -34,8 +34,23 @@ void loopier::MessageMapper::setup()
 //---------------------------------------------------------
 void loopier::MessageMapper::setupMap()
 {
+    // Application commands
+    messageMap["/loopier/clip/quit"]        = &loopier::MessageMapper::quit;
+    messageMap["/loopier/clip/fullscreen"]  = &loopier::MessageMapper::fullscreen;
+    messageMap["/loopier/clip/move"]        = &loopier::MessageMapper::move;
+    
+    // One Clip commands
     messageMap["/loopier/clip/clip/new"]    = &loopier::MessageMapper::newClip;
     messageMap["/loopier/clip/clip/remove"] = &loopier::MessageMapper::removeClip;
+    
+    // Clip collection commands
+    //  ...
+    
+    // Video input commands
+    //  ...
+    
+    // Console commands
+    //  ...
 }
 
 
@@ -59,6 +74,56 @@ void loopier::MessageMapper::mapMessageToFunc(Message & msg)
         ofLogWarning() << "Unhandled OSC message: " << msg.getAddress();
     }
 }
+
+//---------------------------------------------------------
+
+
+
+
+
+
+
+
+//---------------------------------------------------------
+
+//        APPLICATION
+
+//---------------------------------------------------------
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::quit(const Message & msg)
+{
+    ofExit();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::fullscreen(const Message & msg)
+{
+    ofToggleFullscreen();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::move(const Message & msg)
+{
+    ofSetFullscreen(false);
+    float x = msg.getArgAsFloat(1) * ofGetScreenWidth();
+    float y = msg.getArgAsFloat(2) * ofGetScreenHeight();
+    ofSetWindowPosition(x, y);
+}
+
+
+
+
+
+
+
+
+//---------------------------------------------------------
+
+//        ONE CLIP
+
+//---------------------------------------------------------
 
 
 //---------------------------------------------------------

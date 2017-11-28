@@ -7,7 +7,7 @@
 //
 //  Maps OSC messages to application functions
 //
-//  From this class you control all the application.
+//  From this class you remotely control all the application.
 //  If you need to implement a new behaviour, add the osc message to
 //      messageMap in setupMap() and a new method that makes what you need.
 
@@ -37,6 +37,10 @@ private:
     void mapMessageToFunc(Message & msg);
     
     typedef void (MessageMapper::* mappedFunc)(const Message&);
+    
+    void quit(const Message & msg);
+    void fullscreen(const Message & msg);
+    void move(const Message & msg);
     
     void newClip    (const Message & msg);
     void removeClip (const Message & msg);
