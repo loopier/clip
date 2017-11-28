@@ -44,7 +44,12 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/remove"] = &loopier::MessageMapper::removeClip;
     
     // Clip collection commands
-    //  ...
+    messageMap["/loopier/clip/clips/clearall"]      = &loopier::MessageMapper::clearClips;
+    messageMap["/loopier/clip/clips/listnames"]     = &loopier::MessageMapper::listClipNames;
+    messageMap["/loopier/clip/clips/listresources"] = &loopier::MessageMapper::listResourceNames;
+    messageMap["/loopier/clip/clips/togglenames"]   = &loopier::MessageMapper::toggleClipNames;
+    messageMap["/loopier/clip/clips/shownames"]     = &loopier::MessageMapper::showClipNames;
+    messageMap["/loopier/clip/clips/hidenames"]     = &loopier::MessageMapper::hideClipNames;
     
     // Video input commands
     //  ...
@@ -139,4 +144,54 @@ void loopier::MessageMapper::newClip(const Message & msg)
 void loopier::MessageMapper::removeClip(const Message & msg)
 {
     loopier::removeClip(msg.getArgAsString(0));
+}
+
+
+
+
+
+
+
+
+//---------------------------------------------------------
+
+//        CLIP COLLECTIONS
+
+//---------------------------------------------------------
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::clearClips(const Message & msg)
+{
+    loopier::clearClips();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::listClipNames(const Message & msg)
+{
+    loopier::listClipNames();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::listResourceNames(const Message & msg)
+{
+    loopier::listResourceNames();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::toggleClipNames(const Message & msg)
+{
+    loopier::toggleClipNames();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::showClipNames(const Message & msg)
+{
+    loopier::showClipNames();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::hideClipNames(const Message & msg)
+{
+    loopier::hideClipNames();
 }

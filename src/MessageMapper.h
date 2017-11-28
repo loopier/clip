@@ -45,6 +45,13 @@ private:
     void newClip    (const Message & msg);
     void removeClip (const Message & msg);
     
+    void clearClips         (const Message & msg);
+    void listClipNames      (const Message & msg);
+    void listResourceNames  (const Message & msg);
+    void toggleClipNames    (const Message & msg);
+    void showClipNames      (const Message & msg);
+    void hideClipNames      (const Message & msg);
+    
     map<string, mappedFunc> messageMap;
     OscManager              osc;
     
