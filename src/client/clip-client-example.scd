@@ -1,15 +1,6 @@
 // Connect to the server
 m = NetAddr("localhost", 12345);
 
-// --- JUST FOR TESTING --- REMOVE WHEN DONE ---
-m.sendMsg("/loopier/clip/clip/aisfjalsdfij");
-m.sendMsg("/loopier/clip/clip/new", "mamaclip", "mamma");
-m.sendMsg("/loopier/clip/clip/remove", "mamaclip");
-m.sendMsg("/loopier/clip/clip/new", "defaultclip");
-m.sendMsg("/loopier/clip/clip/new", "walkclip", "manwalk");
-// --- END OF TEST ---
-
-
 //------------------------------------------------------------------
 //   CLIP LIST COMMANDS
 //------------------------------------------------------------------
@@ -47,7 +38,7 @@ m.sendMsg("/loopier/clip/clip/loop", "exampleclip", "normal");
 m.sendMsg("/loopier/clip/clip/loop", "exampleclip", "palindrome");
 m.sendMsg("/loopier/clip/clip/loop", "exampleclip", "once");
 // change movie speed
-m.sendMsg("/loopier/clip/clip/speed", "exampleclip", 2);
+m.sendMsg("/loopier/clip/clip/speed", "exampleclip", 1.1);
 
 // LOOK & FEEL  ------------------------------------------------------
 
@@ -85,59 +76,6 @@ m.sendMsg("/loopier/clip/clip/color", "exampleclip", 1, 0.5, 1);
 m.sendMsg("/loopier/clip/clip/color", "exampleclip", 1, 0.5, 1, 0.5);
 // change transparency
 m.sendMsg("/loopier/clip/clip/alpha", "exampleclip", 0.5);
-
-// MANAGING MOVIES  ------------------------------------------------
-/* DEPRECATED
-
-// list the movies in the clip
-m.sendMsg("/loopier/clip/clip", "exampleclip", "listmovies");
-// add a movie to the clip
-m.sendMsg("/loopier/clip/clip", "exampleclip", "addmovie", "mamma");
-// play the new movie
-m.sendMsg("/loopier/clip/clip", "exampleclip", "setmovie", 1);
-// back to the first movie
-m.sendMsg("/loopier/clip/clip", "exampleclip", "setmovie", 0);
-
-// SEQUENCE
-// add yet another movie
-m.sendMsg("/loopier/clip/clip", "exampleclip", "addmovie", "crashtest");
-// and set a sequence
-m.sendMsg("/loopier/clip/clip", "exampleclip", "sequence", "0,1,2");
-*/
-
-//------------------------------------------------------------------
-//  ANOTHER CLIP
-//------------------------------------------------------------------
-
-// create a new clip named 'anotherclip'
-m.sendMsg("/loopier/clip/clip", "anotherclip", "new", "stress");
-// move it somewhere
-m.sendMsg("/loopier/clip/clip", "anotherclip", "moveto", 1.0.rand, 1.0.rand);
-// change it's transparency
-m.sendMsg("/loopier/clip/clip", "stress", "alpha",0.5);
-// create another clip with the same name.  App will rename it to 'stress1' and
-// warn you about this
-(
-m.sendMsg("/loopier/clip/clip", "stress", "new");
-m.sendMsg("/loopier/clip/clip", "stress1", "moveto", 1.0.rand, 1.0.rand);
-)
-// eval several times to move it around
-m.sendMsg("/loopier/clip/clip", "stress1", "moveto", 1.0.rand, 1.0.rand);
-
-// create a new clip named 'mamma' with alpha channel (transparent background)
-// give it a random size and position at creation-time
-m.sendMsg("/loopier/clip/clip", "mamma", "new");
-(
-m.sendMsg("/loopier/clip/clip", "mamma", "moveto", 1.0.rand, 1.0.rand);
-m.sendMsg("/loopier/clip/clip", "mamma", "scale", 2.0.rand.postln);
-m.sendMsg("/loopier/clip/clip", "mamma", "loop", "palindrome");
-)
-// fool around with it
-(
-m.sendMsg("/loopier/clip/clip", "mamma", "moveto", 1.0.rand, 1.0.rand);
-m.sendMsg("/loopier/clip/clip", "mamma", "scale", 2.0.rand.postln);
-)
-
 
 //------------------------------------------------------------------
 //  CONSOLE COMMANDS
