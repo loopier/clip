@@ -1,40 +1,31 @@
 #include "ofApp.h"
 
 //--------------------------------------------------------------
+void ofApp::test(){
+
+    /// ----------------------------------------------------------
+    /// --------------  TESTING     --------------
+    /// ----------------------------------------------------------
+
+    loopier::CameraPlayer::setupVideoCameras();
+    loopier::CameraPlayer cam;
+    cam.setup();
+    
+    ofExit();
+    ofLogVerbose() << "------------------" << __PRETTY_FUNCTION__;
+    /// ----------------------------------------------------------
+    /// --------------  END OF TEST --------------
+    /// ----------------------------------------------------------
+}
+
 void ofApp::setup(){
     ofSetLogLevel(OF_LOG_VERBOSE);
-//    ofSetLogLevel(OF_LOG_NOTICE);
-
-    /// -------------------------------------------------------------------------------
-    /// --------------  TESTING     --------------
-    /// -------------------------------------------------------------------------------
-//    PlayerPtr   player(new FramePlayer);
-//    player->setPath("/Users/roger/Library/Application Support/Clip/resources/frames/");
-//    bool b = player->load("manwalk");
-//    bool b = player->load("mamma");
+    //    ofSetLogLevel(OF_LOG_NOTICE);
     
-//    ofLogVerbose() << "LOADED mandwalk: " << b;
-//    ofLogVerbose() << "Total frames: " << player->getTotalNumFrames();
+    /// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    test(); // !!! TODO: REMOVE!!!
+    /// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     
-//    ofDirectory dir("/Users/roger/Library/Application Support/Clip/resources/frames/empty");
-//    vector<ofFile> files = dir.getFiles();
-//    ofLogVerbose() << files.size();
-    
-//    loopier::newClip("oneclip", "mamma");
-//
-    
-//
-//    ofDirectory dir("/Users/roger/Library/Application Support/Clip/resources/players/manwalk");
-//    dir.listDir();
-//    ofLogVerbose() << dir.getName(0);
-    
-//    ofExit();
-//    ofLogVerbose() << "!!! REMOVE RETURN FROM ofApp::setup()!!!";
-//    return;
-    /// -------------------------------------------------------------------------------
-    /// --------------  END OF TEST --------------
-    /// -------------------------------------------------------------------------------
-
 //    ofSetWindowPosition(ofGetScreenWidth(), 0);
 //    ofSetFullscreen(true);
     ofBackground(0,0,0);
@@ -49,18 +40,18 @@ void ofApp::setup(){
 
     msgMapper.setup();
     
-    loopier::newVideoInput();
+//    loopier::newVideoInput();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     loopier::updateClips();
-    loopier::updateVideoInput();
+//    loopier::updateVideoInput();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    loopier::drawVideoInput();
+//    loopier::drawVideoInput();
     loopier::drawClips();
     console.draw();
 }

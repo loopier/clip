@@ -22,7 +22,6 @@ namespace loopier {
         
         virtual     void                setup();
         virtual     void                update() = 0;
-        virtual     void                draw() = 0;
         virtual     void                draw(float x, float y, float w, float h) = 0;
         virtual     void                exit();
         
@@ -33,7 +32,7 @@ namespace loopier {
         virtual     void                setName(string newName);
         virtual     string              getName() const;
         
-        virtual     void				play() = 0;
+        virtual     void				play();
         virtual     void				stop();
         
         virtual     float 				getWidth() const;
