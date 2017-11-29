@@ -55,7 +55,7 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/togglevisibility"]   = &loopier::MessageMapper::toggleClipVisibility;
     messageMap["/loopier/clip/clip/show"]               = &loopier::MessageMapper::showClip;
     messageMap["/loopier/clip/clip/hide"]               = &loopier::MessageMapper::hideClip;
-        // PLAY
+    // play
     messageMap["/loopier/clip/clip/play"]   = &loopier::MessageMapper::playClip;
     messageMap["/loopier/clip/clip/stop"]   = &loopier::MessageMapper::stopClip;
     messageMap["/loopier/clip/clip/pause"]  = &loopier::MessageMapper::pauseClip;
@@ -78,7 +78,17 @@ void loopier::MessageMapper::setupMap()
     //  ...
 
     // Console commands
-    //  ...
+    messageMap["/loopier/clip/console/color"]       = &loopier::MessageMapper::setConsoleColor;
+    messageMap["/loopier/clip/console/alpha"]       = &loopier::MessageMapper::setConsoleAlpha;
+    messageMap["/loopier/clip/console/prompt"]      = &loopier::MessageMapper::setConsolePrompt;
+    messageMap["/loopier/clip/console/print"]       = &loopier::MessageMapper::printToConsole;
+    messageMap["/loopier/clip/console/lines"]       = &loopier::MessageMapper::setConsoleLinesNum;
+    messageMap["/loopier/clip/console/toggle"]      = &loopier::MessageMapper::toggleConsole;
+    messageMap["/loopier/clip/console/show"]        = &loopier::MessageMapper::showConsole;
+    messageMap["/loopier/clip/console/hide"]        = &loopier::MessageMapper::hideConsole;
+    messageMap["/loopier/clip/console/moveto"]      = &loopier::MessageMapper::moveConsole;
+    messageMap["/loopier/clip/console/font"]        = &loopier::MessageMapper::setConsoleFont;
+    messageMap["/loopier/clip/console/fontsize"]    = &loopier::MessageMapper::setConsoleFontSize;
 }
 
 
@@ -295,20 +305,7 @@ void loopier::MessageMapper::moveClipTo(const Message & msg)
 //---------------------------------------------------------
 void loopier::MessageMapper::setClipColor(const Message & msg)
 {
-    ofColor color;
-    int numArgs = msg.getNumArgs();
-    
-    if      (numArgs == 1)  color = ofColor(msg.getArgAsFloat(1) * 255);
-    else if (numArgs == 2)  color = ofColor(msg.getArgAsFloat(1) * 255, msg.getArgAsFloat(2) * 255);
-    else if (numArgs == 3)  color = ofColor(msg.getArgAsFloat(1) * 255,
-                                            msg.getArgAsFloat(2) * 255,
-                                            msg.getArgAsFloat(3) * 255);
-    else if (numArgs == 4)  color = ofColor(msg.getArgAsFloat(1) * 255,
-                                            msg.getArgAsFloat(2) * 255,
-                                            msg.getArgAsFloat(3) * 255,
-                                            msg.getArgAsFloat(4) * 255);
-    
-    
+    ofColor color = loopier::MessageMapper::getColorFromMessage(msg);    
     loopier::setClipColor(msg.getArgAsString(0), color);
 }
 
@@ -365,4 +362,114 @@ void loopier::MessageMapper::showClipNames(const Message & msg)
 void loopier::MessageMapper::hideClipNames(const Message & msg)
 {
     loopier::hideClipNames();
+}
+
+
+
+
+
+
+
+//---------------------------------------------------------
+
+//        CONSOLE
+
+//---------------------------------------------------------
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setConsoleColor(const Message & msg)
+{
+    loopier::ConsoleUI::setColor(loopier::MessageMapper::getColorFromMessage(msg));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setConsoleAlpha(const Message & msg)
+{
+    loopier::ConsoleUI::setAlpha(msg.getArgAsFloat(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setConsolePrompt(const Message & msg)
+{
+    loopier::ConsoleUI::setPrompt(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::printToConsole(const Message & msg)
+{
+    loopier::ConsoleUI::print(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setConsoleLinesNum(const Message & msg)
+{
+    loopier::ConsoleUI::setMaxLines(msg.getArgAsInt(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::toggleConsole(const Message & msg)
+{
+    loopier::ConsoleUI::toggle();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::showConsole(const Message & msg)
+{
+    loopier::ConsoleUI::show();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::hideConsole(const Message & msg)
+{
+    loopier::ConsoleUI::hide();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::moveConsole(const Message & msg)
+{
+    loopier::ConsoleUI::setPosition(msg.getArgAsFloat(0), msg.getArgAsFloat(1));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setConsoleFont(const Message & msg)
+{
+    loopier::ConsoleUI::setFont(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setConsoleFontSize(const Message & msg)
+{
+    loopier::ConsoleUI::setFontSize(msg.getArgAsInt(0));
+}
+
+
+
+
+
+
+
+//---------------------------------------------------------
+
+//        CONSOLE
+
+//---------------------------------------------------------
+
+
+//---------------------------------------------------------
+ofColor loopier::MessageMapper::getColorFromMessage(const Message & msg)
+{
+    ofColor color;
+    int numArgs = msg.getNumArgs();
+    
+    if      (numArgs == 1)  color = ofColor(msg.getArgAsFloat(1) * 255);
+    else if (numArgs == 2)  color = ofColor(msg.getArgAsFloat(1) * 255, msg.getArgAsFloat(2) * 255);
+    else if (numArgs == 3)  color = ofColor(msg.getArgAsFloat(1) * 255,
+                                            msg.getArgAsFloat(2) * 255,
+                                            msg.getArgAsFloat(3) * 255);
+    else if (numArgs == 4)  color = ofColor(msg.getArgAsFloat(1) * 255,
+                                            msg.getArgAsFloat(2) * 255,
+                                            msg.getArgAsFloat(3) * 255,
+                                            msg.getArgAsFloat(4) * 255);
+    return color;
 }

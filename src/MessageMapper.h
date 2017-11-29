@@ -78,6 +78,23 @@ private:
     void toggleClipNames    (const Message & msg);
     void showClipNames      (const Message & msg);
     void hideClipNames      (const Message & msg);
+    
+    // Console commands
+    void setConsoleColor    (const Message & msg);
+    void setConsoleAlpha    (const Message & msg);
+    void setConsolePrompt   (const Message & msg);
+    void printToConsole     (const Message & msg);
+    void setConsoleLinesNum (const Message & msg);
+    void toggleConsole      (const Message & msg);
+    void showConsole        (const Message & msg);
+    void hideConsole        (const Message & msg);
+    void moveConsole        (const Message & msg);
+    void setConsoleFont     (const Message & msg);
+    void setConsoleFontSize (const Message & msg);
+    
+    // Helpers
+    /// \brief  Translates a message with variable arguments to a color object
+    static ofColor getColorFromMessage(const Message & msg);
 
     map<string, mappedFunc> messageMap;
     OscManager              osc;
