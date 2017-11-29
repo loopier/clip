@@ -78,7 +78,7 @@ m.sendMsg("/loopier/clip/clip/moveto", "exampleclip", 0.5.rand, 0.5.rand);
 // grayscale - 0.0 being black, 1.0 being white - It's a STRING argument!!
 m.sendMsg("/loopier/clip/clip/color", "exampleclip", 0.5);
 // grayscale with alfa - 0.0 being transparent, 1.0 being opaque
-m.sendMsg("/loopier/clip/clip/color", "exampleclip", 1, 15);
+m.sendMsg("/loopier/clip/clip/color", "exampleclip", 1, 0.5);
 // RGB
 m.sendMsg("/loopier/clip/clip/color", "exampleclip", 1, 0.5, 1);
 // RGBA
@@ -144,46 +144,47 @@ m.sendMsg("/loopier/clip/clip", "mamma", "scale", 2.0.rand.postln);
 //------------------------------------------------------------------
 
 // print something
-m.sendMsg("/loopier/clip/console", "print", "hello world");
+m.sendMsg("/loopier/clip/console/print", "hello world");
 // change prompt
-m.sendMsg("/loopier/clip/console", "prompt", ">> ");
+m.sendMsg("/loopier/clip/console/prompt", ">> ");
 // set the maximum number of lilnes displayed
-m.sendMsg("/loopier/clip/console", "lines", 5);
+m.sendMsg("/loopier/clip/console/lines", 5);
 // show or hide
-m.sendMsg("/loopier/clip/console", "toggle");
-m.sendMsg("/loopier/clip/console", "show");
-m.sendMsg("/loopier/clip/console", "hide");
+m.sendMsg("/loopier/clip/console/toggle");
+m.sendMsg("/loopier/clip/console/show");
+m.sendMsg("/loopier/clip/console/hide");
 // changing color with normalized values (1 = 255)
 // Grayscale
-m.sendMsg("/loopier/clip/console", "color", 0.75);
+m.sendMsg("/loopier/clip/console/color", 0.75);
 // Grayscale with alpha
-m.sendMsg("/loopier/clip/console", "color", 1, 0.5);
+m.sendMsg("/loopier/clip/console/color", 1, 0.5);
 // RGB
-m.sendMsg("/loopier/clip/console", "color", 1, 0.5, 0);
+m.sendMsg("/loopier/clip/console/color", 1, 0.5, 0);
 // set transparency
-m.sendMsg("/loopier/clip/console", "alpha", 0.5);
+m.sendMsg("/loopier/clip/console/alpha", 0.5);
 // RGB with alpha -- seems it's not working
 // m.sendMsg("/loopier/clip/console", "color", 1, 1, 0, 0.5);
-m.sendMsg("/loopier/clip/console", "moveto", 0.5, 0.9)
+m.sendMsg("/loopier/clip/console/moveto", 0.5, 0.9)
 
-m.sendMsg("/loopier/clip/console", "font", "OCRAStd.otf")
-m.sendMsg("/loopier/clip/console", "font", "Andale Mono.ttf")
-m.sendMsg("/loopier/clip/console", "fontsize", 24)
+m.sendMsg("/loopier/clip/console/font", "OCRAStd.otf")
+m.sendMsg("/loopier/clip/console/font", "Andale Mono.ttf")
+m.sendMsg("/loopier/clip/console/fontsize", 24)
 
 //------------------------------------------------------------------
 //  VIDEO INPUT COMMANDS
 //------------------------------------------------------------------
 // change blob detection threshold
-m.sendMsg("/loopier/clip/videoinput", "threshold", 100)
+m.sendMsg("/loopier/clip/videoinput/threshold", 200)
 // change detected blob sizes
-m.sendMsg("/loopier/clip/videoinput", "minArea", 10)
-m.sendMsg("/loopier/clip/videoinput", "maxArea", 250)
+m.sendMsg("/loopier/clip/videoinput/minArea", 10)
+m.sendMsg("/loopier/clip/videoinput/maxArea", 250)
 // detect holes inside blobs
-m.sendMsg("/loopier/clip/videoinput", "holes", true)
+m.sendMsg("/loopier/clip/videoinput/holes", true)
+m.sendMsg("/loopier/clip/videoinput/holes", false)
 // visibility
-m.sendMsg("/loopier/clip/videoinput", "togglevisibility")
-m.sendMsg("/loopier/clip/videoinput", "show")
-m.sendMsg("/loopier/clip/videoinput", "hide")
+m.sendMsg("/loopier/clip/videoinput/togglevisibility")
+m.sendMsg("/loopier/clip/videoinput/show")
+m.sendMsg("/loopier/clip/videoinput/hide")
 
 //------------------------------------------------------------------
 //  APPLICATION COMMANDS

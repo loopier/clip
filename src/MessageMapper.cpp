@@ -75,7 +75,13 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clips/hidenames"]     = &loopier::MessageMapper::hideClipNames;
 
     // Video input commands
-    //  ...
+    messageMap["/loopier/clip/videoinput/threshold"] = &loopier::MessageMapper::setVideoInputThreshold;
+    messageMap["/loopier/clip/videoinput/minArea"]  = &loopier::MessageMapper::setVideoInputMinArea;
+    messageMap["/loopier/clip/videoinput/maxArea"]  = &loopier::MessageMapper::setVideoInputMaxArea;
+    messageMap["/loopier/clip/videoinput/holes"]    = &loopier::MessageMapper::setVideoInputHoles;
+    messageMap["/loopier/clip/videoinput/togglevisibility"] = &loopier::MessageMapper::toggleVidoeInput;
+    messageMap["/loopier/clip/videoinput/show"]     = &loopier::MessageMapper::showVideoInput;
+    messageMap["/loopier/clip/videoinput/hide"]     = &loopier::MessageMapper::hideVideoInput;
 
     // Console commands
     messageMap["/loopier/clip/console/color"]       = &loopier::MessageMapper::setConsoleColor;
@@ -305,7 +311,7 @@ void loopier::MessageMapper::moveClipTo(const Message & msg)
 //---------------------------------------------------------
 void loopier::MessageMapper::setClipColor(const Message & msg)
 {
-    ofColor color = loopier::MessageMapper::getColorFromMessage(msg);    
+    ofColor color = loopier::MessageMapper::getColorFromMessage(msg);
     loopier::setClipColor(msg.getArgAsString(0), color);
 }
 
@@ -362,6 +368,61 @@ void loopier::MessageMapper::showClipNames(const Message & msg)
 void loopier::MessageMapper::hideClipNames(const Message & msg)
 {
     loopier::hideClipNames();
+}
+
+
+
+
+
+
+
+//---------------------------------------------------------
+
+//        VIDEO INPUT
+
+//---------------------------------------------------------
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setVideoInputThreshold(const Message & msg)
+{
+    loopier::setVideoInputThreshold(msg.getArgAsFloat(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setVideoInputMinArea(const Message & msg)
+{
+    loopier::setVideoInputMinArea(msg.getArgAsFloat(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setVideoInputMaxArea(const Message & msg)
+{
+    loopier::setVideoInputMaxArea(msg.getArgAsFloat(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setVideoInputHoles(const Message & msg)
+{
+    loopier::setVideoInputHoles(msg.getArgAsBool(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::toggleVidoeInput(const Message & msg)
+{
+    loopier::toggleVideoInputVisibility();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::showVideoInput(const Message & msg)
+{
+    loopier::showVideoInput();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::hideVideoInput(const Message & msg)
+{
+    loopier::hideVideoInput();
 }
 
 
