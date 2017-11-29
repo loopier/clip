@@ -60,6 +60,7 @@
 		DB647EDD1FCD860A00F3023B /* MessageMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB647EDB1FCD860A00F3023B /* MessageMapper.cpp */; };
 		DB6E390A1FC7302C0016954C /* FramePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB6E39081FC7302C0016954C /* FramePlayer.cpp */; };
 		DB99396D1FCEEF5A0089A2DF /* CameraPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB99396B1FCEEF5A0089A2DF /* CameraPlayer.cpp */; };
+		DB9939761FCF68390089A2DF /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = DB9939751FCF68390089A2DF /* README.md */; };
 		DBCB84A37F9AECC254870D79 /* Wrappers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D347FB65D19015303863922A /* Wrappers.cpp */; };
 		DBDC4C491FCAEA9B00C02CC3 /* BasePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBDC4C471FCAEA9B00C02CC3 /* BasePlayer.cpp */; };
 		DBDC4C4C1FCB06B700C02CC3 /* Clip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBDC4C4A1FCB06B700C02CC3 /* Clip.cpp */; };
@@ -361,6 +362,7 @@
 		DB8653D6433E14BF06F3EFAF /* cvwimage.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = cvwimage.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv/cvwimage.h; sourceTree = SOURCE_ROOT; };
 		DB99396B1FCEEF5A0089A2DF /* CameraPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CameraPlayer.cpp; sourceTree = "<group>"; };
 		DB99396C1FCEEF5A0089A2DF /* CameraPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraPlayer.h; sourceTree = "<group>"; };
+		DB9939751FCF68390089A2DF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DBDC4C471FCAEA9B00C02CC3 /* BasePlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasePlayer.cpp; sourceTree = "<group>"; };
 		DBDC4C481FCAEA9B00C02CC3 /* BasePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePlayer.h; sourceTree = "<group>"; };
 		DBDC4C4A1FCB06B700C02CC3 /* Clip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clip.cpp; sourceTree = "<group>"; };
@@ -1209,6 +1211,7 @@
 				DB99396B1FCEEF5A0089A2DF /* CameraPlayer.cpp */,
 				DB99396C1FCEEF5A0089A2DF /* CameraPlayer.h */,
 				DBDC4C4D1FCB0C3000C02CC3 /* Types.h */,
+				DB9939751FCF68390089A2DF /* README.md */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1386,6 +1389,7 @@
 				2023EF517ED2D8B397511D4B /* Helpers.cpp in Sources */,
 				311DF864378748129984EA1D /* Kalman.cpp in Sources */,
 				C602002DE761F9B52DB4400A /* ObjectFinder.cpp in Sources */,
+				DB9939761FCF68390089A2DF /* README.md in Sources */,
 				7CDAD32BE4FA46701E3552C7 /* RunningBackground.cpp in Sources */,
 				10B69DE456AED1288FC9316B /* Tracker.cpp in Sources */,
 				A6668C5B1272D7FCD5B5A16F /* Utilities.cpp in Sources */,

@@ -1,30 +1,10 @@
 #include "ofApp.h"
 
-//--------------------------------------------------------------
-void ofApp::test(){
-
-    /// ----------------------------------------------------------
-    /// --------------  TESTING     --------------
-    /// ----------------------------------------------------------
-
-    loopier::CameraPlayer::setupVideoCameras();
-    loopier::CameraPlayer cam;
-    cam.setup();
-    
-    ofExit();
-    ofLogVerbose() << "------------------" << __PRETTY_FUNCTION__;
-    /// ----------------------------------------------------------
-    /// --------------  END OF TEST --------------
-    /// ----------------------------------------------------------
-}
-
 void ofApp::setup(){
     ofSetLogLevel(OF_LOG_VERBOSE);
     //    ofSetLogLevel(OF_LOG_NOTICE);
     
-    /// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-//    test(); // !!! TODO: REMOVE!!!
-    /// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+//    ofExit();
     
 //    ofSetWindowPosition(ofGetScreenWidth(), 0);
 //    ofSetFullscreen(true);
