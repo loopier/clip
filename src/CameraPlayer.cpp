@@ -27,20 +27,20 @@ loopier::CameraPlayer::~CameraPlayer()
 void loopier::CameraPlayer::setup()
 {
     ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-    ofLogVerbose() << loopier::CameraPlayer::videocameras.size();
-    ofLogVerbose() << loopier::CameraPlayer::bCamerasReady;
 }
 
 //---------------------------------------------------------
 void loopier::CameraPlayer::update()
 {
-    
+    if (!camera)    return;
+    camera->update();
 }
 
 //---------------------------------------------------------
 void loopier::CameraPlayer::draw(float x, float y, float w, float h)
 {
-    
+    if (!camera)    return;
+    camera->draw(x, y, w, h);
 }
 
 //---------------------------------------------------------
@@ -52,13 +52,12 @@ void loopier::CameraPlayer::exit()
 //---------------------------------------------------------
 bool loopier::CameraPlayer::loadResource(string resourcename)
 {
-    
+    camera = loopier::CameraPlayer::videocameras.find(resourcename)->second;
 }
 
 //---------------------------------------------------------
-void loopier::CameraPlayer::setupVideoCameras()
+bool loopier::CameraPlayer::setupVideoCameras()
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
     ofVideoGrabber vidGrabber;
     vector<ofVideoDevice> devices = vidGrabber.listDevices();
     
@@ -68,6 +67,21 @@ void loopier::CameraPlayer::setupVideoCameras()
         cam->initGrabber(ofGetWidth(), ofGetHeight());
         loopier::CameraPlayer::videocameras["camera"+ofToString(i)] = cam;
     }
+    
+    if (loopier::CameraPlayer::videocameras.size() > 0) loopier::CameraPlayer::bCamerasReady = true;
+    return loopier::CameraPlayer::bCamerasReady;
+}
+
+//
+void loopier::CameraPlayer::listVideoCameras()
+{
+    string msg = "Number of cameras:\t" + ofToString(loopier::CameraPlayer::videocameras.size());
+    loopier::VideoCameraMap::iterator it;
+    for (it = loopier::CameraPlayer::videocameras.begin(); it != loopier::CameraPlayer::videocameras.end(); ++it) {
+        msg += "\n\t" + it->first;
+    }
+    
+    ofLogNotice() << msg;
 }
 
 

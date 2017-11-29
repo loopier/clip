@@ -309,6 +309,12 @@ loopier::ClipMap        loopier::clips;
 // *                                                                       *
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+bool loopier::initResources(string path)
+{
+    loopier::loadResourceFiles(path);
+    loopier::setupCameras();
+}
+
 int loopier::loadResourceFiles(string path)
 {
     if (path == "") path = "/Users/roger/Library/Application Support/Clip/resources/";
@@ -376,6 +382,11 @@ bool loopier::loadFrameLists(string path)
     return false;
 }
 
+bool loopier::setupCameras()
+{
+    return loopier::CameraPlayer::setupVideoCameras();
+}
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 // *                                                                       *
@@ -387,6 +398,7 @@ void loopier::listResourceNames()
     ofLogNotice() << "Available Resources: ";
     loopier::listMovieNames();
     loopier::listFrameListNames();
+    loopier::listVideoCameras();
 }
 
 void loopier::listMovieNames()
@@ -409,6 +421,11 @@ void loopier::listFrameListNames()
     }
     
     ofLogNotice() << msg;
+}
+
+void loopier::listVideoCameras()
+{
+    loopier::CameraPlayer::listVideoCameras();
 }
 
 

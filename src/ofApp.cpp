@@ -23,7 +23,7 @@ void ofApp::setup(){
     //    ofSetLogLevel(OF_LOG_NOTICE);
     
     /// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    test(); // !!! TODO: REMOVE!!!
+//    test(); // !!! TODO: REMOVE!!!
     /// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     
 //    ofSetWindowPosition(ofGetScreenWidth(), 0);
@@ -36,7 +36,7 @@ void ofApp::setup(){
     applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/";
     init();
     
-    loopier::loadResourceFiles(applicationSupportPath + "resources/");
+    loopier::initResources(applicationSupportPath + "resources/");
 
     msgMapper.setup();
     

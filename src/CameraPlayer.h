@@ -25,7 +25,8 @@ namespace loopier {
         CameraPlayer();
         virtual ~CameraPlayer();
         
-        static void setupVideoCameras();
+        static bool setupVideoCameras();
+        static void listVideoCameras();
         
         void    setup();
         void    update();
@@ -35,9 +36,10 @@ namespace loopier {
         bool    loadResource(string resourcename);
         
     private:
-        
         static VideoCameraMap   videocameras;
         static bool             bCamerasReady;
+        
+        VideoCameraPtr  camera;
     };
     
 }

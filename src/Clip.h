@@ -14,6 +14,7 @@
 #include "Types.h"
 #include "FramePlayer.h"
 #include "MoviePlayer.h"
+#include "CameraPlayer.h"
 
 namespace loopier {
     
@@ -115,14 +116,17 @@ namespace loopier {
     // ----- RESOURCE FILES-----
     
     /// \brief  Load all files into memory
+    bool    initResources(string path="");
     int     loadResourceFiles(string path="");
     bool    loadMovies(string path);
     bool    loadFrameLists(string path);
+    bool    setupCameras();
     
     /// \brief  Prints the list of available movies and frame collections
     void    listResourceNames();
     void    listMovieNames();
     void    listFrameListNames();
+    void    listVideoCameras();
     
     
     // ----- MANAGE CLIPS-----
