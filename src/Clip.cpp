@@ -107,6 +107,9 @@ void loopier::Clip::setResource(string & resourcename)
     } else if (loopier::frameLists.count(resourcename)) {
         player = make_shared<FramePlayer>();
         ofLogVerbose() << "'" << name << "'" << " will play the frames: " << resourcename << "'";
+    } else if (loopier::cameras.count(resourcename)) {
+        player = make_shared<CameraPlayer>();
+        ofLogVerbose() << "'" << name << "'" << " will run camera: " << resourcename << "'";
     }
     
     player->loadResource(resourcename);
@@ -385,11 +388,6 @@ bool loopier::loadFrameLists(string path)
     return false;
 }
 
-bool loopier::setupCameras()
-{
-    return loopier::CameraPlayer::setupVideoCameras();
-}
-
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 // *                                                                       *
@@ -401,7 +399,7 @@ void loopier::listResourceNames()
     ofLogNotice() << "Available Resources: ";
     loopier::listMovieNames();
     loopier::listFrameListNames();
-    loopier::listVideoCameras();
+    loopier::listCameras();
 }
 
 void loopier::listMovieNames()
@@ -424,11 +422,6 @@ void loopier::listFrameListNames()
     }
     
     ofLogNotice() << msg;
-}
-
-void loopier::listVideoCameras()
-{
-    loopier::CameraPlayer::listVideoCameras();
 }
 
 

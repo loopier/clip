@@ -8,8 +8,7 @@
 
 #include "CameraPlayer.h"
 
-bool loopier::CameraPlayer::bCamerasReady = false;
-loopier::VideoCameraMap loopier::CameraPlayer::videocameras;
+loopier::CameraMap loopier::cameras;
 
 //---------------------------------------------------------
 loopier::CameraPlayer::CameraPlayer()
@@ -41,6 +40,7 @@ void loopier::CameraPlayer::draw(float x, float y, float w, float h)
 {
     if (!camera)    return;
     camera->draw(x, y, w, h);
+    
 }
 
 //---------------------------------------------------------
@@ -52,32 +52,44 @@ void loopier::CameraPlayer::exit()
 //---------------------------------------------------------
 bool loopier::CameraPlayer::loadResource(string resourcename)
 {
-    camera = loopier::CameraPlayer::videocameras.find(resourcename)->second;
+    camera = loopier::cameras.find(resourcename)->second;
 }
 
 //---------------------------------------------------------
-bool loopier::CameraPlayer::setupVideoCameras()
+float loopier::CameraPlayer::getWidth() const
+{
+    return camera->getWidth();
+}
+
+//---------------------------------------------------------
+float loopier::CameraPlayer::getHeight() const
+{
+    return camera->getHeight();
+}
+
+
+//---------------------------------------------------------
+bool loopier::setupCameras()
 {
     ofVideoGrabber vidGrabber;
     vector<ofVideoDevice> devices = vidGrabber.listDevices();
     
     for (int i = 0; i < devices.size(); i++) {
-        VideoCameraPtr cam(new VideoCamera(vidGrabber));
+        CameraPtr cam(new Camera(vidGrabber));
         cam->setDeviceID(i);
         cam->initGrabber(ofGetWidth(), ofGetHeight());
-        loopier::CameraPlayer::videocameras["camera"+ofToString(i)] = cam;
+        loopier::cameras["camera"+ofToString(i)] = cam;
     }
     
-    if (loopier::CameraPlayer::videocameras.size() > 0) loopier::CameraPlayer::bCamerasReady = true;
-    return loopier::CameraPlayer::bCamerasReady;
+    return loopier::cameras.size();
 }
 
 //
-void loopier::CameraPlayer::listVideoCameras()
+void loopier::listCameras()
 {
-    string msg = "Number of cameras:\t" + ofToString(loopier::CameraPlayer::videocameras.size());
-    loopier::VideoCameraMap::iterator it;
-    for (it = loopier::CameraPlayer::videocameras.begin(); it != loopier::CameraPlayer::videocameras.end(); ++it) {
+    string msg = "Number of cameras:\t" + ofToString(loopier::cameras.size());
+    loopier::CameraMap::iterator it;
+    for (it = loopier::cameras.begin(); it != loopier::cameras.end(); ++it) {
         msg += "\n\t" + it->first;
     }
     

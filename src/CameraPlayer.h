@@ -15,18 +15,17 @@
 
 namespace loopier {
     
-    typedef ofVideoGrabber              VideoCamera;
-    typedef shared_ptr<VideoCamera>     VideoCameraPtr;
-    typedef map<string, VideoCameraPtr> VideoCameraMap;
+    typedef ofVideoGrabber         Camera;
+    typedef shared_ptr<Camera>     CameraPtr;
+    typedef map<string, CameraPtr> CameraMap;
+    
+    extern CameraMap   cameras; // global list of all cameras
     
     class CameraPlayer: public BasePlayer{
         
     public:
         CameraPlayer();
         virtual ~CameraPlayer();
-        
-        static bool setupVideoCameras();
-        static void listVideoCameras();
         
         void    setup();
         void    update();
@@ -35,12 +34,16 @@ namespace loopier {
         
         bool    loadResource(string resourcename);
         
-    private:
-        static VideoCameraMap   videocameras;
-        static bool             bCamerasReady;
+        float   getWidth() const;
+        float   getHeight() const;
         
-        VideoCameraPtr  camera;
+    private:
+        CameraPtr  camera;
     };
+    
+    
+    bool setupCameras();
+    void listCameras();
     
 }
 
