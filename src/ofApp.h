@@ -13,7 +13,6 @@ using namespace loopier;
 class ofApp : public ofBaseApp{
     
 public:
-    void test(); // TODO: REMOVE!!!
     void setup();
     void update();
     void draw();

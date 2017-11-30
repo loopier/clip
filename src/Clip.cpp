@@ -98,9 +98,6 @@ void loopier::Clip::reset()
 //---------------------------------------------------------------------------
 void loopier::Clip::setResource(string & resourcename)
 {
-    
-    // TODO: get player type from name.  Could be Movie, FrameList, Camera, Syphon, ...
-    // ???: make Movie and FramePlayers non-member functions member-static??? or Camera's static-member function non-member?  Which one is best?
     if (loopier::movies.count(resourcename)) {
         player = make_shared<MoviePlayer>();
         ofLogVerbose() << "'" << name << "'" << " will play the movie: " << resourcename << "'";
