@@ -1,6 +1,5 @@
 - `[FIX]`  Organize non-member functions in namespaces
 - `[NEW]`  SyphonPlayer: similar to CameraPlayer
-- `[NEW]`  Mix players with masks
 - - Needs a vector of players in the Clip class
 - `[OPT]`  BlendModes
 - `[NEW]`  Save images from player to folder named after clip
