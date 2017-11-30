@@ -1,0 +1,1 @@
+- organize non-member functions in namespaces

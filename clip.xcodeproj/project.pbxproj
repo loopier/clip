@@ -65,6 +65,7 @@
 		DBDC4C491FCAEA9B00C02CC3 /* BasePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBDC4C471FCAEA9B00C02CC3 /* BasePlayer.cpp */; };
 		DBDC4C4C1FCB06B700C02CC3 /* Clip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBDC4C4A1FCB06B700C02CC3 /* Clip.cpp */; };
 		DBDC4C501FCB17A300C02CC3 /* MoviePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBDC4C4E1FCB17A300C02CC3 /* MoviePlayer.cpp */; };
+		DBEE753C1FD006F00022DD0B /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = DBEE753B1FD006F00022DD0B /* TODO.md */; };
 		E1A3FD40C8BCD507345F1126 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D58DCB2C0AEFDE6171E29540 /* Syphon.framework */; };
 		E212C821D1064B92DD953A42 /* ofxCvHaarFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A16CBF2E8CFE43AF54FE6F5 /* ofxCvHaarFinder.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -370,6 +371,7 @@
 		DBDC4C4D1FCB0C3000C02CC3 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
 		DBDC4C4E1FCB17A300C02CC3 /* MoviePlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoviePlayer.cpp; sourceTree = "<group>"; };
 		DBDC4C4F1FCB17A300C02CC3 /* MoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayer.h; sourceTree = "<group>"; };
+		DBEE753B1FD006F00022DD0B /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		DCB56F4E9F44E31D571BC9C4 /* index_testing.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = index_testing.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/index_testing.h; sourceTree = SOURCE_ROOT; };
 		DEA2EDC0AFD59176FDEDC222 /* ofxCvShortImage.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCvShortImage.h; path = ../../../addons/ofxOpenCv/src/ofxCvShortImage.h; sourceTree = SOURCE_ROOT; };
 		DF49D76C45D5DB505A234880 /* ofxOscMessage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscMessage.cpp; path = ../../../addons/ofxOsc/src/ofxOscMessage.cpp; sourceTree = SOURCE_ROOT; };
@@ -1212,6 +1214,7 @@
 				DB99396C1FCEEF5A0089A2DF /* CameraPlayer.h */,
 				DBDC4C4D1FCB0C3000C02CC3 /* Types.h */,
 				DB9939751FCF68390089A2DF /* README.md */,
+				DBEE753B1FD006F00022DD0B /* TODO.md */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1378,6 +1381,7 @@
 				791F924F68D495823E51152F /* ConsoleUI.cpp in Sources */,
 				CCAF7622973DABAB7ACE8634 /* OscManager.cpp in Sources */,
 				08AA5AD1AC60429816BB3150 /* VideoInput.cpp in Sources */,
+				DBEE753C1FD006F00022DD0B /* TODO.md in Sources */,
 				B6840996567E78436F7ECFAB /* ETF.cpp in Sources */,
 				F76B4A79BD8DE4854141CB47 /* fdog.cpp in Sources */,
 				EBCDE831EFAE08274E799C97 /* Calibration.cpp in Sources */,
