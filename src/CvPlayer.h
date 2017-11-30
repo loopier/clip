@@ -24,9 +24,9 @@ namespace loopier {
             virtual ~CvPlayer();
             
             void setup();
-            void update(ofEventArgs& e);
+            void update(ofEventArgs& e); // automatic update
             void update();
-            void draw(ofEventArgs& e);
+            void draw(ofEventArgs& e);  // automatic draw
             void draw();
             void draw(float x, float y, float w, float h);
             void exit();

@@ -9,6 +9,8 @@
 #include "CvPlayer.h"
 
 namespace {
+    // unique instance of CV
+    loopier::cv::CvPlayerPtr cvplayer;
     // other instances local to this file
     ofxCv::ContourFinder contourFinder;
 }
@@ -135,10 +137,6 @@ void loopier::cv::CvPlayer::hide()
 // *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
 // *                                                                       *
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-namespace {
-    loopier::cv::CvPlayerPtr cvplayer;
-}
 
 //---------------------------------------------------------
 void loopier::cv::setup()
