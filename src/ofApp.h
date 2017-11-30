@@ -4,7 +4,7 @@
 #include "MessageMapper.h"
 #include "Clip.h"
 #include "ConsoleUI.h"
-#include "VideoInput.h"
+#include "Cv.h"
 #include "CameraPlayer.h"
 #include "Types.h"
 

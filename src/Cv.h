@@ -12,40 +12,46 @@
 
 #include "ofMain.h"
 #include "ofxCv.h"
-//#include "ofxGui.h"
 
 namespace loopier {
+    namespace cv {
     
-    class Cv{
-        
-    public:
-        Cv();
-        virtual ~Cv();
-        
-        void setup();
-        void update();
-        void draw();
-        void exit();
-        
-        void setMinArea(float newArea);
-        void setMaxArea(float newArea);
-        void setThreshold(float newThreshold);
-        void setHoles(bool bHoles);
-        
-        void toggleVisibility();
-        void show();
-        void hide();
-        
-    private:
-        ofVideoGrabber cam;
-        ofxCv::ContourFinder contourFinder;
-        ofFbo   maskFbo;
-        ofPath  blobPath;
-        
-        float   minArea, maxArea, threshold;
-        bool    holes;
-        bool    visible;
-    };
+//    class Cv{
+//        
+//    public:
+//        Cv();
+//        virtual ~Cv();
+//        
+//        void setup();
+//        void update();
+//        void draw();
+//        void exit();
+//        
+//        void setMinArea(float newArea);
+//        void setMaxArea(float newArea);
+//        void setThreshold(float newThreshold);
+//        void setHoles(bool bHoles);
+//        
+//        void toggleVisibility();
+//        void show();
+//        void hide();
+//        
+//        // Sets image that will be processed
+//        void setImage(ofImage & img);
+//    private:
+//        ofImage image; // Image to process
+////        ofxCvGrayscaleImage  grayscaleImage;
+//        ofxCv::ContourFinder contourFinder;
+//        ofFbo   maskFbo;
+//        ofPath  blobPath;
+//        
+//        float   minArea, maxArea, threshold;
+//        bool    holes;
+//        bool    visible;
+//        
+//        void update(ofEventArgs& e);
+//        void draw(ofEventArgs& e);
+//    };
     
     
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -54,17 +60,14 @@ namespace loopier {
     // *                                                                       *
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     
-    void updateCv();
-    void drawCv();
+//    void update();
+//    void draw();
     
-    void setCvMinArea(float newArea);
-    void setCvMaxArea(float newArea);
-    void setCvThreshold(float newThreshold);
-    void setCvHoles(bool bHoles);
-    
-    void toggleCvVisibility();
-    void showCv();
-    void hideCv();
+    void setMinArea(float newArea);
+    void setMaxArea(float newArea);
+    void setThreshold(float newThreshold);
+    void setHoles(bool bHoles);
+}
 }
 
 

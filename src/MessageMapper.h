@@ -18,7 +18,7 @@
 #include "ofMain.h"
 #include "OscManager.h"
 #include "Clip.h"
-#include "VideoInput.h"
+#include "Cv.h"
 #include "ConsoleUI.h"
 #include "Types.h"
 
@@ -80,14 +80,11 @@ private:
     void showClipNames      (const Message & msg);
     void hideClipNames      (const Message & msg);
     
-    // video input commands
-    void setVideoInputThreshold (const Message & msg);
-    void setVideoInputMinArea  (const Message & msg);
-    void setVideoInputMaxArea  (const Message & msg);
-    void setVideoInputHoles    (const Message & msg);
-    void toggleVidoeInput       (const Message & msg);
-    void showVideoInput         (const Message & msg);
-    void hideVideoInput         (const Message & msg);
+    // Computer Vision commands
+    void setCvThreshold (const Message & msg);
+    void setCvMinArea  (const Message & msg);
+    void setCvMaxArea  (const Message & msg);
+    void setCvHoles    (const Message & msg);
     
     // Console commands
     void setConsoleColor    (const Message & msg);

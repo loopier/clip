@@ -8,119 +8,127 @@
 
 #include "Cv.h"
 
-loopier::Cv::Cv()
-: minArea(10)
-, maxArea(200)
-, threshold(128)
-, holes(false)
-, visible(true)
-{
-    
-}
-
-loopier::Cv::~Cv()
-{
-    
-}
-
-//---------------------------------------------------------
-void loopier::Cv::setup(){
-    cam.listDevices();
-    cam.setDeviceID(1);
-    cam.setup(ofGetWidth(), ofGetHeight());
-    
-    maskFbo.allocate(cam.getWidth(), cam.getHeight());
-    
-//    gui.setup();
-//    gui.add(minArea.set("Min area", 10, 1, 100));
-//    gui.add(maxArea.set("Max area", 200, 1, 500));
-//    gui.add(threshold.set("Threshold", 128, 0, 255));
-//    gui.add(holes.set("Holes", false));
-}
-
-//---------------------------------------------------------
-void loopier::Cv::update(){
-    if (!visible)   return;
-    
-    cam.update();
-    
-    if(cam.isFrameNew()) {
-        contourFinder.setMinAreaRadius(minArea);
-        contourFinder.setMaxAreaRadius(maxArea);
-        contourFinder.setThreshold(threshold);
-        contourFinder.findContours(cam);
-        contourFinder.setFindHoles(holes);
-        
-        
-        vector<ofPolyline> polys = contourFinder.getPolylines();
-        ofSetColor(255, 255, 255);
-        ofFill();
-        maskFbo.begin();
-        ofBackground(0);
-        for (int i = 0; i < polys.size(); i++) {
-            ofPolyline poly = polys.at(i);
-            ofBeginShape();
-            for( int i = 0; i < poly.getVertices().size(); i++) {
-                ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
-            }
-            ofEndShape();
-        }
-        maskFbo.end();
-        cam.getTexture().setAlphaMask(maskFbo.getTexture());
-    }
-}
-
-//---------------------------------------------------------
-void loopier::Cv::draw(){
-    if (!visible)   return;
-    
-    cam.draw(0,0);
-    contourFinder.draw();
-//    maskFbo.draw(0,0);
-//    gui.draw();
-}
-
-//---------------------------------------------------------
-void loopier::Cv::exit(){
-    
-}
-
-void loopier::Cv::setMinArea(float newArea)
-{
-    minArea = newArea;
-}
-
-void loopier::Cv::setMaxArea(float newArea)
-{
-    maxArea = newArea;
-}
-
-void loopier::Cv::setThreshold(float newThreshold)
-{
-    threshold = newThreshold;
-}
-
-void loopier::Cv::setHoles(bool bHoles)
-{
-    holes = bHoles;
-}
-
-void loopier::Cv::toggleVisibility()
-{
-    visible = !visible;
-}
-
-void loopier::Cv::show()
-{
-    visible = true;
-}
-
-void loopier::Cv::hide()
-{
-    visible = false;
-}
-
-
+//namespace {
+//    // Helper functions local to this file (unnamed namespace):
+//    
+//    // unique instance of Cv tlocal to this file
+//    loopier::cv::Cv cvInstance;
+//}
+//
+//loopier::cv::Cv::Cv()
+//: minArea(10)
+//, maxArea(200)
+//, threshold(128)
+//, holes(false)
+//, visible(true)
+//{
+//    ofAddListener(ofEvents().update, this, & loopier::cv::Cv::update);
+//    ofAddListener(ofEvents().draw, this, & loopier::cv::Cv::draw);
+//}
+//
+//loopier::cv::Cv::~Cv()
+//{
+//    
+//}
+//
+////---------------------------------------------------------
+//void loopier::cv::Cv::setup(){
+//    
+////    maskFbo.allocate(cam.getWidth(), cam.getHeight());
+//}
+//
+////---------------------------------------------------------
+//void loopier::cv::Cv::update(){
+//    if (!visible)   return;
+//    
+//    contourFinder.setMinAreaRadius(minArea);
+//    contourFinder.setMaxAreaRadius(maxArea);
+//    contourFinder.setThreshold(threshold);
+//    contourFinder.findContours(image);
+//    contourFinder.setFindHoles(holes);
+//    
+//    
+//    vector<ofPolyline> polys = contourFinder.getPolylines();
+//    ofSetColor(255, 255, 255);
+//    ofFill();
+//    maskFbo.begin();
+//    ofBackground(0);
+//    for (int i = 0; i < polys.size(); i++) {
+//        ofPolyline poly = polys.at(i);
+//        ofBeginShape();
+//        for( int i = 0; i < poly.getVertices().size(); i++) {
+//            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+//        }
+//        ofEndShape();
+//    }
+//    maskFbo.end();
+//    //        cam.getTexture().setAlphaMask(maskFbo.getTexture());
+//    
+//}
+//
+//void loopier::cv::Cv::update(ofEventArgs& e)
+//{
+//    update();
+//}
+//
+////---------------------------------------------------------
+//void loopier::cv::Cv::draw(){
+//    if (!visible)   return;
+//    
+//    contourFinder.draw();
+//    //    maskFbo.draw(0,0);
+//    //    gui.draw();
+//}
+//
+//void loopier::cv::Cv::draw(ofEventArgs& e)
+//{
+//    draw();
+//}
+//
+////---------------------------------------------------------
+//void loopier::cv::Cv::exit(){
+//    
+//}
+//
+//void loopier::cv::Cv::setMinArea(float newArea)
+//{
+//    minArea = newArea;
+//}
+//
+//void loopier::cv::Cv::setMaxArea(float newArea)
+//{
+//    maxArea = newArea;
+//}
+//
+//void loopier::cv::Cv::setThreshold(float newThreshold)
+//{
+//    threshold = newThreshold;
+//}
+//
+//void loopier::cv::Cv::setHoles(bool bHoles)
+//{
+//    holes = bHoles;
+//}
+//
+//void loopier::cv::Cv::toggleVisibility()
+//{
+//    visible = !visible;
+//}
+//
+//void loopier::cv::Cv::show()
+//{
+//    visible = true;
+//}
+//
+//void loopier::cv::Cv::hide()
+//{
+//    visible = false;
+//}
+//
+//void loopier::cv::Cv::setImage(ofImage & img)
+//{
+//    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs to be implemented";
+//}
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -129,46 +137,27 @@ void loopier::Cv::hide()
 // *                                                                       *
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-
-void loopier::updateCv() {
-    videoInput.update();
+namespace {
+    // unique instance of Cv tlocal to this file
+    ofxCv::ContourFinder contourFinder;
 }
 
-void loopier::drawVideoInput() {
-    videoInput.draw();
-}
-
-void loopier::setVideoInputMinArea(float newArea)
+void loopier::cv::setMinArea(float newArea)
 {
-    videoInput.setMinArea(newArea);
+    contourFinder.setMinAreaRadius(newArea);
 }
 
-void loopier::setVideoInputMaxArea(float newArea)
+void loopier::cv::setMaxArea(float newArea)
 {
-    videoInput.setMaxArea(newArea);
+    contourFinder.setMaxAreaRadius(newArea);
 }
 
-void loopier::setVideoInputThreshold(float newThreshold)
+void loopier::cv::setThreshold(float newThreshold)
 {
-    videoInput.setThreshold(newThreshold);
+    contourFinder.setThreshold(newThreshold);
 }
 
-void loopier::setVideoInputHoles(bool bHoles)
+void loopier::cv::setHoles(bool bHoles)
 {
-    videoInput.setHoles(bHoles);
-}
-
-void loopier::toggleVideoInputVisibility()
-{
-    videoInput.toggleVisibility();
-}
-
-void loopier::showVideoInput()
-{
-    videoInput.show();
-}
-
-void loopier::hideVideoInput()
-{
-    videoInput.hide();
+    contourFinder.setFindHoles(bHoles);
 }
