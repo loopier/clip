@@ -1,13 +1,13 @@
 //
-//  VideoInput.h
+//  Cv.h
 //  clip
 //
 //  Created by roger on 26/09/2017.
 //  Copyright 2017 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef _VideoInput
-#define _VideoInput
+#ifndef _Cv
+#define _Cv
 
 
 #include "ofMain.h"
@@ -16,11 +16,11 @@
 
 namespace loopier {
     
-    class VideoInput{
+    class Cv{
         
     public:
-        VideoInput();
-        virtual ~VideoInput();
+        Cv();
+        virtual ~Cv();
         
         void setup();
         void update();
@@ -45,26 +45,26 @@ namespace loopier {
         float   minArea, maxArea, threshold;
         bool    holes;
         bool    visible;
-        
-//        ofxPanel gui;
-//        ofParameter<float> minArea, maxArea, threshold;
-//        ofParameter<bool> holes;
     };
     
-    extern VideoInput videoInput;
     
-    void newVideoInput();
-    void updateVideoInput();
-    void drawVideoInput();
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    // *                                                                       *
+    // *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
+    // *                                                                       *
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     
-    void setVideoInputMinArea(float newArea);
-    void setVideoInputMaxArea(float newArea);
-    void setVideoInputThreshold(float newThreshold);
-    void setVideoInputHoles(bool bHoles);
+    void updateCv();
+    void drawCv();
     
-    void toggleVideoInputVisibility();
-    void showVideoInput();
-    void hideVideoInput();
+    void setCvMinArea(float newArea);
+    void setCvMaxArea(float newArea);
+    void setCvThreshold(float newThreshold);
+    void setCvHoles(bool bHoles);
+    
+    void toggleCvVisibility();
+    void showCv();
+    void hideCv();
 }
 
 

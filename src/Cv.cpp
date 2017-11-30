@@ -1,17 +1,14 @@
 //
-//  VideoInput.cpp
+//  Cv.cpp
 //  clip
 //
 //  Created by roger on 26/09/2017.
 //  Copyright 2017 __MyCompanyName__. All rights reserved.
 //
 
-#include "VideoInput.h"
+#include "Cv.h"
 
-using namespace ofxCv;
-using namespace cv;
-
-loopier::VideoInput::VideoInput()
+loopier::Cv::Cv()
 : minArea(10)
 , maxArea(200)
 , threshold(128)
@@ -21,13 +18,13 @@ loopier::VideoInput::VideoInput()
     
 }
 
-loopier::VideoInput::~VideoInput()
+loopier::Cv::~Cv()
 {
     
 }
 
 //---------------------------------------------------------
-void loopier::VideoInput::setup(){
+void loopier::Cv::setup(){
     cam.listDevices();
     cam.setDeviceID(1);
     cam.setup(ofGetWidth(), ofGetHeight());
@@ -42,7 +39,7 @@ void loopier::VideoInput::setup(){
 }
 
 //---------------------------------------------------------
-void loopier::VideoInput::update(){
+void loopier::Cv::update(){
     if (!visible)   return;
     
     cam.update();
@@ -74,7 +71,7 @@ void loopier::VideoInput::update(){
 }
 
 //---------------------------------------------------------
-void loopier::VideoInput::draw(){
+void loopier::Cv::draw(){
     if (!visible)   return;
     
     cam.draw(0,0);
@@ -84,61 +81,56 @@ void loopier::VideoInput::draw(){
 }
 
 //---------------------------------------------------------
-void loopier::VideoInput::exit(){
+void loopier::Cv::exit(){
     
 }
 
-void loopier::VideoInput::setMinArea(float newArea)
+void loopier::Cv::setMinArea(float newArea)
 {
     minArea = newArea;
 }
 
-void loopier::VideoInput::setMaxArea(float newArea)
+void loopier::Cv::setMaxArea(float newArea)
 {
     maxArea = newArea;
 }
 
-void loopier::VideoInput::setThreshold(float newThreshold)
+void loopier::Cv::setThreshold(float newThreshold)
 {
     threshold = newThreshold;
 }
 
-void loopier::VideoInput::setHoles(bool bHoles)
+void loopier::Cv::setHoles(bool bHoles)
 {
     holes = bHoles;
 }
 
-void loopier::VideoInput::toggleVisibility()
+void loopier::Cv::toggleVisibility()
 {
     visible = !visible;
 }
 
-void loopier::VideoInput::show()
+void loopier::Cv::show()
 {
     visible = true;
 }
 
-void loopier::VideoInput::hide()
+void loopier::Cv::hide()
 {
     visible = false;
 }
 
 
-//      END OF CLASS METHODS
-//-------------------------------------------------------------------------------------------------------------
-
-//-------------------------------------------------------------------------------------------------------------
-//      PUBLIC INTERFACE FUNCTIONS
 
 
-// Global VideoInput
-loopier::VideoInput loopier::videoInput;
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+// *                                                                       *
+// *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
+// *                                                                       *
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-void loopier::newVideoInput() {
-    videoInput.setup();
-}
 
-void loopier::updateVideoInput() {
+void loopier::updateCv() {
     videoInput.update();
 }
 
