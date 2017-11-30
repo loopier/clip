@@ -4,3 +4,4 @@
 - - Needs a vector of players in the Clip class
 - `[OPT]`  BlendModes
 - `[NEW]`  Save images from player to folder named after clip
+- `[NEW]`  CvPlayer

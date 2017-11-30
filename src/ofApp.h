@@ -4,8 +4,6 @@
 #include "MessageMapper.h"
 #include "Clip.h"
 #include "ConsoleUI.h"
-#include "Cv.h"
-#include "CameraPlayer.h"
 #include "Types.h"
 
 using namespace loopier;
