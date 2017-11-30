@@ -131,9 +131,6 @@ string loopier::Clip::getName() const
 void loopier::Clip::play()
 {
     player->play();
-//    movie->isPlaying()? movie->setPaused(true) : movie->play();
-//    
-//    ofLogVerbose() << (movie->isPlaying()? "play: " : "pause: ") << name ;
 }
 
 //---------------------------------------------------------------------------
