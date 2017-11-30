@@ -41,6 +41,11 @@ namespace loopier {
         CameraPtr  camera;
     };
     
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    // *                                                                       *
+    // *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
+    // *                                                                       *
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     
     bool setupCameras();
     void listCameras();

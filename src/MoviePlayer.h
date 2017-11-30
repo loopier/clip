@@ -57,6 +57,12 @@ namespace loopier {
         MoviePtr movie;
     };
     
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    // *                                                                       *
+    // *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
+    // *                                                                       *
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    
     bool    loadMovies(string path);
     void    listMovieNames();
     

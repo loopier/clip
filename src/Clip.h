@@ -18,6 +18,12 @@
 
 namespace loopier {
     
+    typedef shared_ptr<Clip>        ClipPtr;
+    typedef vector<ClipPtr>         ClipList;
+    typedef map<string, ClipPtr>    ClipMap;
+    
+    extern ClipMap      clips;      // the list of clips available everywhere
+    
     class Clip{
         
     public:
@@ -103,15 +109,11 @@ namespace loopier {
     };
     
     
-    typedef shared_ptr<Clip>        ClipPtr;
-    typedef vector<ClipPtr>         ClipList;
-    typedef map<string, ClipPtr>    ClipMap;
-    
-    //***************************************************************************
-    //***************************************************************************
-    // Non-member functions for interfacing (managing) clips
-    //***************************************************************************
-    extern ClipMap      clips;      // the list of clips available everywhere
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    // *                                                                       *
+    // *    NON-MEMBER PUBLIC INTERFACE FUNCTIONS                              *
+    // *                                                                       *
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     
     // ----- RESOURCE FILES-----
     
