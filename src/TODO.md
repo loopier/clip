@@ -1,4 +1,5 @@
-- [FIX]:  Organize non-member functions in namespaces
-- [NEW]:  SyphonPlayer: similar to CameraPlayer
-- [NEW]:  Mix players with masks
-- [OPT]:  BlendModes
+- `[FIX]`  Organize non-member functions in namespaces
+- `[NEW]`  SyphonPlayer: similar to CameraPlayer
+- `[NEW]`  Mix players with masks
+- `[OPT]`  BlendModes
+- `[NEW]`  Save images from player to folder named after clip
