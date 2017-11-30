@@ -1,1 +1,4 @@
-- organize non-member functions in namespaces
+- [FIX]:  Organize non-member functions in namespaces
+- [NEW]:  SyphonPlayer: similar to CameraPlayer
+- [NEW]:  Mix players with masks
+- [OPT]:  BlendModes
