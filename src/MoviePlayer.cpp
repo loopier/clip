@@ -143,3 +143,41 @@ void loopier::MoviePlayer::previousFrame()
 {
     movie->previousFrame();
 }
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+// *                                                                       *
+// *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
+// *                                                                       *
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+//---------------------------------------------------------
+bool loopier::loadMovies(string path)
+{
+    ofLogVerbose() << "Loading movie files from: " << path;
+    
+    ofDirectory dir(path+"movies");
+    dir.allowExt("mov");
+    vector<ofFile> files = dir.getFiles();
+    
+    for (int i = 0; i < files.size(); i++) {
+        MoviePtr movie(new Movie);
+        movie->load(files[i].getAbsolutePath());
+        loopier::movies[files[i].getBaseName()] = movie;
+    }
+    
+    ofLogVerbose() << "Loaded " << loopier::movies.size() << " movie files";
+    
+    return true;
+}
+
+//---------------------------------------------------------
+void loopier::listMovieNames()
+{
+    string msg = "Number of movies:\t" + ofToString(loopier::movies.size());
+    loopier::MovieMap::iterator it;
+    for (it = loopier::movies.begin(); it != loopier::movies.end(); ++it) {
+        msg += "\n\t" + it->first;
+    }
+    
+    ofLogNotice() << msg;
+}

@@ -61,5 +61,8 @@ namespace loopier {
         float       lastFrameTime;
     };
     
+    bool    loadFrameLists(string path);
+    void    listFrameListNames();
+    
 }
 #endif

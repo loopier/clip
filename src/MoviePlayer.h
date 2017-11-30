@@ -57,6 +57,9 @@ namespace loopier {
         MoviePtr movie;
     };
     
+    bool    loadMovies(string path);
+    void    listMovieNames();
+    
 }
 
 #endif

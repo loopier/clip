@@ -68,6 +68,12 @@ float loopier::CameraPlayer::getHeight() const
 }
 
 
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+// *                                                                       *
+// *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
+// *                                                                       *
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
 //---------------------------------------------------------
 bool loopier::setupCameras()
 {
