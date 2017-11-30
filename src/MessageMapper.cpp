@@ -75,10 +75,12 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clips/hidenames"]     = &loopier::MessageMapper::hideClipNames;
 
     // Computer Vidion commands
-    messageMap["/loopier/clip/cv/threshold"] = &loopier::MessageMapper::setCvThreshold;
-    messageMap["/loopier/clip/cv/minArea"]  = &loopier::MessageMapper::setCvMinArea;
-    messageMap["/loopier/clip/cv/maxArea"]  = &loopier::MessageMapper::setCvMaxArea;
-    messageMap["/loopier/clip/cv/holes"]    = &loopier::MessageMapper::setCvHoles;
+    messageMap["/loopier/clip/cv/threshold"]        = &loopier::MessageMapper::setCvThreshold;
+    messageMap["/loopier/clip/cv/minArea"]          = &loopier::MessageMapper::setCvMinArea;
+    messageMap["/loopier/clip/cv/maxArea"]          = &loopier::MessageMapper::setCvMaxArea;
+    messageMap["/loopier/clip/cv/holes"]            = &loopier::MessageMapper::setCvHoles;
+    messageMap["/loopier/clip/cv/setSourceCamera"]  = &loopier::MessageMapper::setCvSourceCamera;
+    
     // Console commands
     messageMap["/loopier/clip/console/color"]       = &loopier::MessageMapper::setConsoleColor;
     messageMap["/loopier/clip/console/alpha"]       = &loopier::MessageMapper::setConsoleAlpha;
@@ -401,6 +403,12 @@ void loopier::MessageMapper::setCvMaxArea(const Message & msg)
 void loopier::MessageMapper::setCvHoles(const Message & msg)
 {
     loopier::cv::setHoles(msg.getArgAsBool(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setCvSourceCamera(const Message & msg)
+{
+    loopier::cv::setSourceCamera(msg.getArgAsString(0));
 }
 
 

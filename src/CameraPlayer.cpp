@@ -52,7 +52,7 @@ void loopier::CameraPlayer::exit()
 //---------------------------------------------------------
 bool loopier::CameraPlayer::loadResource(string resourcename)
 {
-    camera = loopier::cameras.find(resourcename)->second;
+    camera = loopier::getCameraByName(resourcename);
 }
 
 //---------------------------------------------------------
@@ -65,6 +65,12 @@ float loopier::CameraPlayer::getWidth() const
 float loopier::CameraPlayer::getHeight() const
 {
     return camera->getHeight();
+}
+
+//---------------------------------------------------------
+loopier::Camera loopier::CameraPlayer::getCamera() const
+{
+    return *camera;
 }
 
 
@@ -90,7 +96,7 @@ bool loopier::setupCameras()
     return loopier::cameras.size();
 }
 
-//
+//---------------------------------------------------------
 void loopier::listCameras()
 {
     string msg = "Number of cameras:\t" + ofToString(loopier::cameras.size());
@@ -100,6 +106,12 @@ void loopier::listCameras()
     }
     
     ofLogNotice() << msg;
+}
+
+//---------------------------------------------------------
+loopier::CameraPtr  loopier::getCameraByName(string name)
+{
+    return loopier::cameras.find(name)->second;
 }
 
 

@@ -28,6 +28,7 @@ m.sendMsg("/loopier/clip/clip/remove", "exampleclip");
 
 
 m.sendMsg("/loopier/clip/clip/new", "cameraclip", "camera0");
+m.sendMsg("/loopier/clip/clip/remove", "cameraclip");
 
 // PLAYING   ------------------------------------------------------
 

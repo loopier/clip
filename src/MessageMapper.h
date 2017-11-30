@@ -81,10 +81,11 @@ private:
     void hideClipNames      (const Message & msg);
     
     // Computer Vision commands
-    void setCvThreshold (const Message & msg);
-    void setCvMinArea  (const Message & msg);
-    void setCvMaxArea  (const Message & msg);
-    void setCvHoles    (const Message & msg);
+    void setCvThreshold     (const Message & msg);
+    void setCvMinArea       (const Message & msg);
+    void setCvMaxArea       (const Message & msg);
+    void setCvHoles         (const Message & msg);
+    void setCvSourceCamera  (const Message & msg);
     
     // Console commands
     void setConsoleColor    (const Message & msg);

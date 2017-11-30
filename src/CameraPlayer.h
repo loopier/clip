@@ -37,6 +37,7 @@ namespace loopier {
         float   getWidth() const;
         float   getHeight() const;
         
+        Camera  getCamera() const;
     private:
         CameraPtr  camera;
     };
@@ -49,7 +50,7 @@ namespace loopier {
     
     bool setupCameras();
     void listCameras();
-    
+    CameraPtr   getCameraByName(string name);
 }
 
 #endif

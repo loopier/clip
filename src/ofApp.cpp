@@ -26,6 +26,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     loopier::updateClips();
+//    loopier::cv::update();
 //    loopier::updateVideoInput();
 }
 
@@ -33,6 +34,7 @@ void ofApp::update(){
 void ofApp::draw(){
 //    loopier::drawVideoInput();
     loopier::drawClips();
+//    loopier::cv::draw();
     console.draw();
 }
 

@@ -11,8 +11,8 @@
 
 
 #include "ofMain.h"
-#include "BasePlayer.h"
 #include "ofxCv.h"
+#include "CameraPlayer.h"
 
 namespace loopier {
     namespace cv{
@@ -31,31 +31,38 @@ namespace loopier {
             void draw(float x, float y, float w, float h);
             void exit();
             
-            void setMinArea(float newArea);
-            void setMaxArea(float newArea);
-            void setThreshold(float newThreshold);
-            void setHoles(bool bHoles);
+            bool loadResource(string resourcename);
+            void setSourceCamera(CameraPtr src);
             
             void toggleVisibility();
             void show();
             void hide();
             
-            void setImage(ofImage & img);
         private:
+            CameraPtr sourceCamera;
+            ofVideoGrabber cam;
             
-            ofImage sourceImage;
             ofFbo   maskFbo;
             ofPath  blobPath;
             
-            float   minArea, maxArea, threshold;
-            bool    holes;
             bool    visible;
         };
+        
+        typedef shared_ptr<CvPlayer> CvPlayerPtr;
+        
+        
+        void setup();
+        void setSourceCamera(string resourcename);
+        void update();
+        void draw();
         
         void setMinArea(float newArea);
         void setMaxArea(float newArea);
         void setThreshold(float newThreshold);
         void setHoles(bool bHoles);
+        
+        
+        // TODO: Add visibility commands
     }
 }
 

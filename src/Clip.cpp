@@ -313,6 +313,10 @@ bool loopier::initResources(string path)
 {
     loopier::loadResourceFiles(path);
     loopier::setupCameras();
+    loopier::cv::setup();
+    // loads first available camera
+    string cameraname = loopier::cameras.begin()->first;
+    loopier::cv::setSourceCamera(cameraname);
 }
 
 int loopier::loadResourceFiles(string path)
@@ -323,6 +327,7 @@ int loopier::loadResourceFiles(string path)
     
     loopier::loadMovies(path);
     loopier::loadFrameLists(path);
+    
 }
 
 
