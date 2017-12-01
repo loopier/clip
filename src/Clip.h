@@ -189,6 +189,8 @@ namespace loopier {
     void setClipLoopState(const string clipname, const LoopType state);
     /// \brief  Mask one clip with any player
     void setClipMask(const string clipname, const string resourcename);
+    void enableClipMask(const string clipname);
+    void disableClipMask(const string clipname);
     
     // ----- CLIP ATTRIBUTES -----
     // reset all attributes

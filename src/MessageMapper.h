@@ -61,6 +61,9 @@ private:
     void toggleClipVisibility (const Message & msg);
     void showClip             (const Message & msg);
     void hideClip             (const Message & msg);
+    void setClipMask          (const Message & msg);
+    void enableClipMask       (const Message & msg);
+    void disableClipMask      (const Message & msg);
     // play
     void playClip         (const Message & msg);
     void stopClip         (const Message & msg);

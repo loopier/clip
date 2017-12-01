@@ -55,6 +55,9 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/togglevisibility"]   = &loopier::MessageMapper::toggleClipVisibility;
     messageMap["/loopier/clip/clip/show"]               = &loopier::MessageMapper::showClip;
     messageMap["/loopier/clip/clip/hide"]               = &loopier::MessageMapper::hideClip;
+    messageMap["/loopier/clip/clip/setmask"]            = &loopier::MessageMapper::setClipMask;
+    messageMap["/loopier/clip/clip/maskon"]             = &loopier::MessageMapper::enableClipMask;
+    messageMap["/loopier/clip/clip/maskoff"]            = &loopier::MessageMapper::disableClipMask;
     // play
     messageMap["/loopier/clip/clip/play"]   = &loopier::MessageMapper::playClip;
     messageMap["/loopier/clip/clip/stop"]   = &loopier::MessageMapper::stopClip;
@@ -258,6 +261,24 @@ void loopier::MessageMapper::showClip(const Message & msg)
 void loopier::MessageMapper::hideClip(const Message & msg)
 {
     loopier::hideClip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setClipMask(const Message & msg)
+{
+    loopier::setClipMask(msg.getArgAsString(0), msg.getArgAsString(1));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::enableClipMask(const Message & msg)
+{
+    loopier::enableClipMask(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::disableClipMask(const Message & msg)
+{
+    loopier::disableClipMask(msg.getArgAsString(0));
 }
 
 

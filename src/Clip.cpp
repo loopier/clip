@@ -273,6 +273,7 @@ void loopier::Clip::setAlpha(const float newAlpha)
 void loopier::Clip::setMask(PlayerPtr aPlayer)
 {
     maskPlayer = aPlayer;
+    maskOn();
 }
 
 //---------------------------------------------------------------------------
@@ -547,10 +548,24 @@ void loopier::setClipLoopState(const string clipname, const loopier::LoopType st
 }
 
 //---------------------------------------------------------------------------
-void setClipMask(const string clipname, const string resourcename)
+void loopier::setClipMask(const string clipname, const string resourcename)
 {
     if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->setMask(loopier::players.find(resourcename)->second);
+}
+
+//---------------------------------------------------------------------------
+void loopier::enableClipMask(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->maskOff();
+}
+
+//---------------------------------------------------------------------------
+void loopier::disableClipMask(const string clipname)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->maskOff();
 }
 
 //---------------------------------------------------------------------------
