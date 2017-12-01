@@ -45,7 +45,13 @@ m.sendMsg("/loopier/clip/clip/loop", "exampleclip", "once");
 // change movie speed
 m.sendMsg("/loopier/clip/clip/speed", "exampleclip", 1.1);
 
-// LOOK & FEEL  ------------------------------------------------------
+// FX
+------------------------------------------------------
+
+// MASK
+m.sendMsg("/loopier/clip/clip/setmask", "cameraclip", "exampleclip");
+m.sendMsg("/loopier/clip/clip/maskoff", "cameraclip");
+m.sendMsg("/loopier/clip/clip/maskon", "cameraclip");
 
 // DIMENSIONS
 
