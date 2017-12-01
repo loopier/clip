@@ -77,6 +77,8 @@ namespace loopier {
         void maskOn();
         void maskOff();
         
+        PlayerPtr getPlayer() const;
+        
     private:
         PlayerPtr   player;     //
         PlayerPtr   maskPlayer; // a player used as a mask
@@ -164,6 +166,8 @@ namespace loopier {
     /// \returns    True if there's a clip that matches the name
     bool clipExists(const string clipname);
     
+    ClipPtr getClipByName(const string clipname);
+    
     // ----- SHOW CLIP NAMES----
     
     /// \brief  Shows names of clips
@@ -188,7 +192,7 @@ namespace loopier {
     /// \brief Set loop state (none | normal | palindrome)
     void setClipLoopState(const string clipname, const LoopType state);
     /// \brief  Mask one clip with any player
-    void setClipMask(const string clipname, const string resourcename);
+    void setClipMask(const string clipname, const string maskclipname);
     void enableClipMask(const string clipname);
     void disableClipMask(const string clipname);
     
