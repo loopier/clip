@@ -566,6 +566,7 @@ void loopier::setClipLoopState(const string clipname, const loopier::LoopType st
 void loopier::setClipMask(const string clipname, const string maskclipname)
 {
     if(!loopier::clipExists(clipname)) return;
+    if(!loopier::clipExists(maskclipname)) return;
     loopier::clips[clipname]->setMask( loopier::getClipByName(maskclipname)->getPlayer() );
     loopier::getClipByName(maskclipname)->hide();
 }
