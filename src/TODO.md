@@ -3,5 +3,4 @@
 - - Needs a vector of players in the Clip class
 - `[OPT]`  BlendModes
 - `[NEW]`  Save images from player to folder named after clip
-- `[FIX]`  Change name of CvPlayer to something more significant.  IT'S NOT A PLAYER!!!'
 - `[NEW]`  Add masks to clips.  Useful to use in combination with CV

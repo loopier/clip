@@ -56,7 +56,7 @@
 		C9109422648B170B07A778CF /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E3405C5AE387BDDC2AD19473 /* SyphonNameboundClient.m */; };
 		CCAF7622973DABAB7ACE8634 /* OscManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D110A575A8CA4CF91ECCBDF7 /* OscManager.cpp */; };
 		D3301F6A0B43BB293ED97C1D /* ofxCvShortImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A4DD23693DFAB8EC05FAA5D /* ofxCvShortImage.cpp */; };
-		DB3222BB1FD08797001B10D3 /* CvPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB3222B91FD08797001B10D3 /* CvPlayer.cpp */; };
+		DB0FE6AC1FD1968F002BBFAC /* CvManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB0FE6AA1FD1968F002BBFAC /* CvManager.cpp */; };
 		DB647EDD1FCD860A00F3023B /* MessageMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB647EDB1FCD860A00F3023B /* MessageMapper.cpp */; };
 		DB6E390A1FC7302C0016954C /* FramePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB6E39081FC7302C0016954C /* FramePlayer.cpp */; };
 		DB99396D1FCEEF5A0089A2DF /* CameraPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB99396B1FCEEF5A0089A2DF /* CameraPlayer.cpp */; };
@@ -354,8 +354,8 @@
 		D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = OscTypes.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscTypes.cpp; sourceTree = SOURCE_ROOT; };
 		DA71BD3D5EB1A1F5E64B6751 /* gpu.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = gpu.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/nonfree/gpu.hpp; sourceTree = SOURCE_ROOT; };
 		DB0CD4C938C079DCD67222FE /* imatrix.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = imatrix.h; path = ../../../addons/ofxCv/libs/CLD/include/CLD/imatrix.h; sourceTree = SOURCE_ROOT; };
-		DB3222B91FD08797001B10D3 /* CvPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CvPlayer.cpp; sourceTree = "<group>"; };
-		DB3222BA1FD08797001B10D3 /* CvPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CvPlayer.h; sourceTree = "<group>"; };
+		DB0FE6AA1FD1968F002BBFAC /* CvManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CvManager.cpp; sourceTree = "<group>"; };
+		DB0FE6AB1FD1968F002BBFAC /* CvManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CvManager.h; sourceTree = "<group>"; };
 		DB647EDB1FCD860A00F3023B /* MessageMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MessageMapper.cpp; sourceTree = "<group>"; };
 		DB647EDC1FCD860A00F3023B /* MessageMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMapper.h; sourceTree = "<group>"; };
 		DB6E39081FC7302C0016954C /* FramePlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FramePlayer.cpp; sourceTree = "<group>"; };
@@ -1213,8 +1213,8 @@
 				DBDC4C4F1FCB17A300C02CC3 /* MoviePlayer.h */,
 				DB99396B1FCEEF5A0089A2DF /* CameraPlayer.cpp */,
 				DB99396C1FCEEF5A0089A2DF /* CameraPlayer.h */,
-				DB3222B91FD08797001B10D3 /* CvPlayer.cpp */,
-				DB3222BA1FD08797001B10D3 /* CvPlayer.h */,
+				DB0FE6AA1FD1968F002BBFAC /* CvManager.cpp */,
+				DB0FE6AB1FD1968F002BBFAC /* CvManager.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1405,6 +1405,7 @@
 				837220E80EB56CD44AD27F2A /* ofxSlider.cpp in Sources */,
 				DBDC4C491FCAEA9B00C02CC3 /* BasePlayer.cpp in Sources */,
 				B56FE57CC35806596D38118C /* ofxSliderGroup.cpp in Sources */,
+				DB0FE6AC1FD1968F002BBFAC /* CvManager.cpp in Sources */,
 				1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */,
 				250A95BA26587BE85DB0A353 /* ofxCvColorImage.cpp in Sources */,
 				1D5F3298C2FA073628012944 /* ofxCvContourFinder.cpp in Sources */,
@@ -1415,7 +1416,6 @@
 				DB99396D1FCEEF5A0089A2DF /* CameraPlayer.cpp in Sources */,
 				D3301F6A0B43BB293ED97C1D /* ofxCvShortImage.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
-				DB3222BB1FD08797001B10D3 /* CvPlayer.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				DBDC4C501FCB17A300C02CC3 /* MoviePlayer.cpp in Sources */,

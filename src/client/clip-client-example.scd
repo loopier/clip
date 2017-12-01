@@ -113,20 +113,20 @@ m.sendMsg("/loopier/clip/console/font", "Andale Mono.ttf")
 m.sendMsg("/loopier/clip/console/fontsize", 24)
 
 //------------------------------------------------------------------
-//  VIDEO INPUT COMMANDS
+//  CV
 //------------------------------------------------------------------
 // change blob detection threshold
-m.sendMsg("/loopier/clip/videoinput/threshold", 200)
+m.sendMsg("/loopier/clip/cv/threshold", 100)
 // change detected blob sizes
-m.sendMsg("/loopier/clip/videoinput/minArea", 10)
-m.sendMsg("/loopier/clip/videoinput/maxArea", 250)
+m.sendMsg("/loopier/clip/cv/minArea", 10)
+m.sendMsg("/loopier/clip/cv/maxArea", 250)
 // detect holes inside blobs
-m.sendMsg("/loopier/clip/videoinput/holes", true)
-m.sendMsg("/loopier/clip/videoinput/holes", false)
+m.sendMsg("/loopier/clip/cv/holes", true)
+m.sendMsg("/loopier/clip/cv/holes", false)
 // visibility
-m.sendMsg("/loopier/clip/videoinput/togglevisibility")
-m.sendMsg("/loopier/clip/videoinput/show")
-m.sendMsg("/loopier/clip/videoinput/hide")
+m.sendMsg("/loopier/clip/cv/togglevisibility")
+m.sendMsg("/loopier/clip/cv/show")
+m.sendMsg("/loopier/clip/cv/hide")
 
 //------------------------------------------------------------------
 //  APPLICATION COMMANDS

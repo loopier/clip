@@ -1,62 +1,62 @@
 //
-//  CvPlayer.cpp
+//  CvManager.cpp
 //  clip
 //
 //  Created by roger on 30/11/2017.
 //  Copyright 2017 __MyCompanyName__. All rights reserved.
 //
 
-#include "CvPlayer.h"
+#include "CvManager.h"
 
 namespace {
     // unique instance of CV
-    loopier::cv::CvPlayerPtr cvplayer;
+    loopier::cv::CvManagerPtr cvmanager;
     // other instances local to this file
     ofxCv::ContourFinder contourFinder;
 }
 
-loopier::cv::CvPlayer::CvPlayer()
+loopier::cv::CvManager::CvManager()
 : visible(true)
 {
-    ofAddListener(ofEvents().update, this, & loopier::cv::CvPlayer::update);
-    ofAddListener(ofEvents().draw, this, & loopier::cv::CvPlayer::draw);
+    ofAddListener(ofEvents().update, this, & loopier::cv::CvManager::update);
+    ofAddListener(ofEvents().draw, this, & loopier::cv::CvManager::draw);
 
 }
 
-loopier::cv::CvPlayer::~CvPlayer()
+loopier::cv::CvManager::~CvManager()
 {
-    
+
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::setup(){
-    
+void loopier::cv::CvManager::setup(){
+
     //    maskFbo.allocate(cam.getWidth(), cam.getHeight());
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::update(ofEventArgs& e)
+void loopier::cv::CvManager::update(ofEventArgs& e)
 {
     update();
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::update(){
+void loopier::cv::CvManager::update(){
     if (!visible)   return;
-    
+
     // contourFinder is defined in a (unnamed)namespace in this file to use it locally
     //    contourFinder.setMinAreaRadius(minArea);
     //    contourFinder.setMaxAreaRadius(maxArea);
     //    contourFinder.setThreshold(threshold);
-    
+
     // TODO: draw contourFinder.minAreaRect like in https://github.com/kylemcdonald/ofxCv/blob/master/example-contours-advanced/src/ofApp.cpp
     if (!sourceCamera->isFrameNew()) return;
     contourFinder.findContours(*sourceCamera); // object pointed by CameraPtr = Camera = ofVideoGrabber
-    
-    
+
+
     //    contourFinder.setFindHoles(holes);
-    
-    
+
+
     vector<ofPolyline> polys = contourFinder.getPolylines();
     ofSetColor(255, 255, 255);
     ofFill();
@@ -72,42 +72,42 @@ void loopier::cv::CvPlayer::update(){
     }
     maskFbo.end();
     //        cam.getTexture().setAlphaMask(maskFbo.getTexture());
-    
+
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::draw(ofEventArgs& e)
+void loopier::cv::CvManager::draw(ofEventArgs& e)
 {
     draw();
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::draw(float x, float y, float w, float h)
+void loopier::cv::CvManager::draw(float x, float y, float w, float h)
 {
     draw();
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::draw(){
+void loopier::cv::CvManager::draw(){
     if (!visible)   return;
-    
+
     contourFinder.draw();
     //    maskFbo.draw(0,0);
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::exit(){
-    
+void loopier::cv::CvManager::exit(){
+
 }
 
 //---------------------------------------------------------
-bool loopier::cv::CvPlayer::loadResource(string resourcename)
+bool loopier::cv::CvManager::loadResource(string resourcename)
 {
     ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::setSourceCamera(CameraPtr srcCam)
+void loopier::cv::CvManager::setSourceCamera(CameraPtr srcCam)
 {
     ofLogVerbose() << __PRETTY_FUNCTION__ << " needs to be implemented";
     sourceCamera = srcCam;
@@ -115,19 +115,19 @@ void loopier::cv::CvPlayer::setSourceCamera(CameraPtr srcCam)
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::toggleVisibility()
+void loopier::cv::CvManager::toggleVisibility()
 {
     visible = !visible;
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::show()
+void loopier::cv::CvManager::show()
 {
     visible = true;
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::hide()
+void loopier::cv::CvManager::hide()
 {
     visible = false;
 }
@@ -145,26 +145,26 @@ void loopier::cv::setup()
     contourFinder.setMaxAreaRadius(200);
     contourFinder.setThreshold(128);
     contourFinder.setFindHoles(true);
-    cvplayer = make_shared<CvPlayer>();
-    cvplayer->setup();
+    cvmanager = make_shared<CvManager>();
+    cvmanager->setup();
 }
 
 //---------------------------------------------------------
 void loopier::cv::setSourceCamera(string resourcename)
 {
-    cvplayer->setSourceCamera(loopier::getCameraByName(resourcename));
+    cvmanager->setSourceCamera(loopier::getCameraByName(resourcename));
 }
 
 //---------------------------------------------------------
 void loopier::cv::update()
 {
-    cvplayer->update();
+    cvmanager->update();
 }
 
 //---------------------------------------------------------
 void loopier::cv::draw()
 {
-    cvplayer->draw();
+    cvmanager->draw();
 }
 
 //---------------------------------------------------------
