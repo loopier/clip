@@ -17,7 +17,7 @@
 namespace loopier {
     namespace cv{
 
-        class CvManager: public BasePlayer{
+        class CvManager{
 
         public:
             CvManager();

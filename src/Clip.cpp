@@ -33,6 +33,7 @@ loopier::Clip::Clip(string& clipname, string& resourcename)
 , bVisible(true)
 , bDrawName(false)
 , loopState(LoopType::normal)
+, bMask(false)
 {
     setResource(resourcename);
 }
@@ -47,7 +48,6 @@ void loopier::Clip::setup()
 {
     sequenceOrder.push_back(0);
     player->setLoopState(loopState);
-    
 //    reset();
 }
 
@@ -56,6 +56,13 @@ void loopier::Clip::update()
 {
 //    if (bPlaySequence) updateSequence();
     player->update();
+    renderTexture = player->getTexture();
+    
+    if (bMask)  {
+        renderTexture.setAlphaMask(maskPlayer->getTexture());
+    } else {
+        renderTexture.disableAlphaMask();
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -70,9 +77,10 @@ void loopier::Clip::draw()
         int fy = ofGetHeight() / 2;
         int fw = ofGetWidth() * ofSign(scaleX);
         int fh = ofGetHeight() * ofSign(scaleY);
-        player->draw(fx, fy, fw, fh);
+        
+        renderTexture.draw(fx, fy, fw, fh);
     } else {
-        player->draw(x, y, width, height);
+        renderTexture.draw(x, y, width, height);
         if (bDrawName)  ofDrawBitmapString(name, x, y);
     }
 }
@@ -261,6 +269,24 @@ void loopier::Clip::setAlpha(const float newAlpha)
 }
 
 //---------------------------------------------------------------------------
+void loopier::Clip::setMask(PlayerPtr aPlayer)
+{
+    maskPlayer = aPlayer;
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::maskOn()
+{
+    bMask = true;
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::maskOff()
+{
+    bMask = false;
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::toggleName()
 {
     bDrawName = !bDrawName;
@@ -342,6 +368,7 @@ void loopier::listResourceNames()
     loopier::listMovieNames();
     loopier::listFrameListNames();
     loopier::listCameras();
+    loopier::listPlayers();
 }
 
 
@@ -516,6 +543,13 @@ void loopier::setClipLoopState(const string clipname, const loopier::LoopType st
 {
     if(!loopier::clipExists(clipname)) return;
     loopier::clips[clipname]->setLoopState(state);
+}
+
+//---------------------------------------------------------------------------
+void setClipMask(const string clipname, const string resourcename)
+{
+    if(!loopier::clipExists(clipname)) return;
+    loopier::clips[clipname]->setMask(loopier::players.find(resourcename)->second);
 }
 
 //---------------------------------------------------------------------------

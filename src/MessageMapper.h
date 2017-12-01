@@ -80,7 +80,7 @@ private:
     void showClipNames      (const Message & msg);
     void hideClipNames      (const Message & msg);
     
-    // Computer Vision commands
+    // Cv commands
     void setCvThreshold     (const Message & msg);
     void setCvMinArea       (const Message & msg);
     void setCvMaxArea       (const Message & msg);

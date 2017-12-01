@@ -39,8 +39,9 @@ namespace loopier {
         void    play();
         void    stop();
         
-        float   getWidth() const;
-        float   getHeight() const;
+        float       getWidth() const;
+        float       getHeight() const;
+        ofTexture &  getTexture() const;
         
         float   getDuration() const;
         

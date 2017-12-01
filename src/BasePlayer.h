@@ -37,6 +37,7 @@ namespace loopier {
         
         virtual     float 				getWidth() const;
         virtual     float 				getHeight() const;
+        virtual     ofTexture &          getTexture() const = 0;
         
         virtual     bool				isPaused() const;
         virtual     bool				isLoaded() const;
@@ -85,12 +86,17 @@ namespace loopier {
         bool    bPlay;
         bool    bMovieDone;
         
-        ofPoint anchor; // Drawing 'center'
+        ofPoint     anchor; // Drawing 'center'
     };
     
     typedef shared_ptr<BasePlayer>      PlayerPtr;
     typedef vector<PlayerPtr>           PlayerList;
     typedef map<string, PlayerPtr>      PlayerMap;
+    
+    extern  PlayerMap   players;
+    
+    void        listPlayers();
+    PlayerPtr   getPlayerByName(string name);
 }
 
 #endif

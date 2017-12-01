@@ -4,3 +4,4 @@
 - `[OPT]`  BlendModes
 - `[NEW]`  Save images from player to folder named after clip
 - `[NEW]`  Add masks to clips.  Useful to use in combination with CV
+- - Add ShapePlayer to draw shapes

@@ -73,8 +73,15 @@ namespace loopier {
         void flipV();
         void flipH();
         
+        void setMask(PlayerPtr aPlayer);
+        void maskOn();
+        void maskOff();
+        
     private:
-        PlayerPtr   player;
+        PlayerPtr   player;     //
+        PlayerPtr   maskPlayer; // a player used as a mask
+        ofTexture   renderTexture;  // final image to be drawn
+        bool        bMask;  // turn mask on and off
         
         string  name;
         float   x, y;
@@ -180,6 +187,8 @@ namespace loopier {
     void setClipSpeed(const string clipname, const float speed);
     /// \brief Set loop state (none | normal | palindrome)
     void setClipLoopState(const string clipname, const LoopType state);
+    /// \brief  Mask one clip with any player
+    void setClipMask(const string clipname, const string resourcename);
     
     // ----- CLIP ATTRIBUTES -----
     // reset all attributes

@@ -34,8 +34,9 @@ namespace loopier {
         
         bool    loadResource(string resourcename);
         
-        float   getWidth() const;
-        float   getHeight() const;
+        float       getWidth() const;
+        float       getHeight() const;
+        ofTexture &  getTexture() const;
         
         Camera  getCamera() const;
     private:

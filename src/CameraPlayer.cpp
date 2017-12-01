@@ -68,6 +68,12 @@ float loopier::CameraPlayer::getHeight() const
 }
 
 //---------------------------------------------------------
+ofTexture & loopier::CameraPlayer::getTexture() const
+{
+    return camera->getTexture();
+}
+
+//---------------------------------------------------------
 loopier::Camera loopier::CameraPlayer::getCamera() const
 {
     return *camera;

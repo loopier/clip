@@ -88,6 +88,12 @@ float loopier::MoviePlayer::getHeight() const
 }
 
 //---------------------------------------------------------
+ofTexture & loopier::MoviePlayer::getTexture() const
+{
+    return movie->getTexture();
+}
+
+//---------------------------------------------------------
 float loopier::MoviePlayer::getDuration() const
 {
     return movie->getDuration();

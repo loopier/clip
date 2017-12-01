@@ -8,6 +8,8 @@
 
 #include "BasePlayer.h"
 
+loopier::PlayerMap  loopier::players;
+
 loopier::BasePlayer::BasePlayer()
 : name("default")
 , path("/Users/roger/Library/Application Support/Clip/resources/players/")
@@ -248,5 +250,27 @@ void    loopier::BasePlayer::setAnchorPercent(float x, float y)
     anchor.y = y;
 }
 
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+// *                                                                       *
+// *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
+// *                                                                       *
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+//---------------------------------------------------------
+void loopier::listPlayers()
+{
+    string msg = "Number of players:\t" + ofToString(loopier::players.size());
+    loopier::PlayerMap::iterator it;
+    for (it = loopier::players.begin(); it != loopier::players.end(); ++it) {
+        msg += "\n\t" + it->first;
+    }
+    
+    ofLogNotice() << msg;
+}
+
+//---------------------------------------------------------
+loopier::PlayerPtr  loopier::getPlayerByName(string name)
+{
+    return loopier::players.find(name)->second;
+}
 

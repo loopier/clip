@@ -111,6 +111,12 @@ float loopier::FramePlayer::getHeight() const
 }
 
 //---------------------------------------------------------
+ofTexture & loopier::FramePlayer::getTexture() const
+{
+    return frames->at(0).getTexture();
+}
+
+//---------------------------------------------------------
 float loopier::FramePlayer::getDuration() const
 {
     return frames->size() * (60 / frameRate);
