@@ -95,6 +95,7 @@ namespace loopier {
     
     extern  PlayerMap   players;
     
+    void        addPlayer(PlayerPtr player);
     void        listPlayers();
     PlayerPtr   getPlayerByName(string name);
 }

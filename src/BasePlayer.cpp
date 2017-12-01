@@ -257,6 +257,14 @@ void    loopier::BasePlayer::setAnchorPercent(float x, float y)
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 //---------------------------------------------------------
+void loopier::addPlayer(PlayerPtr player)
+{
+    players[player->getName()] = player;
+    ofLogVerbose() << "Adding player: " << player->getName();
+    ofLogNotice() << "Number of players:\t" + ofToString(loopier::players.size());
+}
+
+//---------------------------------------------------------
 void loopier::listPlayers()
 {
     string msg = "Number of players:\t" + ofToString(loopier::players.size());

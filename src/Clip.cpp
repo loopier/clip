@@ -120,6 +120,7 @@ void loopier::Clip::setResource(string & resourcename)
     player->loadResource(resourcename);
     width = player->getWidth();
     height = player->getHeight();
+    loopier::addPlayer(player);
 }
 
 //---------------------------------------------------------------------------
