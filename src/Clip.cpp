@@ -70,6 +70,9 @@ void loopier::Clip::draw()
 {
     if (!bVisible) return;
     
+    width = player->getWidth();
+    height = player->getHeight();
+    
     ofSetColor(color);
     
     if (bFullscreen) {
