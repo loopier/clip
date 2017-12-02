@@ -7,6 +7,7 @@
 //
 
 #include "CvManager.h"
+#include "Clip.h"
 
 namespace {
     // unique instance of CV
@@ -20,7 +21,7 @@ loopier::cv::CvManager::CvManager()
 {
     ofAddListener(ofEvents().update, this, & loopier::cv::CvManager::update);
     ofAddListener(ofEvents().draw, this, & loopier::cv::CvManager::draw);
-
+    inputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
 }
 
 loopier::cv::CvManager::~CvManager()
@@ -42,7 +43,8 @@ void loopier::cv::CvManager::update(ofEventArgs& e)
 
 //---------------------------------------------------------
 void loopier::cv::CvManager::update(){
-    if (!visible)   return;
+    if (!visible)       return;
+    if (!inputPlayer)   return;
 
     // contourFinder is defined in a (unnamed)namespace in this file to use it locally
     //    contourFinder.setMinAreaRadius(minArea);
@@ -50,8 +52,8 @@ void loopier::cv::CvManager::update(){
     //    contourFinder.setThreshold(threshold);
 
     // TODO: draw contourFinder.minAreaRect like in https://github.com/kylemcdonald/ofxCv/blob/master/example-contours-advanced/src/ofApp.cpp
-    if (!sourceCamera->isFrameNew()) return;
-    contourFinder.findContours(*sourceCamera); // object pointed by CameraPtr = Camera = ofVideoGrabber
+    inputImage.setFromPixels(inputPlayer->getPixels());
+    contourFinder.findContours(inputImage);
 
 
     //    contourFinder.setFindHoles(holes);
@@ -101,17 +103,9 @@ void loopier::cv::CvManager::exit(){
 }
 
 //---------------------------------------------------------
-bool loopier::cv::CvManager::loadResource(string resourcename)
+void loopier::cv::CvManager::setInputPlayer(PlayerPtr player)
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-}
-
-//---------------------------------------------------------
-void loopier::cv::CvManager::setSourceCamera(CameraPtr srcCam)
-{
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs to be implemented";
-    sourceCamera = srcCam;
-    cam = *srcCam;
+    inputPlayer = player;
 }
 
 //---------------------------------------------------------
@@ -150,9 +144,10 @@ void loopier::cv::setup()
 }
 
 //---------------------------------------------------------
-void loopier::cv::setSourceCamera(string resourcename)
+void loopier::cv::setInputClip(string clipname)
 {
-    cvmanager->setSourceCamera(loopier::getCameraByName(resourcename));
+    if (!loopier::clipExists(clipname)) return;
+    cvmanager->setInputPlayer(loopier::getClipByName(clipname)->getPlayer());
 }
 
 //---------------------------------------------------------

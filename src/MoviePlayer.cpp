@@ -94,6 +94,12 @@ ofTexture & loopier::MoviePlayer::getTexture() const
 }
 
 //---------------------------------------------------------
+ofPixels & loopier::MoviePlayer::getPixels() const
+{
+    return movie->getPixels();
+}
+
+//---------------------------------------------------------
 float loopier::MoviePlayer::getDuration() const
 {
     return movie->getDuration();

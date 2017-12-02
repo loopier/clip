@@ -12,7 +12,7 @@
 
 #include "ofMain.h"
 #include "ofxCv.h"
-#include "CameraPlayer.h"
+#include "BasePlayer.h"
 
 namespace loopier {
     namespace cv{
@@ -31,15 +31,15 @@ namespace loopier {
             void draw(float x, float y, float w, float h);
             void exit();
 
-            bool loadResource(string resourcename);
-            void setSourceCamera(CameraPtr src);
+            void setInputPlayer(PlayerPtr player); //
 
             void toggleVisibility();
             void show();
             void hide();
 
         private:
-            CameraPtr sourceCamera;
+            PlayerPtr   inputPlayer; // image to be processed
+            ofImage     inputImage; // to be passed to ofxCv methods
             ofVideoGrabber cam;
 
             ofFbo   maskFbo;
@@ -52,7 +52,7 @@ namespace loopier {
 
 
         void setup();
-        void setSourceCamera(string resourcename);
+        void setInputClip(string clipname);
         void update();
         void draw();
 

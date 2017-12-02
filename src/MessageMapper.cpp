@@ -82,7 +82,7 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/cv/minArea"]          = &loopier::MessageMapper::setCvMinArea;
     messageMap["/loopier/clip/cv/maxArea"]          = &loopier::MessageMapper::setCvMaxArea;
     messageMap["/loopier/clip/cv/holes"]            = &loopier::MessageMapper::setCvHoles;
-    messageMap["/loopier/clip/cv/setSourceCamera"]  = &loopier::MessageMapper::setCvSourceCamera;
+    messageMap["/loopier/clip/cv/setinput"]         = &loopier::MessageMapper::setCvInputClip;
     
     // Console commands
     messageMap["/loopier/clip/console/color"]       = &loopier::MessageMapper::setConsoleColor;
@@ -427,9 +427,9 @@ void loopier::MessageMapper::setCvHoles(const Message & msg)
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setCvSourceCamera(const Message & msg)
+void loopier::MessageMapper::setCvInputClip(const Message & msg)
 {
-    loopier::cv::setSourceCamera(msg.getArgAsString(0));
+    loopier::cv::setInputClip(msg.getArgAsString(0));
 }
 
 

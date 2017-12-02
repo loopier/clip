@@ -60,6 +60,7 @@ m.sendMsg("/loopier/clip/clip/reset", "exampleclip");
 m.sendMsg("/loopier/clip/clip/scaleup", "exampleclip", 0.1);
 m.sendMsg("/loopier/clip/clip/scaledown", "exampleclip", 0.05);
 m.sendMsg("/loopier/clip/clip/scale", "exampleclip", 2.0.rand);
+m.sendMsg("/loopier/clip/clip/scale", "cameraclip", 1.0.rand);
 m.sendMsg("/loopier/clip/clip/xscale", "exampleclip", 0.5);
 m.sendMsg("/loopier/clip/clip/yscale", "exampleclip", 3);
 m.sendMsg("/loopier/clip/clip/resetscale", "exampleclip", );
@@ -122,6 +123,8 @@ m.sendMsg("/loopier/clip/console/fontsize", 24)
 //------------------------------------------------------------------
 //  CV
 //------------------------------------------------------------------
+m.sendMsg("/loopier/clip/cv/setinput", "cameraclip")
+m.sendMsg("/loopier/clip/cv/setinput", "exampleclip")
 // change blob detection threshold
 m.sendMsg("/loopier/clip/cv/threshold", 100)
 // change detected blob sizes

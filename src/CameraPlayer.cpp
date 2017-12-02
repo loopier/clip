@@ -74,6 +74,12 @@ ofTexture & loopier::CameraPlayer::getTexture() const
 }
 
 //---------------------------------------------------------
+ofPixels & loopier::CameraPlayer::getPixels() const
+{
+    return camera->getPixels();
+}
+
+//---------------------------------------------------------
 loopier::Camera loopier::CameraPlayer::getCamera() const
 {
     return *camera;
