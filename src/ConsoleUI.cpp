@@ -21,7 +21,7 @@ ofColor loopier::ConsoleUI::color               = ofColor(255);
 ofColor loopier::ConsoleUI::defaultColor        = ofColor(255);
 ofColor loopier::ConsoleUI::errorColor          = ofColor(255,0,0);
 int     loopier::ConsoleUI::alpha               = 255;
-bool    loopier::ConsoleUI::bHide               = false;
+bool    loopier::ConsoleUI::bHide               = true;
 ofTrueTypeFont  loopier::ConsoleUI::font;
 int     loopier::ConsoleUI::fontSize            = 16;
 string  loopier::ConsoleUI::fontName            = "fonts/OCRAStd.otf";
