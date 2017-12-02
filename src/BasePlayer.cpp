@@ -90,6 +90,18 @@ void    loopier::BasePlayer::stop()
 }
 
 //---------------------------------------------------------
+void   loopier::BasePlayer::setWidth(float w)
+{
+    width = w;
+}
+
+//---------------------------------------------------------
+void   loopier::BasePlayer::setHeight(float h)
+{
+    height = h;
+}
+
+//---------------------------------------------------------
 float   loopier::BasePlayer::getWidth() const
 {
     ofLogNotice() << __PRETTY_FUNCTION__ << " is not implemented";

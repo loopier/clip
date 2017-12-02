@@ -270,7 +270,7 @@ void loopier::Clip::setAlpha(const float newAlpha)
 }
 
 //---------------------------------------------------------------------------
-void loopier::Clip::setMask(PlayerPtr mask)
+void loopier::Clip::setMask(loopier::PlayerPtr mask)
 {
     maskPlayer = mask;
     maskOn();
@@ -286,6 +286,13 @@ void loopier::Clip::maskOn()
 void loopier::Clip::maskOff()
 {
     bMask = false;
+}
+
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setPlayer(loopier::PlayerPtr aPlayer)
+{
+    player = aPlayer;
 }
 
 
@@ -393,7 +400,7 @@ void loopier::listResourceNames()
 //---------------------------------------------------------------------------
 loopier::ClipPtr loopier::newClip(string clipname)
 {
-    return loopier::newClip(clipname, "default");
+    return loopier::newClip(clipname, "empty");
 }
 
 //---------------------------------------------------------------------------

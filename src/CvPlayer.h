@@ -58,8 +58,6 @@ namespace loopier {
             ImagePtr    inputImage; // to be passed to ofxCv methods
             ImagePtr    outputImage; 
             ofFbo       maskFbo;    // just the blobs
-            ofImage     renderImage;  // image to be drawn
-            ofPath      blobPath;
             
             ofPixels    pixels;
             ofTexture   texture;

@@ -21,13 +21,12 @@ loopier::cv::CvPlayer::CvPlayer()
 , bMask(true)
 , bDrawContours(true)
 {
-    ofAddListener(ofEvents().update, this, & loopier::cv::CvPlayer::update);
-    ofAddListener(ofEvents().draw, this, & loopier::cv::CvPlayer::draw);
+//    ofAddListener(ofEvents().update, this, & loopier::cv::CvPlayer::update);
+//    ofAddListener(ofEvents().draw, this, & loopier::cv::CvPlayer::draw);
     
     inputImage = make_shared<ofImage>();
     outputImage = make_shared<ofImage>();
-    renderImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
-    maskFbo.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
+    maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
 }
 
 loopier::cv::CvPlayer::~CvPlayer()
@@ -66,28 +65,11 @@ void loopier::cv::CvPlayer::update(){
 
     // Create a mask with the blobs    
     vector<ofPolyline> polys = contourFinder.getPolylines();
-//    blobPath.clear();
-//    for (int i = 0; i < polys.size(); i++) {
-//        ofPolyline poly = polys.at(i);
-//        blobPath.newSubPath();
-//        blobPath.moveTo(poly.getVertices()[0].x, poly.getVertices()[0].y);
-//        for( int i = 0; i < poly.getVertices().size(); i++) {
-//            blobPath.lineTo(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
-//        }
-//    }
-//    blobPath.close();
-//    blobPath.simplify();
-//    
-//    maskFbo.begin();
-//    ofFill();
-//    ofSetColor(255);
-//    blobPath.draw();
-//    maskFbo.end();
-    
+    maskFbo.begin();
+    ofClear(255,255,255,0);
     ofSetColor(255, 255, 255);
     ofFill();
-    maskFbo.begin();
-    ofBackground(0);
+//    ofBackground(0);
     for (int i = 0; i < polys.size(); i++) {
         ofPolyline poly = polys.at(i);
         ofBeginShape();
@@ -98,9 +80,9 @@ void loopier::cv::CvPlayer::update(){
     }
     maskFbo.end();
     
-    renderImage.setFromPixels(inputImage->getPixels());
-    renderImage.getTexture().setAlphaMask(maskFbo.getTexture());
-    //        cam.getTexture().setAlphaMask(maskFbo.getTexture());
+    ofPixels pixels;
+    maskFbo.readToPixels(pixels);
+    outputImage->setFromPixels(pixels);
     
 }
 
@@ -114,15 +96,15 @@ void loopier::cv::CvPlayer::draw(ofEventArgs& e)
 void loopier::cv::CvPlayer::draw(float x, float y, float w, float h)
 {
     if (!bVisible)   return;
-    
-    renderImage.draw(x,y, w,h);
-    maskFbo.draw(x,y,w,h);
+
+//    maskFbo.draw(x,y);
+    outputImage->draw(x, y, w, h);
     if (bDrawContours)  contourFinder.draw();
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::draw(){
-    //    maskFbo.draw(0,0);
+void loopier::cv::CvPlayer::draw()
+{
     draw(anchor.x, anchor.y, getWidth(), getHeight());
 }
 
@@ -152,14 +134,12 @@ bool loopier::cv::CvPlayer::loadResource(string resourcename)
 //---------------------------------------------------------
 ofTexture & loopier::cv::CvPlayer::getTexture() const
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
     return outputImage->getTexture();
 }
 
 //---------------------------------------------------------
 ofPixels & loopier::cv::CvPlayer::getPixels() const
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
     return outputImage->getPixels();
 }
 
@@ -167,6 +147,8 @@ ofPixels & loopier::cv::CvPlayer::getPixels() const
 void loopier::cv::CvPlayer::setInputPlayer(PlayerPtr player)
 {
     inputPlayer = player;
+    width = player->getWidth();
+    height = player->getHeight();
 }
 
 //---------------------------------------------------------
@@ -226,6 +208,8 @@ void loopier::cv::setup()
     contourFinder.setFindHoles(true);
     cvplayer = make_shared<CvPlayer>();
     cvplayer->setup();
+    ClipPtr clip = loopier::newClip("cv");
+    clip->setPlayer(cvplayer);
 }
 
 //---------------------------------------------------------

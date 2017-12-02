@@ -77,7 +77,8 @@ namespace loopier {
         void maskOn();
         void maskOff();
         
-        PlayerPtr getPlayer() const;
+        void        setPlayer(PlayerPtr aPlayer);
+        PlayerPtr   getPlayer() const;
         
     private:
         PlayerPtr   player;     //

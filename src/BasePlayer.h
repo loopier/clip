@@ -35,6 +35,8 @@ namespace loopier {
         virtual     void				play();
         virtual     void				stop();
         
+        virtual     void                setWidth(float w);
+        virtual     void                setHeight(float h);
         virtual     float 				getWidth() const;
         virtual     float 				getHeight() const;
         virtual     ofTexture &         getTexture() const = 0;
@@ -73,6 +75,8 @@ namespace loopier {
         virtual     void                setAnchorPercent(float x, float y);
     protected:
         BasePlayer();
+        
+        float width, height;
         
         string      name;
         string      path; // Path to folder
