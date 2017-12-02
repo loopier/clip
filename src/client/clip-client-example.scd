@@ -127,7 +127,8 @@ m.sendMsg("/loopier/clip/console/fontsize", 24)
 // create camera clip if not already created
 m.sendMsg("/loopier/clip/clip/new", "cameraclip", "camera0");
 // set it as Cv's input
-m.sendMsg("/loopier/clip/cv/setinput", "mama")
+m.sendMsg("/loopier/clip/cv/setinput", "cameraclip")
+// mask camera with blobs
 m.sendMsg("/loopier/clip/clip/setmask", "cv", "cameraclip");
 m.sendMsg("/loopier/clip/clip/show", "cameraclip");
 m.sendMsg("/loopier/clip/clip/hide", "cameraclip");
@@ -138,7 +139,7 @@ m.sendMsg("/loopier/clip/cv/hide")
 m.sendMsg("/loopier/clip/cv/threshold", 200)
 // change detected blob sizes
 m.sendMsg("/loopier/clip/cv/minArea", 10)
-m.sendMsg("/loopier/clip/cv/maxArea", 250)
+m.sendMsg("/loopier/clip/cv/maxArea", 200)
 // detect holes inside blobs
 m.sendMsg("/loopier/clip/cv/holes", true)
 m.sendMsg("/loopier/clip/cv/holes", false)

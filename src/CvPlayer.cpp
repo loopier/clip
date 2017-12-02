@@ -18,7 +18,6 @@ namespace {
 
 loopier::cv::CvPlayer::CvPlayer()
 : bVisible(true)
-, bMask(true)
 , bDrawContours(true)
 {
 //    ofAddListener(ofEvents().update, this, & loopier::cv::CvPlayer::update);
@@ -50,12 +49,6 @@ void loopier::cv::CvPlayer::update(ofEventArgs& e)
 void loopier::cv::CvPlayer::update(){
     if (!bVisible)       return;
     if (!inputPlayer)   return;
-
-    // contourFinder is defined in a (unnamed)namespace in this file to use it locally
-    //    contourFinder.setMinAreaRadius(minArea);
-    //    contourFinder.setMaxAreaRadius(maxArea);
-    //    contourFinder.setThreshold(threshold);
-
     
     // TODO: draw contourFinder.minAreaRect like in https://github.com/kylemcdonald/ofxCv/blob/master/example-contours-advanced/src/ofApp.cpp
     inputImage->setFromPixels(inputPlayer->getPixels());
@@ -68,8 +61,6 @@ void loopier::cv::CvPlayer::update(){
     maskFbo.begin();
     ofClear(255,255,255,0);
     ofSetColor(255, 255, 255);
-    ofFill();
-//    ofBackground(0);
     for (int i = 0; i < polys.size(); i++) {
         ofPolyline poly = polys.at(i);
         ofBeginShape();
@@ -96,8 +87,6 @@ void loopier::cv::CvPlayer::draw(ofEventArgs& e)
 void loopier::cv::CvPlayer::draw(float x, float y, float w, float h)
 {
     if (!bVisible)   return;
-
-//    maskFbo.draw(x,y);
     outputImage->draw(x, y, w, h);
     if (bDrawContours)  contourFinder.draw();
 }
@@ -169,30 +158,6 @@ void loopier::cv::CvPlayer::hide()
     bVisible = false;
 }
 
-//---------------------------------------------------------
-void loopier::cv::CvPlayer::toggleMask()
-{
-    bMask = !bMask;
-}
-
-//---------------------------------------------------------
-void loopier::cv::CvPlayer::maskOn()
-{
-    bMask = true;
-}
-
-//---------------------------------------------------------
-void loopier::cv::CvPlayer::maskOff()
-{
-    bMask = false;
-}
-
-//---------------------------------------------------------
-void loopier::cv::CvPlayer::mask(bool onoff)
-{
-    bMask = onoff;
-}
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 // *                                                                       *
 // *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
@@ -234,29 +199,6 @@ void loopier::cv::draw()
     cvplayer->draw();
 }
 
-//---------------------------------------------------------
-void loopier::cv::toggleMask()
-{
-    cvplayer->toggleMask();
-}
-
-//---------------------------------------------------------
-void loopier::cv::maskOn()
-{
-    cvplayer->maskOn();
-}
-
-//---------------------------------------------------------
-void loopier::cv::maskOff()
-{
-    cvplayer->maskOff();
-}
-
-//---------------------------------------------------------
-void loopier::cv::mask(bool onoff)
-{
-    cvplayer->mask(onoff);
-}
 
 //---------------------------------------------------------
 void loopier::cv::setMinArea(float newArea)

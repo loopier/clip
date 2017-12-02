@@ -47,11 +47,6 @@ namespace loopier {
             void toggleVisibility();
             void show();
             void hide();
-            
-            void toggleMask();
-            void maskOn();
-            void maskOff();
-            void mask(bool onoff);
 
         private:
             PlayerPtr   inputPlayer; // image to be processed
@@ -63,7 +58,6 @@ namespace loopier {
             ofTexture   texture;
 
             bool    bVisible;
-            bool    bMask;
             bool    bDrawContours;
         };
 
@@ -74,11 +68,6 @@ namespace loopier {
         void setInputClip(string clipname);
         void update();
         void draw();
-        
-        void toggleMask();
-        void maskOn();
-        void maskOff();
-        void mask(bool onoff);
 
         void setMinArea(float newArea);
         void setMaxArea(float newArea);
