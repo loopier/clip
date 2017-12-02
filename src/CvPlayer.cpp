@@ -17,11 +17,17 @@ namespace {
 }
 
 loopier::cv::CvPlayer::CvPlayer()
-: visible(true)
+: bVisible(true)
+, bMask(true)
+, bDrawContours(true)
 {
     ofAddListener(ofEvents().update, this, & loopier::cv::CvPlayer::update);
     ofAddListener(ofEvents().draw, this, & loopier::cv::CvPlayer::draw);
-    inputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
+    
+    inputImage = make_shared<ofImage>();
+    outputImage = make_shared<ofImage>();
+    renderImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
+    maskFbo.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
 }
 
 loopier::cv::CvPlayer::~CvPlayer()
@@ -43,7 +49,7 @@ void loopier::cv::CvPlayer::update(ofEventArgs& e)
 
 //---------------------------------------------------------
 void loopier::cv::CvPlayer::update(){
-    if (!visible)       return;
+    if (!bVisible)       return;
     if (!inputPlayer)   return;
 
     // contourFinder is defined in a (unnamed)namespace in this file to use it locally
@@ -51,15 +57,33 @@ void loopier::cv::CvPlayer::update(){
     //    contourFinder.setMaxAreaRadius(maxArea);
     //    contourFinder.setThreshold(threshold);
 
+    
     // TODO: draw contourFinder.minAreaRect like in https://github.com/kylemcdonald/ofxCv/blob/master/example-contours-advanced/src/ofApp.cpp
-    inputImage.setFromPixels(inputPlayer->getPixels());
-    contourFinder.findContours(inputImage);
-
+    inputImage->setFromPixels(inputPlayer->getPixels());
+    contourFinder.findContours(*inputImage);
 
     //    contourFinder.setFindHoles(holes);
 
-
+    // Create a mask with the blobs    
     vector<ofPolyline> polys = contourFinder.getPolylines();
+//    blobPath.clear();
+//    for (int i = 0; i < polys.size(); i++) {
+//        ofPolyline poly = polys.at(i);
+//        blobPath.newSubPath();
+//        blobPath.moveTo(poly.getVertices()[0].x, poly.getVertices()[0].y);
+//        for( int i = 0; i < poly.getVertices().size(); i++) {
+//            blobPath.lineTo(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+//        }
+//    }
+//    blobPath.close();
+//    blobPath.simplify();
+//    
+//    maskFbo.begin();
+//    ofFill();
+//    ofSetColor(255);
+//    blobPath.draw();
+//    maskFbo.end();
+    
     ofSetColor(255, 255, 255);
     ofFill();
     maskFbo.begin();
@@ -73,8 +97,11 @@ void loopier::cv::CvPlayer::update(){
         ofEndShape();
     }
     maskFbo.end();
+    
+    renderImage.setFromPixels(inputImage->getPixels());
+    renderImage.getTexture().setAlphaMask(maskFbo.getTexture());
     //        cam.getTexture().setAlphaMask(maskFbo.getTexture());
-
+    
 }
 
 //---------------------------------------------------------
@@ -86,20 +113,54 @@ void loopier::cv::CvPlayer::draw(ofEventArgs& e)
 //---------------------------------------------------------
 void loopier::cv::CvPlayer::draw(float x, float y, float w, float h)
 {
-    draw();
+    if (!bVisible)   return;
+    
+    renderImage.draw(x,y, w,h);
+    maskFbo.draw(x,y,w,h);
+    if (bDrawContours)  contourFinder.draw();
 }
 
 //---------------------------------------------------------
 void loopier::cv::CvPlayer::draw(){
-    if (!visible)   return;
-
-    contourFinder.draw();
     //    maskFbo.draw(0,0);
+    draw(anchor.x, anchor.y, getWidth(), getHeight());
 }
 
 //---------------------------------------------------------
 void loopier::cv::CvPlayer::exit(){
 
+}
+
+//---------------------------------------------------------
+float loopier::cv::CvPlayer::getWidth() const
+{
+    return outputImage->getWidth();
+}
+
+//---------------------------------------------------------
+float loopier::cv::CvPlayer::getHeight() const
+{
+    return outputImage->getHeight();
+}
+
+//---------------------------------------------------------
+bool loopier::cv::CvPlayer::loadResource(string resourcename)
+{
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+}
+
+//---------------------------------------------------------
+ofTexture & loopier::cv::CvPlayer::getTexture() const
+{
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    return outputImage->getTexture();
+}
+
+//---------------------------------------------------------
+ofPixels & loopier::cv::CvPlayer::getPixels() const
+{
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    return outputImage->getPixels();
 }
 
 //---------------------------------------------------------
@@ -111,19 +172,43 @@ void loopier::cv::CvPlayer::setInputPlayer(PlayerPtr player)
 //---------------------------------------------------------
 void loopier::cv::CvPlayer::toggleVisibility()
 {
-    visible = !visible;
+    bVisible = !bVisible;
 }
 
 //---------------------------------------------------------
 void loopier::cv::CvPlayer::show()
 {
-    visible = true;
+    bVisible = true;
 }
 
 //---------------------------------------------------------
 void loopier::cv::CvPlayer::hide()
 {
-    visible = false;
+    bVisible = false;
+}
+
+//---------------------------------------------------------
+void loopier::cv::CvPlayer::toggleMask()
+{
+    bMask = !bMask;
+}
+
+//---------------------------------------------------------
+void loopier::cv::CvPlayer::maskOn()
+{
+    bMask = true;
+}
+
+//---------------------------------------------------------
+void loopier::cv::CvPlayer::maskOff()
+{
+    bMask = false;
+}
+
+//---------------------------------------------------------
+void loopier::cv::CvPlayer::mask(bool onoff)
+{
+    bMask = onoff;
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -147,7 +232,10 @@ void loopier::cv::setup()
 void loopier::cv::setInputClip(string clipname)
 {
     if (!loopier::clipExists(clipname)) return;
-    cvplayer->setInputPlayer(loopier::getClipByName(clipname)->getPlayer());
+    ClipPtr clip = loopier::getClipByName(clipname);
+    cvplayer->setInputPlayer( clip->getPlayer() );
+    clip->hide();
+    
 }
 
 //---------------------------------------------------------
@@ -160,6 +248,30 @@ void loopier::cv::update()
 void loopier::cv::draw()
 {
     cvplayer->draw();
+}
+
+//---------------------------------------------------------
+void loopier::cv::toggleMask()
+{
+    cvplayer->toggleMask();
+}
+
+//---------------------------------------------------------
+void loopier::cv::maskOn()
+{
+    cvplayer->maskOn();
+}
+
+//---------------------------------------------------------
+void loopier::cv::maskOff()
+{
+    cvplayer->maskOff();
+}
+
+//---------------------------------------------------------
+void loopier::cv::mask(bool onoff)
+{
+    cvplayer->mask(onoff);
 }
 
 //---------------------------------------------------------

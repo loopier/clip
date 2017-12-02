@@ -397,10 +397,9 @@ void loopier::MessageMapper::hideClipNames(const Message & msg)
 
 //---------------------------------------------------------
 
-//        VIDEO INPUT
+//        CV
 
 //---------------------------------------------------------
-
 
 //---------------------------------------------------------
 void loopier::MessageMapper::setCvThreshold(const Message & msg)

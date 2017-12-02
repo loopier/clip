@@ -16,8 +16,12 @@
 
 namespace loopier {
     namespace cv{
+        
+        /// !!!:    Clumsy!  Won't compile if getPixels() and getTexture() don't
+        //          return pixels or texture from a pointer
+        typedef shared_ptr<ofImage> ImagePtr;
 
-        class CvPlayer{
+        class CvPlayer: public BasePlayer {
 
         public:
             CvPlayer();
@@ -31,21 +35,38 @@ namespace loopier {
             void draw(float x, float y, float w, float h);
             void exit();
 
+            float getWidth() const;
+            float getHeight() const;
+            
+            bool        loadResource(string resourcename);
+            ofTexture & getTexture() const;
+            ofPixels  & getPixels() const;
+            
             void setInputPlayer(PlayerPtr player); //
 
             void toggleVisibility();
             void show();
             void hide();
+            
+            void toggleMask();
+            void maskOn();
+            void maskOff();
+            void mask(bool onoff);
 
         private:
             PlayerPtr   inputPlayer; // image to be processed
-            ofImage     inputImage; // to be passed to ofxCv methods
-            ofVideoGrabber cam;
+            ImagePtr    inputImage; // to be passed to ofxCv methods
+            ImagePtr    outputImage; 
+            ofFbo       maskFbo;    // just the blobs
+            ofImage     renderImage;  // image to be drawn
+            ofPath      blobPath;
+            
+            ofPixels    pixels;
+            ofTexture   texture;
 
-            ofFbo   maskFbo;
-            ofPath  blobPath;
-
-            bool    visible;
+            bool    bVisible;
+            bool    bMask;
+            bool    bDrawContours;
         };
 
         typedef shared_ptr<CvPlayer> CvPlayerPtr;
@@ -55,6 +76,11 @@ namespace loopier {
         void setInputClip(string clipname);
         void update();
         void draw();
+        
+        void toggleMask();
+        void maskOn();
+        void maskOff();
+        void mask(bool onoff);
 
         void setMinArea(float newArea);
         void setMaxArea(float newArea);
