@@ -2,6 +2,7 @@
 - `[NEW]`  SyphonPlayer: similar to CameraPlayer
   - Needs a vector of players in the Clip class
 - `[OPT]`  BlendModes
+- `[NEW]` Convert Console to TextPlayer
 - `[NEW]`  Save images from player to folder named after clip
 - `[NEW]`  Add ShapePlayer to draw shapes
 - `[NEW]`  Use OSC messages as setup and config files.
