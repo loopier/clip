@@ -66,8 +66,6 @@ namespace loopier {
 
         void setup();
         void setInputClip(string clipname);
-        void update();
-        void draw();
 
         void setMinArea(float newArea);
         void setMaxArea(float newArea);

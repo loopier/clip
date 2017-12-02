@@ -20,9 +20,6 @@ loopier::cv::CvPlayer::CvPlayer()
 : bVisible(true)
 , bDrawContours(true)
 {
-//    ofAddListener(ofEvents().update, this, & loopier::cv::CvPlayer::update);
-//    ofAddListener(ofEvents().draw, this, & loopier::cv::CvPlayer::draw);
-    
     inputImage = make_shared<ofImage>();
     outputImage = make_shared<ofImage>();
     maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
@@ -37,12 +34,6 @@ loopier::cv::CvPlayer::~CvPlayer()
 void loopier::cv::CvPlayer::setup(){
 
     //    maskFbo.allocate(cam.getWidth(), cam.getHeight());
-}
-
-//---------------------------------------------------------
-void loopier::cv::CvPlayer::update(ofEventArgs& e)
-{
-    update();
 }
 
 //---------------------------------------------------------
@@ -75,12 +66,6 @@ void loopier::cv::CvPlayer::update(){
     maskFbo.readToPixels(pixels);
     outputImage->setFromPixels(pixels);
     
-}
-
-//---------------------------------------------------------
-void loopier::cv::CvPlayer::draw(ofEventArgs& e)
-{
-    draw();
 }
 
 //---------------------------------------------------------
@@ -185,18 +170,6 @@ void loopier::cv::setInputClip(string clipname)
     cvplayer->setInputPlayer( clip->getPlayer() );
     clip->hide();
     
-}
-
-//---------------------------------------------------------
-void loopier::cv::update()
-{
-    cvplayer->update();
-}
-
-//---------------------------------------------------------
-void loopier::cv::draw()
-{
-    cvplayer->draw();
 }
 
 
