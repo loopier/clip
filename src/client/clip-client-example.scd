@@ -126,6 +126,7 @@ m.sendMsg("/loopier/clip/console/fontsize", 24)
 
 // create camera clip if not already created
 m.sendMsg("/loopier/clip/clip/new", "cameraclip", "camera0");
+m.sendMsg("/loopier/clip/clips/listnames");
 // set it as Cv's input
 m.sendMsg("/loopier/clip/cv/setinput", "cameraclip")
 // mask camera with blobs

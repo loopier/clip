@@ -11,4 +11,3 @@ loopier::clips[clipname]->...` for `getClipByName()->...` in all clip public int
   - Make the app load the file and send messages to itself
   - Could be CSV, JSON, plain text, ...
 - `[NEW]` Parent clips (and Cv)
-- `[FIX]` Cv clip size is different from camera clip

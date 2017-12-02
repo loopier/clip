@@ -164,7 +164,7 @@ void loopier::cv::setup()
     ClipPtr clip = loopier::newClip("cv");
     clip->setPlayer(cvplayer);
     // create a camera clip to pass it as input to Cv
-    ClipPtr cameraclip = loopier::newClip(loopier::cameras.begin()->first, loopier::cameras.begin()->first);
+    ClipPtr cameraclip = loopier::newClip("cvcamera", loopier::cameras.begin()->first);
     loopier::cv::setInputClip(loopier::cameras.begin()->first);
 }
 
