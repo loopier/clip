@@ -5,9 +5,16 @@ loopier::clips[clipname]->...` for `getClipByName()->...` in all clip public int
   - Needs a vector of players in the Clip class
 - `[OPT]`  BlendModes
 - `[NEW]` Convert Console to TextPlayer
-- `[NEW]`  Save images from player to folder named after clip
 - `[NEW]`  Add ShapePlayer to draw shapes
 - `[NEW]`  Use OSC messages as setup and config files.
   - Make the app load the file and send messages to itself
   - Could be CSV, JSON, plain text, ...
 - `[NEW]` Parent clips (and Cv)
+- `[NEW]` **Save images from player to folder named after clip**
+  - get pixels from 'cv' clip
+  - can I us it to save multiple images of different clips at once?
+  - save to a directory named "newframes", or prompt for a name? -
+    - should create a folder with that name and save images inside it
+    - save folder name as temporary veriable?
+- `[NEW]` Select area for Cv detection
+  - is a clip using an AreaPlayer that selects a portion of the image?
