@@ -22,6 +22,8 @@ loopier::cv::CvPlayer::CvPlayer()
 {
     inputImage = make_shared<ofImage>();
     outputImage = make_shared<ofImage>();
+    inputImage->allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
+    outputImage->allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
     maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
 }
 
@@ -121,8 +123,7 @@ ofPixels & loopier::cv::CvPlayer::getPixels() const
 void loopier::cv::CvPlayer::setInputPlayer(PlayerPtr player)
 {
     inputPlayer = player;
-    width = player->getWidth();
-    height = player->getHeight();
+    outputImage->setFromPixels(player->getPixels());
 }
 
 //---------------------------------------------------------
@@ -156,10 +157,15 @@ void loopier::cv::setup()
     contourFinder.setMaxAreaRadius(200);
     contourFinder.setThreshold(128);
     contourFinder.setFindHoles(true);
+    // create an instance of a player local to this file, to be used by other global functions of this file
     cvplayer = make_shared<CvPlayer>();
     cvplayer->setup();
+    // create a new clip to hold the cv player
     ClipPtr clip = loopier::newClip("cv");
     clip->setPlayer(cvplayer);
+    // create a camera clip to pass it as input to Cv
+    ClipPtr cameraclip = loopier::newClip(loopier::cameras.begin()->first, loopier::cameras.begin()->first);
+    loopier::cv::setInputClip(loopier::cameras.begin()->first);
 }
 
 //---------------------------------------------------------

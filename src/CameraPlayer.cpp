@@ -39,7 +39,7 @@ void loopier::CameraPlayer::update()
 void loopier::CameraPlayer::draw(float x, float y, float w, float h)
 {
     if (!camera)    return;
-    camera->draw(x, y, w, h);
+    camera->draw(x, y, getWidth(), getHeight());
     
 }
 
