@@ -1,4 +1,6 @@
 - `[???]`  Organize non-member functions in namespaces
+- `[???]` Change`if(!loopier::clipExists(clipname)) return;
+loopier::clips[clipname]->...` for `getClipByName()->...` in all clip public interface functions
 - `[NEW]`  SyphonPlayer: similar to CameraPlayer
   - Needs a vector of players in the Clip class
 - `[OPT]`  BlendModes
@@ -8,7 +10,5 @@
 - `[NEW]`  Use OSC messages as setup and config files.
   - Make the app load the file and send messages to itself
   - Could be CSV, JSON, plain text, ...
-- `[CHANGE]` `if(!loopier::clipExists(clipname)) return;
- loopier::clips[clipname]->...` for `getClipByName()->...` in all clip public interface functions
 - `[NEW]` Parent clips (and Cv)
-- `[BUG]` Cv size is different from camera
+- `[FIX]` Cv clip size is different from camera clip
