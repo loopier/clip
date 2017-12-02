@@ -11,3 +11,5 @@
 - `[FIX]`  Cv must accept any clip as input
 - `[CHANGE]` `if(!loopier::clipExists(clipname)) return;
  loopier::clips[clipname]->...` for `getClipByName()->...` in all clip public interface functions
+- `[NEW]` Parent clips (and Cv)
+- `[???]` Convert Cv to CvPlayer
