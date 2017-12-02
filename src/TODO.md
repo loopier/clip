@@ -4,4 +4,8 @@
 - `[OPT]`  BlendModes
 - `[NEW]`  Save images from player to folder named after clip
 - `[NEW]`  Add ShapePlayer to draw shapes
-- `[NEW]`  Mask CV
+- `[NEW]`  Mask Cv
+- `[NEW]`  Use OSC messages as setup and config files.
+- - Make the app load the file and send messages to itself
+- - Could be CSV, JSON, plain text, ...
+- `[FIX]`  Cv must accept any clip as input
