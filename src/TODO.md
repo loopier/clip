@@ -1,14 +1,13 @@
-- `[FIX]`  Organize non-member functions in namespaces
+- `[???]`  Organize non-member functions in namespaces
 - `[NEW]`  SyphonPlayer: similar to CameraPlayer
   - Needs a vector of players in the Clip class
 - `[OPT]`  BlendModes
 - `[NEW]`  Save images from player to folder named after clip
 - `[NEW]`  Add ShapePlayer to draw shapes
-- `[NEW]`  Mask Cv
 - `[NEW]`  Use OSC messages as setup and config files.
   - Make the app load the file and send messages to itself
   - Could be CSV, JSON, plain text, ...
 - `[CHANGE]` `if(!loopier::clipExists(clipname)) return;
  loopier::clips[clipname]->...` for `getClipByName()->...` in all clip public interface functions
 - `[NEW]` Parent clips (and Cv)
-- `[???]` Convert Cv to CvPlayer
+- `[BUG]` Cv size is different from camera
