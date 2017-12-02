@@ -8,7 +8,6 @@
 - `[NEW]`  Use OSC messages as setup and config files.
   - Make the app load the file and send messages to itself
   - Could be CSV, JSON, plain text, ...
-- `[FIX]`  Cv must accept any clip as input
 - `[CHANGE]` `if(!loopier::clipExists(clipname)) return;
  loopier::clips[clipname]->...` for `getClipByName()->...` in all clip public interface functions
 - `[NEW]` Parent clips (and Cv)
