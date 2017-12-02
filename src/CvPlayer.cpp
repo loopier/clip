@@ -1,48 +1,48 @@
 //
-//  CvManager.cpp
+//  CvPlayer.cpp
 //  clip
 //
 //  Created by roger on 30/11/2017.
 //  Copyright 2017 __MyCompanyName__. All rights reserved.
 //
 
-#include "CvManager.h"
+#include "CvPlayer.h"
 #include "Clip.h"
 
 namespace {
     // unique instance of CV
-    loopier::cv::CvManagerPtr cvmanager;
+    loopier::cv::CvPlayerPtr cvplayer;
     // other instances local to this file
     ofxCv::ContourFinder contourFinder;
 }
 
-loopier::cv::CvManager::CvManager()
+loopier::cv::CvPlayer::CvPlayer()
 : visible(true)
 {
-    ofAddListener(ofEvents().update, this, & loopier::cv::CvManager::update);
-    ofAddListener(ofEvents().draw, this, & loopier::cv::CvManager::draw);
+    ofAddListener(ofEvents().update, this, & loopier::cv::CvPlayer::update);
+    ofAddListener(ofEvents().draw, this, & loopier::cv::CvPlayer::draw);
     inputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
 }
 
-loopier::cv::CvManager::~CvManager()
+loopier::cv::CvPlayer::~CvPlayer()
 {
 
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvManager::setup(){
+void loopier::cv::CvPlayer::setup(){
 
     //    maskFbo.allocate(cam.getWidth(), cam.getHeight());
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvManager::update(ofEventArgs& e)
+void loopier::cv::CvPlayer::update(ofEventArgs& e)
 {
     update();
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvManager::update(){
+void loopier::cv::CvPlayer::update(){
     if (!visible)       return;
     if (!inputPlayer)   return;
 
@@ -78,19 +78,19 @@ void loopier::cv::CvManager::update(){
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvManager::draw(ofEventArgs& e)
+void loopier::cv::CvPlayer::draw(ofEventArgs& e)
 {
     draw();
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvManager::draw(float x, float y, float w, float h)
+void loopier::cv::CvPlayer::draw(float x, float y, float w, float h)
 {
     draw();
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvManager::draw(){
+void loopier::cv::CvPlayer::draw(){
     if (!visible)   return;
 
     contourFinder.draw();
@@ -98,30 +98,30 @@ void loopier::cv::CvManager::draw(){
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvManager::exit(){
+void loopier::cv::CvPlayer::exit(){
 
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvManager::setInputPlayer(PlayerPtr player)
+void loopier::cv::CvPlayer::setInputPlayer(PlayerPtr player)
 {
     inputPlayer = player;
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvManager::toggleVisibility()
+void loopier::cv::CvPlayer::toggleVisibility()
 {
     visible = !visible;
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvManager::show()
+void loopier::cv::CvPlayer::show()
 {
     visible = true;
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvManager::hide()
+void loopier::cv::CvPlayer::hide()
 {
     visible = false;
 }
@@ -139,27 +139,27 @@ void loopier::cv::setup()
     contourFinder.setMaxAreaRadius(200);
     contourFinder.setThreshold(128);
     contourFinder.setFindHoles(true);
-    cvmanager = make_shared<CvManager>();
-    cvmanager->setup();
+    cvplayer = make_shared<CvPlayer>();
+    cvplayer->setup();
 }
 
 //---------------------------------------------------------
 void loopier::cv::setInputClip(string clipname)
 {
     if (!loopier::clipExists(clipname)) return;
-    cvmanager->setInputPlayer(loopier::getClipByName(clipname)->getPlayer());
+    cvplayer->setInputPlayer(loopier::getClipByName(clipname)->getPlayer());
 }
 
 //---------------------------------------------------------
 void loopier::cv::update()
 {
-    cvmanager->update();
+    cvplayer->update();
 }
 
 //---------------------------------------------------------
 void loopier::cv::draw()
 {
-    cvmanager->draw();
+    cvplayer->draw();
 }
 
 //---------------------------------------------------------

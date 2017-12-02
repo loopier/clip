@@ -1,13 +1,13 @@
 //
-//  CvManager.h
+//  CvPlayer.h
 //  clip
 //
 //  Created by roger on 30/11/2017.
 //  Copyright 2017 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef _CvManager
-#define _CvManager
+#ifndef _CvPlayer
+#define _CvPlayer
 
 
 #include "ofMain.h"
@@ -17,11 +17,11 @@
 namespace loopier {
     namespace cv{
 
-        class CvManager{
+        class CvPlayer{
 
         public:
-            CvManager();
-            virtual ~CvManager();
+            CvPlayer();
+            virtual ~CvPlayer();
 
             void setup();
             void update(ofEventArgs& e); // automatic update
@@ -48,7 +48,7 @@ namespace loopier {
             bool    visible;
         };
 
-        typedef shared_ptr<CvManager> CvManagerPtr;
+        typedef shared_ptr<CvPlayer> CvPlayerPtr;
 
 
         void setup();
