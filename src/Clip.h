@@ -83,7 +83,6 @@ namespace loopier {
     private:
         PlayerPtr   player;     // TODO: Should be a vector of players
         PlayerPtr   maskPlayer; // a player used as a mask
-        ofTexture   renderTexture;  // final image to be drawn
         ofFbo       outputFbo; // final image to be drawn
         bool        bMask;  // turn mask on and off
         

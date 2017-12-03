@@ -57,10 +57,6 @@ void loopier::Clip::update()
 {
 //    if (bPlaySequence) updateSequence();
     player->update();
-    //    renderTexture = player->getTexture();
-    
-    width = player->getWidth();
-    height = player->getHeight();
     
     outputFbo.begin();
     ofClear(0);
@@ -81,6 +77,7 @@ void loopier::Clip::draw()
 {
     if (!bVisible) return;
     
+    ofPushStyle();
     ofSetColor(color);
     
     if (bFullscreen) {
@@ -94,6 +91,7 @@ void loopier::Clip::draw()
         outputFbo.draw(x, y, width, height);
         if (bDrawName)  ofDrawBitmapString(name, x, y);
     }
+    ofPopStyle();
 }
 
 //---------------------------------------------------------------------------
