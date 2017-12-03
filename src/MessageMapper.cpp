@@ -77,7 +77,7 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clips/shownames"]     = &loopier::MessageMapper::showClipNames;
     messageMap["/loopier/clip/clips/hidenames"]     = &loopier::MessageMapper::hideClipNames;
 
-    // Computer Vidion commands
+    // CV commands
     messageMap["/loopier/clip/cv/threshold"]        = &loopier::MessageMapper::setCvThreshold;
     messageMap["/loopier/clip/cv/minArea"]          = &loopier::MessageMapper::setCvMinArea;
     messageMap["/loopier/clip/cv/maxArea"]          = &loopier::MessageMapper::setCvMaxArea;
@@ -422,7 +422,7 @@ void loopier::MessageMapper::setCvMaxArea(const Message & msg)
 //---------------------------------------------------------
 void loopier::MessageMapper::setCvHoles(const Message & msg)
 {
-    loopier::cv::setHoles(msg.getArgAsBool(0));
+    loopier::cv::setFindHoles(msg.getArgAsBool(0));
 }
 
 //---------------------------------------------------------

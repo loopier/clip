@@ -13,7 +13,7 @@ namespace {
     // unique instance of CV
     loopier::cv::CvPlayerPtr cvplayer;
     // other instances local to this file
-    ofxCv::ContourFinder contourFinder;
+//    ofxCv::ContourFinder contourFinder;
 }
 
 loopier::cv::CvPlayer::CvPlayer()
@@ -22,9 +22,8 @@ loopier::cv::CvPlayer::CvPlayer()
 , threshold(200)
 , minArea(10.0)
 , maxArea(200)
-, holes(true)
+, bHoles(true)
 {
-    inputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
     outputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
     maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
     outputImage.load("mama.png");
@@ -47,15 +46,14 @@ void loopier::cv::CvPlayer::update(){
 //    if (!inputPlayer)   return;
     
     // TODO: draw contourFinder.minAreaRect like in https://github.com/kylemcdonald/ofxCv/blob/master/example-contours-advanced/src/ofApp.cpp
-    inputImage.setFromPixels(inputPlayer->getPixels());
     
     contourFinder.setMinAreaRadius(minArea);
     contourFinder.setMaxAreaRadius(maxArea);
     contourFinder.setThreshold(threshold);
     contourFinder.findContours(inputPlayer->getPixels());
-    contourFinder.setFindHoles(holes);
+    contourFinder.setFindHoles(bHoles);
 
-    outputImage.setFromPixels(inputImage.getPixels());
+    outputImage.setFromPixels(inputPlayer->getPixels());
 
     // Create a mask with the blobs    
     vector<ofPolyline> polys = contourFinder.getPolylines();
@@ -149,6 +147,30 @@ void loopier::cv::CvPlayer::hide()
     bVisible = false;
 }
 
+//---------------------------------------------------------
+void loopier::cv::CvPlayer::setMinArea(float newArea)
+{
+    minArea = newArea;
+}
+
+//---------------------------------------------------------
+void loopier::cv::CvPlayer::setMaxArea(float newArea)
+{
+    maxArea = newArea;
+}
+
+//---------------------------------------------------------
+void loopier::cv::CvPlayer::setThreshold(float newThreshold)
+{
+    threshold = newThreshold;
+}
+
+//---------------------------------------------------------
+void loopier::cv::CvPlayer::setFindHoles(bool findHoles)
+{
+    bHoles = findHoles;
+}
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 // *                                                                       *
 // *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
@@ -160,7 +182,7 @@ void loopier::cv::setup()
 {
 //    contourFinder.setMinAreaRadius(10);
 //    contourFinder.setMaxAreaRadius(200);
-//    contourFinder.setThreshold(128);
+//    contourFinder.setThreshold(200);
 //    contourFinder.setFindHoles(true);
     // create an instance of a player local to this file, to be used by other global functions of this file
     cvplayer = make_shared<CvPlayer>();
@@ -187,23 +209,23 @@ void loopier::cv::setInputClip(string clipname)
 //---------------------------------------------------------
 void loopier::cv::setMinArea(float newArea)
 {
-    contourFinder.setMinAreaRadius(newArea);
+    cvplayer->setMinArea(newArea);
 }
 
 //---------------------------------------------------------
 void loopier::cv::setMaxArea(float newArea)
 {
-    contourFinder.setMaxAreaRadius(newArea);
+    cvplayer->setMaxArea(newArea);
 }
 
 //---------------------------------------------------------
 void loopier::cv::setThreshold(float newThreshold)
 {
-    contourFinder.setThreshold(newThreshold);
+    cvplayer->setThreshold(newThreshold);
 }
 
 //---------------------------------------------------------
-void loopier::cv::setHoles(bool bHoles)
+void loopier::cv::setFindHoles(bool findHoles)
 {
-    contourFinder.setFindHoles(bHoles);
+    cvplayer->setFindHoles(findHoles);
 }

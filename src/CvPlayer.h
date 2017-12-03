@@ -47,20 +47,25 @@ namespace loopier {
             void toggleVisibility();
             void show();
             void hide();
+            
+            void setMinArea(float newArea);
+            void setMaxArea(float newArea);
+            void setThreshold(float newThreshold);
+            void setFindHoles(bool findHoles);
 
         private:
             PlayerPtr   inputPlayer; // image to be processed
-            ofImage     inputImage; // to be passed to ofxCv methods
             ofImage     outputImage;
             ofFbo       maskFbo;    // just the blobs
             
             bool    bVisible;
-            bool    bDrawContours;
             
+            ofxCv::ContourFinder contourFinder;
+            bool    bDrawContours;
             float   threshold;
             float   minArea;
             float   maxArea;
-            float   holes;
+            float   bHoles;
             
         };
 
@@ -73,7 +78,7 @@ namespace loopier {
         void setMinArea(float newArea);
         void setMaxArea(float newArea);
         void setThreshold(float newThreshold);
-        void setHoles(bool bHoles);
+        void setFindHoles(bool findHoles);
 
 
         // TODO: Add visibility commands
