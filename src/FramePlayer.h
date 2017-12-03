@@ -63,6 +63,8 @@ namespace loopier {
         float       lastFrameTime;
     };
     
+    typedef shared_ptr<FramePlayer> FramePlayerPtr;
+    
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     // *                                                                       *
     // *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *

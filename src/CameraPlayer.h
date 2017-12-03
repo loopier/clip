@@ -34,6 +34,7 @@ namespace loopier {
         void    exit();
         
         bool    loadResource(string resourcename);
+        void    setCamera(CameraPtr cam);
         
         float       getWidth() const;
         float       getHeight() const;
@@ -44,6 +45,8 @@ namespace loopier {
     private:
         CameraPtr  camera;
     };
+    
+    typedef shared_ptr<CameraPlayer> CameraPlayerPtr;
     
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     // *                                                                       *

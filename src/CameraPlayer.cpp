@@ -64,6 +64,12 @@ bool loopier::CameraPlayer::loadResource(string resourcename)
 }
 
 //---------------------------------------------------------
+void loopier::CameraPlayer::setCamera(CameraPtr cam)
+{
+    camera = cam;
+}
+
+//---------------------------------------------------------
 float loopier::CameraPlayer::getWidth() const
 {
     return camera->getWidth();

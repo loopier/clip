@@ -173,7 +173,9 @@ namespace loopier {
                 player = make_shared<MoviePlayer>();
                 logMsg += "movie";
             } else if ( cameras.count(resourcename) > 0) {
-                player = make_shared<CameraPlayer>();
+                loopier::CameraPlayerPtr cam(new CameraPlayer());
+                cam->setCamera(cameras[resourcename]);
+                player = cam;
                 logMsg += "camera";
             } else { // if it's a FramePlayer or it doesn't exist create a FramePlayer
                 player = make_shared<MoviePlayer>();
@@ -186,7 +188,7 @@ namespace loopier {
             ofLogVerbose() << "Creating cilp: " << clipname;
         }
         
-        void saveImages(string clipname)
+        void saveImages(string clipname) // TODO: Save images
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
             // if directory 'clipname' exists, warn and change name to 'clipname_' + YYYYMMDD-HHMM

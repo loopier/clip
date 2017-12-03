@@ -59,6 +59,8 @@ namespace loopier {
         MoviePtr movie;
     };
     
+    typedef shared_ptr<MoviePlayer> MoviePlayerPtr;
+    
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     // *                                                                       *
     // *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
