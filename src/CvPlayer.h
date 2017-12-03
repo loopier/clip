@@ -53,11 +53,7 @@ namespace loopier {
             ofImage     inputImage; // to be passed to ofxCv methods
             ofImage     outputImage;
             ofFbo       maskFbo;    // just the blobs
-            ofVideoGrabber cam;
             
-            ofPixels    pixels;
-            ofTexture   texture;
-
             bool    bVisible;
             bool    bDrawContours;
             

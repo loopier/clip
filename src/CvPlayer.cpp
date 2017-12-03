@@ -27,7 +27,6 @@ loopier::cv::CvPlayer::CvPlayer()
     inputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
     outputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
     maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
-    cam.setup(ofGetWidth(), ofGetHeight());
     outputImage.load("mama.png");
 }
 
@@ -48,55 +47,44 @@ void loopier::cv::CvPlayer::update(){
 //    if (!inputPlayer)   return;
     
     // TODO: draw contourFinder.minAreaRect like in https://github.com/kylemcdonald/ofxCv/blob/master/example-contours-advanced/src/ofApp.cpp
-//    inputImage.setFromPixels(inputPlayer->getPixels());
-    if(!cam.isFrameNew()) return;
+    inputImage.setFromPixels(inputPlayer->getPixels());
+    
     contourFinder.setMinAreaRadius(minArea);
     contourFinder.setMaxAreaRadius(maxArea);
     contourFinder.setThreshold(threshold);
-    contourFinder.findContours(cam);
+    contourFinder.findContours(inputPlayer->getPixels());
     contourFinder.setFindHoles(holes);
 
-    //    contourFinder.setFindHoles(holes);
+    outputImage.setFromPixels(inputImage.getPixels());
 
     // Create a mask with the blobs    
-//    vector<ofPolyline> polys = contourFinder.getPolylines();
-//    maskFbo.begin();
-//    ofClear(255,255,255,0);
-//    ofPushStyle();
-//    ofSetColor(255, 255, 255);
-//    for (int i = 0; i < polys.size(); i++) {
-//        ofPolyline poly = polys.at(i);
-//        ofBeginShape();
-//        for( int i = 0; i < poly.getVertices().size(); i++) {
-//            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
-//        }
-//        ofEndShape();
-//    }
-//    ofPopStyle();
-//    maskFbo.end();
-//    
-//    ofPixels pixels;
-//    maskFbo.readToPixels(pixels);
-//    outputImage.setFromPixels(pixels);
+    vector<ofPolyline> polys = contourFinder.getPolylines();
+    maskFbo.begin();
+    ofClear(255,255,255,0);
+    ofFill();
+    ofSetColor(255);
+    for (int i = 0; i < polys.size(); i++) {
+        ofPolyline poly = polys.at(i);
+        ofBeginShape();
+        for( int i = 0; i < poly.getVertices().size(); i++) {
+            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+        }
+        ofEndShape();
+    }
+    maskFbo.end();
     
+    outputImage.getTexture().setAlphaMask(maskFbo.getTexture());
 }
 
 //---------------------------------------------------------
 void loopier::cv::CvPlayer::draw(float x, float y, float w, float h)
 {
     if (!bVisible)   return;
-//    outputImage.draw(x, y, w, h);
-    if (bDrawContours)  contourFinder.draw();
-    ofSetColor(255,255,255,255);
-    cam.draw(0,0);
-    contourFinder.draw();
 }
 
 //---------------------------------------------------------
 void loopier::cv::CvPlayer::draw()
 {
-//    draw(anchor.x, anchor.y, getWidth(), getHeight());
-//    ofSetColor(255);
     outputImage.draw(0,0);
     contourFinder.draw();
 }
@@ -170,10 +158,10 @@ void loopier::cv::CvPlayer::hide()
 //---------------------------------------------------------
 void loopier::cv::setup()
 {
-    contourFinder.setMinAreaRadius(10);
-    contourFinder.setMaxAreaRadius(200);
-    contourFinder.setThreshold(128);
-    contourFinder.setFindHoles(true);
+//    contourFinder.setMinAreaRadius(10);
+//    contourFinder.setMaxAreaRadius(200);
+//    contourFinder.setThreshold(128);
+//    contourFinder.setFindHoles(true);
     // create an instance of a player local to this file, to be used by other global functions of this file
     cvplayer = make_shared<CvPlayer>();
     cvplayer->setup();
