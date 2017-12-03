@@ -30,8 +30,9 @@ namespace loopier {
     }
     
     namespace clip {
-        // \brief   Adds a clip to the cliplist
+        // \brief   Creates a clip named after a resource -- or an empty FramePlayer clip
         void    newClip(string clipname);
+        // \brief   Creates a clip with the given resource
         void    newClip(string clipname, string resourcename);
         
         // \brief   Adds a frame to a (Frame)clip
@@ -42,6 +43,9 @@ namespace loopier {
         //                                  find the directory or to create it (defaults to '+tmp'
         //                                  so it sticks to the top of the resources/frames directory
         void    saveImages(string clipname = "+tmp");
+        
+        // \brief   Prints all clip names to console
+        void listAll();
     }
 }
 

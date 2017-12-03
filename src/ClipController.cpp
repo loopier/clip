@@ -153,10 +153,14 @@ namespace loopier {
     
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     namespace clip {
+        
         void newClip(string clipname)
         {
-            string resourcename = clipname;
-            
+            newClip(clipname, clipname);
+        }
+        
+        void newClip(string clipname, string resourcename)
+        {
             // if clip with this name exists -- change new clip's name to clipname + timestamp
             if (clips.count(clipname) > 0) clipname += ofGetTimestampString("%H%M%S%i");
             loopier::ClipPtr clip(new loopier::Clip(clipname, resourcename));
@@ -182,18 +186,18 @@ namespace loopier {
             ofLogVerbose() << "Creating cilp: " << clipname;
         }
         
-        void newClip(string clipname, string resourcename)
-        {
-            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-            ofLogVerbose() << "Creating cilp: " << clipname;
-            
-        }
-        
         void saveImages(string clipname)
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
             // if directory 'clipname' exists, warn and change name to 'clipname_' + YYYYMMDD-HHMM
             //    ofGetTimestampString(%Y%m%d-%H%M)
+        }
+        
+        void listAll()
+        {
+            ofLogNotice() << clips.size() << " available clips";
+            for (const auto &item : clips) {  ofLogNotice() << "\t" << item.first; }
+//            ofLogNotice() << clips.begin()->first;
         }
     } // namespace clip
 }

@@ -369,7 +369,7 @@ bool loopier::initResources(string path)
     loopier::cv::setup();
     // loads first available camera
 //    string cameraname = loopier::cameras.begin()->first;
-//    loopier::cv::setInputClip(loopier::clips.begin()->first);
+//    loopier::cv::setInputClip(loopier::clipmap.begin()->first);
 }
 
 int loopier::loadResourceFiles(string path)
@@ -417,19 +417,19 @@ loopier::ClipPtr loopier::newClip(string clipname, string filename)
 {
     loopier::ClipPtr clip(new loopier::Clip(clipname, filename));
     clip->setup();
-    clips[clip->getName()] = clip;
+    clipmap[clip->getName()] = clip;
     return clip;
 }
 //---------------------------------------------------------------------------
 void loopier::removeClip(const string& clipname)
 {
-    loopier::clips.erase(clipname);
+    loopier::clipmap.erase(clipname);
 }
 
 //---------------------------------------------------------------------------
 void loopier::clearClips()
 {
-    loopier::clips.clear();
+    loopier::clipmap.clear();
 }
 
 //---------------------------------------------------------------------------
@@ -439,7 +439,7 @@ void loopier::clearClips()
 void loopier::updateClips()
 {
     loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+    for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
         (*it->second).update();
     }
 }
@@ -448,7 +448,7 @@ void loopier::updateClips()
 void loopier::drawClips()
 {
     loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+    for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
         (*it->second).draw();
     }
 }
@@ -464,9 +464,9 @@ void loopier::drawClips()
 
 void loopier::listClipNames()
 {
-    string msg = "Number of clips:\t" + ofToString(clips.size());
+    string msg = "Number of clips:\t" + ofToString(clipmap.size());
     loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+    for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
         msg += "\n\t" + it->first;
     }
     
@@ -476,9 +476,9 @@ void loopier::listClipNames()
 //---------------------------------------------------------------------------
 void loopier::listClips()
 {
-    string msg = "Number of clips:\t" + ofToString(clips.size());
+    string msg = "Number of clips:\t" + ofToString(clipmap.size());
     loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+    for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
 //        (*it->second).listMovies();
     }
 }
@@ -486,7 +486,7 @@ void loopier::listClips()
 //---------------------------------------------------------------------------
 bool loopier::clipExists(const string clipname)
 {
-    bool b = clips.count(clipname);
+    bool b = clipmap.count(clipname);
     
     if (!b) {
         string msg = "\tTrying to acces a clip named '" + clipname + "'.\n";
@@ -495,13 +495,13 @@ bool loopier::clipExists(const string clipname)
         ConsoleUI::printError(msg);
     }
     
-    return clips.count(clipname);
+    return clipmap.count(clipname);
 }
 
 //---------------------------------------------------------------------------
 loopier::ClipPtr loopier::getClipByName(const string clipname)
 {
-    return clips.find(clipname)->second;
+    return clipmap.find(clipname)->second;
 }
 
 
@@ -511,7 +511,7 @@ loopier::ClipPtr loopier::getClipByName(const string clipname)
 void loopier::toggleClipNames()
 {
     loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+    for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
         (*it->second).toggleName();
     }
 }
@@ -520,7 +520,7 @@ void loopier::toggleClipNames()
 void loopier::showClipNames()
 {
     loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+    for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
         (*it->second).showName();
     }
 }
@@ -529,7 +529,7 @@ void loopier::showClipNames()
 void loopier::hideClipNames()
 {
     loopier::ClipMap::iterator it;
-    for (it = loopier::clips.begin(); it != loopier::clips.end(); ++it) {
+    for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
         (*it->second).hideName();
     }
 }
@@ -547,35 +547,35 @@ void loopier::hideClipNames()
 void loopier::playClip(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->play();
+    loopier::clipmap[clipname]->play();
 }
 
 //---------------------------------------------------------------------------
 void loopier::stopClip(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->stop();
+    loopier::clipmap[clipname]->stop();
 }
 
 //---------------------------------------------------------------------------
 void loopier::pauseClip(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->pause();
+    loopier::clipmap[clipname]->pause();
 }
 
 //---------------------------------------------------------------------------
 void loopier::setClipSpeed(const string clipname, const float speed)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setSpeed(speed);
+    loopier::clipmap[clipname]->setSpeed(speed);
 }
 
 //---------------------------------------------------------------------------
 void loopier::setClipLoopState(const string clipname, const loopier::LoopType state)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setLoopState(state);
+    loopier::clipmap[clipname]->setLoopState(state);
 }
 
 //---------------------------------------------------------------------------
@@ -583,7 +583,7 @@ void loopier::setClipMask(const string clipname, const string maskclipname)
 {
     if(!loopier::clipExists(clipname)) return;
     if(!loopier::clipExists(maskclipname)) return;
-    loopier::clips[clipname]->setMask( loopier::getClipByName(maskclipname)->getPlayer() );
+    loopier::clipmap[clipname]->setMask( loopier::getClipByName(maskclipname)->getPlayer() );
     loopier::getClipByName(maskclipname)->hide();
 }
 
@@ -591,14 +591,14 @@ void loopier::setClipMask(const string clipname, const string maskclipname)
 void loopier::enableClipMask(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->maskOn();
+    loopier::clipmap[clipname]->maskOn();
 }
 
 //---------------------------------------------------------------------------
 void loopier::disableClipMask(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->maskOff();
+    loopier::clipmap[clipname]->maskOff();
 }
 
 //---------------------------------------------------------------------------
@@ -607,7 +607,7 @@ void loopier::disableClipMask(const string clipname)
 void loopier::resetClip(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->reset();
+    loopier::clipmap[clipname]->reset();
 }
 
 //---------------------------------------------------------------------------
@@ -616,7 +616,7 @@ void loopier::resetClip(const string clipname)
 void loopier::moveClipTo(const string clipname, const float x, const float y)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setPosition(x, y);
+    loopier::clipmap[clipname]->setPosition(x, y);
 }
 
 //---------------------------------------------------------------------------
@@ -625,21 +625,21 @@ void loopier::moveClipTo(const string clipname, const float x, const float y)
 void loopier::scaleClip(const string clipname, const float scale)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setScale(scale);
+    loopier::clipmap[clipname]->setScale(scale);
 }
 
 //---------------------------------------------------------------------------
 void loopier::setClipWidth(const string clipname, const float width)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setScaleX(width);
+    loopier::clipmap[clipname]->setScaleX(width);
 }
 
 //---------------------------------------------------------------------------
 void loopier::setClipHeight(const string clipname, const float height)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setScaleY(height);
+    loopier::clipmap[clipname]->setScaleY(height);
 }
 
 //---------------------------------------------------------------------------
@@ -647,7 +647,7 @@ void loopier::scaleUpClip(const string clipname, const float amount)
 {
     if(!loopier::clipExists(clipname)) return;
     
-    ClipPtr clip = loopier::clips[clipname];
+    ClipPtr clip = loopier::clipmap[clipname];
     clip->setScale( clip->getScale() + amount );
 }
 
@@ -656,7 +656,7 @@ void loopier::scaleDownClip(const string clipname, const float amount)
 {
     if(!loopier::clipExists(clipname)) return;
     
-    ClipPtr clip = loopier::clips[clipname];
+    ClipPtr clip = loopier::clipmap[clipname];
     clip->setScale( clip->getScale() - amount );
 }
 
@@ -664,21 +664,21 @@ void loopier::scaleDownClip(const string clipname, const float amount)
 void loopier::resetClipScale(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setScale(1.0);
+    loopier::clipmap[clipname]->setScale(1.0);
 }
 
 //---------------------------------------------------------------------------
 void loopier::setClipVFlip(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->flipV();
+    loopier::clipmap[clipname]->flipV();
 }
 
 //---------------------------------------------------------------------------
 void loopier::setClipHFlip(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->flipH();
+    loopier::clipmap[clipname]->flipH();
 }
 
 //---------------------------------------------------------------------------
@@ -687,7 +687,7 @@ void loopier::setClipHFlip(const string clipname)
 void loopier::toggleFullscreenClip(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->toggleFullscreen();
+    loopier::clipmap[clipname]->toggleFullscreen();
 }
 
 //---------------------------------------------------------------------------
@@ -696,21 +696,21 @@ void loopier::toggleFullscreenClip(const string clipname)
 void loopier::toggleClipVisibility(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->toggleVisibility();
+    loopier::clipmap[clipname]->toggleVisibility();
 }
 
 //---------------------------------------------------------------------------
 void loopier::showClip(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->show();
+    loopier::clipmap[clipname]->show();
 }
 
 //---------------------------------------------------------------------------
 void loopier::hideClip(const string clipname)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->hide();
+    loopier::clipmap[clipname]->hide();
 }
 
 //---------------------------------------------------------------------------
@@ -728,37 +728,37 @@ void loopier::setClipColor(const string clipname, const string& color)
         c = ofColor(ofToFloat(tokens[0]) * 255);
     } else if (tokens.size() == 2) {
         c = ofColor(ofToFloat(tokens[0]) * 255);
-        loopier::clips[clipname]->setAlpha(ofToFloat(tokens[1]));
+        loopier::clipmap[clipname]->setAlpha(ofToFloat(tokens[1]));
     } else {
         c.r = ofToFloat(tokens[0]) * 255;
         c.g = ofToFloat(tokens[1]) * 255;
         c.b = ofToFloat(tokens[2]) * 255;
     }
     if (tokens.size() == 4) {
-        loopier::clips[clipname]->setAlpha(ofToFloat(tokens[3]));
+        loopier::clipmap[clipname]->setAlpha(ofToFloat(tokens[3]));
     }
     
     ofLogVerbose() << __PRETTY_FUNCTION__ << "\t" << c;
     
-    loopier::clips[clipname]->setColor(c);
+    loopier::clipmap[clipname]->setColor(c);
 }
 
 void loopier::setClipColor(const string clipname, const ofColor & color)
 {
-    loopier::clips[clipname]->setColor(color);
+    loopier::clipmap[clipname]->setColor(color);
 }
 
 void loopier::setClipColor(const string clipname, const float& grayscale)
 {
     if(!loopier::clipExists(clipname)) return;
     
-    loopier::clips[clipname]->setColor(ofColor(grayscale * 255));
+    loopier::clipmap[clipname]->setColor(ofColor(grayscale * 255));
 }
 
 //---------------------------------------------------------------------------
 void loopier::setClipAlpha(const string clipname, const float alpha)
 {
     if(!loopier::clipExists(clipname)) return;
-    loopier::clips[clipname]->setAlpha(alpha);
+    loopier::clipmap[clipname]->setAlpha(alpha);
 }
 

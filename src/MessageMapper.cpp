@@ -362,7 +362,7 @@ void loopier::MessageMapper::clearClips(const Message & msg)
 //---------------------------------------------------------
 void loopier::MessageMapper::listClipNames(const Message & msg)
 {
-    loopier::listClipNames();
+    loopier::clip::listAll();
 }
 
 //---------------------------------------------------------
