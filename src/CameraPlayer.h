@@ -19,7 +19,7 @@ namespace loopier {
     typedef shared_ptr<Camera>     CameraPtr;
     typedef map<string, CameraPtr> CameraMap;
     
-    extern CameraMap   cameras; // global list of all cameras
+    extern CameraMap   cameramap; // global list of all cameras
     
     class CameraPlayer: public BasePlayer{
         

@@ -180,19 +180,15 @@ void loopier::cv::CvPlayer::setFindHoles(bool findHoles)
 //---------------------------------------------------------
 void loopier::cv::setup()
 {
-//    contourFinder.setMinAreaRadius(10);
-//    contourFinder.setMaxAreaRadius(200);
-//    contourFinder.setThreshold(200);
-//    contourFinder.setFindHoles(true);
     // create an instance of a player local to this file, to be used by other global functions of this file
-    cvplayer = make_shared<CvPlayer>();
-    cvplayer->setup();
-    // create a new clip to hold the cv player
-    ClipPtr clip = loopier::newClip("cv");
-    clip->setPlayer(cvplayer);
-    // create a camera clip to pass it as input to Cv
-    ClipPtr cameraclip = loopier::newClip(loopier::cameras.begin()->first, loopier::cameras.begin()->first);
-    loopier::cv::setInputClip(loopier::cameras.begin()->first);
+//    cvplayer = make_shared<CvPlayer>();
+//    cvplayer->setup();
+//    // create a new clip to hold the cv player
+//    ClipPtr clip = loopier::newClip("cv");
+//    clip->setPlayer(cvplayer);
+//    // create a camera clip to pass it as input to Cv
+//    ClipPtr cameraclip = loopier::newClip(loopier::cameras.begin()->first, loopier::cameras.begin()->first);
+//    loopier::cv::setInputClip(loopier::cameras.begin()->first);
 }
 
 //---------------------------------------------------------

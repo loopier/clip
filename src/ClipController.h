@@ -12,7 +12,37 @@
 
 
 #include "ofMain.h"
-#include "Clip.h"
+#include "Clip.h"
 
+namespace loopier {
+    namespace app {
+        // \brief   Sets everything up
+        void        init();
+    }
+    
+    namespace resource {
+        // \brief   Lists all available resources
+        void    setPath(string path);
+        string& getPath();
+        void    listAll();
+        // \brief   Checks if a resource exists
+        bool    exists(string resourcename);
+    }
+    
+    namespace clip {
+        // \brief   Adds a clip to the cliplist
+        void    newClip(string clipname);
+        void    newClip(string clipname, string resourcename);
+        
+        // \brief   Adds a frame to a (Frame)clip
+        void    addFrame(ofImage & img);
+        
+        //  \brief  Saves clip's images (frames) to a folder named after the clip
+        //  \param  clipname    String      Name of the clip to be saved.  Will be used to
+        //                                  find the directory or to create it (defaults to '+tmp'
+        //                                  so it sticks to the top of the resources/frames directory
+        void    saveImages(string clipname = "+tmp");
+    }
+}
 
 #endif

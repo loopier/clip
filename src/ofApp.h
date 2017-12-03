@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "MessageMapper.h"
+#include "ClipController.h"
 #include "Clip.h"
 #include "ConsoleUI.h"
 #include "Types.h"

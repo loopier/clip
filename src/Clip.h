@@ -117,7 +117,7 @@ namespace loopier {
     typedef vector<ClipPtr>         ClipList;
     typedef map<string, ClipPtr>    ClipMap;
     
-    extern ClipMap      clips;      // global the list of clips available everywhere
+    extern ClipMap      clipmap;      // global the list of clips available everywhere
     
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     // *                                                                       *

@@ -69,7 +69,7 @@ namespace loopier {
     // *                                                                       *
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     
-    bool    loadFrameLists(string path);
+    bool    loadFrameListsDeprecated(string path);
     void    listFrameListNames();
     
 }

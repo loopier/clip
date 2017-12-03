@@ -35,7 +35,7 @@ loopier::Clip::Clip(string& clipname, string& resourcename)
 , loopState(LoopType::normal)
 , bMask(false)
 {
-    setResource(resourcename);
+//    setResource(resourcename);
 }
 
 //---------------------------------------------------------
@@ -115,16 +115,16 @@ void loopier::Clip::reset()
 //---------------------------------------------------------------------------
 void loopier::Clip::setResource(string & resourcename)
 {
-    if (loopier::movies.count(resourcename)) {
-        player = make_shared<MoviePlayer>();
-        ofLogVerbose() << "'" << name << "'" << " will play the movie: " << resourcename << "'";
-    } else if (loopier::frameLists.count(resourcename)) {
-        player = make_shared<FramePlayer>();
-        ofLogVerbose() << "'" << name << "'" << " will play the frames: " << resourcename << "'";
-    } else if (loopier::cameras.count(resourcename)) {
-        player = make_shared<CameraPlayer>();
-        ofLogVerbose() << "'" << name << "'" << " will run camera: " << resourcename << "'";
-    }
+//    if (loopier::resource::exists(resourcename)) {
+//        player = make_shared<MoviePlayer>();
+//        ofLogVerbose() << "'" << name << "'" << " will play the movie: " << resourcename << "'";
+//    } else if (loopier::resource::exists(resourcename)) {
+//        player = make_shared<FramePlayer>();
+//        ofLogVerbose() << "'" << name << "'" << " will play the frames: " << resourcename << "'";
+//    } else if (loopier::resource::exists(resourcename)) {
+//        player = make_shared<CameraPlayer>();
+//        ofLogVerbose() << "'" << name << "'" << " will run camera: " << resourcename << "'";
+//    }
     
     player->loadResource(resourcename);
     width = player->getWidth();
@@ -354,7 +354,7 @@ void loopier::Clip::flipH()
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 
-loopier::ClipMap        loopier::clips;
+loopier::ClipMap        loopier::clipmap;
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 // *                                                                       *
@@ -378,8 +378,8 @@ int loopier::loadResourceFiles(string path)
     
     ofLogVerbose() << "Loading resource files from: " << path;
     
-    loopier::loadMovies(path);
-    loopier::loadFrameLists(path);
+//    loopier::loadMovies();
+//    loopier::loadFrameLists();
     
 }
 

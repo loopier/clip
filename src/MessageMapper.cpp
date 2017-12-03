@@ -175,8 +175,8 @@ void loopier::MessageMapper::move(const Message & msg)
 void loopier::MessageMapper::newClip(const Message & msg)
 {
     int n = msg.getNumArgs();
-    if      (n == 1)    loopier::newClip(msg.getArgAsString(0));
-    else if (n == 2)    loopier::newClip(msg.getArgAsString(0), msg.getArgAsString(1));
+    if      (n == 1)    loopier::clip::newClip(msg.getArgAsString(0));
+    else if (n == 2)    loopier::clip::newClip(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
@@ -368,7 +368,8 @@ void loopier::MessageMapper::listClipNames(const Message & msg)
 //---------------------------------------------------------
 void loopier::MessageMapper::listResourceNames(const Message & msg)
 {
-    loopier::listResourceNames();
+//    loopier::listResourceNames();
+    loopier::resource::listAll();
 }
 
 //---------------------------------------------------------

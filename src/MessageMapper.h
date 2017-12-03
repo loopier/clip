@@ -17,6 +17,7 @@
 
 #include "ofMain.h"
 #include "OscManager.h"
+#include "ClipController.h"
 #include "Clip.h"
 #include "Cv.h"
 #include "ConsoleUI.h"

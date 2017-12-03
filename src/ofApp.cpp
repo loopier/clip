@@ -11,13 +11,16 @@ void ofApp::setup(){
     ofBackground(0,0,0);
     ofSetVerticalSync(true);
 
-    loopier::ConsoleUI::setup();
-
+//    loopier::ConsoleUI::setup();
+     // TODO : REMOVE
     applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/";
-    init();
+//    init();
+//    loopier::initResources(applicationSupportPath + "resources/");
+    // REMOVE -- END
+    //    loopier::app::setResourceFilesPath(applicationSupportPath + "resources/");
+    loopier::resource::setPath(applicationSupportPath + "resources/");
+    loopier::app::init();
     
-    loopier::initResources(applicationSupportPath + "resources/");
-
     msgMapper.setup();
     
 //    loopier::newVideoInput();
@@ -25,22 +28,18 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    loopier::updateClips();
-//    loopier::cv::update();
-//    loopier::updateVideoInput();
+//    loopier::updateClips();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-//    loopier::drawVideoInput();
-    loopier::drawClips();
-//    loopier::cv::draw();
-    console.draw();
+//    loopier::drawClips();
+//    console.draw();
 }
 
 void ofApp::exit()
 {
-//    ofLogVerbose() << "!!! REMOVE return FROM ofApp::setup()!!!";
+    
 }
 
 //--------------------------------------------------------------

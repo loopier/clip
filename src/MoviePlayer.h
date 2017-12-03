@@ -19,7 +19,7 @@ namespace loopier {
     typedef shared_ptr<Movie>       MoviePtr;
     typedef map<string, MoviePtr>   MovieMap;
     
-    extern MovieMap     movies;     // list of all available movie files
+    extern MovieMap     moviemap;     // list of all available movie files
     
     class MoviePlayer: public BasePlayer{
         
@@ -65,7 +65,7 @@ namespace loopier {
     // *                                                                       *
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     
-    bool    loadMovies(string path);
+    bool    loadMoviesDeprecated(string path);
     void    listMovieNames();
     
 }

@@ -8,7 +8,7 @@
 
 #include "CameraPlayer.h"
 
-loopier::CameraMap loopier::cameras;
+loopier::CameraMap loopier::cameramap;
 
 //---------------------------------------------------------
 loopier::CameraPlayer::CameraPlayer()
@@ -103,35 +103,35 @@ loopier::Camera loopier::CameraPlayer::getCamera() const
 //---------------------------------------------------------
 bool loopier::setupCameras()
 {
-    ofVideoGrabber vidGrabber;
-    vector<ofVideoDevice> devices = vidGrabber.listDevices();
-    
-    for (int i = 0; i < devices.size(); i++) {
-        CameraPtr cam(new Camera(vidGrabber));
-        cam->setDeviceID(i);
-        cam->initGrabber(ofGetWidth(), ofGetHeight());
-        loopier::cameras["camera"+ofToString(i)] = cam;
-    }
-    
-    return loopier::cameras.size();
+//    ofVideoGrabber vidGrabber;
+//    vector<ofVideoDevice> devices = vidGrabber.listDevices();
+//    
+//    for (int i = 0; i < devices.size(); i++) {
+//        CameraPtr cam(new Camera(vidGrabber));
+//        cam->setDeviceID(i);
+//        cam->initGrabber(ofGetWidth(), ofGetHeight());
+//        loopier::cameras["camera"+ofToString(i)] = cam;
+//    }
+//    
+//    return loopier::cameras.size();
 }
 
 //---------------------------------------------------------
 void loopier::listCameras()
 {
-    string msg = "Number of cameras:\t" + ofToString(loopier::cameras.size());
-    loopier::CameraMap::iterator it;
-    for (it = loopier::cameras.begin(); it != loopier::cameras.end(); ++it) {
-        msg += "\n\t" + it->first;
-    }
-    
-    ofLogNotice() << msg;
+//    string msg = "Number of cameras:\t" + ofToString(loopier::cameras.size());
+//    loopier::CameraMap::iterator it;
+//    for (it = loopier::cameras.begin(); it != loopier::cameras.end(); ++it) {
+//        msg += "\n\t" + it->first;
+//    }
+//    
+//    ofLogNotice() << msg;
 }
 
 //---------------------------------------------------------
 loopier::CameraPtr  loopier::getCameraByName(string name)
 {
-    return loopier::cameras.find(name)->second;
+//    return loopier::cameras.find(name)->second;
 }
 
 
