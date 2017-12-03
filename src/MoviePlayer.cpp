@@ -88,13 +88,13 @@ float loopier::MoviePlayer::getHeight() const
 }
 
 //---------------------------------------------------------
-ofTexture & loopier::MoviePlayer::getTexture() const
+ofTexture & loopier::MoviePlayer::getTexture()
 {
     return movie->getTexture();
 }
 
 //---------------------------------------------------------
-ofPixels & loopier::MoviePlayer::getPixels() const
+ofPixels & loopier::MoviePlayer::getPixels()
 {
     return movie->getPixels();
 }

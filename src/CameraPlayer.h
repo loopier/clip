@@ -29,6 +29,7 @@ namespace loopier {
         
         void    setup();
         void    update();
+        void    draw();
         void    draw(float x, float y, float w, float h);
         void    exit();
         
@@ -36,8 +37,8 @@ namespace loopier {
         
         float       getWidth() const;
         float       getHeight() const;
-        ofTexture & getTexture() const;
-        ofPixels &  getPixels() const;
+        ofTexture & getTexture();
+        ofPixels &  getPixels();
         
         Camera  getCamera() const;
     private:

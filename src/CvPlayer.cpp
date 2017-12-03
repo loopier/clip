@@ -19,12 +19,16 @@ namespace {
 loopier::cv::CvPlayer::CvPlayer()
 : bVisible(true)
 , bDrawContours(true)
+, threshold(200)
+, minArea(10.0)
+, maxArea(200)
+, holes(true)
 {
-    inputImage = make_shared<ofImage>();
-    outputImage = make_shared<ofImage>();
-    inputImage->allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
-    outputImage->allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
+    inputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
+    outputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
     maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+    cam.setup(ofGetWidth(), ofGetHeight());
+    outputImage.load("mama.png");
 }
 
 loopier::cv::CvPlayer::~CvPlayer()
@@ -40,33 +44,40 @@ void loopier::cv::CvPlayer::setup(){
 
 //---------------------------------------------------------
 void loopier::cv::CvPlayer::update(){
-    if (!bVisible)       return;
-    if (!inputPlayer)   return;
+//    if (!bVisible)       return;
+//    if (!inputPlayer)   return;
     
     // TODO: draw contourFinder.minAreaRect like in https://github.com/kylemcdonald/ofxCv/blob/master/example-contours-advanced/src/ofApp.cpp
-    inputImage->setFromPixels(inputPlayer->getPixels());
-    contourFinder.findContours(*inputImage);
+//    inputImage.setFromPixels(inputPlayer->getPixels());
+    if(!cam.isFrameNew()) return;
+    contourFinder.setMinAreaRadius(minArea);
+    contourFinder.setMaxAreaRadius(maxArea);
+    contourFinder.setThreshold(threshold);
+    contourFinder.findContours(cam);
+    contourFinder.setFindHoles(holes);
 
     //    contourFinder.setFindHoles(holes);
 
     // Create a mask with the blobs    
-    vector<ofPolyline> polys = contourFinder.getPolylines();
-    maskFbo.begin();
-    ofClear(255,255,255,0);
-    ofSetColor(255, 255, 255);
-    for (int i = 0; i < polys.size(); i++) {
-        ofPolyline poly = polys.at(i);
-        ofBeginShape();
-        for( int i = 0; i < poly.getVertices().size(); i++) {
-            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
-        }
-        ofEndShape();
-    }
-    maskFbo.end();
-    
-    ofPixels pixels;
-    maskFbo.readToPixels(pixels);
-    outputImage->setFromPixels(pixels);
+//    vector<ofPolyline> polys = contourFinder.getPolylines();
+//    maskFbo.begin();
+//    ofClear(255,255,255,0);
+//    ofPushStyle();
+//    ofSetColor(255, 255, 255);
+//    for (int i = 0; i < polys.size(); i++) {
+//        ofPolyline poly = polys.at(i);
+//        ofBeginShape();
+//        for( int i = 0; i < poly.getVertices().size(); i++) {
+//            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+//        }
+//        ofEndShape();
+//    }
+//    ofPopStyle();
+//    maskFbo.end();
+//    
+//    ofPixels pixels;
+//    maskFbo.readToPixels(pixels);
+//    outputImage.setFromPixels(pixels);
     
 }
 
@@ -74,14 +85,20 @@ void loopier::cv::CvPlayer::update(){
 void loopier::cv::CvPlayer::draw(float x, float y, float w, float h)
 {
     if (!bVisible)   return;
-    outputImage->draw(x, y, w, h);
+//    outputImage.draw(x, y, w, h);
     if (bDrawContours)  contourFinder.draw();
+    ofSetColor(255,255,255,255);
+    cam.draw(0,0);
+    contourFinder.draw();
 }
 
 //---------------------------------------------------------
 void loopier::cv::CvPlayer::draw()
 {
-    draw(anchor.x, anchor.y, getWidth(), getHeight());
+//    draw(anchor.x, anchor.y, getWidth(), getHeight());
+//    ofSetColor(255);
+    outputImage.draw(0,0);
+    contourFinder.draw();
 }
 
 //---------------------------------------------------------
@@ -92,13 +109,13 @@ void loopier::cv::CvPlayer::exit(){
 //---------------------------------------------------------
 float loopier::cv::CvPlayer::getWidth() const
 {
-    return outputImage->getWidth();
+    return outputImage.getWidth();
 }
 
 //---------------------------------------------------------
 float loopier::cv::CvPlayer::getHeight() const
 {
-    return outputImage->getHeight();
+    return outputImage.getHeight();
 }
 
 //---------------------------------------------------------
@@ -108,22 +125,22 @@ bool loopier::cv::CvPlayer::loadResource(string resourcename)
 }
 
 //---------------------------------------------------------
-ofTexture & loopier::cv::CvPlayer::getTexture() const
+ofTexture & loopier::cv::CvPlayer::getTexture()
 {
-    return outputImage->getTexture();
+    return outputImage.getTexture();
 }
 
 //---------------------------------------------------------
-ofPixels & loopier::cv::CvPlayer::getPixels() const
+ofPixels & loopier::cv::CvPlayer::getPixels()
 {
-    return outputImage->getPixels();
+    return outputImage.getPixels();
 }
 
 //---------------------------------------------------------
 void loopier::cv::CvPlayer::setInputPlayer(PlayerPtr player)
 {
     inputPlayer = player;
-    outputImage->setFromPixels(player->getPixels());
+//    outputImage.setFromPixels(player->getPixels());
 }
 
 //---------------------------------------------------------

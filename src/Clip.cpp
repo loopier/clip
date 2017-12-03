@@ -48,6 +48,7 @@ void loopier::Clip::setup()
 {
     sequenceOrder.push_back(0);
     player->setLoopState(loopState);
+    outputFbo.allocate(player->getWidth(), player->getHeight());
 //    reset();
 }
 
@@ -56,12 +57,22 @@ void loopier::Clip::update()
 {
 //    if (bPlaySequence) updateSequence();
     player->update();
-    renderTexture = player->getTexture();
+    //    renderTexture = player->getTexture();
+    
+    width = player->getWidth();
+    height = player->getHeight();
+    
+    outputFbo.begin();
+    ofClear(0);
+    player->draw();
+    outputFbo.end();
+    
     
     if (bMask)  {
-        renderTexture.setAlphaMask(maskPlayer->getTexture());
+        outputFbo.getTexture().setAlphaMask(maskPlayer->getTexture());
+        
     } else {
-        renderTexture.disableAlphaMask();
+        outputFbo.getTexture().disableAlphaMask();
     }
 }
 
@@ -69,9 +80,6 @@ void loopier::Clip::update()
 void loopier::Clip::draw()
 {
     if (!bVisible) return;
-    
-    width = player->getWidth();
-    height = player->getHeight();
     
     ofSetColor(color);
     
@@ -81,9 +89,9 @@ void loopier::Clip::draw()
         int fw = ofGetWidth() * ofSign(scaleX);
         int fh = ofGetHeight() * ofSign(scaleY);
         
-        renderTexture.draw(fx, fy, fw, fh);
+        outputFbo.draw(fx, fy, fw, fh);
     } else {
-        renderTexture.draw(x, y, width, height);
+        outputFbo.draw(x, y, width, height);
         if (bDrawName)  ofDrawBitmapString(name, x, y);
     }
 }

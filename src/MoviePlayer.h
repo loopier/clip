@@ -41,8 +41,8 @@ namespace loopier {
         
         float       getWidth() const;
         float       getHeight() const;
-        ofTexture & getTexture() const;
-        ofPixels &  getPixels() const;
+        ofTexture & getTexture();
+        ofPixels &  getPixels();
         
         float   getDuration() const;
         

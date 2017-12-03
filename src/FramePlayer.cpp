@@ -111,13 +111,13 @@ float loopier::FramePlayer::getHeight() const
 }
 
 //---------------------------------------------------------
-ofTexture & loopier::FramePlayer::getTexture() const
+ofTexture & loopier::FramePlayer::getTexture()
 {
     return frames->at(0).getTexture();
 }
 
 //---------------------------------------------------------
-ofPixels & loopier::FramePlayer::getPixels() const
+ofPixels & loopier::FramePlayer::getPixels()
 {
     return frames->at(0).getPixels();
 }

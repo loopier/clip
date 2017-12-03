@@ -36,6 +36,14 @@ void loopier::CameraPlayer::update()
 }
 
 //---------------------------------------------------------
+void loopier::CameraPlayer::draw()
+{
+    if (!camera)    return;
+    camera->draw(0,0);
+    
+}
+
+//---------------------------------------------------------
 void loopier::CameraPlayer::draw(float x, float y, float w, float h)
 {
     if (!camera)    return;
@@ -68,13 +76,13 @@ float loopier::CameraPlayer::getHeight() const
 }
 
 //---------------------------------------------------------
-ofTexture & loopier::CameraPlayer::getTexture() const
+ofTexture & loopier::CameraPlayer::getTexture()
 {
     return camera->getTexture();
 }
 
 //---------------------------------------------------------
-ofPixels & loopier::CameraPlayer::getPixels() const
+ofPixels & loopier::CameraPlayer::getPixels()
 {
     return camera->getPixels();
 }

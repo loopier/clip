@@ -22,7 +22,7 @@ namespace loopier {
         
         virtual     void                setup();
         virtual     void                update() = 0;
-        virtual     void                draw(float x, float y, float w, float h) = 0;
+        virtual     void                draw() = 0;
         virtual     void                exit();
         
         
@@ -39,8 +39,8 @@ namespace loopier {
         virtual     void                setHeight(float h);
         virtual     float 				getWidth() const;
         virtual     float 				getHeight() const;
-        virtual     ofTexture &         getTexture() const = 0;
-        virtual     ofPixels &          getPixels() const = 0;
+        virtual     ofTexture &         getTexture() = 0;
+        virtual     ofPixels &          getPixels() = 0;
         
         virtual     bool				isPaused() const;
         virtual     bool				isLoaded() const;

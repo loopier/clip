@@ -39,8 +39,8 @@ namespace loopier {
             float getHeight() const;
             
             bool        loadResource(string resourcename);
-            ofTexture & getTexture() const;
-            ofPixels  & getPixels() const;
+            ofTexture & getTexture();
+            ofPixels  & getPixels();
             
             void setInputPlayer(PlayerPtr player); //
 
@@ -50,15 +50,22 @@ namespace loopier {
 
         private:
             PlayerPtr   inputPlayer; // image to be processed
-            ImagePtr    inputImage; // to be passed to ofxCv methods
-            ImagePtr    outputImage; 
+            ofImage     inputImage; // to be passed to ofxCv methods
+            ofImage     outputImage;
             ofFbo       maskFbo;    // just the blobs
+            ofVideoGrabber cam;
             
             ofPixels    pixels;
             ofTexture   texture;
 
             bool    bVisible;
             bool    bDrawContours;
+            
+            float   threshold;
+            float   minArea;
+            float   maxArea;
+            float   holes;
+            
         };
 
         typedef shared_ptr<CvPlayer> CvPlayerPtr;
