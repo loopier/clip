@@ -16,10 +16,12 @@ namespace {
     string  resourceFilesPath  = "";
     
     // clips
-    loopier::ClipMap        clips; // all clips that have been created
-    loopier::MovieMap       movies; // movies in resources folder
-    loopier::FrameListMap   frames; // frame sequences in resources folder
-    loopier::CameraMap      cameras;
+    loopier::ClipMap            clips;      // all clips that have been created
+    loopier::PlayerMap          players;    // all players
+    loopier::MovieMap           movies;     // movies in resources folder
+    loopier::FrameListMap       frames;     // frame sequences in resources folder
+    loopier::CameraMap          cameras;    // cameras plugged
+    loopier::cv::CvPlayerPtr    cvplayer(new loopier::cv::CvPlayer());   // just one instance for all the application
     
     // images
     vector<ofImage> framebuffer;    // temporary buffer to hold images to be saved
@@ -99,6 +101,18 @@ namespace {
         
         ofLogVerbose() << "Loaded " << cameras.size() << " movie files";
     }
+    
+    void initializeCv()
+    {
+        // instance 'cvplayer' is local to this file and declared above
+        cvplayer->setup();
+        // create a new clip to hold the cv player
+        loopier::ClipPtr clip = loopier::newClip("cv");
+//        clip->setPlayer(cvplayer);
+        // create a camera clip to pass it as input to Cv
+        loopier::ClipPtr cameraclip = loopier::newClip(cameras.begin()->first, cameras.begin()->first);
+        loopier::cv::setInputClip(cameras.begin()->first);
+    }
 } // namesapce
 
 
@@ -108,9 +122,11 @@ namespace loopier {
         
         void init()
         {
+            // local helpers declared above in unnamed namespace
             loadFrameLists();
             loadMovies();
             initializeCameras();
+            initializeCv();
             loopier::resource::listAll();
         }
     }   // namespace app
@@ -174,15 +190,31 @@ namespace loopier {
                 cam->setCamera(cameras[resourcename]);
                 player = cam;
                 logMsg += "camera";
+            } else if (resourcename == "cv") {
+                // instance 'cvplayer' is local to this file and declared above
+                player = cvplayer;
+                clip->setPlayer(cvplayer);
+                logMsg += "cv";
             } else { // if it's a FramePlayer or it doesn't exist create a FramePlayer
                 player = make_shared<MoviePlayer>();
                 logMsg += "frame";
             }
             // set clip's player
-            clip->setPlayer(player);
-            clip->setup();
+            player->setup();
+//            clip->setPlayer(player);
+            clip->setup(player);
             clips[clipname] = clip;
             ofLogVerbose() << "Creating cilp: " << clipname;
+        }
+        
+        // CV
+        void setCvInput(string clipname)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!exists(clipname)) return;
+            ClipPtr clip = getClip(clipname);
+            cvplayer->setInputPlayer( clip->getPlayer() );
+            clip->hide();
         }
         
         void saveImages(string clipname) // TODO: Save images
@@ -197,6 +229,18 @@ namespace loopier {
             ofLogNotice() << clips.size() << " available clips";
             for (const auto &item : clips) {  ofLogNotice() << "\t" << item.first; }
 //            ofLogNotice() << clips.begin()->first;
+        }
+        
+        bool exists(string clipname)
+        {
+            bool b = clips.count(clipname);
+            if (!b) ofLogVerbose() << "No clip found: " << clipname;
+            return b;
+        }
+        
+        loopier::ClipPtr getClip(string clipname)
+        {
+            return clips.find(clipname)->second;
         }
     } // namespace clip
 }

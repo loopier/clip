@@ -15,6 +15,7 @@
 #include "BasePlayer.h"
 
 namespace loopier {
+    // TODO: Remove namespace 'cv'
     namespace cv{
         
         /// !!!:    Clumsy!  Won't compile if getPixels() and getTexture() don't

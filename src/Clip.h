@@ -27,7 +27,7 @@ namespace loopier {
         Clip (string & clipname, string & resourcename);
         virtual ~Clip();
         
-        void setup();
+        void setup(PlayerPtr aplayer);
         void update();
         void draw();
         void exit();

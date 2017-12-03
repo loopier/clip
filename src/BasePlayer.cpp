@@ -8,7 +8,7 @@
 
 #include "BasePlayer.h"
 
-loopier::PlayerMap  loopier::players;
+loopier::PlayerMap  loopier::playermap;
 
 loopier::BasePlayer::BasePlayer()
 : name("default")
@@ -271,17 +271,17 @@ void    loopier::BasePlayer::setAnchorPercent(float x, float y)
 //---------------------------------------------------------
 void loopier::addPlayer(PlayerPtr player)
 {
-    players[player->getName()] = player;
+    playermap[player->getName()] = player;
     ofLogVerbose() << "Adding player: " << player->getName();
-    ofLogNotice() << "Number of players:\t" + ofToString(loopier::players.size());
+    ofLogNotice() << "Number of players:\t" + ofToString(loopier::playermap.size());
 }
 
 //---------------------------------------------------------
 void loopier::listPlayers()
 {
-    string msg = "Number of players:\t" + ofToString(loopier::players.size());
+    string msg = "Number of players:\t" + ofToString(loopier::playermap.size());
     loopier::PlayerMap::iterator it;
-    for (it = loopier::players.begin(); it != loopier::players.end(); ++it) {
+    for (it = loopier::playermap.begin(); it != loopier::playermap.end(); ++it) {
         msg += "\n\t" + it->first;
     }
     
@@ -291,6 +291,6 @@ void loopier::listPlayers()
 //---------------------------------------------------------
 loopier::PlayerPtr  loopier::getPlayerByName(string name)
 {
-    return loopier::players.find(name)->second;
+    return loopier::playermap.find(name)->second;
 }
 

@@ -98,7 +98,7 @@ namespace loopier {
     typedef vector<PlayerPtr>           PlayerList;
     typedef map<string, PlayerPtr>      PlayerMap;
     
-    extern  PlayerMap   players;
+    extern  PlayerMap   playermap;
     
     void        addPlayer(PlayerPtr player);
     void        listPlayers();

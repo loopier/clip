@@ -46,11 +46,12 @@ loopier::Clip::~Clip(){
 }
 
 //---------------------------------------------------------------------------
-void loopier::Clip::setup()
+void loopier::Clip::setup(PlayerPtr aplayer)
 {
     sequenceOrder.push_back(0);
-    player->setLoopState(loopState);
-    outputFbo.allocate(player->getWidth(), player->getHeight());
+    aplayer->setLoopState(loopState);
+    outputFbo.allocate(aplayer->getWidth(), aplayer->getHeight());
+    setPlayer(aplayer);
 //    reset();
 }
 
@@ -429,10 +430,10 @@ loopier::ClipPtr loopier::newClip(string clipname)
 //---------------------------------------------------------------------------
 loopier::ClipPtr loopier::newClip(string clipname, string filename)
 {
-    loopier::ClipPtr clip(new loopier::Clip(clipname, filename));
-    clip->setup();
-    clipmap[clip->getName()] = clip;
-    return clip;
+//    loopier::ClipPtr clip(new loopier::Clip(clipname, filename));
+//    clip->setup();
+//    clipmap[clip->getName()] = clip;
+//    return clip;
 }
 //---------------------------------------------------------------------------
 void loopier::removeClip(const string& clipname)

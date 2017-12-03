@@ -429,7 +429,7 @@ void loopier::MessageMapper::setCvHoles(const Message & msg)
 //---------------------------------------------------------
 void loopier::MessageMapper::setCvInputClip(const Message & msg)
 {
-    loopier::cv::setInputClip(msg.getArgAsString(0));
+    loopier::clip::setCvInput(msg.getArgAsString(0));
 }
 
 

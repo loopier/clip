@@ -25,7 +25,7 @@ loopier::MoviePlayer::~MoviePlayer()
 
 //---------------------------------------------------------
 void loopier::MoviePlayer::setup(){
-    
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
 }
 
 //---------------------------------------------------------

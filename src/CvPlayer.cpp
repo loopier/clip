@@ -24,9 +24,7 @@ loopier::cv::CvPlayer::CvPlayer()
 , maxArea(200)
 , bHoles(true)
 {
-    outputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
-    maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
-    outputImage.load("mama.png");
+    
 }
 
 loopier::cv::CvPlayer::~CvPlayer()
@@ -35,9 +33,11 @@ loopier::cv::CvPlayer::~CvPlayer()
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::setup(){
-
-    //    maskFbo.allocate(cam.getWidth(), cam.getHeight());
+void loopier::cv::CvPlayer::setup()
+{
+    outputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
+    maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+    outputImage.load("mama.png");
 }
 
 //---------------------------------------------------------

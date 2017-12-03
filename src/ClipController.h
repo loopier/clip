@@ -38,6 +38,9 @@ namespace loopier {
         // \brief   Adds a frame to a (Frame)clip
         void    addFrame(ofImage & img);
         
+        // \brief   Sets the given clip as the source for Cv
+        void    setCvInput(string clipname);
+        
         //  \brief  Saves clip's images (frames) to a folder named after the clip
         //  \param  clipname    String      Name of the clip to be saved.  Will be used to
         //                                  find the directory or to create it (defaults to '+tmp'
@@ -45,7 +48,9 @@ namespace loopier {
         void    saveImages(string clipname = "+tmp");
         
         // \brief   Prints all clip names to console
-        void listAll();
+        void    listAll();
+        bool    exists(string clipname);
+        ClipPtr getClip(string clipname);
     }
 }
 
