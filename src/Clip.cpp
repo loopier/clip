@@ -36,6 +36,8 @@ loopier::Clip::Clip(string& clipname, string& resourcename)
 , bMask(false)
 {
 //    setResource(resourcename);
+    ofAddListener(ofEvents().update, this, &Clip::update);
+    ofAddListener(ofEvents().draw, this, &Clip::draw);
 }
 
 //---------------------------------------------------------
@@ -92,6 +94,18 @@ void loopier::Clip::draw()
         if (bDrawName)  ofDrawBitmapString(name, x, y);
     }
     ofPopStyle();
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::update(ofEventArgs& e)
+{
+    update();
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::draw(ofEventArgs& e)
+{
+    draw();
 }
 
 //---------------------------------------------------------------------------

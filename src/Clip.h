@@ -31,6 +31,8 @@ namespace loopier {
         void update();
         void draw();
         void exit();
+        void update(ofEventArgs& e); // automatic update
+        void draw(ofEventArgs& e);  // automatic draw
         
         /// \brief  Resets clip to the default state
         void reset();

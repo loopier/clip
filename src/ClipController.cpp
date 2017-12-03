@@ -80,7 +80,6 @@ namespace {
             movies[files[i].getBaseName()] = movie;
         }
         
-        ofLogVerbose() << "* * * * * * * * * * * * * * * * \t" << movies.size();
         ofLogVerbose() << "Loaded " << movies.size() << " movie files";
     }
     
@@ -96,10 +95,8 @@ namespace {
             // Get las word of the name
             string name = ofSplitString(devices[i].deviceName, " ").back();
             cameras[name] = cam;
-            ofLogVerbose() << "* * * * * * * * * * * * * * * * \t" << cameras.size();
         }
         
-        ofLogVerbose() << "* * * * * * * * * * * * * * * * \t" << cameras.size();
         ofLogVerbose() << "Loaded " << cameras.size() << " movie files";
     }
 } // namesapce
