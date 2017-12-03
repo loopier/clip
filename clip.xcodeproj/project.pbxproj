@@ -57,6 +57,7 @@
 		CCAF7622973DABAB7ACE8634 /* OscManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D110A575A8CA4CF91ECCBDF7 /* OscManager.cpp */; };
 		D3301F6A0B43BB293ED97C1D /* ofxCvShortImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A4DD23693DFAB8EC05FAA5D /* ofxCvShortImage.cpp */; };
 		DB0FE6AC1FD1968F002BBFAC /* CvPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB0FE6AA1FD1968F002BBFAC /* CvPlayer.cpp */; };
+		DB10A5CD1FD45C2C0032FC67 /* ClipController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB10A5CB1FD45C2C0032FC67 /* ClipController.cpp */; };
 		DB647EDD1FCD860A00F3023B /* MessageMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB647EDB1FCD860A00F3023B /* MessageMapper.cpp */; };
 		DB6E390A1FC7302C0016954C /* FramePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB6E39081FC7302C0016954C /* FramePlayer.cpp */; };
 		DB99396D1FCEEF5A0089A2DF /* CameraPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB99396B1FCEEF5A0089A2DF /* CameraPlayer.cpp */; };
@@ -356,6 +357,8 @@
 		DB0CD4C938C079DCD67222FE /* imatrix.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = imatrix.h; path = ../../../addons/ofxCv/libs/CLD/include/CLD/imatrix.h; sourceTree = SOURCE_ROOT; };
 		DB0FE6AA1FD1968F002BBFAC /* CvPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CvPlayer.cpp; sourceTree = "<group>"; };
 		DB0FE6AB1FD1968F002BBFAC /* CvPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CvPlayer.h; sourceTree = "<group>"; };
+		DB10A5CB1FD45C2C0032FC67 /* ClipController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClipController.cpp; sourceTree = "<group>"; };
+		DB10A5CC1FD45C2C0032FC67 /* ClipController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipController.h; sourceTree = "<group>"; };
 		DB647EDB1FCD860A00F3023B /* MessageMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MessageMapper.cpp; sourceTree = "<group>"; };
 		DB647EDC1FCD860A00F3023B /* MessageMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMapper.h; sourceTree = "<group>"; };
 		DB6E39081FC7302C0016954C /* FramePlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FramePlayer.cpp; sourceTree = "<group>"; };
@@ -1203,6 +1206,8 @@
 				BB79A53F3B94B89DA0650682 /* OscManager.h */,
 				DB647EDB1FCD860A00F3023B /* MessageMapper.cpp */,
 				DB647EDC1FCD860A00F3023B /* MessageMapper.h */,
+				DB10A5CB1FD45C2C0032FC67 /* ClipController.cpp */,
+				DB10A5CC1FD45C2C0032FC67 /* ClipController.h */,
 				DBDC4C4A1FCB06B700C02CC3 /* Clip.cpp */,
 				DBDC4C4B1FCB06B700C02CC3 /* Clip.h */,
 				DBDC4C471FCAEA9B00C02CC3 /* BasePlayer.cpp */,
@@ -1417,6 +1422,7 @@
 				D3301F6A0B43BB293ED97C1D /* ofxCvShortImage.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
+				DB10A5CD1FD45C2C0032FC67 /* ClipController.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				DBDC4C501FCB17A300C02CC3 /* MoviePlayer.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
