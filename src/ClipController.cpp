@@ -97,7 +97,7 @@ namespace {
         for (int i = 0; i < devices.size(); i++) {
             loopier::CameraPtr cam(new loopier::Camera());
             cam->setDeviceID(i);
-            cam->initGrabber(ofGetWidth(), ofGetHeight());
+//            cam->initGrabber(ofGetWidth(), ofGetHeight());
             // Get las word of the name
             string name = ofSplitString(devices[i].deviceName, " ").back();
             cameras[name] = cam;
@@ -106,6 +106,8 @@ namespace {
             loopier::CameraPlayerPtr cameraplayer(new loopier::CameraPlayer(cam));
             cameraplayers[name + "-player"] = cameraplayer;
         }
+        
+        for (const auto &cam : cameras) cam.second->initGrabber(ofGetWidth(), ofGetHeight());
         
         ofLogVerbose() << "Loaded " << cameras.size() << " movie files";
     }
@@ -152,7 +154,7 @@ namespace loopier {
             // local helpers declared above in unnamed namespace
             loadFrameLists();
             loadMovies();
-//            initializeCameras(); // FIX: find a way to have them all on.
+            initializeCameras(); // FIX: find a way to have them all on.
 //                                 // now it collides with CvPlayer that uses it's own
 //                                 // ofVideoGrabber because I couldn't make it
 //                                 // work dynamically
@@ -230,6 +232,7 @@ namespace loopier {
             // cv
             else if (resourcename == "cv") {
                 loopier::CvPlayerPtr cvplayer(new loopier::CvPlayer());
+                cvplayer->setCamera(*cameras["C525"]);
                 clip->setup(cvplayer);
             }
             // camera
@@ -261,7 +264,9 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void removeClip(string clipname)
         {
-            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            // FIX: CRASHES APP
+//            if (!exists(clipname)) return;
+//            clips.erase(clipname);
         }
         
         // CV

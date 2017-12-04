@@ -37,6 +37,7 @@ namespace loopier {
             
             // \brief   Sets the camera device ID
             void setDeviceId(int n);
+            void setCamera(ofVideoGrabber & cam);
 
             float getWidth() const;
             float getHeight() const;

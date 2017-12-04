@@ -125,6 +125,12 @@ void loopier::CvPlayer::setDeviceId(int n)
 }
 
 //---------------------------------------------------------
+void loopier::CvPlayer::setCamera(ofVideoGrabber & cam)
+{
+    camera = cam;
+}
+
+//---------------------------------------------------------
 float loopier::CvPlayer::getWidth() const
 {
     return outputImage.getWidth();

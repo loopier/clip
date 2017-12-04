@@ -318,6 +318,8 @@ void loopier::Clip::setPlayer(loopier::PlayerPtr aPlayer)
 {
     ofLogVerbose() << __PRETTY_FUNCTION__;
     player = aPlayer;
+    width = player->getWidth();
+    height = player->getHeight();
 }
 
 
