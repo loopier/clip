@@ -82,9 +82,6 @@ namespace loopier {
         void        setPlayer(PlayerPtr aPlayer);
         PlayerPtr   getPlayer() const;
         
-        // \brief   Sets a secondary player, that may be used by main player
-        void        setSecondaryPlayer(PlayerPtr aPlayer);
-        
     private:
         PlayerPtr   player;     // TODO: Should be a vector of players
         PlayerPtr   maskPlayer; // a player used as a mask

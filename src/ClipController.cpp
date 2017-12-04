@@ -23,11 +23,10 @@ namespace {
     loopier::CameraMap          cameras;    // cameras plugged
     
     map<string, loopier::CameraPlayerPtr>   cameraplayers;
-    map<string, loopier::CvPlayerPtr>       cvplayers;
     
     // images
     vector<ofImage> framebuffer;    // temporary buffer to hold images to be saved
-    // used by image saving functions
+                                    // used by image saving functions
     
     // * * * HELPER FUNCTIONS LOCAL TO THIS FILE * * * * * * * * * * * * * * * * * * * * *
     
@@ -68,7 +67,7 @@ namespace {
         }
         
         ofLogVerbose() << "Loaded " << frames.size() << " frame lists";
-//        ofExit();
+        //        ofExit();
     }
     
     //---------------------------------------------------------------------------
@@ -111,6 +110,35 @@ namespace {
         ofLogVerbose() << "Loaded " << cameras.size() << " movie files";
     }
     
+    //---------------------------------------------------------------------------
+    loopier::ClipPtr initializeCv()
+    {
+        if (cameras.size() <= 0) return;    // needs to provide a camera to the cv player constructor
+        
+        // FIX: now sets first camera -- should set any camera.  Something like this:
+        string cameraname = cameras.begin()->first;
+        // get camera from cameraplayers map
+//        loopier::CameraPlayerPtr cameraplayer = cameraplayers[cameraname+"-player"];
+//        // the cv player itself
+//        loopier::CvPlayerPtr cvplayer( new loopier::CvPlayer(cameraplayer) );
+        
+        //  DOESN'T WORK -- although it was temporary -- cam does not render if played from cvplayer
+//        loopier::CameraPlayerPtr cameraplayer = cameraplayers.begin()->second;
+//        loopier::CvPlayerPtr cvplayer( new loopier::CvPlayer(cameraplayer) );
+        
+        // !!!: REMOVE -- this is a temporary solution
+        loopier::CvPlayerPtr cvplayer(new loopier::CvPlayer());
+        
+        string clipname = "cv";
+        loopier::ClipPtr clip(new loopier::Clip(clipname, cameraname));
+        clip->setup(cvplayer);
+        clip->setPlayer(cvplayer);
+        clips[clipname] = clip;
+        ofLogVerbose() << "Created cilp: [cv]\t'" << clipname << "' using '" <<cameraname << "'";
+        return clip;
+        //                resourcename = cameraclip->getName(); // used in log message
+    }
+    
 } // namesapce
 
 
@@ -124,7 +152,10 @@ namespace loopier {
             // local helpers declared above in unnamed namespace
             loadFrameLists();
             loadMovies();
-            initializeCameras();
+//            initializeCameras(); // FIX: find a way to have them all on.
+//                                 // now it collides with CvPlayer that uses it's own
+//                                 // ofVideoGrabber because I couldn't make it
+//                                 // work dynamically
 //            initializeCv();
             loopier::resource::listAll();
         }
@@ -198,30 +229,8 @@ namespace loopier {
             }
             // cv
             else if (resourcename == "cv") {
-                if (cameras.size() <= 0) return;    // needs to provide a camera to the cv player constructor
-                
-                // FIX: now sets first camera -- should set any camera.  Something like this:
-                string cameraname; // is either the name provided or the first on in the cameras map
-                resourcename == "cv"? cameraname = cameras.begin()->first : cameraname = resourcename;
-                // get camera from cameraplayers map
-                loopier::CameraPlayerPtr cameraplayer = cameraplayers[cameraname+"-player"];
-                // the cv player itself
-                loopier::CvPlayerPtr cvplayer( new CvPlayer(cameraplayer) );
-                
-                //  DOESN'T WORK -- although it was temporary -- cam does not render if played from cvplayer
-                //                loopier::CameraPlayerPtr cameraplayer = cameraplayers.begin()->second;
-                //                loopier::CvPlayerPtr cvplayer( new CvPlayer(cameraplayer) );
-                //                resourcename = "C525-player"; // used in log message
-                
-                // !!!: REMOVE -- this is a temporary solution
-                //                loopier::CvPlayerPtr cvplayer(new CvPlayer());
-                
+                loopier::CvPlayerPtr cvplayer(new loopier::CvPlayer());
                 clip->setup(cvplayer);
-                cliptype = "cv";
-                clips[clipname] = clip;
-                ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" <<cameraname << "'";
-                return clip;
-//                resourcename = cameraclip->getName(); // used in log message
             }
             // camera
             else if ( cameras.count(resourcename) > 0) {
@@ -240,8 +249,8 @@ namespace loopier {
             
             // doesn't exist -- create a frame clip with 'empty' (check frames folder)
             else {
-//                newClip(clipname, "empty");
-//                return;
+                //                newClip(clipname, "empty");
+                //                return;
             }
             
             clips[clipname] = clip;
@@ -260,20 +269,20 @@ namespace loopier {
         void setCvInput(string clipname)
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-//            if (!exists("cv"))      return; // there's no cv clip -- TODO: change if there'd be
+            //            if (!exists("cv"))      return; // there's no cv clip -- TODO: change if there'd be
             
             ClipPtr cvclip = getClip("cv");
             
-//            CameraPlayerPtr inputplayer = cameraplayers.begin()->second;
+            //            CameraPlayerPtr inputplayer = cameraplayers.begin()->second;
             
-//                                            // other instances of cv clips
-//            if (!exists(clipname))  return;
-//            ClipPtr inputclip = getClip(clipname);
-//            // cast from PlayerPtr to CvPlayerPtr -- note that
-//            // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
-//            CvPlayerPtr cvplayer = dynamic_pointer_cast<CvPlayer> (getClip("cv")->getPlayer());
-//            cvplayer->setInputPlayer(inputclip->getPlayer());
-//            inputclip->hide(); // hides input clip
+            //                                            // other instances of cv clips
+            //            if (!exists(clipname))  return;
+            //            ClipPtr inputclip = getClip(clipname);
+            //            // cast from PlayerPtr to CvPlayerPtr -- note that
+            //            // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
+            //            CvPlayerPtr cvplayer = dynamic_pointer_cast<CvPlayer> (getClip("cv")->getPlayer());
+            //            cvplayer->setInputPlayer(inputclip->getPlayer());
+            //            inputclip->hide(); // hides input clip
         }
         
         //---------------------------------------------------------------------------
@@ -320,86 +329,86 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void toggleNames()
         {
-//            loopier::ClipMap::iterator it;
-//            for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
-//                (*it->second).toggleName();
-//            }
+            //            loopier::ClipMap::iterator it;
+            //            for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
+            //                (*it->second).toggleName();
+            //            }
         }
         
         //---------------------------------------------------------------------------
         void showNames()
         {
-//            loopier::ClipMap::iterator it;
-//            for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
-//                (*it->second).showName();
-//            }
+            //            loopier::ClipMap::iterator it;
+            //            for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
+            //                (*it->second).showName();
+            //            }
         }
         
         //---------------------------------------------------------------------------
         void hideNames()
         {
-//            loopier::ClipMap::iterator it;
-//            for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
-//                (*it->second).hideName();
-//            }
+            //            loopier::ClipMap::iterator it;
+            //            for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
+            //                (*it->second).hideName();
+            //            }
         }
         
         //---------------------------------------------------------------------------
         void playClip(const string clipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->play();
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->play();
         }
         
         //---------------------------------------------------------------------------
         void stopClip(const string clipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->stop();
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->stop();
         }
         
         //---------------------------------------------------------------------------
         void pauseClip(const string clipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->pause();
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->pause();
         }
         
         //---------------------------------------------------------------------------
         void setClipSpeed(const string clipname, const float speed)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->setSpeed(speed);
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->setSpeed(speed);
         }
         
         //---------------------------------------------------------------------------
         void setClipLoopState(const string clipname, const loopier::LoopType state)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->setLoopState(state);
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->setLoopState(state);
         }
         
         //---------------------------------------------------------------------------
         void setClipMask(const string clipname, const string maskclipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            if(!loopier::clipExists(maskclipname)) return;
-//            loopier::clipmap[clipname]->setMask( loopier::getClipByName(maskclipname)->getPlayer() );
-//            loopier::getClipByName(maskclipname)->hide();
+            //            if(!loopier::clipExists(clipname)) return;
+            //            if(!loopier::clipExists(maskclipname)) return;
+            //            loopier::clipmap[clipname]->setMask( loopier::getClipByName(maskclipname)->getPlayer() );
+            //            loopier::getClipByName(maskclipname)->hide();
         }
         
         //---------------------------------------------------------------------------
         void enableClipMask(const string clipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->maskOn();
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->maskOn();
         }
         
         //---------------------------------------------------------------------------
         void disableClipMask(const string clipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->maskOff();
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->maskOff();
         }
         
         //---------------------------------------------------------------------------
@@ -407,8 +416,8 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void resetClip(const string clipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->reset();
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->reset();
         }
         
         //---------------------------------------------------------------------------
@@ -416,8 +425,8 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void moveClipTo(const string clipname, const float x, const float y)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->setPosition(x, y);
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->setPosition(x, y);
         }
         
         //---------------------------------------------------------------------------
@@ -425,61 +434,61 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void scaleClip(const string clipname, const float scale)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->setScale(scale);
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->setScale(scale);
         }
         
         //---------------------------------------------------------------------------
         void setClipWidth(const string clipname, const float width)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->setScaleX(width);
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->setScaleX(width);
         }
         
         //---------------------------------------------------------------------------
         void setClipHeight(const string clipname, const float height)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->setScaleY(height);
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->setScaleY(height);
         }
         
         //---------------------------------------------------------------------------
         void scaleUpClip(const string clipname, const float amount)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            
-//            ClipPtr clip = loopier::clipmap[clipname];
-//            clip->setScale( clip->getScale() + amount );
+            //            if(!loopier::clipExists(clipname)) return;
+            //
+            //            ClipPtr clip = loopier::clipmap[clipname];
+            //            clip->setScale( clip->getScale() + amount );
         }
         
         //---------------------------------------------------------------------------
         void scaleDownClip(const string clipname, const float amount)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            
-//            ClipPtr clip = loopier::clipmap[clipname];
-//            clip->setScale( clip->getScale() - amount );
+            //            if(!loopier::clipExists(clipname)) return;
+            //
+            //            ClipPtr clip = loopier::clipmap[clipname];
+            //            clip->setScale( clip->getScale() - amount );
         }
         
         //---------------------------------------------------------------------------
         void resetClipScale(const string clipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->setScale(1.0);
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->setScale(1.0);
         }
         
         //---------------------------------------------------------------------------
         void setClipVFlip(const string clipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->flipV();
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->flipV();
         }
         
         //---------------------------------------------------------------------------
         void setClipHFlip(const string clipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->flipH();
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->flipH();
         }
         
         //---------------------------------------------------------------------------
@@ -487,8 +496,8 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void toggleFullscreenClip(const string clipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->toggleFullscreen();
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->toggleFullscreen();
         }
         
         //---------------------------------------------------------------------------
@@ -496,22 +505,22 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void toggleClipVisibility(const string clipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->toggleVisibility();
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->toggleVisibility();
         }
         
         //---------------------------------------------------------------------------
         void showClip(const string clipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->show();
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->show();
         }
         
         //---------------------------------------------------------------------------
         void hideClip(const string clipname)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->hide();
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->hide();
         }
         
         //---------------------------------------------------------------------------
@@ -519,48 +528,48 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void setClipColor(const string clipname, const string& color)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            
-//            vector<string> tokens = ofSplitString(color, ",", true, true);
-//            
-//            ofColor c;
-//            
-//            if (tokens.size() == 1) {
-//                c = ofColor(ofToFloat(tokens[0]) * 255);
-//            } else if (tokens.size() == 2) {
-//                c = ofColor(ofToFloat(tokens[0]) * 255);
-//                loopier::clipmap[clipname]->setAlpha(ofToFloat(tokens[1]));
-//            } else {
-//                c.r = ofToFloat(tokens[0]) * 255;
-//                c.g = ofToFloat(tokens[1]) * 255;
-//                c.b = ofToFloat(tokens[2]) * 255;
-//            }
-//            if (tokens.size() == 4) {
-//                loopier::clipmap[clipname]->setAlpha(ofToFloat(tokens[3]));
-//            }
-//            
-//            ofLogVerbose() << __PRETTY_FUNCTION__ << "\t" << c;
-//            
-//            loopier::clipmap[clipname]->setColor(c);
+            //            if(!loopier::clipExists(clipname)) return;
+            //
+            //            vector<string> tokens = ofSplitString(color, ",", true, true);
+            //
+            //            ofColor c;
+            //
+            //            if (tokens.size() == 1) {
+            //                c = ofColor(ofToFloat(tokens[0]) * 255);
+            //            } else if (tokens.size() == 2) {
+            //                c = ofColor(ofToFloat(tokens[0]) * 255);
+            //                loopier::clipmap[clipname]->setAlpha(ofToFloat(tokens[1]));
+            //            } else {
+            //                c.r = ofToFloat(tokens[0]) * 255;
+            //                c.g = ofToFloat(tokens[1]) * 255;
+            //                c.b = ofToFloat(tokens[2]) * 255;
+            //            }
+            //            if (tokens.size() == 4) {
+            //                loopier::clipmap[clipname]->setAlpha(ofToFloat(tokens[3]));
+            //            }
+            //            
+            //            ofLogVerbose() << __PRETTY_FUNCTION__ << "\t" << c;
+            //            
+            //            loopier::clipmap[clipname]->setColor(c);
         }
         
         void setClipColor(const string clipname, const ofColor & color)
         {
-//            loopier::clipmap[clipname]->setColor(color);
+            //            loopier::clipmap[clipname]->setColor(color);
         }
         
         void setClipColor(const string clipname, const float& grayscale)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            
-//            loopier::clipmap[clipname]->setColor(ofColor(grayscale * 255));
+            //            if(!loopier::clipExists(clipname)) return;
+            //            
+            //            loopier::clipmap[clipname]->setColor(ofColor(grayscale * 255));
         }
         
         //---------------------------------------------------------------------------
         void setClipAlpha(const string clipname, const float alpha)
         {
-//            if(!loopier::clipExists(clipname)) return;
-//            loopier::clipmap[clipname]->setAlpha(alpha);
+            //            if(!loopier::clipExists(clipname)) return;
+            //            loopier::clipmap[clipname]->setAlpha(alpha);
         }
     } // namespace clip
 }

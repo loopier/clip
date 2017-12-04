@@ -45,7 +45,7 @@ namespace loopier {
             ofTexture & getTexture();
             ofPixels  & getPixels();
             
-//            void setInputPlayer(PlayerPtr player); // REMOVE: -- MOVED TO BASEPLAYER CLASS
+//            void setInputPlayer(PlayerPtr player); // REMOVE: -- MOVED TO BASE CLASS
 
             void toggleVisibility();
             void show();
@@ -59,7 +59,7 @@ namespace loopier {
         private:
             ofVideoGrabber  camera; // TODO: get input from other clips -- didn't manage to make it work yet
             
-//            PlayerPtr   inputPlayer; // image to be processed -- MOVED TO BASEPLAYER CLASS
+//            PlayerPtr   inputPlayer; // image to be processed
             ofImage     outputImage;
             ofFbo       maskFbo;    // just the blobs
             
