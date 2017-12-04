@@ -19,6 +19,7 @@ namespace loopier {
     class BasePlayer{
         
     public:
+        virtual ~BasePlayer();
         
         virtual     void                setup();
         virtual     void                update() = 0;

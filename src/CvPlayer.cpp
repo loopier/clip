@@ -48,27 +48,34 @@ loopier::CvPlayer::~CvPlayer()
 //---------------------------------------------------------
 void loopier::CvPlayer::setup()
 {
-    outputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
-    maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
-    outputImage.load("mama.png");
+    setDeviceId(0);
+    
+    outputImage.allocate(camera.getWidth(), camera.getHeight(), OF_IMAGE_COLOR_ALPHA);
+    maskFbo.allocate(camera.getWidth(), camera.getHeight(), GL_RGBA);
 }
 
 //---------------------------------------------------------
 void loopier::CvPlayer::update(){
 //    if (!bVisible)       return;
-    if (!inputPlayer)   return;
+//    if (!inputPlayer)   return;
+    camera.update();
+    if (!camera.isFrameNew()) return;
+    
+    ofLogVerbose() << __PRETTY_FUNCTION__;
     
     // TODO: draw contourFinder.minAreaRect like in https://github.com/kylemcdonald/ofxCv/blob/master/example-contours-advanced/src/ofApp.cpp
     
     contourFinder.setMinAreaRadius(minArea);
     contourFinder.setMaxAreaRadius(maxArea);
     contourFinder.setThreshold(threshold);
-    contourFinder.findContours(inputPlayer->getPixels());
+//    contourFinder.findContours(inputPlayer->getPixels());
+    contourFinder.findContours(camera.getPixels());
     contourFinder.setFindHoles(bHoles);
 
-    outputImage.setFromPixels(inputPlayer->getPixels());
+    //    outputImage.setFromPixels(inputPlayer->getPixels());
+    outputImage.setFromPixels(camera.getPixels());
 
-    // Create a mask with the blobs    
+    // Create a mask with the blobs
     vector<ofPolyline> polys = contourFinder.getPolylines();
     maskFbo.begin();
     ofClear(255,255,255,0);
@@ -96,13 +103,28 @@ void loopier::CvPlayer::draw(float x, float y, float w, float h)
 //---------------------------------------------------------
 void loopier::CvPlayer::draw()
 {
-    outputImage.draw(0,0);
+//    outputImage.draw(0,0);
+//    maskFbo.draw(0,0);
+//    inputPlayer->draw();
+    ofSetColor(255);
+    ofDrawRectangle(100,100,200,200);
+    camera.draw(0,0);
     contourFinder.draw();
 }
 
 //---------------------------------------------------------
 void loopier::CvPlayer::exit(){
 
+}
+
+//---------------------------------------------------------
+void loopier::CvPlayer::setDeviceId(int n)
+{
+    // reset camera
+//    camera.close();
+    camera.setDeviceID(n);
+    camera.setDesiredFrameRate(60);
+    camera.initGrabber(ofGetWidth(), ofGetHeight());
 }
 
 //---------------------------------------------------------

@@ -49,6 +49,7 @@ namespace loopier {
         
         // \brief   Prints all clip names to console
         void    listAll();
+        // \brief   Checks if a clip exists
         bool    exists(string clipname);
         ClipPtr getClip(string clipname);
     }

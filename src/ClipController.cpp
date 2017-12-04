@@ -22,6 +22,9 @@ namespace {
     loopier::FrameListMap       frames;     // frame sequences in resources folder
     loopier::CameraMap          cameras;    // cameras plugged
     
+    map<string, loopier::CameraPlayerPtr>   cameraplayers;
+    map<string, loopier::CvPlayerPtr>       cvplayers;
+    
     // images
     vector<ofImage> framebuffer;    // temporary buffer to hold images to be saved
     // used by image saving functions
@@ -90,16 +93,21 @@ namespace {
         vector<ofVideoDevice> devices = vidGrabber.listDevices();
         
         for (int i = 0; i < devices.size(); i++) {
-            loopier::CameraPtr cam(new loopier::Camera(vidGrabber));
+            loopier::CameraPtr cam(new loopier::Camera());
             cam->setDeviceID(i);
             cam->initGrabber(ofGetWidth(), ofGetHeight());
             // Get las word of the name
             string name = ofSplitString(devices[i].deviceName, " ").back();
             cameras[name] = cam;
+            
+            // create a player from this camera
+            loopier::CameraPlayerPtr cameraplayer(new loopier::CameraPlayer(cam));
+            cameraplayers[name + "-player"] = cameraplayer;
         }
         
         ofLogVerbose() << "Loaded " << cameras.size() << " movie files";
     }
+    
 } // namesapce
 
 
@@ -140,6 +148,8 @@ namespace loopier {
             for (const auto &item : movies) {   ofLogNotice() << "\t" << item.first; }
             ofLogNotice() << "Number of cameras loaded: " << cameras.size();
             for (const auto &item : cameras) {  ofLogNotice() << "\t" << item.first; }
+            ofLogNotice() << "Number of cameras players loaded: " << cameraplayers.size();
+            for (const auto &item : cameraplayers) {  ofLogNotice() << "\t" << item.first; }
         }
         
         bool exists(string resourcename)
@@ -180,21 +190,31 @@ namespace loopier {
             else if ( cameras.count(resourcename) > 0) {
                 loopier::CameraPlayerPtr cameraplayer(new CameraPlayer(cameras[resourcename]));
                 clip->setup(cameraplayer);
+                cameraplayers[resourcename + "-player"] = cameraplayer;
                 cliptype = "camera";
             }
             
             // cv
             else if (resourcename == "cv") {
                 if (cameras.size() <= 0) return;    // needs to provide a camera to the cv player constructor
-                string cameraname; // is either the name provided or the first on in the cameras map
-                resourcename == "cv"? cameraname = cameras.begin()->first : cameraname = resourcename;
-                ClipPtr cameraclip = newClip("cv-cam", cameraname); // get first camera
-                PlayerPtr cameraplayer = clip->getPlayer();
-                loopier::CvPlayerPtr cvplayer( new CvPlayer(cameraplayer) );
-                // instance 'cvplayer' is local to this file and declared above
-//                player = cvplayer;
+                
+                // FIX: now sets first camera -- should set any camera.  Something like this:
+//                string cameraname; // is either the name provided or the first on in the cameras map
+//                resourcename == "cv"? cameraname = cameras.begin()->first : cameraname = resourcename;
+//                ClipPtr cameraclip = newClip("cv-cam", cameraname); // get first camera
+//                loopier::PlayerPtr cameraplayer = clip->getPlayer();
+                
+                //  DOESN'T WORK -- although it was temporary -- cam does not render if played from cvplayer
+//                loopier::CameraPlayerPtr cameraplayer = cameraplayers.at("C525-player");
+//                loopier::CvPlayerPtr cvplayer( new CvPlayer(cameraplayer) );
+//                resourcename = "C525-player"; // used in log message
+                
+                // !!!: REMOVE -- this is a temporary solution
+                loopier::CvPlayerPtr cvplayer(new CvPlayer());
+                
                 clip->setup(cvplayer);
                 cliptype = "cv";
+//                resourcename = cameraclip->getName(); // used in log message
             }
             
             // frame list
@@ -219,11 +239,19 @@ namespace loopier {
         void setCvInput(string clipname)
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-            if (!exists(clipname)) return;
-            ClipPtr clip = getClip(clipname);
-            // TODO: 'cvplayer' must be changed to clip["cv"] -- checking first that it exists!!
-//            cvplayer->setInputPlayer( clip->getPlayer() );
-            clip->hide();
+//            if (!exists("cv"))      return; // there's no cv clip -- TODO: change if there'd be
+            
+//            ClipPtr cvclip = getClip("cv");
+//            CameraPlayerPtr inputplayer = cameraplayers.begin()->second;
+            
+//                                            // other instances of cv clips
+//            if (!exists(clipname))  return;
+//            ClipPtr inputclip = getClip(clipname);
+//            // cast from PlayerPtr to CvPlayerPtr -- note that
+//            // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
+//            CvPlayerPtr cvplayer = dynamic_pointer_cast<CvPlayer> (getClip("cv")->getPlayer());
+//            cvplayer->setInputPlayer(inputclip->getPlayer());
+//            inputclip->hide(); // hides input clip
         }
         
         void saveImages(string clipname) // TODO: Save images
@@ -242,7 +270,7 @@ namespace loopier {
         bool exists(string clipname)
         {
             bool b = clips.count(clipname);
-            if (!b) ofLogVerbose() << "No clip found: " << clipname;
+            if (!b) ofLogVerbose() << __PRETTY_FUNCTION__ << "\tNo clip found: " << clipname;
             return b;
         }
         

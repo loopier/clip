@@ -23,7 +23,7 @@ namespace loopier {
         class CvPlayer: public BasePlayer {
 
         public:
-//            CvPlayer();  -- DIABLED (private)
+            CvPlayer();  // TODO: -- DIABLE: make private
             CvPlayer(PlayerPtr input);
             virtual ~CvPlayer();
 
@@ -34,6 +34,9 @@ namespace loopier {
             void draw();
             void draw(float x, float y, float w, float h);
             void exit();
+            
+            // \brief   Sets the camera device ID
+            void setDeviceId(int n);
 
             float getWidth() const;
             float getHeight() const;
@@ -54,6 +57,8 @@ namespace loopier {
             void setFindHoles(bool findHoles);
 
         private:
+            ofVideoGrabber  camera; // TODO: get input from other clips -- didn't manage to make it work yet
+            
             PlayerPtr   inputPlayer; // image to be processed
             ofImage     outputImage;
             ofFbo       maskFbo;    // just the blobs
@@ -67,7 +72,7 @@ namespace loopier {
             float   maxArea;
             float   bHoles;
             
-            CvPlayer(); // Disable default constructor.  You need to provide an input player
+//            CvPlayer(); // Disable default constructor.  You need to provide an input player
             
         };
 

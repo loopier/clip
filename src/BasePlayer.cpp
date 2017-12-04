@@ -26,6 +26,11 @@ loopier::BasePlayer::BasePlayer()
     
 }
 
+loopier::BasePlayer::~BasePlayer()
+{
+    
+}
+
 //---------------------------------------------------------
 void    loopier::BasePlayer::setup()
 {
