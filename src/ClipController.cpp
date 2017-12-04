@@ -159,6 +159,7 @@ namespace loopier {
 //                                 // ofVideoGrabber because I couldn't make it
 //                                 // work dynamically
 //            initializeCv();
+            clip::newClip("cv");
             loopier::resource::listAll();
         }
     }   // namespace app
