@@ -18,6 +18,13 @@ loopier::MoviePlayer::MoviePlayer()
     
 }
 
+loopier::MoviePlayer::MoviePlayer(loopier::MoviePtr mov)
+: BasePlayer()
+, movie(new Movie)
+{
+    movie->load(mov->getMoviePath());
+}
+
 loopier::MoviePlayer::~MoviePlayer()
 {
     
@@ -61,6 +68,13 @@ bool loopier::MoviePlayer::loadResource(string resourcename)
     ofLogVerbose() << "Finished loading '" << resourcename << "' movie files to '" << name << "' player";
     bLoaded = movie->isLoaded();
     return bLoaded;
+}
+
+//---------------------------------------------------------
+void loopier::MoviePlayer::load(string path)
+{
+    movie->load(path);
+    bLoaded = movie->isLoaded();
 }
 
 //---------------------------------------------------------

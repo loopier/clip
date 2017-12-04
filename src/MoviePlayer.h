@@ -25,6 +25,7 @@ namespace loopier {
         
     public:
         MoviePlayer();
+        MoviePlayer(MoviePtr mov);
         virtual ~MoviePlayer();
         
         void    setup();
@@ -35,6 +36,8 @@ namespace loopier {
         
         /// \brief  Copies frames from global map
         bool    loadResource(string resourcename);
+        /// \brief  Loads movie to be played
+        void    load(string path);
         
         void    play();
         void    stop();
