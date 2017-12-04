@@ -17,7 +17,9 @@
 namespace loopier {
     namespace app {
         // \brief   Sets everything up
-        void        init();
+        void    init();
+        // biref    Needed for controlling render order
+        void    draw();
     }
     
     namespace resource {
@@ -35,6 +37,9 @@ namespace loopier {
         // \brief   Creates a clip with the given resource
         ClipPtr newClip(string clipname, string resourcename);
         void    removeClip(string clipname);
+        
+        // \brief   Sets the order in which the clip will be drawn -- 0 is top; big numbers are at the bottom
+        void    setClipDrawOrder(string clipname, int position);
         
         // \brief   Adds a frame to a (Frame)clip
         void    addFrame(ofImage & img);

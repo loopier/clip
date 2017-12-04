@@ -43,6 +43,7 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/new"]                = &loopier::MessageMapper::newClip;
     messageMap["/loopier/clip/clip/remove"]             = &loopier::MessageMapper::removeClip;
     messageMap["/loopier/clip/clip/reset"]              = &loopier::MessageMapper::resetClip;
+    messageMap["/loopier/clip/clip/depth"]              = &loopier::MessageMapper::setClipDrawOrder;
     messageMap["/loopier/clip/clip/scaleup"]            = &loopier::MessageMapper::scaleUpClip;
     messageMap["/loopier/clip/clip/scaledown"]          = &loopier::MessageMapper::scaleDownClip;
     messageMap["/loopier/clip/clip/scale"]              = &loopier::MessageMapper::scaleClip;
@@ -191,6 +192,12 @@ void loopier::MessageMapper::removeClip(const Message & msg)
 void loopier::MessageMapper::resetClip(const Message & msg)
 {
     loopier::clip::resetClip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setClipDrawOrder(const Message & msg)
+{
+    loopier::clip::setClipDrawOrder(msg.getArgAsString(0), msg.getArgAsInt(1));
 }
 
 //---------------------------------------------------------

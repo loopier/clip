@@ -36,8 +36,11 @@ loopier::Clip::Clip(string& clipname, string& resourcename)
 , bMask(false)
 {
 //    setResource(resourcename);
+    
     ofAddListener(ofEvents().update, this, &Clip::update);
-    ofAddListener(ofEvents().draw, this, &Clip::draw);
+    // -- DISABLED --   I need to control drawing order (or depth).  I do it manually because
+    //                  I don't know how to do it automatic
+//    ofAddListener(ofEvents().draw, this, &Clip::draw);
 }
 
 //---------------------------------------------------------
@@ -313,23 +316,6 @@ void loopier::Clip::maskOff()
 }
 
 
-//---------------------------------------------------------------------------
-void loopier::Clip::setPlayer(loopier::PlayerPtr aPlayer)
-{
-    ofLogVerbose() << __PRETTY_FUNCTION__;
-    player = aPlayer;
-    width = player->getWidth();
-    height = player->getHeight();
-}
-
-
-//---------------------------------------------------------------------------
-loopier::PlayerPtr loopier::Clip::getPlayer() const
-{
-    return player;
-}
-
-
 
 //---------------------------------------------------------------------------
 void loopier::Clip::toggleName()
@@ -361,4 +347,28 @@ void loopier::Clip::flipV()
 void loopier::Clip::flipH()
 {
     setScaleX(scaleX * ofSign(scaleX) * (-1));
+}
+
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setPlayer(loopier::PlayerPtr aPlayer)
+{
+    ofLogVerbose() << __PRETTY_FUNCTION__;
+    player = aPlayer;
+    width = player->getWidth();
+    height = player->getHeight();
+}
+
+
+//---------------------------------------------------------------------------
+loopier::PlayerPtr loopier::Clip::getPlayer() const
+{
+    return player;
+}
+
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setDepth(int order)
+{
+    depth = order;
 }

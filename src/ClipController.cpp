@@ -22,6 +22,8 @@ namespace {
     loopier::FrameListMap       frames;     // frame sequences in resources folder
     loopier::CameraMap          cameras;    // cameras plugged
     
+    vector<string>   clipDrawingOrderList; // used to control drawing order (depth)
+    
     map<string, loopier::CameraPlayerPtr>   cameraplayers;
     
     // images
@@ -162,6 +164,18 @@ namespace loopier {
             clip::newClip("cv");
             loopier::resource::listAll();
         }
+        
+        //---------------------------------------------------------------------------
+        void draw()
+        {
+            string msg = "";
+            // local helpers declared above in unnamed namespace
+            for (const auto &clipname : clipDrawingOrderList) {
+                clips.at(clipname)->draw();
+                msg += " : " + clipname;
+            };
+            ofLogVerbose() << msg;
+        }
     }   // namespace app
     
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -261,6 +275,7 @@ namespace loopier {
             }
             
             clips[clipname] = clip;
+            clipDrawingOrderList.push_back(clipname);
             ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << resourcename << "'";
             return clip;
         }
@@ -271,6 +286,19 @@ namespace loopier {
             // FIX: CRASHES APP
 //            if (!exists(clipname)) return;
 //            clips.erase(clipname);
+        }
+        
+        //---------------------------------------------------------------------------
+        void setClipDrawOrder(string clipname, int position)
+        {
+            if (!exists(clipname)) return;
+            if (position > clipDrawingOrderList.size()) position = clipDrawingOrderList.size()-1;
+            
+            clipDrawingOrderList.erase(std::remove(clipDrawingOrderList.begin(),
+                                       clipDrawingOrderList.end(),
+                                       clipname));
+            clipDrawingOrderList.insert(clipDrawingOrderList.end() - position, clipname);
+//            ofLogVerbose() << clipDrawingOrderList.size();
         }
         
         // CV

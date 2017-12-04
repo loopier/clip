@@ -66,6 +66,10 @@ namespace loopier {
         void setColor(const ofColor& newColor);
         void setAlpha(const float newAlpha);
         
+        void setMask(PlayerPtr aPlayer);
+        void maskOn();
+        void maskOff();
+        
         void toggleName();
         void showName();
         void hideName();
@@ -75,18 +79,19 @@ namespace loopier {
         void flipV();
         void flipH();
         
-        void setMask(PlayerPtr aPlayer);
-        void maskOn();
-        void maskOff();
-        
         void        setPlayer(PlayerPtr aPlayer);
         PlayerPtr   getPlayer() const;
+        
+        // \brief   Sets the drawing order -- 0 = at the top.  Big numbers are drawn at the bottom
+        void        setDepth(int order);
         
     private:
         PlayerPtr   player;     // TODO: Should be a vector of players
         PlayerPtr   maskPlayer; // a player used as a mask
         ofFbo       outputFbo; // final image to be drawn
         bool        bMask;  // turn mask on and off
+        
+        int         depth; // used in drawing order. 0 at top, 1 below it
         
         string  name;
         float   x, y;

@@ -50,6 +50,7 @@ private:
     void newClip              (const Message & msg);
     void removeClip           (const Message & msg);
     void resetClip            (const Message & msg);
+    void setClipDrawOrder     (const Message & msg);
     void scaleUpClip          (const Message & msg);
     void scaleDownClip        (const Message & msg);
     void scaleClip            (const Message & msg);

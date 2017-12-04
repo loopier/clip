@@ -35,6 +35,7 @@ void ofApp::update(){
 void ofApp::draw(){
 //    loopier::drawClips();
 //    console.draw();
+    loopier::app::draw();
 }
 
 void ofApp::exit()
