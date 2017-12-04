@@ -23,6 +23,8 @@ loopier::MoviePlayer::MoviePlayer(loopier::MoviePtr mov)
 , movie(new Movie)
 {
     movie->load(mov->getMoviePath());
+    width = movie->getWidth();
+    height = movie->getHeight();
 }
 
 loopier::MoviePlayer::~MoviePlayer()

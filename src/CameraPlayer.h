@@ -25,6 +25,7 @@ namespace loopier {
         
     public:
         CameraPlayer();
+        CameraPlayer(CameraPtr cam);
         virtual ~CameraPlayer();
         
         void    setup();

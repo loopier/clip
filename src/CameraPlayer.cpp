@@ -17,6 +17,14 @@ loopier::CameraPlayer::CameraPlayer()
 }
 
 //---------------------------------------------------------
+loopier::CameraPlayer::CameraPlayer(CameraPtr cam)
+{
+    setCamera(cam);
+    width = camera->getWidth();
+    height = camera->getHeight();
+}
+
+//---------------------------------------------------------
 loopier::CameraPlayer::~CameraPlayer()
 {
     

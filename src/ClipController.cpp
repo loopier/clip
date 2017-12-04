@@ -185,14 +185,12 @@ namespace loopier {
             // look for a resource with this name
             // if it doesn't exist, create a new Empty FrameClip, so it can be saved later
             if ( movies.count(resourcename) > 0) {
-                loopier::MoviePlayerPtr movplayer(new MoviePlayer(movies[resourcename]));
-                clip->setup(movplayer);
-//                mov->load(movies[resourcename]->getMoviePath());
+                loopier::MoviePlayerPtr movieplayer(new MoviePlayer(movies[resourcename]));
+                clip->setup(movieplayer);
                 cliptype = "movie";
             } else if ( cameras.count(resourcename) > 0) {
-                loopier::CameraPlayerPtr cam(new CameraPlayer());
-                cam->setCamera(cameras[resourcename]);
-                player = cam;
+                loopier::CameraPlayerPtr cameraplayer(new CameraPlayer(cameras[resourcename]));
+                clip->setup(cameraplayer);
                 cliptype = "camera";
             } else if (resourcename == "cv") {
                 // instance 'cvplayer' is local to this file and declared above
