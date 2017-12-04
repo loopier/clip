@@ -41,6 +41,15 @@ namespace loopier {
         
         // \brief   Sets the order in which the clip will be drawn -- 0 is top; big numbers are at the bottom
         void    setClipDrawOrder(string clipname, int position);
+        // \brief   Sets clip to the front of all other clips
+        void    bringClipToFront(string clipname);
+        // \brief   Raises clip in the drawing order
+        void    bringClipForward(string clipname);
+        // \brief   Lowers clip in the drawing order
+        void    sendClipBackward(string clipname);
+        // \brief   Sends clip below all other clips
+        void    sendClipToBack(string clipname);
+        
         
         // \brief   Adds a frame to a (Frame)clip
         void    addFrame(ofImage & img);

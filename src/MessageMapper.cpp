@@ -44,6 +44,10 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/remove"]             = &loopier::MessageMapper::removeClip;
     messageMap["/loopier/clip/clip/reset"]              = &loopier::MessageMapper::resetClip;
     messageMap["/loopier/clip/clip/depth"]              = &loopier::MessageMapper::setClipDrawOrder;
+    messageMap["/loopier/clip/clip/front"]              = &loopier::MessageMapper::bringClipToFront;
+    messageMap["/loopier/clip/clip/forward"]            = &loopier::MessageMapper::bringClipForward;
+    messageMap["/loopier/clip/clip/backward"]           = &loopier::MessageMapper::sendClipBackward;
+    messageMap["/loopier/clip/clip/back"]               = &loopier::MessageMapper::sendClipToBack;
     messageMap["/loopier/clip/clip/scaleup"]            = &loopier::MessageMapper::scaleUpClip;
     messageMap["/loopier/clip/clip/scaledown"]          = &loopier::MessageMapper::scaleDownClip;
     messageMap["/loopier/clip/clip/scale"]              = &loopier::MessageMapper::scaleClip;
@@ -198,6 +202,30 @@ void loopier::MessageMapper::resetClip(const Message & msg)
 void loopier::MessageMapper::setClipDrawOrder(const Message & msg)
 {
     loopier::clip::setClipDrawOrder(msg.getArgAsString(0), msg.getArgAsInt(1));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::bringClipToFront(const Message & msg)
+{
+    loopier::clip::bringClipToFront(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::bringClipForward(const Message & msg)
+{
+    loopier::clip::bringClipForward(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::sendClipBackward(const Message & msg)
+{
+    loopier::clip::sendClipBackward(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::sendClipToBack(const Message & msg)
+{
+    loopier::clip::sendClipToBack(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------

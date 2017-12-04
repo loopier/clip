@@ -84,7 +84,7 @@ namespace loopier {
         
         // \brief   Sets the drawing order -- 0 = at the top.  Big numbers are drawn at the bottom
         void        setDepth(int order);
-        int         getDepth();
+        int         getDepth() const;
         
     private:
         PlayerPtr   player;     // TODO: Should be a vector of players

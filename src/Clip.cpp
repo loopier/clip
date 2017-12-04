@@ -373,3 +373,8 @@ void loopier::Clip::setDepth(int order)
 {
     depth = order;
 }
+//---------------------------------------------------------------------------
+int loopier::Clip::getDepth() const
+{
+    return depth;
+}

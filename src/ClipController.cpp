@@ -280,6 +280,7 @@ namespace loopier {
                 //                return;
             }
             
+            clip->setDepth(0);
             clips[clipname] = clip;
             drawingLayers.push_back(clipname);
             ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << resourcename << "'";
@@ -298,14 +299,51 @@ namespace loopier {
         void setClipDrawOrder(string clipname, int position)
         {
             if (!exists(clipname)) return;
-            if (position > drawingLayers.size()) position = drawingLayers.size()-1;
+            if (position >= drawingLayers.size()) position = drawingLayers.size()-1;
+            if (position < 0 ) position = 0;
             
+            getClip(clipname)->setDepth(position);
+            // remove from current position
             drawingLayers.erase(std::remove(drawingLayers.begin(),
                                        drawingLayers.end(),
                                        clipname));
+            // add to new position
             drawingLayers.insert(drawingLayers.end() - position, clipname);
             listDrawOrder();
         }
+        
+        //---------------------------------------------------------------------------
+        void bringClipToFront(string clipname)
+        {
+            if (!exists(clipname)) return;
+            setClipDrawOrder(clipname, 0 );
+            listDrawOrder();
+        }
+        
+        //---------------------------------------------------------------------------
+        void bringClipForward(string clipname)
+        {
+            if (!exists(clipname)) return;
+            setClipDrawOrder(clipname, getClip(clipname)->getDepth() - 1 );
+            listDrawOrder();
+        }
+        
+        //---------------------------------------------------------------------------
+        void sendClipBackward(string clipname)
+        {
+            if (!exists(clipname)) return;
+            setClipDrawOrder(clipname, getClip(clipname)->getDepth() + 1 );
+            listDrawOrder();
+        }
+        
+        //---------------------------------------------------------------------------
+        void sendClipToBack(string clipname)
+        {
+            if (!exists(clipname)) return;
+            setClipDrawOrder(clipname, drawingLayers.size() );
+            listDrawOrder();
+        }
+        
         
         // CV
         //---------------------------------------------------------------------------
@@ -352,8 +390,10 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void listDrawOrder()
         {
-            ofLogNotice() << "Drawing order: ";
-            for (const auto &item : drawingLayers) {  ofLogNotice() << " : " << item; }
+            string msg = "";
+            for (const auto &item : drawingLayers) {  msg += " : " + item; }
+            
+            ofLogNotice() << "Drawing order: " << msg;
         }
         
         //---------------------------------------------------------------------------

@@ -23,6 +23,12 @@ m.sendMsg("/loopier/clip/clips/hidenames");
 // create a clip with the 'default.mov' movie (if movie name is not provided it will pick 'default')
 m.sendMsg("/loopier/clip/clip/new", "exampleclip", "mamma");
 m.sendMsg("/loopier/clip/clip/new", "exampleclip");
+// set clip draw order
+m.sendMsg("/loopier/clip/clip/depth", "exampleclip", 0);
+m.sendMsg("/loopier/clip/clip/front", "exampleclip", 0);
+m.sendMsg("/loopier/clip/clip/forward", "exampleclip", 0);
+m.sendMsg("/loopier/clip/clip/backward", "exampleclip", 0);
+m.sendMsg("/loopier/clip/clip/back", "exampleclip", 0);
 // create a clip with the 'default.mov' movie (if movie name is not provided it will pick 'default')
 m.sendMsg("/loopier/clip/clip/remove", "exampleclip");
 
