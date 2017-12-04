@@ -11,12 +11,12 @@
 
 namespace {
     // unique instance of CV
-    loopier::cv::CvPlayerPtr cvplayer;
+    loopier::CvPlayerPtr cvplayer;
     // other instances local to this file
 //    ofxCv::ContourFinder contourFinder;
 }
 
-loopier::cv::CvPlayer::CvPlayer()
+loopier::CvPlayer::CvPlayer()
 : bVisible(true)
 , bDrawContours(true)
 , threshold(200)
@@ -24,16 +24,29 @@ loopier::cv::CvPlayer::CvPlayer()
 , maxArea(200)
 , bHoles(true)
 {
-    
+    setup();
 }
 
-loopier::cv::CvPlayer::~CvPlayer()
+loopier::CvPlayer::CvPlayer(PlayerPtr input)
+: inputPlayer(input)
+, bVisible(true)
+, bDrawContours(true)
+, threshold(200)
+, minArea(10.0)
+, maxArea(200)
+, bHoles(true)
+{
+    inputPlayer = input;
+    setup();
+}
+
+loopier::CvPlayer::~CvPlayer()
 {
 
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::setup()
+void loopier::CvPlayer::setup()
 {
     outputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
     maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
@@ -41,9 +54,9 @@ void loopier::cv::CvPlayer::setup()
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::update(){
+void loopier::CvPlayer::update(){
 //    if (!bVisible)       return;
-//    if (!inputPlayer)   return;
+    if (!inputPlayer)   return;
     
     // TODO: draw contourFinder.minAreaRect like in https://github.com/kylemcdonald/ofxCv/blob/master/example-contours-advanced/src/ofApp.cpp
     
@@ -75,98 +88,98 @@ void loopier::cv::CvPlayer::update(){
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::draw(float x, float y, float w, float h)
+void loopier::CvPlayer::draw(float x, float y, float w, float h)
 {
     if (!bVisible)   return;
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::draw()
+void loopier::CvPlayer::draw()
 {
     outputImage.draw(0,0);
     contourFinder.draw();
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::exit(){
+void loopier::CvPlayer::exit(){
 
 }
 
 //---------------------------------------------------------
-float loopier::cv::CvPlayer::getWidth() const
+float loopier::CvPlayer::getWidth() const
 {
     return outputImage.getWidth();
 }
 
 //---------------------------------------------------------
-float loopier::cv::CvPlayer::getHeight() const
+float loopier::CvPlayer::getHeight() const
 {
     return outputImage.getHeight();
 }
 
 //---------------------------------------------------------
-bool loopier::cv::CvPlayer::loadResource(string resourcename)
+bool loopier::CvPlayer::loadResource(string resourcename)
 {
     ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
 }
 
 //---------------------------------------------------------
-ofTexture & loopier::cv::CvPlayer::getTexture()
+ofTexture & loopier::CvPlayer::getTexture()
 {
     return outputImage.getTexture();
 }
 
 //---------------------------------------------------------
-ofPixels & loopier::cv::CvPlayer::getPixels()
+ofPixels & loopier::CvPlayer::getPixels()
 {
     return outputImage.getPixels();
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::setInputPlayer(PlayerPtr player)
+void loopier::CvPlayer::setInputPlayer(PlayerPtr player)
 {
     inputPlayer = player;
 //    outputImage.setFromPixels(player->getPixels());
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::toggleVisibility()
+void loopier::CvPlayer::toggleVisibility()
 {
     bVisible = !bVisible;
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::show()
+void loopier::CvPlayer::show()
 {
     bVisible = true;
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::hide()
+void loopier::CvPlayer::hide()
 {
     bVisible = false;
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::setMinArea(float newArea)
+void loopier::CvPlayer::setMinArea(float newArea)
 {
     minArea = newArea;
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::setMaxArea(float newArea)
+void loopier::CvPlayer::setMaxArea(float newArea)
 {
     maxArea = newArea;
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::setThreshold(float newThreshold)
+void loopier::CvPlayer::setThreshold(float newThreshold)
 {
     threshold = newThreshold;
 }
 
 //---------------------------------------------------------
-void loopier::cv::CvPlayer::setFindHoles(bool findHoles)
+void loopier::CvPlayer::setFindHoles(bool findHoles)
 {
     bHoles = findHoles;
 }
@@ -178,7 +191,7 @@ void loopier::cv::CvPlayer::setFindHoles(bool findHoles)
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 //---------------------------------------------------------
-void loopier::cv::setup()
+void loopier::setup()
 {
     // create an instance of a player local to this file, to be used by other global functions of this file
 //    cvplayer = make_shared<CvPlayer>();
@@ -188,11 +201,11 @@ void loopier::cv::setup()
 //    clip->setPlayer(cvplayer);
 //    // create a camera clip to pass it as input to Cv
 //    ClipPtr cameraclip = loopier::newClip(loopier::cameras.begin()->first, loopier::cameras.begin()->first);
-//    loopier::cv::setInputClip(loopier::cameras.begin()->first);
+//    loopier::setInputClip(loopier::cameras.begin()->first);
 }
 
 //---------------------------------------------------------
-void loopier::cv::setInputClip(string clipname)
+void loopier::setInputClip(string clipname)
 {
 //    if (!loopier::clipExists(clipname)) return;
 //    ClipPtr clip = loopier::getClipByName(clipname);
@@ -203,25 +216,25 @@ void loopier::cv::setInputClip(string clipname)
 
 
 //---------------------------------------------------------
-void loopier::cv::setMinArea(float newArea)
+void loopier::setMinArea(float newArea)
 {
     cvplayer->setMinArea(newArea);
 }
 
 //---------------------------------------------------------
-void loopier::cv::setMaxArea(float newArea)
+void loopier::setMaxArea(float newArea)
 {
     cvplayer->setMaxArea(newArea);
 }
 
 //---------------------------------------------------------
-void loopier::cv::setThreshold(float newThreshold)
+void loopier::setThreshold(float newThreshold)
 {
     cvplayer->setThreshold(newThreshold);
 }
 
 //---------------------------------------------------------
-void loopier::cv::setFindHoles(bool findHoles)
+void loopier::setFindHoles(bool findHoles)
 {
     cvplayer->setFindHoles(findHoles);
 }

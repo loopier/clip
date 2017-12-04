@@ -15,8 +15,6 @@
 #include "BasePlayer.h"
 
 namespace loopier {
-    // TODO: Remove namespace 'cv'
-    namespace cv{
         
         /// !!!:    Clumsy!  Won't compile if getPixels() and getTexture() don't
         //          return pixels or texture from a pointer
@@ -25,7 +23,8 @@ namespace loopier {
         class CvPlayer: public BasePlayer {
 
         public:
-            CvPlayer();
+//            CvPlayer();  -- DIABLED (private)
+            CvPlayer(PlayerPtr input);
             virtual ~CvPlayer();
 
             void setup();
@@ -68,6 +67,8 @@ namespace loopier {
             float   maxArea;
             float   bHoles;
             
+            CvPlayer(); // Disable default constructor.  You need to provide an input player
+            
         };
 
         typedef shared_ptr<CvPlayer> CvPlayerPtr;
@@ -83,7 +84,6 @@ namespace loopier {
 
 
         // TODO: Add visibility commands
-    }
 }
 
 #endif

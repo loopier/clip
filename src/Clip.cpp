@@ -380,9 +380,9 @@ loopier::ClipMap        loopier::clipmap;
 
 bool loopier::initResources(string path)
 {
-    loopier::loadResourceFiles(path);
-    loopier::setupCameras();
-    loopier::cv::setup();
+//    loopier::loadResourceFiles(path);
+//    loopier::setupCameras();
+//    loopier::cv::setup();
     // loads first available camera
 //    string cameraname = loopier::cameras.begin()->first;
 //    loopier::cv::setInputClip(loopier::clipmap.begin()->first);

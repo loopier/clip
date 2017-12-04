@@ -405,25 +405,25 @@ void loopier::MessageMapper::hideClipNames(const Message & msg)
 //---------------------------------------------------------
 void loopier::MessageMapper::setCvThreshold(const Message & msg)
 {
-    loopier::cv::setThreshold(msg.getArgAsFloat(0));
+//    loopier::cv::setThreshold(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
 void loopier::MessageMapper::setCvMinArea(const Message & msg)
 {
-    loopier::cv::setMinArea(msg.getArgAsFloat(0));
+//    loopier::cv::setMinArea(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
 void loopier::MessageMapper::setCvMaxArea(const Message & msg)
 {
-    loopier::cv::setMaxArea(msg.getArgAsFloat(0));
+//    loopier::cv::setMaxArea(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
 void loopier::MessageMapper::setCvHoles(const Message & msg)
 {
-    loopier::cv::setFindHoles(msg.getArgAsBool(0));
+//    loopier::cv::setFindHoles(msg.getArgAsBool(0));
 }
 
 //---------------------------------------------------------
