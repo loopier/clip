@@ -215,8 +215,11 @@ namespace loopier {
         ClipPtr newClip(string clipname, string resourcename)
         {
             // if clip with this name exists -- change new clip's name to clipname + timestamp
-            if (clips.count(clipname) > 0) clipname += ofGetTimestampString("%H%M%S%i");
-            loopier::ClipPtr clip(new loopier::Clip(clipname, resourcename));
+//            if (exists(clipname)) clipname += ofGetTimestampString("%H%M%S%i");
+            
+            loopier::ClipPtr clip;
+            if (exists(clipname)) clip = getClip(clipname);
+            else clip = make_shared<loopier::Clip>(clipname, resourcename);
             
             string cliptype = "";
             
