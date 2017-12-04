@@ -34,12 +34,14 @@ namespace loopier {
         ClipPtr newClip(string clipname);
         // \brief   Creates a clip with the given resource
         ClipPtr newClip(string clipname, string resourcename);
+        void    removeClip(string clipname);
         
         // \brief   Adds a frame to a (Frame)clip
         void    addFrame(ofImage & img);
         
         // \brief   Sets the given clip as the source for Cv
         void    setCvInput(string clipname);
+        void    setCvDeviceId(const int n);
         
         //  \brief  Saves clip's images (frames) to a folder named after the clip
         //  \param  clipname    String      Name of the clip to be saved.  Will be used to
@@ -49,6 +51,8 @@ namespace loopier {
         
         // \brief   Prints all clip names to console
         void    listAll();
+        // \brief   Deletes all clips
+        void    clearAll();
         // \brief   Checks if a clip exists
         bool    exists(string clipname);
         ClipPtr getClip(string clipname);
@@ -56,9 +60,9 @@ namespace loopier {
         // ----- SHOW CLIP NAMES----
         
         /// \brief  Shows names of clips
-        void toggleClipNames();
-        void showClipNames();
-        void hideClipNames();
+        void toggleNames();
+        void showNames();
+        void hideNames();
         
         // ----- USE ONE CLIP -----
         /// \brief  Adds a movie to a clip

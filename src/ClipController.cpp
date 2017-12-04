@@ -196,14 +196,6 @@ namespace loopier {
                 clip->setup(movieplayer);
                 cliptype = "movie";
             }
-            // camera
-            else if ( cameras.count(resourcename) > 0) {
-                loopier::CameraPlayerPtr cameraplayer(new CameraPlayer(cameras[resourcename]));
-                clip->setup(cameraplayer);
-                cameraplayers[resourcename + "-player"] = cameraplayer;
-                cliptype = "camera";
-            }
-            
             // cv
             else if (resourcename == "cv") {
                 if (cameras.size() <= 0) return;    // needs to provide a camera to the cv player constructor
@@ -211,25 +203,32 @@ namespace loopier {
                 // FIX: now sets first camera -- should set any camera.  Something like this:
                 string cameraname; // is either the name provided or the first on in the cameras map
                 resourcename == "cv"? cameraname = cameras.begin()->first : cameraname = resourcename;
-//                ClipPtr cameraclip = newClip("cv-cam", cameraname); // get first camera
-//                loopier::PlayerPtr cameraplayer = clip->getPlayer();
-                
                 // get camera from cameraplayers map
                 loopier::CameraPlayerPtr cameraplayer = cameraplayers[cameraname+"-player"];
                 // the cv player itself
                 loopier::CvPlayerPtr cvplayer( new CvPlayer(cameraplayer) );
                 
                 //  DOESN'T WORK -- although it was temporary -- cam does not render if played from cvplayer
-//                loopier::CameraPlayerPtr cameraplayer = cameraplayers.begin()->second;
-//                loopier::CvPlayerPtr cvplayer( new CvPlayer(cameraplayer) );
-//                resourcename = "C525-player"; // used in log message
+                //                loopier::CameraPlayerPtr cameraplayer = cameraplayers.begin()->second;
+                //                loopier::CvPlayerPtr cvplayer( new CvPlayer(cameraplayer) );
+                //                resourcename = "C525-player"; // used in log message
                 
                 // !!!: REMOVE -- this is a temporary solution
-//                loopier::CvPlayerPtr cvplayer(new CvPlayer());
+                //                loopier::CvPlayerPtr cvplayer(new CvPlayer());
                 
                 clip->setup(cvplayer);
                 cliptype = "cv";
+                clips[clipname] = clip;
+                ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" <<cameraname << "'";
+                return clip;
 //                resourcename = cameraclip->getName(); // used in log message
+            }
+            // camera
+            else if ( cameras.count(resourcename) > 0) {
+                loopier::CameraPlayerPtr cameraplayer(new CameraPlayer(cameras[resourcename]));
+                clip->setup(cameraplayer);
+                cameraplayers[resourcename + "-player"] = cameraplayer;
+                cliptype = "camera";
             }
             
             // frame list
@@ -248,6 +247,12 @@ namespace loopier {
             clips[clipname] = clip;
             ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << resourcename << "'";
             return clip;
+        }
+        
+        //---------------------------------------------------------------------------
+        void removeClip(string clipname)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
         }
         
         // CV
@@ -272,6 +277,12 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        void setCvDeviceId(const int n)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
+        
+        //---------------------------------------------------------------------------
         void saveImages(string clipname) // TODO: Save images
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
@@ -284,6 +295,12 @@ namespace loopier {
         {
             ofLogNotice() << clips.size() << " available clips";
             for (const auto &item : clips) {  ofLogNotice() << "\t" << item.first; }
+        }
+        
+        //---------------------------------------------------------------------------
+        void clearAll()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
         }
         
         //---------------------------------------------------------------------------
@@ -301,7 +318,7 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
-        void toggleClipNames()
+        void toggleNames()
         {
 //            loopier::ClipMap::iterator it;
 //            for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
@@ -310,7 +327,7 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
-        void showClipNames()
+        void showNames()
         {
 //            loopier::ClipMap::iterator it;
 //            for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
@@ -319,7 +336,7 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
-        void hideClipNames()
+        void hideNames()
         {
 //            loopier::ClipMap::iterator it;
 //            for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {

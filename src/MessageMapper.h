@@ -90,6 +90,7 @@ private:
     void setCvMaxArea       (const Message & msg);
     void setCvHoles         (const Message & msg);
     void setCvInputClip     (const Message & msg);
+    void setCvDeviceId      (const Message & msg);
     
     // Console commands
     void setConsoleColor    (const Message & msg);
