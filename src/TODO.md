@@ -17,4 +17,5 @@ loopier::clips[clipname]->...` for `getClipByName()->...` in all clip public int
     - should create a folder with that name and save images inside it
     - save folder name as temporary veriable?
 - `[NEW]` Select area for Cv detection
-  - is a clip using an AreaPlayer that selects a portion of the image?
+- is a clip using an AreaPlayer that selects a portion of the image?
+- `[NEW]` Make layers -- Fbo's that render clips and can be stacked in any order

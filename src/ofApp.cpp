@@ -12,29 +12,20 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
 
 //    loopier::ConsoleUI::setup();
-     // TODO : REMOVE
     applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/";
-//    init();
-//    loopier::initResources(applicationSupportPath + "resources/");
-    // REMOVE -- END
-    //    loopier::app::setResourceFilesPath(applicationSupportPath + "resources/");
     loopier::resource::setPath(applicationSupportPath + "resources/");
     loopier::app::init();
     
     msgMapper.setup();
-    
-//    loopier::newVideoInput();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-//    loopier::updateClips();
+    loopier::app::draw();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-//    loopier::drawClips();
-//    console.draw();
     loopier::app::draw();
 }
 

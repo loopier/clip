@@ -17,7 +17,8 @@ loopier::Clip::Clip(){
 
 //---------------------------------------------------------------------------
 loopier::Clip::Clip(string& clipname, string& resourcename)
-: name(clipname)
+: bMask(false)
+, name(clipname)
 , x(0)
 , y(0)
 , width(640)
@@ -29,11 +30,11 @@ loopier::Clip::Clip(string& clipname, string& resourcename)
 , anchorPercentY(0.5)
 , color(ofColor(255))
 , alpha(1.0)
+, depth(0)
 , bFullscreen(false)
 , bVisible(true)
 , bDrawName(false)
 , loopState(LoopType::normal)
-, bMask(false)
 {
 //    setResource(resourcename);
     

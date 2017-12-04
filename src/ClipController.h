@@ -18,6 +18,7 @@ namespace loopier {
     namespace app {
         // \brief   Sets everything up
         void    init();
+        void    update();
         // biref    Needed for controlling render order
         void    draw();
     }
@@ -56,6 +57,8 @@ namespace loopier {
         
         // \brief   Prints all clip names to console
         void    listAll();
+        // \brief   Prints clip rendering order
+        void    listDrawOrder();
         // \brief   Deletes all clips
         void    clearAll();
         // \brief   Checks if a clip exists

@@ -22,7 +22,7 @@ namespace {
     loopier::FrameListMap       frames;     // frame sequences in resources folder
     loopier::CameraMap          cameras;    // cameras plugged
     
-    vector<string>   clipDrawingOrderList; // used to control drawing order (depth)
+    vector<string>   drawingLayers; // used to control drawing order (depth)
     
     map<string, loopier::CameraPlayerPtr>   cameraplayers;
     
@@ -166,15 +166,21 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        void update()
+        {
+            // local helpers declared above in unnamed namespace
+            for (const auto &item : clips) {
+                clip::setClipDrawOrder(item.first, item.second->getDepth());
+            };
+        }
+        
+        //---------------------------------------------------------------------------
         void draw()
         {
-            string msg = "";
             // local helpers declared above in unnamed namespace
-            for (const auto &clipname : clipDrawingOrderList) {
+            for (const auto &clipname : drawingLayers) {
                 clips.at(clipname)->draw();
-                msg += " : " + clipname;
             };
-            ofLogVerbose() << msg;
         }
     }   // namespace app
     
@@ -275,7 +281,7 @@ namespace loopier {
             }
             
             clips[clipname] = clip;
-            clipDrawingOrderList.push_back(clipname);
+            drawingLayers.push_back(clipname);
             ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << resourcename << "'";
             return clip;
         }
@@ -292,13 +298,13 @@ namespace loopier {
         void setClipDrawOrder(string clipname, int position)
         {
             if (!exists(clipname)) return;
-            if (position > clipDrawingOrderList.size()) position = clipDrawingOrderList.size()-1;
+            if (position > drawingLayers.size()) position = drawingLayers.size()-1;
             
-            clipDrawingOrderList.erase(std::remove(clipDrawingOrderList.begin(),
-                                       clipDrawingOrderList.end(),
+            drawingLayers.erase(std::remove(drawingLayers.begin(),
+                                       drawingLayers.end(),
                                        clipname));
-            clipDrawingOrderList.insert(clipDrawingOrderList.end() - position, clipname);
-//            ofLogVerbose() << clipDrawingOrderList.size();
+            drawingLayers.insert(drawingLayers.end() - position, clipname);
+            listDrawOrder();
         }
         
         // CV
@@ -341,6 +347,13 @@ namespace loopier {
         {
             ofLogNotice() << clips.size() << " available clips";
             for (const auto &item : clips) {  ofLogNotice() << "\t" << item.first; }
+        }
+        
+        //---------------------------------------------------------------------------
+        void listDrawOrder()
+        {
+            ofLogNotice() << "Drawing order: ";
+            for (const auto &item : drawingLayers) {  ofLogNotice() << " : " << item; }
         }
         
         //---------------------------------------------------------------------------
