@@ -33,6 +33,7 @@ void loopier::FramePlayer::setup()
 //---------------------------------------------------------
 void loopier::FramePlayer::update()
 {
+    ofLogVerbose() << __PRETTY_FUNCTION__;
     if (!bPlay) return;
     
     // FIXME: it crashes

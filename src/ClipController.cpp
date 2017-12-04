@@ -127,8 +127,8 @@ namespace loopier {
             // local helpers declared above in unnamed namespace
             loadFrameLists();
             loadMovies();
-//            initializeCameras();
-            initializeCv();
+            initializeCameras();
+//            initializeCv();
             loopier::resource::listAll();
         }
     }   // namespace app
@@ -180,33 +180,35 @@ namespace loopier {
             if (clips.count(clipname) > 0) clipname += ofGetTimestampString("%H%M%S%i");
             loopier::ClipPtr clip(new loopier::Clip(clipname, resourcename));
             
-            string logMsg = "New clip '" + clipname + "' of type: ";
+            string cliptype = "";
             loopier::PlayerPtr player;
             // look for a resource with this name
             // if it doesn't exist, create a new Empty FrameClip, so it can be saved later
             if ( movies.count(resourcename) > 0) {
-                player = make_shared<MoviePlayer>();
-                logMsg += "movie";
+                loopier::MoviePlayerPtr movplayer(new MoviePlayer(movies[resourcename]));
+                clip->setup(movplayer);
+//                mov->load(movies[resourcename]->getMoviePath());
+                cliptype = "movie";
             } else if ( cameras.count(resourcename) > 0) {
                 loopier::CameraPlayerPtr cam(new CameraPlayer());
                 cam->setCamera(cameras[resourcename]);
                 player = cam;
-                logMsg += "camera";
+                cliptype = "camera";
             } else if (resourcename == "cv") {
                 // instance 'cvplayer' is local to this file and declared above
                 player = cvplayer;
                 clip->setPlayer(cvplayer);
-                logMsg += "cv";
+                cliptype = "cv";
             } else { // if it's a FramePlayer or it doesn't exist create a FramePlayer
-                player = make_shared<MoviePlayer>();
-                logMsg += "frame";
+                player = make_shared<FramePlayer>();
+                cliptype = "frame";
             }
             // set clip's player
-            player->setup();
+//            player->setup();
 //            clip->setPlayer(player);
-            clip->setup(player);
+//            clip->setup(player);
             clips[clipname] = clip;
-            ofLogVerbose() << "Creating cilp: " << clipname;
+            ofLogVerbose() << "Creating cilp: [" << cliptype << "]\t" << clipname;
             return clip;
         }
         

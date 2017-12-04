@@ -31,9 +31,9 @@ namespace loopier {
     
     namespace clip {
         // \brief   Creates a clip named after a resource -- or an empty FramePlayer clip
-        void    newClip(string clipname);
+        ClipPtr newClip(string clipname);
         // \brief   Creates a clip with the given resource
-        void    newClip(string clipname, string resourcename);
+        ClipPtr newClip(string clipname, string resourcename);
         
         // \brief   Adds a frame to a (Frame)clip
         void    addFrame(ofImage & img);

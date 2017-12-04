@@ -194,10 +194,10 @@ void loopier::cv::setup()
 //---------------------------------------------------------
 void loopier::cv::setInputClip(string clipname)
 {
-    if (!loopier::clipExists(clipname)) return;
-    ClipPtr clip = loopier::getClipByName(clipname);
-    cvplayer->setInputPlayer( clip->getPlayer() );
-    clip->hide();
+//    if (!loopier::clipExists(clipname)) return;
+//    ClipPtr clip = loopier::getClipByName(clipname);
+//    cvplayer->setInputPlayer( clip->getPlayer() );
+//    clip->hide();
     
 }
 
