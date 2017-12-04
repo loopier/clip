@@ -107,11 +107,13 @@ namespace {
         // instance 'cvplayer' is local to this file and declared above
         cvplayer->setup();
         // create a new clip to hold the cv player
-        loopier::ClipPtr clip = loopier::newClip("cv");
-//        clip->setPlayer(cvplayer);
+        string name = "cv";
+        loopier::ClipPtr clip = loopier::newClip(name);
+        clip->setPlayer(cvplayer);
+        clips[name] = clip;
         // create a camera clip to pass it as input to Cv
-        loopier::ClipPtr cameraclip = loopier::newClip(cameras.begin()->first, cameras.begin()->first);
-        loopier::cv::setInputClip(cameras.begin()->first);
+//        loopier::ClipPtr cameraclip = loopier::newClip(cameras.begin()->first, cameras.begin()->first);
+//        loopier::clip::setCvInput(cameras.begin()->first);
     }
 } // namesapce
 
@@ -125,7 +127,7 @@ namespace loopier {
             // local helpers declared above in unnamed namespace
             loadFrameLists();
             loadMovies();
-            initializeCameras();
+//            initializeCameras();
             initializeCv();
             loopier::resource::listAll();
         }
@@ -167,12 +169,12 @@ namespace loopier {
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     namespace clip {
         
-        void newClip(string clipname)
+        ClipPtr newClip(string clipname)
         {
-            newClip(clipname, clipname);
+            return newClip(clipname, clipname);
         }
         
-        void newClip(string clipname, string resourcename)
+        ClipPtr newClip(string clipname, string resourcename)
         {
             // if clip with this name exists -- change new clip's name to clipname + timestamp
             if (clips.count(clipname) > 0) clipname += ofGetTimestampString("%H%M%S%i");
@@ -205,6 +207,7 @@ namespace loopier {
             clip->setup(player);
             clips[clipname] = clip;
             ofLogVerbose() << "Creating cilp: " << clipname;
+            return clip;
         }
         
         // CV
@@ -228,7 +231,6 @@ namespace loopier {
         {
             ofLogNotice() << clips.size() << " available clips";
             for (const auto &item : clips) {  ofLogNotice() << "\t" << item.first; }
-//            ofLogNotice() << clips.begin()->first;
         }
         
         bool exists(string clipname)

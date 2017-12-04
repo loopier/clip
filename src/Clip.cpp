@@ -59,6 +59,7 @@ void loopier::Clip::setup(PlayerPtr aplayer)
 void loopier::Clip::update()
 {
 //    if (bPlaySequence) updateSequence();
+    ofLogVerbose() << __PRETTY_FUNCTION__;
     player->update();
     
     outputFbo.begin();
