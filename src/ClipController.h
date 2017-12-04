@@ -52,6 +52,67 @@ namespace loopier {
         // \brief   Checks if a clip exists
         bool    exists(string clipname);
         ClipPtr getClip(string clipname);
+        
+        // ----- SHOW CLIP NAMES----
+        
+        /// \brief  Shows names of clips
+        void toggleClipNames();
+        void showClipNames();
+        void hideClipNames();
+        
+        // ----- USE ONE CLIP -----
+        /// \brief  Adds a movie to a clip
+        void addMovieToClip(const string clipname, const string moviename);
+        // play
+        void playClip(const string clipname);
+        // stop
+        void stopClip(const string clipname);
+        // pause
+        void pauseClip(const string clipname);
+        // change movie source
+        // set speed
+        void setClipSpeed(const string clipname, const float speed);
+        /// \brief Set loop state (none | normal | palindrome)
+        void setClipLoopState(const string clipname, const LoopType state);
+        /// \brief  Mask one clip with any player
+        void setClipMask(const string clipname, const string maskclipname);
+        void enableClipMask(const string clipname);
+        void disableClipMask(const string clipname);
+        
+        // ----- CLIP ATTRIBUTES -----
+        // reset all attributes
+        void resetClip(const string clipname);
+        // move to
+        /// \brief Move clip
+        /// \param  x,y   float     Normalized position.  Will be scaled according to window dimensions
+        void moveClipTo(const string clipname, const float x, const float y);
+        // set anchor point
+        // scale -- resize
+        void scaleClip(const string clipname, const float scale);
+        /// \brief  Change width of Clip
+        /// \param  clipname    String
+        /// \param  scale       Float   Signed and normalized -- positive or negative float -- 1 is default
+        void setClipWidth(const string clipname, const float width);
+        void setClipHeight(const string clipname, const float height);
+        void scaleClip(const string clipname, const float scale);
+        void scaleUpClip(const string clipname, const float amount=0.1);
+        void scaleDownClip(const string clipname, const float amount=0.1);
+        void resetClipScale(const string clipname);
+        void setClipVFlip(const string clipname);
+        void setClipHFlip(const string clipname);
+        // toggle fullscreen
+        void toggleFullscreenClip(const string clipname);
+        /// \brief  Toggle clip visibility
+        void toggleClipVisibility(const string clipname);
+        void showClip(const string clipname);
+        void hideClip(const string clipname);
+        // tint
+        void setClipColor(const string clipname, const float & grayscale);
+        void setClipColor(const string clipname, const string & color);
+        void setClipColor(const string clipname, const ofColor & color);
+        // transparency
+        void setClipAlpha(const string clipname, const float alpha);
+        // reset attributes -- factory defaults
     }
 }
 

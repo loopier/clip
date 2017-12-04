@@ -32,6 +32,7 @@ namespace loopier {
         virtual     bool				loadResource(string resourcename) = 0;
         virtual     void                setName(string newName);
         virtual     string              getName() const;
+        virtual     void                setInputPlayer(shared_ptr<BasePlayer> aplayer);
         
         virtual     void				play();
         virtual     void				stop();
@@ -76,6 +77,8 @@ namespace loopier {
         virtual     void                setAnchorPercent(float x, float y);
     protected:
         BasePlayer();
+        
+        shared_ptr<BasePlayer>  inputPlayer; // a resource player
         
         float width, height;
         

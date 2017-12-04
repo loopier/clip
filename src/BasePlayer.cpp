@@ -81,6 +81,13 @@ string  loopier::BasePlayer::getName() const
 }
 
 //---------------------------------------------------------
+void    loopier::BasePlayer::setInputPlayer(shared_ptr<BasePlayer> aplayer)
+{
+    inputPlayer = aplayer;
+    return true;
+}
+
+//---------------------------------------------------------
 void    loopier::BasePlayer::play()
 {
     ofLogNotice() << "Started playing '" << name << "'";

@@ -328,6 +328,14 @@ loopier::PlayerPtr loopier::Clip::getPlayer() const
 }
 
 
+//---------------------------------------------------------------------------
+void loopier::Clip::setSecondaryPlayer(loopier::PlayerPtr aPlayer)
+{
+    ofLogVerbose() << __PRETTY_FUNCTION__;
+    player = aPlayer;
+}
+
+
 
 //---------------------------------------------------------------------------
 void loopier::Clip::toggleName()
