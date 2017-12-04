@@ -26,6 +26,7 @@ namespace loopier {
         
     public:
         FramePlayer();
+        FramePlayer(FrameListPtr framelist);
         virtual ~FramePlayer();
         
         void    setup();

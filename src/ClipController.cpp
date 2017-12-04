@@ -194,11 +194,12 @@ namespace loopier {
                 cliptype = "camera";
             } else if (resourcename == "cv") {
                 // instance 'cvplayer' is local to this file and declared above
-                player = cvplayer;
-                clip->setPlayer(cvplayer);
+//                player = cvplayer;
+//                clip->setPlayer(cvplayer);
                 cliptype = "cv";
             } else { // if it's a FramePlayer or it doesn't exist create a FramePlayer
-                player = make_shared<FramePlayer>();
+                loopier::FramePlayerPtr frameplayer(new FramePlayer(frames[resourcename]));
+                clip->setup(frameplayer);
                 cliptype = "frame";
             }
             // set clip's player

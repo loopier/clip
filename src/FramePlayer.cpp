@@ -19,6 +19,14 @@ loopier::FramePlayer::FramePlayer()
     frameRate = 12;
 }
 
+
+loopier::FramePlayer::FramePlayer(FrameListPtr framelist)
+: BasePlayer()
+, lastFrameTime(0.0)
+{
+    frameRate = 12;
+    frames = framelist;
+}
 loopier::FramePlayer::~FramePlayer()
 {
     
