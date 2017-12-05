@@ -50,23 +50,29 @@ private:
     void newClip              (const Message & msg);
     void removeClip           (const Message & msg);
     void resetClip            (const Message & msg);
+    // arrange
     void setClipDrawOrder     (const Message & msg);
     void bringClipForward     (const Message & msg);
     void bringClipToFront     (const Message & msg);
     void sendClipBackward     (const Message & msg);
     void sendClipToBack       (const Message & msg);
+    void setBackgroundClip    (const Message & msg);
+    // size
     void scaleUpClip          (const Message & msg);
     void scaleDownClip        (const Message & msg);
     void scaleClip            (const Message & msg);
     void setClipWidth         (const Message & msg);
     void setClipHeight        (const Message & msg);
     void resetClipScale       (const Message & msg);
+    void toggleFullscreenClip (const Message & msg);
+    // orientation
     void setClipVFlip         (const Message & msg);
     void setClipHFlip         (const Message & msg);
-    void toggleFullscreenClip (const Message & msg);
+    // visibility
     void toggleClipVisibility (const Message & msg);
     void showClip             (const Message & msg);
     void hideClip             (const Message & msg);
+    // fx
     void setClipMask          (const Message & msg);
     void enableClipMask       (const Message & msg);
     void disableClipMask      (const Message & msg);

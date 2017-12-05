@@ -104,7 +104,7 @@ namespace loopier {
         ofColor color; ///< Tint
         float   alpha; ///< Transparency of the clip
         
-        int         depth; // used in drawing order. 0 at top, 1 below it
+        int     depth; // used in drawing order. 0 at top, bigger numbers are at the bottom
         
         bool    bFullscreen;
         bool    bDrawName;

@@ -28,6 +28,7 @@ namespace {
     
     map<string, loopier::CameraPlayerPtr>   cameraplayers;
     vector<string>                          frameplayerslist;
+    string                                  backgroundClipName; // name of the clip to stick to the back
     
     // images
     vector<ofImage> framebuffer;    // temporary buffer to hold images to be saved
@@ -253,8 +254,12 @@ namespace loopier {
             if (resourcename == "") resourcename = clipname;
             
             loopier::ClipPtr clip;
-            if (exists(clipname)) clip = getClip(clipname);
-            else clip = make_shared<loopier::Clip>(clipname, resourcename);
+            if (exists(clipname)) {
+                clip = getClip(clipname);
+            } else {
+                clip = make_shared<loopier::Clip>(clipname, resourcename);
+                drawingLayers.push_back(clipname);
+            }
             
             string cliptype = "";
             
@@ -298,9 +303,10 @@ namespace loopier {
                 cliptype = "frame";
             }
             
-            clip->setDepth(0);
+//            clip->setDepth(0);
             clips[clipname] = clip;
-            drawingLayers.push_back(clipname);
+            clip->show();
+            bringClipToFront(clipname);
             ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << resourcename << "'";
             return clip;
         
@@ -316,6 +322,7 @@ namespace loopier {
 //            it = std::find(frameplayerslist.begin(), frameplayerslist.end(), clipname);
 //            frameplayerslist.erase(it);
             clips[clipname]->hide();
+            clips[clipname]->stop();
 //            clips.erase(clipname);
         }
         
@@ -327,6 +334,7 @@ namespace loopier {
             if (position < 0 ) position = 0;
             
             getClip(clipname)->setDepth(position);
+            
             // remove from current position
             drawingLayers.erase(std::remove(drawingLayers.begin(),
                                        drawingLayers.end(),
@@ -341,7 +349,6 @@ namespace loopier {
         {
             if (!exists(clipname)) return;
             setClipDrawOrder(clipname, 0 );
-            listDrawOrder();
         }
         
         //---------------------------------------------------------------------------
@@ -349,7 +356,6 @@ namespace loopier {
         {
             if (!exists(clipname)) return;
             setClipDrawOrder(clipname, getClip(clipname)->getDepth() - 1 );
-            listDrawOrder();
         }
         
         //---------------------------------------------------------------------------
@@ -357,15 +363,20 @@ namespace loopier {
         {
             if (!exists(clipname)) return;
             setClipDrawOrder(clipname, getClip(clipname)->getDepth() + 1 );
-            listDrawOrder();
         }
         
         //---------------------------------------------------------------------------
         void sendClipToBack(string clipname)
         {
             if (!exists(clipname)) return;
-            setClipDrawOrder(clipname, drawingLayers.size() );
-            listDrawOrder();
+            setClipDrawOrder(clipname, drawingLayers.size() - 2);
+        }
+        
+        //---------------------------------------------------------------------------
+        void setBackgroundClip(string clipname)
+        {
+            if (!exists(clipname)) return;
+            setClipDrawOrder(clipname, drawingLayers.size() - 1);
         }
         
         // Frame

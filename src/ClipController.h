@@ -47,8 +47,11 @@ namespace loopier {
         void    bringClipForward(string clipname);
         // \brief   Lowers clip in the drawing order
         void    sendClipBackward(string clipname);
-        // \brief   Sends clip below all other clips
+        // \brief   Sends clip below all other clips but above background (call setBackgroundClip if
+        ///         you want it to stick at the bottom of everything
         void    sendClipToBack(string clipname);
+        // \brief   Keeps clip as the background
+        void    setBackgroundClip(string clipname);
         
         
         // \brief   Adds a frame to a (Frame)clip

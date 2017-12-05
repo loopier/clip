@@ -107,7 +107,7 @@ void loopier::CvPlayer::draw()
 //    inputPlayer->draw();
 //    camera.draw(0,0);
 //    ofSetColor(255,0,0);
-//    contourFinder.draw();
+    contourFinder.draw();
 }
 
 //---------------------------------------------------------
