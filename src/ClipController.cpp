@@ -755,48 +755,48 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void setClipColor(const string clipname, const string& color)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //
-            //            vector<string> tokens = ofSplitString(color, ",", true, true);
-            //
-            //            ofColor c;
-            //
-            //            if (tokens.size() == 1) {
-            //                c = ofColor(ofToFloat(tokens[0]) * 255);
-            //            } else if (tokens.size() == 2) {
-            //                c = ofColor(ofToFloat(tokens[0]) * 255);
-            //                loopier::clipmap[clipname]->setAlpha(ofToFloat(tokens[1]));
-            //            } else {
-            //                c.r = ofToFloat(tokens[0]) * 255;
-            //                c.g = ofToFloat(tokens[1]) * 255;
-            //                c.b = ofToFloat(tokens[2]) * 255;
-            //            }
-            //            if (tokens.size() == 4) {
-            //                loopier::clipmap[clipname]->setAlpha(ofToFloat(tokens[3]));
-            //            }
-            //            
-            //            ofLogVerbose() << __PRETTY_FUNCTION__ << "\t" << c;
-            //            
-            //            loopier::clipmap[clipname]->setColor(c);
+                        if(!exists(clipname)) return;
+            
+                        vector<string> tokens = ofSplitString(color, ",", true, true);
+            
+                        ofColor c;
+            
+                        if (tokens.size() == 1) {
+                            c = ofColor(ofToFloat(tokens[0]) * 255);
+                        } else if (tokens.size() == 2) {
+                            c = ofColor(ofToFloat(tokens[0]) * 255);
+                            clips[clipname]->setAlpha(ofToFloat(tokens[1]));
+                        } else {
+                            c.r = ofToFloat(tokens[0]) * 255;
+                            c.g = ofToFloat(tokens[1]) * 255;
+                            c.b = ofToFloat(tokens[2]) * 255;
+                        }
+                        if (tokens.size() == 4) {
+                            clips[clipname]->setAlpha(ofToFloat(tokens[3]));
+                        }
+                        
+                        ofLogVerbose() << __PRETTY_FUNCTION__ << "\t" << c;
+                        
+                        clips[clipname]->setColor(c);
         }
         
         void setClipColor(const string clipname, const ofColor & color)
         {
-            //            loopier::clipmap[clipname]->setColor(color);
+            if(!exists(clipname)) return;
+            clips[clipname]->setColor(color);
         }
         
         void setClipColor(const string clipname, const float& grayscale)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            
-            //            loopier::clipmap[clipname]->setColor(ofColor(grayscale * 255));
+            if(!exists(clipname)) return;
+            clips[clipname]->setColor(ofColor(grayscale * 255));
         }
         
         //---------------------------------------------------------------------------
         void setClipAlpha(const string clipname, const float alpha)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->setAlpha(alpha);
+            if(!exists(clipname)) return;
+            clips[clipname]->setAlpha(alpha);
         }
     } // namespace clip
 }
