@@ -721,8 +721,8 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void toggleFullscreenClip(const string clipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->toggleFullscreen();
+            if(!exists(clipname)) return;
+            clips[clipname]->toggleFullscreen();
         }
         
         //---------------------------------------------------------------------------
