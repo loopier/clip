@@ -45,6 +45,7 @@ namespace loopier {
         float       getHeight() const;
         ofTexture & getTexture();;
         ofPixels &  getPixels();
+        ofImage &   getImage();
         
         float     getDuration() const;
         
@@ -61,6 +62,8 @@ namespace loopier {
         void    addFrame(ofImage img);
         /// \brief  Inserts an image at the current frame
         void    insertFrame(ofImage img);
+        void    removeFrame();
+        void    clear();
     private:
         FrameListPtr    frames;
         float           lastFrameTime;

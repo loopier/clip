@@ -129,6 +129,12 @@ ofPixels & loopier::FramePlayer::getPixels()
 }
 
 //---------------------------------------------------------
+ofImage & loopier::FramePlayer::getImage()
+{
+    return frames->at(currentFrame);
+}
+
+//---------------------------------------------------------
 float loopier::FramePlayer::getDuration() const
 {
     return frames->size() * (60 / frameRate);
@@ -217,4 +223,19 @@ void loopier::FramePlayer::insertFrame(ofImage img)
     frames->insert(pos, img);
     ofLogVerbose() << "Inserted new frame in '" << getName() << "' at: " << currentFrame;
     nextFrame();
+}
+
+//---------------------------------------------------------
+void loopier::FramePlayer::removeFrame()
+{
+    if (frames->size() <= 0) return;
+    frames->erase(frames->begin() + currentFrame);
+    previousFrame();
+}
+
+//---------------------------------------------------------
+void loopier::FramePlayer::clear()
+{
+    frames->clear();
+    currentFrame = 0;
 }

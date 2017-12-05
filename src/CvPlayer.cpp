@@ -161,6 +161,12 @@ ofPixels & loopier::CvPlayer::getPixels()
     return outputImage.getPixels();
 }
 
+//---------------------------------------------------------
+ofImage & loopier::CvPlayer::getImage()
+{
+    return outputImage;
+}
+
 ////---------------------------------------------------------
 // MOVED TO BASECLASS
 //void loopier::CvPlayer::setInputPlayer(PlayerPtr player)

@@ -369,6 +369,27 @@ loopier::PlayerPtr loopier::Clip::getPlayer() const
 
 
 //---------------------------------------------------------------------------
+ofTexture & loopier::Clip::getTexture() const
+{
+    return player->getTexture();
+}
+
+
+//---------------------------------------------------------------------------
+ofPixels & loopier::Clip::getPixels() const
+{
+    return player->getPixels();
+}
+
+
+//---------------------------------------------------------------------------
+ofImage & loopier::Clip::getImage() const
+{
+    return player->getImage();
+}
+
+
+//---------------------------------------------------------------------------
 void loopier::Clip::setDepth(int order)
 {
     depth = order;

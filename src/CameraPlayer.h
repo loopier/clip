@@ -41,10 +41,12 @@ namespace loopier {
         float       getHeight() const;
         ofTexture & getTexture();
         ofPixels &  getPixels();
+        ofImage &   getImage();
         
         Camera  getCamera() const;
     private:
-        CameraPtr  camera;
+        CameraPtr   camera;
+        ofImage     image;
     };
     
     typedef shared_ptr<CameraPlayer> CameraPlayerPtr;

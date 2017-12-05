@@ -18,6 +18,8 @@ namespace {
     // clips
     loopier::ClipMap            clips;      // all clips that have been created
     loopier::PlayerMap          players;    // all players
+    
+    // files
     loopier::MovieMap           movies;     // movies in resources folder
     loopier::FrameListMap       frames;     // frame sequences in resources folder
     loopier::CameraMap          cameras;    // cameras plugged
@@ -25,6 +27,7 @@ namespace {
     vector<string>   drawingLayers; // used to control drawing order (depth)
     
     map<string, loopier::CameraPlayerPtr>   cameraplayers;
+    vector<string>                          frameplayerslist;
     
     // images
     vector<ofImage> framebuffer;    // temporary buffer to hold images to be saved
@@ -141,6 +144,15 @@ namespace {
         ofLogVerbose() << "Created cilp: [cv]\t'" << clipname << "' using '" <<cameraname << "'";
         return clip;
         //                resourcename = cameraclip->getName(); // used in log message
+    }
+    
+    bool    isFramePlayer(string name)
+    {
+        bool isit = false;
+        vector<string>::iterator it;
+        it = std::find(frameplayerslist.begin(), frameplayerslist.end(), name);
+        if (it == frameplayerslist.end())   return false;
+        else                                return true;
     }
     
 } // namesapce
@@ -271,6 +283,7 @@ namespace loopier {
             else if (frames.count(resourcename) > 0) {
                 loopier::FramePlayerPtr frameplayer(new FramePlayer(frames[resourcename]));
                 clip->setup(frameplayer);
+                frameplayerslist.push_back(clipname);
                 cliptype = "frame";
             }
             
@@ -468,6 +481,8 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        
+        //---------------------------------------------------------------------------
         void setClipSpeed(const string clipname, const float speed)
         {
             //            if(!loopier::clipExists(clipname)) return;
@@ -505,7 +520,64 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
-        //  RESET
+        //  EDIT
+        //---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
+        void addFrame(const string recorderclip, const string sourceclip)
+        {
+            if(!exists(recorderclip) ||
+               !exists(sourceclip)   ||
+               !isFramePlayer(recorderclip)) return;
+            // cast from PlayerPtr to FramePlayerPtr -- note that
+            // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
+            FramePlayerPtr recplayer = dynamic_pointer_cast<FramePlayer> (clips[recorderclip]->getPlayer());
+            recplayer->addFrame( clips[sourceclip]->getImage() );
+            
+            ofLogVerbose() << "Adding frame from '" << sourceclip <<"' to '" << recorderclip;
+        }
+        
+        //---------------------------------------------------------------------------
+        void insertFrame(const string recorderclip, const string sourceclip)
+        {
+            if(!exists(recorderclip) ||
+               !exists(sourceclip)   ||
+               !isFramePlayer(recorderclip)) return;
+            // cast from PlayerPtr to FramePlayerPtr -- note that
+            // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
+            FramePlayerPtr recplayer = dynamic_pointer_cast<FramePlayer> (clips[recorderclip]->getPlayer());
+            recplayer->insertFrame( clips[sourceclip]->getImage() );
+            
+            ofLogVerbose() << "Inserting frame from '" << sourceclip <<"' to '" << recorderclip;
+        }
+        
+        //---------------------------------------------------------------------------
+        void removeFrame(const string clipname)
+        {
+            if(!exists(clipname)) return;
+            // cast from PlayerPtr to FramePlayerPtr -- note that
+            // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
+            FramePlayerPtr frameplayer = dynamic_pointer_cast<FramePlayer> (clips[clipname]->getPlayer());
+            frameplayer->removeFrame();
+            
+            ofLogVerbose() << "Removing frame from '" << clipname <<"'";
+        }
+        
+        //---------------------------------------------------------------------------
+        void clearFrames(const string clipname)
+        {
+            if(!exists(clipname)) return;
+            // cast from PlayerPtr to FramePlayerPtr -- note that
+            // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
+            FramePlayerPtr frameplayer = dynamic_pointer_cast<FramePlayer> (clips[clipname]->getPlayer());
+            frameplayer->clear();
+            
+            ofLogVerbose() << "Removing frame from '" << clipname <<"'";
+        }
+        
+        //---------------------------------------------------------------------------
+        //
+        //---------------------------------------------------------------------------
+        
         //---------------------------------------------------------------------------
         void resetClip(const string clipname)
         {

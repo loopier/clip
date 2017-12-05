@@ -46,6 +46,7 @@ namespace loopier {
         float       getHeight() const;
         ofTexture & getTexture();
         ofPixels &  getPixels();
+        ofImage &   getImage();
         
         float   getDuration() const;
         
@@ -60,6 +61,7 @@ namespace loopier {
         void    previousFrame();
     private:
         MoviePtr movie;
+        ofImage  image; // current frame
     };
     
     typedef shared_ptr<MoviePlayer> MoviePlayerPtr;

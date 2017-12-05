@@ -45,6 +45,7 @@ namespace loopier {
             bool        loadResource(string resourcename);
             ofTexture & getTexture();
             ofPixels  & getPixels();
+            ofImage &   getImage();
             
 //            void setInputPlayer(PlayerPtr player); // REMOVE: -- MOVED TO BASE CLASS
 

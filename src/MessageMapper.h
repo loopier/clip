@@ -76,6 +76,12 @@ private:
     void pauseClip        (const Message & msg);
     void setClipLoopState (const Message & msg);
     void setClipSpeed     (const Message & msg);
+    // edit
+    void addFrame         (const Message & msg);
+    void insertFrame      (const Message & msg);
+    void removeFrame      (const Message & msg);
+    void clearFrames      (const Message & msg);
+    
     // attributes
     void moveClipTo   (const Message & msg);
     void setClipColor (const Message & msg);

@@ -90,7 +90,6 @@ namespace loopier {
         void stopClip(const string clipname);
         // pause
         void pauseClip(const string clipname);
-        // change movie source
         // set speed
         void setClipSpeed(const string clipname, const float speed);
         /// \brief Set loop state (none | normal | palindrome)
@@ -99,6 +98,14 @@ namespace loopier {
         void setClipMask(const string clipname, const string maskclipname);
         void enableClipMask(const string clipname);
         void disableClipMask(const string clipname);
+        
+        // ----- EDIT CLIP CONTENTS -----
+        /// \brief  Appends clipplayer's current image to cliprecorder frames
+        void addFrame(const string recorderclip, const string sourceclip);
+        /// \brief  Inserts clipplayer's current image to cliprecorder's current frame
+        void insertFrame(const string recorderclip, const string sourceclip);
+        void removeFrame(const string clipname);
+        void clearFrames(const string clipname);
         
         // ----- CLIP ATTRIBUTES -----
         // reset all attributes

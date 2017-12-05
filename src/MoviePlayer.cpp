@@ -25,6 +25,7 @@ loopier::MoviePlayer::MoviePlayer(loopier::MoviePtr mov)
     movie->load(mov->getMoviePath());
     width = movie->getWidth();
     height = movie->getHeight();
+    image.allocate(width, height, OF_IMAGE_COLOR_ALPHA);
 }
 
 loopier::MoviePlayer::~MoviePlayer()
@@ -41,6 +42,7 @@ void loopier::MoviePlayer::setup(){
 void loopier::MoviePlayer::update(){
     if (!movie) return;
     movie->update();
+    image.setFromPixels(getPixels());
 }
 
 //---------------------------------------------------------
@@ -113,6 +115,12 @@ ofTexture & loopier::MoviePlayer::getTexture()
 ofPixels & loopier::MoviePlayer::getPixels()
 {
     return movie->getPixels();
+}
+
+//---------------------------------------------------------
+ofImage & loopier::MoviePlayer::getImage()
+{
+    return image;
 }
 
 //---------------------------------------------------------

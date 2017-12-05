@@ -41,6 +41,7 @@ void loopier::CameraPlayer::update()
 {
     if (!camera)    return;
     camera->update();
+    image.setFromPixels(camera->getPixels());
 }
 
 //---------------------------------------------------------
@@ -99,6 +100,12 @@ ofTexture & loopier::CameraPlayer::getTexture()
 ofPixels & loopier::CameraPlayer::getPixels()
 {
     return camera->getPixels();
+}
+
+//---------------------------------------------------------
+ofImage & loopier::CameraPlayer::getImage()
+{
+    return image;
 }
 
 //---------------------------------------------------------

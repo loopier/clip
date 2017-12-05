@@ -43,6 +43,7 @@ namespace loopier {
         virtual     float 				getHeight() const;
         virtual     ofTexture &         getTexture() = 0;
         virtual     ofPixels &          getPixels() = 0;
+        virtual     ofImage &           getImage() = 0;
         
         virtual     bool				isPaused() const;
         virtual     bool				isLoaded() const;
