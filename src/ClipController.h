@@ -104,6 +104,8 @@ namespace loopier {
         
         // ----- EDIT CLIP CONTENTS -----
         /// \brief  Appends clipplayer's current image to cliprecorder frames
+        void setRecordingSource(const string clipname, const string sourceclip);
+        /// \brief  Appends clipplayer's current image to cliprecorder frames
         void addFrame(const string recorderclip, const string sourceclip);
         /// \brief  Inserts clipplayer's current image to cliprecorder's current frame
         void insertFrame(const string recorderclip, const string sourceclip);

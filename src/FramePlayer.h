@@ -60,6 +60,8 @@ namespace loopier {
         void    nextFrame();
         void    previousFrame();
         
+        /// \brief  Sets the player from where to extract images
+        void    setRecordingSourcePlayer(PlayerPtr player);
         /// \brief  Adds an image at the end
         void    addFrame(ofImage img);
         /// \brief  Inserts an image at the current frame
@@ -69,6 +71,7 @@ namespace loopier {
     private:
         FrameListPtr    frames;
         float           lastFrameTime;
+        PlayerPtr       recordingSourcePlayer; // frames are captured from this
     };
     
     typedef shared_ptr<FramePlayer> FramePlayerPtr;

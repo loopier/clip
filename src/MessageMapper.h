@@ -83,6 +83,7 @@ private:
     void setClipLoopState (const Message & msg);
     void setClipSpeed     (const Message & msg);
     // edit
+    void setRecordingSource (const Message & msg);
     void addFrame         (const Message & msg);
     void insertFrame      (const Message & msg);
     void removeFrame      (const Message & msg);

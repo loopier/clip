@@ -76,12 +76,13 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/loop"]       = &loopier::MessageMapper::setClipLoopState;
     messageMap["/loopier/clip/clip/speed"]      = &loopier::MessageMapper::setClipSpeed;
     // edit
-    messageMap["/loopier/clip/clip/addframe"]       = &loopier::MessageMapper::addFrame;
-    messageMap["/loopier/clip/clip/insertframe"]    = &loopier::MessageMapper::insertFrame;
-    messageMap["/loopier/clip/clip/removeframe"]    = &loopier::MessageMapper::removeFrame;
-    messageMap["/loopier/clip/clip/clearframes"]    = &loopier::MessageMapper::clearFrames;
-    messageMap["/loopier/clip/clip/saveframes"]     = &loopier::MessageMapper::saveFrames;
-    messageMap["/loopier/clip/clip/loadframes"]     = &loopier::MessageMapper::loadFrames;
+    messageMap["/loopier/clip/clip/recordingsource"]    = &loopier::MessageMapper::setRecordingSource;
+    messageMap["/loopier/clip/clip/addframe"]           = &loopier::MessageMapper::addFrame;
+    messageMap["/loopier/clip/clip/insertframe"]        = &loopier::MessageMapper::insertFrame;
+    messageMap["/loopier/clip/clip/removeframe"]        = &loopier::MessageMapper::removeFrame;
+    messageMap["/loopier/clip/clip/clearframes"]        = &loopier::MessageMapper::clearFrames;
+    messageMap["/loopier/clip/clip/saveframes"]         = &loopier::MessageMapper::saveFrames;
+    messageMap["/loopier/clip/clip/loadframes"]         = &loopier::MessageMapper::loadFrames;
     // attributes
     messageMap["/loopier/clip/clip/moveto"] = &loopier::MessageMapper::moveClipTo;
     messageMap["/loopier/clip/clip/color"]  = &loopier::MessageMapper::setClipColor;
@@ -377,6 +378,12 @@ void loopier::MessageMapper::setClipSpeed(const Message & msg)
 }
 
 // EDIT
+//---------------------------------------------------------
+void loopier::MessageMapper::setRecordingSource(const Message & msg)
+{
+    loopier::clip::setRecordingSource(msg.getArgAsString(0), msg.getArgAsString(1));
+}
+
 //---------------------------------------------------------
 void loopier::MessageMapper::addFrame(const Message & msg)
 {

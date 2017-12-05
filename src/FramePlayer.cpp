@@ -22,6 +22,10 @@ loopier::FramePlayer::FramePlayer(FrameListPtr framelist)
 : BasePlayer()
 , lastFrameTime(0.0)
 {
+    if (framelist->size() == 0) {
+        width = ofGetWidth();
+        height = ofGetHeight();
+    }
     frameRate = 12;
     frames = framelist;
 }
@@ -39,7 +43,12 @@ void loopier::FramePlayer::setup()
 //---------------------------------------------------------
 void loopier::FramePlayer::update()
 {
-    if (!bPlay) return;
+    if (!bPlay)                 return;
+    if (frames->size() <= 0)    return;
+    if (currentFrame > frames->size()) currentFrame = frames->size() - 1;
+    
+    width = frames->at(currentFrame).getWidth();
+    height = frames->at(currentFrame).getHeight();
     
     // FIXME: it crashes
     float rateRatio = (60 / getFrameRate()) / ofGetFrameRate();
@@ -222,9 +231,19 @@ void loopier::FramePlayer::previousFrame()
 }
 
 //---------------------------------------------------------
+void loopier::FramePlayer::setRecordingSourcePlayer(PlayerPtr player)
+{
+    recordingSourcePlayer = player;
+}
+
+//---------------------------------------------------------
 void loopier::FramePlayer::addFrame(ofImage img)
 {
-    frames->push_back(img);
+//    frames->push_back(img);
+    frames->push_back(frames->back()); // duplicate last frame
+    
+    frames->back().setFromPixels(recordingSourcePlayer->getPixels());
+    
 }
 
 //---------------------------------------------------------
@@ -248,5 +267,5 @@ void loopier::FramePlayer::removeFrame()
 void loopier::FramePlayer::clear()
 {
     frames->clear();
-    currentFrame = 0;
+    firstFrame();
 }

@@ -27,12 +27,7 @@ namespace {
     vector<string>   drawingLayers; // used to control drawing order (depth)
     
     map<string, loopier::CameraPlayerPtr>   cameraplayers;
-    vector<string>                          frameplayerslist;
-    string                                  backgroundClipName; // name of the clip to stick to the back
-    
-    // images
-    vector<ofImage> framebuffer;    // temporary buffer to hold images to be saved
-                                    // used by image saving functions
+    vector<string>                          frameclipslist;
     
     // * * * HELPER FUNCTIONS LOCAL TO THIS FILE * * * * * * * * * * * * * * * * * * * * *
     
@@ -147,12 +142,12 @@ namespace {
         //                resourcename = cameraclip->getName(); // used in log message
     }
     
-    bool    isFramePlayer(string name)
+    bool    isFrameClip(string name)
     {
         bool isit = false;
         vector<string>::iterator it;
-        it = std::find(frameplayerslist.begin(), frameplayerslist.end(), name);
-        if (it == frameplayerslist.end())   return false;
+        it = std::find(frameclipslist.begin(), frameclipslist.end(), name);
+        if (it == frameclipslist.end())   return false;
         else                                return true;
     }
     
@@ -261,6 +256,13 @@ namespace loopier {
                 drawingLayers.push_back(clipname);
             }
             
+            // !!!: Should change to something more kosher, like classes returning their types
+            if (isFrameClip(clipname)) {
+                frameclipslist.erase(std::remove(frameclipslist.begin(),
+                                                frameclipslist.end(),
+                                                clipname));
+            }
+            
             string cliptype = "";
             
             // look for a resource with this name
@@ -290,16 +292,21 @@ namespace loopier {
             else if (frames.count(resourcename) > 0) {
                 loopier::FramePlayerPtr frameplayer(new FramePlayer(frames[resourcename]));
                 clip->setup(frameplayer);
-                frameplayerslist.push_back(clipname);
+                frameclipslist.push_back(clipname);
                 cliptype = "frame";
             }
             
             // doesn't exist -- create a frame clip with an empty framelist -- aka framerecorder
             else {
-                loopier::FrameListPtr emptyframelist(new loopier::FrameList());
-                loopier::FramePlayerPtr frameplayer(new FramePlayer(emptyframelist));
+//                loopier::FrameListPtr emptyframelist(new loopier::FrameList());
+//                loopier::FramePlayerPtr frameplayer(new FramePlayer(emptyframelist));
+                // !!!: CLUMSY should pass an empty framelist as above (commented out) but
+                //          it won't work when filled (doesn't draw in player)
+                loopier::FramePlayerPtr frameplayer(new FramePlayer(frames.begin()->second));
+                frameplayer->clear();
+
                 clip->setup(frameplayer);
-                frameplayerslist.push_back(clipname);
+                frameclipslist.push_back(clipname);
                 cliptype = "frame";
             }
             
@@ -545,17 +552,31 @@ namespace loopier {
         //  EDIT
         //---------------------------------------------------------------------------
         //---------------------------------------------------------------------------
+        void setRecordingSource(const string clipname, const string sourceclip)
+        {
+            if(!exists(clipname) ||
+               !exists(sourceclip)   ||
+               !isFrameClip(clipname)) return;
+            // cast from PlayerPtr to FramePlayerPtr -- note that
+            // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
+            FramePlayerPtr recplayer = dynamic_pointer_cast<FramePlayer> (clips[clipname]->getPlayer());
+            recplayer->setRecordingSourcePlayer(clips[sourceclip]->getPlayer());
+            
+            ofLogVerbose() << "Set '" << sourceclip <<"' as source for recording to '" << clipname << "'";
+        }
+        
+        //---------------------------------------------------------------------------
         void addFrame(const string recorderclip, const string sourceclip)
         {
             if(!exists(recorderclip) ||
                !exists(sourceclip)   ||
-               !isFramePlayer(recorderclip)) return;
+               !isFrameClip(recorderclip)) return;
             // cast from PlayerPtr to FramePlayerPtr -- note that
             // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
             FramePlayerPtr recplayer = dynamic_pointer_cast<FramePlayer> (clips[recorderclip]->getPlayer());
             recplayer->addFrame( clips[sourceclip]->getImage() );
             
-            ofLogVerbose() << "Adding frame from '" << sourceclip <<"' to '" << recorderclip;
+            ofLogVerbose() << "Adding frame from '" << sourceclip <<"' to '" << recorderclip << "'";
         }
         
         //---------------------------------------------------------------------------
@@ -563,13 +584,13 @@ namespace loopier {
         {
             if(!exists(recorderclip) ||
                !exists(sourceclip)   ||
-               !isFramePlayer(recorderclip)) return;
+               !isFrameClip(recorderclip)) return;
             // cast from PlayerPtr to FramePlayerPtr -- note that
             // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
             FramePlayerPtr recplayer = dynamic_pointer_cast<FramePlayer> (clips[recorderclip]->getPlayer());
             recplayer->insertFrame( clips[sourceclip]->getImage() );
             
-            ofLogVerbose() << "Inserting frame from '" << sourceclip <<"' to '" << recorderclip;
+            ofLogVerbose() << "Inserting frame from '" << sourceclip <<"' to '" << recorderclip << "'";
         }
         
         //---------------------------------------------------------------------------
