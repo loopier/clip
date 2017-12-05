@@ -191,6 +191,7 @@ namespace loopier {
         {
             // local helpers declared above in unnamed namespace
             for (const auto &clipname : drawingLayers) {
+                if (!clip::exists(clipname)) continue;
                 clips.at(clipname)->draw();
             };
         }
@@ -308,8 +309,13 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void removeClip(string clipname)
         {
-            // FIX: CRASHES APP
-//            if (!exists(clipname)) return;
+            // FIX: removing from map CRASHES APP
+            if (!exists(clipname)) return;
+            
+//            vector<string>::iterator it;
+//            it = std::find(frameplayerslist.begin(), frameplayerslist.end(), clipname);
+//            frameplayerslist.erase(it);
+            clips[clipname]->hide();
 //            clips.erase(clipname);
         }
         
@@ -694,22 +700,22 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void toggleClipVisibility(const string clipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->toggleVisibility();
+            if(!exists(clipname)) return;
+            clips[clipname]->toggleVisibility();
         }
         
         //---------------------------------------------------------------------------
         void showClip(const string clipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->show();
+            if(!exists(clipname)) return;
+            clips[clipname]->show();
         }
         
         //---------------------------------------------------------------------------
         void hideClip(const string clipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->hide();
+            if(!exists(clipname)) return;
+            clips[clipname]->hide();
         }
         
         //---------------------------------------------------------------------------

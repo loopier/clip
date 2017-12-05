@@ -62,7 +62,8 @@ void loopier::Clip::setup(PlayerPtr aplayer)
 //---------------------------------------------------------------------------
 void loopier::Clip::update()
 {
-//    if (bPlaySequence) updateSequence();
+    if (!bVisible) return;
+    //    if (bPlaySequence) updateSequence();
     player->update();
     
     outputFbo.begin();
