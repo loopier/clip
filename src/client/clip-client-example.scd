@@ -67,7 +67,7 @@ m.sendMsg("/loopier/clip/clip/new", "exampleclip");
 m.sendMsg("/loopier/clip/clip/reset", "exampleclip");
 m.sendMsg("/loopier/clip/clip/scaleup", "exampleclip", 0.1);
 m.sendMsg("/loopier/clip/clip/scaledown", "exampleclip", 0.05);
-m.sendMsg("/loopier/clip/clip/scale", "exampleclip", 2.0.rand);
+m.sendMsg("/loopier/clip/clip/scale", "exampleclip", 2.0.rand+0.5);
 m.sendMsg("/loopier/clip/clip/xscale", "exampleclip", 2.0.rand + 0.2);
 m.sendMsg("/loopier/clip/clip/yscale", "exampleclip", 3);
 m.sendMsg("/loopier/clip/clip/resetscale", "exampleclip", );

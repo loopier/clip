@@ -83,8 +83,10 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/clearframes"]        = &loopier::MessageMapper::clearFrames;
     messageMap["/loopier/clip/clip/saveframes"]         = &loopier::MessageMapper::saveFrames;
     messageMap["/loopier/clip/clip/loadframes"]         = &loopier::MessageMapper::loadFrames;
-    // attributes
+    // move
     messageMap["/loopier/clip/clip/moveto"] = &loopier::MessageMapper::moveClipTo;
+    messageMap["/loopier/clip/clip/center"] = &loopier::MessageMapper::centerClip;
+    // color
     messageMap["/loopier/clip/clip/color"]  = &loopier::MessageMapper::setClipColor;
     messageMap["/loopier/clip/clip/alpha"]  = &loopier::MessageMapper::setClipAlpha;
 
@@ -420,13 +422,21 @@ void loopier::MessageMapper::loadFrames(const Message & msg)
     loopier::clip::loadFrames(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
-// ATTRIBUTES
+// MOVE
 //---------------------------------------------------------
 void loopier::MessageMapper::moveClipTo(const Message & msg)
 {
     loopier::clip::moveClipTo(msg.getArgAsString(0), msg.getArgAsFloat(1), msg.getArgAsFloat(2));
 }
 
+//---------------------------------------------------------
+void loopier::MessageMapper::centerClip(const Message & msg)
+{
+    loopier::clip::centerClip(msg.getArgAsString(0));
+}
+
+
+// COLOR
 //---------------------------------------------------------
 void loopier::MessageMapper::setClipColor(const Message & msg)
 {

@@ -121,6 +121,8 @@ namespace loopier {
         /// \brief Move clip
         /// \param  x,y   float     Normalized position.  Will be scaled according to window dimensions
         void moveClipTo(const string clipname, const float x, const float y);
+        /// \brief  Moves clip to the center of the screen
+        void centerClip(const string clipname);
         // set anchor point
         // scale -- resize
         void scaleClip(const string clipname, const float scale);

@@ -314,6 +314,7 @@ namespace loopier {
             clips[clipname] = clip;
             clip->show();
             bringClipToFront(clipname);
+            centerClip(clipname);
             ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << resourcename << "'";
             return clip;
         
@@ -654,6 +655,14 @@ namespace loopier {
         {
             if(!exists(clipname)) return;
             clips[clipname]->setPosition(x, y);
+        }
+        
+        //---------------------------------------------------------------------------
+        void centerClip(const string clipname)
+        {
+            if(!exists(clipname)) return;
+//            moveClipTo(clipname, ofGetWidth() / 2, ofGetHeight() / 2);
+            moveClipTo(clipname, 0.5, 0.5);
         }
         
         //---------------------------------------------------------------------------

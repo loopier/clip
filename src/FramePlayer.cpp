@@ -25,7 +25,7 @@ loopier::FramePlayer::FramePlayer(FrameListPtr framelist)
     if (framelist->size() == 0) {
         width = ofGetWidth();
         height = ofGetHeight();
-    }
+    } 
     frameRate = 12;
     frames = framelist;
 }
@@ -71,7 +71,7 @@ void loopier::FramePlayer::draw()
 {
     if (frames->size() <= 0) return;
     
-    frames->at(currentFrame).draw(anchor.x, anchor.y);
+    frames->at(currentFrame).draw(0, 0);
 }
 
 //---------------------------------------------------------

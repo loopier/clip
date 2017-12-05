@@ -55,6 +55,7 @@ void loopier::Clip::setup(PlayerPtr aplayer)
     sequenceOrder.push_back(0);
     aplayer->setLoopState(loopState);
     outputFbo.allocate(aplayer->getWidth(), aplayer->getHeight());
+    outputFbo.setAnchorPercent(0.5, 0.5);
     setPlayer(aplayer);
 //    reset();
 }
