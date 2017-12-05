@@ -515,15 +515,15 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void setClipSpeed(const string clipname, const float speed)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->setSpeed(speed);
+//            if(!exists(clipname)) return;
+//            clips[clipname]->setSpeed(speed);
         }
         
         //---------------------------------------------------------------------------
         void setClipLoopState(const string clipname, const loopier::LoopType state)
         {
-//            if(!exists(clipname)) return;
-//                        clips[clipname]->setLoopState(state);
+            if(!exists(clipname)) return;
+            clips[clipname]->setLoopState(state);
         }
         
         //---------------------------------------------------------------------------
