@@ -522,31 +522,31 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void setClipLoopState(const string clipname, const loopier::LoopType state)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->setLoopState(state);
+//            if(!exists(clipname)) return;
+//                        clips[clipname]->setLoopState(state);
         }
         
         //---------------------------------------------------------------------------
         void setClipMask(const string clipname, const string maskclipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            if(!loopier::clipExists(maskclipname)) return;
-            //            loopier::clipmap[clipname]->setMask( loopier::getClipByName(maskclipname)->getPlayer() );
-            //            loopier::getClipByName(maskclipname)->hide();
+            if(!exists(clipname))       return;
+            if(!exists(maskclipname))   return;
+            clips[clipname]->setMask( clips[maskclipname]->getPlayer() );
+            clips[maskclipname]->hide();
         }
         
         //---------------------------------------------------------------------------
         void enableClipMask(const string clipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->maskOn();
+            if(!exists(clipname)) return;
+            clips[clipname]->maskOn();
         }
         
         //---------------------------------------------------------------------------
         void disableClipMask(const string clipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->maskOff();
+            if(!exists(clipname)) return;
+            clips[clipname]->maskOff();
         }
         
         //---------------------------------------------------------------------------
