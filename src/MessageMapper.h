@@ -81,6 +81,8 @@ private:
     void insertFrame      (const Message & msg);
     void removeFrame      (const Message & msg);
     void clearFrames      (const Message & msg);
+    void saveFrames       (const Message & msg);
+    void loadFrames       (const Message & msg);
     
     // attributes
     void moveClipTo   (const Message & msg);

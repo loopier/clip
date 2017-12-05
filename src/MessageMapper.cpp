@@ -74,6 +74,8 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/insertframe"]    = &loopier::MessageMapper::insertFrame;
     messageMap["/loopier/clip/clip/removeframe"]    = &loopier::MessageMapper::removeFrame;
     messageMap["/loopier/clip/clip/clearframes"]    = &loopier::MessageMapper::clearFrames;
+    messageMap["/loopier/clip/clip/saveframes"]     = &loopier::MessageMapper::saveFrames;
+    messageMap["/loopier/clip/clip/loadframes"]     = &loopier::MessageMapper::loadFrames;
     // attributes
     messageMap["/loopier/clip/clip/moveto"] = &loopier::MessageMapper::moveClipTo;
     messageMap["/loopier/clip/clip/color"]  = &loopier::MessageMapper::setClipColor;
@@ -385,6 +387,18 @@ void loopier::MessageMapper::removeFrame(const Message & msg)
 void loopier::MessageMapper::clearFrames(const Message & msg)
 {
     loopier::clip::clearFrames(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::saveFrames(const Message & msg)
+{
+    loopier::clip::saveFrames(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::loadFrames(const Message & msg)
+{
+    loopier::clip::loadFrames(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 // ATTRIBUTES

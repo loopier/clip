@@ -47,6 +47,8 @@ namespace loopier {
         ofPixels &  getPixels();
         ofImage &   getImage();
         
+        FrameListPtr    getFrames();
+        
         float     getDuration() const;
         
         void    setSpeed(float newSpeed);

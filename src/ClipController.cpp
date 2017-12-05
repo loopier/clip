@@ -249,6 +249,7 @@ namespace loopier {
         {
             // if clip with this name exists -- change new clip's name to clipname + timestamp
 //            if (exists(clipname)) clipname += ofGetTimestampString("%H%M%S%i");
+            if (resourcename == "") resourcename = clipname;
             
             loopier::ClipPtr clip;
             if (exists(clipname)) clip = getClip(clipname);
@@ -287,10 +288,13 @@ namespace loopier {
                 cliptype = "frame";
             }
             
-            // doesn't exist -- create a frame clip with 'empty' (check frames folder)
+            // doesn't exist -- create a frame clip with an empty framelist -- aka framerecorder
             else {
-                //                newClip(clipname, "empty");
-                //                return;
+                loopier::FrameListPtr emptyframelist(new loopier::FrameList());
+                loopier::FramePlayerPtr frameplayer(new FramePlayer(emptyframelist));
+                clip->setup(frameplayer);
+                frameplayerslist.push_back(clipname);
+                cliptype = "frame";
             }
             
             clip->setDepth(0);
@@ -298,6 +302,7 @@ namespace loopier {
             drawingLayers.push_back(clipname);
             ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << resourcename << "'";
             return clip;
+        
         }
         
         //---------------------------------------------------------------------------
@@ -571,7 +576,26 @@ namespace loopier {
             FramePlayerPtr frameplayer = dynamic_pointer_cast<FramePlayer> (clips[clipname]->getPlayer());
             frameplayer->clear();
             
-            ofLogVerbose() << "Removing frame from '" << clipname <<"'";
+            ofLogVerbose() << "Clearing frames from '" << clipname <<"'";
+        }
+        
+        //---------------------------------------------------------------------------
+        void saveFrames(const string clipname)
+        {
+            if(!exists(clipname)) return;
+            FramePlayerPtr frameplayer = dynamic_pointer_cast<FramePlayer> (clips[clipname]->getPlayer());
+            FrameListPtr frames = frameplayer->getFrames();
+            // get path from clipname
+            string path = resourceFilesPath + "frames/" + clipname;
+            // iterate frame list and save each file as 'clipname_xxx.png'
+            
+        }
+        
+        //---------------------------------------------------------------------------
+        void loadFrames(const string clipname, const string resourcename)
+        {
+//            if(!exists(clipname)) return;
+            newClip(clipname, resourcename);
         }
         
         //---------------------------------------------------------------------------

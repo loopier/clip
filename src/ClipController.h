@@ -106,6 +106,8 @@ namespace loopier {
         void insertFrame(const string recorderclip, const string sourceclip);
         void removeFrame(const string clipname);
         void clearFrames(const string clipname);
+        void saveFrames(const string clipname);
+        void loadFrames(const string clipname, const string resourcename);
         
         // ----- CLIP ATTRIBUTES -----
         // reset all attributes

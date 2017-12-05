@@ -107,31 +107,42 @@ void loopier::FramePlayer::stop()
 //---------------------------------------------------------
 float loopier::FramePlayer::getWidth() const
 {
+    if (frames->size() <= 0) return;
     return frames->at(0).getWidth();
 }
 
 //---------------------------------------------------------
 float loopier::FramePlayer::getHeight() const
 {
+    if (frames->size() <= 0) return;
     return frames->at(0).getHeight();
 }
 
 //---------------------------------------------------------
 ofTexture & loopier::FramePlayer::getTexture()
 {
+    if (frames->size() <= 0) return;
     return frames->at(0).getTexture();
 }
 
 //---------------------------------------------------------
 ofPixels & loopier::FramePlayer::getPixels()
 {
+    if (frames->size() <= 0) return;
     return frames->at(0).getPixels();
 }
 
 //---------------------------------------------------------
 ofImage & loopier::FramePlayer::getImage()
 {
+    if (frames->size() <= 0) return;
     return frames->at(currentFrame);
+}
+
+//---------------------------------------------------------
+loopier::FrameListPtr loopier::FramePlayer::getFrames()
+{
+    return frames;
 }
 
 //---------------------------------------------------------
