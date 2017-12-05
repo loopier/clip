@@ -66,14 +66,5 @@ namespace loopier {
     
     typedef shared_ptr<FramePlayer> FramePlayerPtr;
     
-    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    // *                                                                       *
-    // *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
-    // *                                                                       *
-    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    
-    bool    loadFrameListsDeprecated(string path);
-    void    listFrameListNames();
-    
 }
 #endif

@@ -10,8 +10,6 @@
 #include "ConsoleUI.h"
 
 
-loopier::FrameListMap   loopier::frameLists;
-
 loopier::FramePlayer::FramePlayer()
 : BasePlayer()
 , lastFrameTime(0.0)
@@ -85,12 +83,12 @@ void loopier::FramePlayer::exit()
 bool loopier::FramePlayer::loadResource(string resourcename)
 {
     // copy frames
-    frames = make_shared<FrameList>(*loopier::frameLists.find(resourcename)->second);
-    
-    ofLogVerbose() << __PRETTY_FUNCTION__ << "Needs imlpementation";
-    BasePlayer::loadResource(resourcename);
-    ofLogVerbose() << "Finished loading '" << resourcename << "' frame image files to '" << name << "' player";
-    return bLoaded;
+//    frames = make_shared<FrameList>(*loopier::frameLists.find(resourcename)->second);
+//    
+//    ofLogVerbose() << __PRETTY_FUNCTION__ << "Needs imlpementation";
+//    BasePlayer::loadResource(resourcename);
+//    ofLogVerbose() << "Finished loading '" << resourcename << "' frame image files to '" << name << "' player";
+//    return bLoaded;
 }
 
 //---------------------------------------------------------
@@ -213,62 +211,4 @@ void loopier::FramePlayer::addFrame(ofImage img)
     frames->insert(pos, img);
     ofLogVerbose() << "Inserted new frame in '" << getName() << "' at: " << currentFrame;
     nextFrame();
-}
-
-
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-// *                                                                       *
-// *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
-// *                                                                       *
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-//---------------------------------------------------------
-bool loopier::loadFrameListsDeprecated(string path)
-{
-//    ofLogVerbose() << "Loading frame image files from: " << path;
-//    
-//    ofDirectory dir(path+"frames");
-//    
-//    vector<ofFile> subdirs = dir.getFiles();
-//    
-//    for (int x = 0; x < subdirs.size(); x++) {
-//        ofDirectory subdir = ofDirectory(subdirs[x]);
-//        if (!subdir.isDirectory()) continue;
-//        subdir.allowExt("png");
-//        subdir.allowExt("jpg");
-//        subdir.allowExt("gif");
-//        
-//        string name = subdirs[x].getBaseName(); // folder name used in map
-//        vector<ofFile> files = subdir.getFiles(); // images in folder
-//        
-//        // skip empty folders
-//        if (files.size() <= 0) {
-//            ofLogWarning() << "'" << name << "' folder is empty.  Skipping";
-//            continue;
-//        }
-//        
-//        FrameListPtr frames(new FrameList);     // actual list of frames
-//        
-//        for (int i = 0; i < files.size(); i++) {
-//            ofImage img;
-//            img.load(files[i].getAbsolutePath());
-//            frames->push_back(img);
-//        }
-//        ofLogVerbose() << "Loaded " << frames->size() << " frames from " << name;
-//        loopier::frameLists[name] = frames;
-//    }
-//    
-//    return loopier::frameLists.size();
-}
-
-//---------------------------------------------------------
-void loopier::listFrameListNames()
-{
-//    string msg = "Number of frame lists:\t" + ofToString(loopier::frameLists.size());
-//    loopier::FrameListMap::iterator it;
-//    for (it = loopier::frameLists.begin(); it != loopier::frameLists.end(); ++it) {
-//        msg += "\n\t" + it->first;
-//    }
-//    
-//    ofLogNotice() << msg;
 }

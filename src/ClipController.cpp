@@ -344,6 +344,8 @@ namespace loopier {
             listDrawOrder();
         }
         
+        // Frame
+        
         
         // CV
         //---------------------------------------------------------------------------
@@ -378,6 +380,7 @@ namespace loopier {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
             // if directory 'clipname' exists, warn and change name to 'clipname_' + YYYYMMDD-HHMM
             //    ofGetTimestampString(%Y%m%d-%H%M)
+            
         }
         
         //---------------------------------------------------------------------------
