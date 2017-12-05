@@ -643,8 +643,8 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void resetClip(const string clipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->reset();
+            if(!exists(clipname)) return;
+            clips[clipname]->reset();
         }
         
         //---------------------------------------------------------------------------
@@ -652,8 +652,8 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void moveClipTo(const string clipname, const float x, const float y)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->setPosition(x, y);
+            if(!exists(clipname)) return;
+            clips[clipname]->setPosition(x, y);
         }
         
         //---------------------------------------------------------------------------
@@ -661,61 +661,59 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void scaleClip(const string clipname, const float scale)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->setScale(scale);
+            if(!exists(clipname)) return;
+            clips[clipname]->setScale(scale);
         }
         
         //---------------------------------------------------------------------------
         void setClipWidth(const string clipname, const float width)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->setScaleX(width);
+            if(!exists(clipname)) return;
+            clips[clipname]->setScaleX(width);
         }
         
         //---------------------------------------------------------------------------
         void setClipHeight(const string clipname, const float height)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->setScaleY(height);
+            if(!exists(clipname)) return;
+            clips[clipname]->setScaleY(height);
         }
         
         //---------------------------------------------------------------------------
         void scaleUpClip(const string clipname, const float amount)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //
-            //            ClipPtr clip = loopier::clipmap[clipname];
-            //            clip->setScale( clip->getScale() + amount );
+            if(!exists(clipname)) return;
+            ClipPtr clip = clips[clipname];
+            clip->setScale( clip->getScale() + amount );
         }
         
         //---------------------------------------------------------------------------
         void scaleDownClip(const string clipname, const float amount)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //
-            //            ClipPtr clip = loopier::clipmap[clipname];
-            //            clip->setScale( clip->getScale() - amount );
+            if(!exists(clipname)) return;
+            ClipPtr clip = clips[clipname];
+            clip->setScale( clip->getScale() - amount );
         }
         
         //---------------------------------------------------------------------------
         void resetClipScale(const string clipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->setScale(1.0);
+            if(!exists(clipname)) return;
+            clips[clipname]->setScale(1.0);
         }
         
         //---------------------------------------------------------------------------
         void setClipVFlip(const string clipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->flipV();
+            if(!exists(clipname)) return;
+            clips[clipname]->flipV();
         }
         
         //---------------------------------------------------------------------------
         void setClipHFlip(const string clipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->flipH();
+            if(!exists(clipname)) return;
+            clips[clipname]->flipH();
         }
         
         //---------------------------------------------------------------------------

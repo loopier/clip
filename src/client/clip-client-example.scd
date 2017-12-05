@@ -61,13 +61,14 @@ m.sendMsg("/loopier/clip/clip/maskon", "cameraclip");
 
 // DIMENSIONS
 
+// create example clip
+m.sendMsg("/loopier/clip/clip/new", "exampleclip");
 // move, scale, reset...
 m.sendMsg("/loopier/clip/clip/reset", "exampleclip");
 m.sendMsg("/loopier/clip/clip/scaleup", "exampleclip", 0.1);
 m.sendMsg("/loopier/clip/clip/scaledown", "exampleclip", 0.05);
 m.sendMsg("/loopier/clip/clip/scale", "exampleclip", 2.0.rand);
-m.sendMsg("/loopier/clip/clip/scale", "cameraclip", 1.0.rand);
-m.sendMsg("/loopier/clip/clip/xscale", "exampleclip", 0.5);
+m.sendMsg("/loopier/clip/clip/xscale", "exampleclip", 2.0.rand + 0.2);
 m.sendMsg("/loopier/clip/clip/yscale", "exampleclip", 3);
 m.sendMsg("/loopier/clip/clip/resetscale", "exampleclip", );
 // vertical flip
@@ -84,7 +85,7 @@ m.sendMsg("/loopier/clip/clip/hide", "exampleclip");
 m.sendMsg("/loopier/clip/clip/moveto", "exampleclip", 0.5.rand, 0.5.rand);
 
 // COLOR
-// grayscale - 0.0 being black, 1.0 being white - It's a STRING argument!!
+// create example clip
 m.sendMsg("/loopier/clip/clip/new", "exampleclip");
 // grayscale - 0.0 being black, 1.0 being white - It's a STRING argument!!
 m.sendMsg("/loopier/clip/clip/color", "exampleclip", (0.5.rand)+0.25);
