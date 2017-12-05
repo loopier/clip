@@ -465,28 +465,28 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void toggleNames()
         {
-            //            loopier::ClipMap::iterator it;
-            //            for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
-            //                (*it->second).toggleName();
-            //            }
+            loopier::ClipMap::iterator it;
+            for (it = clips.begin(); it != clips.end(); ++it) {
+                (*it->second).toggleName();
+            }
         }
         
         //---------------------------------------------------------------------------
         void showNames()
         {
-            //            loopier::ClipMap::iterator it;
-            //            for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
-            //                (*it->second).showName();
-            //            }
+            loopier::ClipMap::iterator it;
+            for (it = clips.begin(); it != clips.end(); ++it) {
+                (*it->second).showName();
+            }
         }
         
         //---------------------------------------------------------------------------
         void hideNames()
         {
-            //            loopier::ClipMap::iterator it;
-            //            for (it = loopier::clipmap.begin(); it != loopier::clipmap.end(); ++it) {
-            //                (*it->second).hideName();
-            //            }
+            loopier::ClipMap::iterator it;
+            for (it = clips.begin(); it != clips.end(); ++it) {
+                (*it->second).hideName();
+                        }
         }
         
         //---------------------------------------------------------------------------

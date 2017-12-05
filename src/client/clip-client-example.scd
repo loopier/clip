@@ -43,13 +43,19 @@ m.sendMsg("/loopier/clip/clip/remove", "cameraclip");
 m.sendMsg("/loopier/clip/clip/play", "exampleclip");
 m.sendMsg("/loopier/clip/clip/stop", "exampleclip");
 m.sendMsg("/loopier/clip/clip/pause", "exampleclip");
+
+
+m.sendMsg("/loopier/clip/clip/new", "exampleclip");
 // there are 3 kinds of loop
 m.sendMsg("/loopier/clip/clip/loop", "exampleclip", "none");
 m.sendMsg("/loopier/clip/clip/loop", "exampleclip", "normal");
 m.sendMsg("/loopier/clip/clip/loop", "exampleclip", "palindrome");
 m.sendMsg("/loopier/clip/clip/loop", "exampleclip", "once");
+
+
+m.sendMsg("/loopier/clip/clip/new", "exampleclip");
 // change movie speed
-m.sendMsg("/loopier/clip/clip/speed", "exampleclip", 1.1);
+m.sendMsg("/loopier/clip/clip/speed", "exampleclip", 2);
 
 // FX
 ------------------------------------------------------
@@ -83,6 +89,7 @@ m.sendMsg("/loopier/clip/clip/show", "exampleclip");
 m.sendMsg("/loopier/clip/clip/hide", "exampleclip");
 // Dimensions of window are normalized.  So moving is always between 0 and 1
 m.sendMsg("/loopier/clip/clip/moveto", "exampleclip", 0.5.rand, 0.5.rand);
+m.sendMsg("/loopier/clip/clip/center", "exampleclip", 0.5.rand, 0.5.rand);
 
 // COLOR
 // create example clip
@@ -134,7 +141,7 @@ m.sendMsg("/loopier/clip/console/fontsize", 24)
 //------------------------------------------------------------------
 
 // create camera clip if not already created
-m.sendMsg("/loopier/clip/clip/new", "cameraclip", "camera0");
+m.sendMsg("/loopier/clip/clip/new", "cameraclip", "C525");
 m.sendMsg("/loopier/clip/clips/listnames");
 // set it as Cv's input
 m.sendMsg("/loopier/clip/cv/setinput", "cameraclip")
