@@ -95,6 +95,13 @@ void    loopier::BasePlayer::stop()
 }
 
 //---------------------------------------------------------
+void    loopier::BasePlayer::pause()
+{
+    ofLogNotice() << "Pause '" << name << "'";
+    bPlay = false;
+}
+
+//---------------------------------------------------------
 void   loopier::BasePlayer::setWidth(float w)
 {
     width = w;

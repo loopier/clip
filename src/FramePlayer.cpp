@@ -207,6 +207,12 @@ void loopier::FramePlayer::previousFrame()
 //---------------------------------------------------------
 void loopier::FramePlayer::addFrame(ofImage img)
 {
+    frames->push_back(img);
+}
+
+//---------------------------------------------------------
+void loopier::FramePlayer::insertFrame(ofImage img)
+{
     vector<ofImage>::iterator pos = frames->begin() + currentFrame;
     frames->insert(pos, img);
     ofLogVerbose() << "Inserted new frame in '" << getName() << "' at: " << currentFrame;

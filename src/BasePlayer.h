@@ -35,6 +35,7 @@ namespace loopier {
         
         virtual     void				play();
         virtual     void				stop();
+        virtual     void                pause();
         
         virtual     void                setWidth(float w);
         virtual     void                setHeight(float h);

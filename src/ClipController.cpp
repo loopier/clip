@@ -449,22 +449,22 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void playClip(const string clipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->play();
+            if(!exists(clipname)) return;
+            clips[clipname]->play();
         }
         
         //---------------------------------------------------------------------------
         void stopClip(const string clipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->stop();
+            if(!exists(clipname)) return;
+            clips[clipname]->stop();
         }
         
         //---------------------------------------------------------------------------
         void pauseClip(const string clipname)
         {
-            //            if(!loopier::clipExists(clipname)) return;
-            //            loopier::clipmap[clipname]->pause();
+            if(!exists(clipname)) return;
+            clips[clipname]->pause();
         }
         
         //---------------------------------------------------------------------------

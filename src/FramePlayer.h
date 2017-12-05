@@ -57,11 +57,13 @@ namespace loopier {
         void    nextFrame();
         void    previousFrame();
         
-        /// \brief  Inserts an image at the current frame
+        /// \brief  Adds an image at the end
         void    addFrame(ofImage img);
+        /// \brief  Inserts an image at the current frame
+        void    insertFrame(ofImage img);
     private:
-        FrameListPtr   frames;
-        float       lastFrameTime;
+        FrameListPtr    frames;
+        float           lastFrameTime;
     };
     
     typedef shared_ptr<FramePlayer> FramePlayerPtr;
