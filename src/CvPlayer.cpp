@@ -102,12 +102,12 @@ void loopier::CvPlayer::draw(float x, float y, float w, float h)
 //---------------------------------------------------------
 void loopier::CvPlayer::draw()
 {
-    outputImage.draw(0,0);
-//    maskFbo.draw(0,0);
+//    outputImage.draw(0,0);
+    maskFbo.draw(0,0);
 //    inputPlayer->draw();
 //    camera.draw(0,0);
 //    ofSetColor(255,0,0);
-    contourFinder.draw();
+//    contourFinder.draw();
 }
 
 //---------------------------------------------------------

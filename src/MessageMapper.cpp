@@ -66,7 +66,7 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/show"]               = &loopier::MessageMapper::showClip;
     messageMap["/loopier/clip/clip/hide"]               = &loopier::MessageMapper::hideClip;
     // FX
-    messageMap["/loopier/clip/clip/setmask"]            = &loopier::MessageMapper::setClipMask;
+    messageMap["/loopier/clip/clip/mask"]               = &loopier::MessageMapper::setClipMask;
     messageMap["/loopier/clip/clip/maskon"]             = &loopier::MessageMapper::enableClipMask;
     messageMap["/loopier/clip/clip/maskoff"]            = &loopier::MessageMapper::disableClipMask;
     // play

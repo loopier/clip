@@ -61,7 +61,7 @@ m.sendMsg("/loopier/clip/clip/speed", "exampleclip", 2);
 ------------------------------------------------------
 
 // MASK
-m.sendMsg("/loopier/clip/clip/setmask", "cameraclip", "exampleclip");
+m.sendMsg("/loopier/clip/clip/mask", "cameraclip", "C525");
 m.sendMsg("/loopier/clip/clip/maskoff", "cameraclip");
 m.sendMsg("/loopier/clip/clip/maskon", "cameraclip");
 
