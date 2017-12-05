@@ -143,8 +143,11 @@ namespace loopier {
         void hideClip(const string clipname);
         // tint
         void setClipColor(const string clipname, const float & grayscale);
-        void setClipColor(const string clipname, const string & color);
         void setClipColor(const string clipname, const ofColor & color);
+        void setClipColor(const string clipname, const float & grayscale);
+        void setClipColor(const string clipname, const float & grayscale, const float & alpha);
+        void setClipColor(const string clipname, const float & r, const float & g, const float & b );
+        void setClipColor(const string clipname, const float & r, const float & g, const float & b, const float & a );
         // transparency
         void setClipAlpha(const string clipname, const float alpha);
         // reset attributes -- factory defaults

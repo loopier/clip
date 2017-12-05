@@ -430,8 +430,21 @@ void loopier::MessageMapper::moveClipTo(const Message & msg)
 //---------------------------------------------------------
 void loopier::MessageMapper::setClipColor(const Message & msg)
 {
-    ofColor color = loopier::MessageMapper::getColorFromMessage(msg);
-    loopier::clip::setClipColor(msg.getArgAsString(0), color);
+//    ofColor color = loopier::MessageMapper::getColorFromMessage(msg);
+//    loopier::clip::setClipColor(msg.getArgAsString(0), color);
+    if (msg.getNumArgs() == 2) loopier::clip::setClipColor(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    if (msg.getNumArgs() == 3) loopier::clip::setClipColor(msg.getArgAsString(0),
+                                                           msg.getArgAsFloat(1),
+                                                           msg.getArgAsFloat(2));
+    if (msg.getNumArgs() == 4) loopier::clip::setClipColor(msg.getArgAsString(0),
+                                                           msg.getArgAsFloat(1),
+                                                           msg.getArgAsFloat(2),
+                                                           msg.getArgAsFloat(3));
+    if (msg.getNumArgs() == 5) loopier::clip::setClipColor(msg.getArgAsString(0),
+                                                           msg.getArgAsFloat(1),
+                                                           msg.getArgAsFloat(2),
+                                                           msg.getArgAsFloat(3),
+                                                           msg.getArgAsFloat(4));
 }
 
 //---------------------------------------------------------

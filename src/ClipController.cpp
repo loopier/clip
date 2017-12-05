@@ -753,50 +753,47 @@ namespace loopier {
         //---------------------------------------------------------------------------
         //  COLOR
         //---------------------------------------------------------------------------
-        void setClipColor(const string clipname, const string& color)
-        {
-                        if(!exists(clipname)) return;
-            
-                        vector<string> tokens = ofSplitString(color, ",", true, true);
-            
-                        ofColor c;
-            
-                        if (tokens.size() == 1) {
-                            c = ofColor(ofToFloat(tokens[0]) * 255);
-                        } else if (tokens.size() == 2) {
-                            c = ofColor(ofToFloat(tokens[0]) * 255);
-                            clips[clipname]->setAlpha(ofToFloat(tokens[1]));
-                        } else {
-                            c.r = ofToFloat(tokens[0]) * 255;
-                            c.g = ofToFloat(tokens[1]) * 255;
-                            c.b = ofToFloat(tokens[2]) * 255;
-                        }
-                        if (tokens.size() == 4) {
-                            clips[clipname]->setAlpha(ofToFloat(tokens[3]));
-                        }
-                        
-                        ofLogVerbose() << __PRETTY_FUNCTION__ << "\t" << c;
-                        
-                        clips[clipname]->setColor(c);
-        }
         
+        //---------------------------------------------------------------------------
         void setClipColor(const string clipname, const ofColor & color)
         {
             if(!exists(clipname)) return;
             clips[clipname]->setColor(color);
         }
         
+        //---------------------------------------------------------------------------
         void setClipColor(const string clipname, const float& grayscale)
         {
             if(!exists(clipname)) return;
-            clips[clipname]->setColor(ofColor(grayscale * 255));
+            setClipColor(clipname, ofColor(grayscale * 255));
+        }
+        
+        //---------------------------------------------------------------------------
+        void setClipColor(const string clipname, const float& grayscale, const float& alpha)
+        {
+            if(!exists(clipname)) return;
+            setClipColor(clipname, ofColor(grayscale * 255, alpha * 255));
+        }
+        
+        //---------------------------------------------------------------------------
+        void setClipColor(const string clipname, const float& r, const float& g, const float& b)
+        {
+            if(!exists(clipname)) return;
+            setClipColor(clipname, ofColor(r * 255, g * 255, b * 255));
+        }
+        
+        //---------------------------------------------------------------------------
+        void setClipColor(const string clipname, const float& r, const float& g, const float& b, const float& a)
+        {
+            if(!exists(clipname)) return;
+            setClipColor(clipname, ofColor(r * 255, g * 255, b * 255, a * 255));
         }
         
         //---------------------------------------------------------------------------
         void setClipAlpha(const string clipname, const float alpha)
         {
             if(!exists(clipname)) return;
-            clips[clipname]->setAlpha(alpha);
+            clips[clipname]->setAlpha(alpha * 255);
         }
     } // namespace clip
 }

@@ -85,15 +85,17 @@ m.sendMsg("/loopier/clip/clip/moveto", "exampleclip", 0.5.rand, 0.5.rand);
 
 // COLOR
 // grayscale - 0.0 being black, 1.0 being white - It's a STRING argument!!
-m.sendMsg("/loopier/clip/clip/color", "exampleclip", 0.5);
+m.sendMsg("/loopier/clip/clip/new", "exampleclip");
+// grayscale - 0.0 being black, 1.0 being white - It's a STRING argument!!
+m.sendMsg("/loopier/clip/clip/color", "exampleclip", (0.5.rand)+0.25);
 // grayscale with alfa - 0.0 being transparent, 1.0 being opaque
-m.sendMsg("/loopier/clip/clip/color", "exampleclip", 1, 0.5);
+m.sendMsg("/loopier/clip/clip/color", "exampleclip", (0.5.rand)+0.25, (0.5.rand)+0.25);
 // RGB
-m.sendMsg("/loopier/clip/clip/color", "exampleclip", 1, 0.5, 1);
+m.sendMsg("/loopier/clip/clip/color", "exampleclip", 1.0.rand, 1.0.rand, 1.0.rand);
 // RGBA
-m.sendMsg("/loopier/clip/clip/color", "exampleclip", 1, 0.5, 1, 0.5);
+m.sendMsg("/loopier/clip/clip/color", "exampleclip", 1.0.rand, 1.0.rand, 1.0.rand, 1.0.rand);
 // change transparency
-m.sendMsg("/loopier/clip/clip/alpha", "exampleclip", 0.5);
+m.sendMsg("/loopier/clip/clip/alpha", "exampleclip",  (0.5.rand)+0.25);
 
 //------------------------------------------------------------------
 //  CONSOLE COMMANDS

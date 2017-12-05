@@ -287,7 +287,7 @@ void loopier::Clip::hide()
 void loopier::Clip::setColor(const ofColor & newColor)
 {
     color = newColor;
-    color.a = alpha * 255;
+//    color.a = alpha * 255;
     ofLogVerbose() << __PRETTY_FUNCTION__ << color;
 }
 
@@ -295,7 +295,8 @@ void loopier::Clip::setColor(const ofColor & newColor)
 void loopier::Clip::setAlpha(const float newAlpha)
 {
     alpha = newAlpha;
-    color.a;
+    color.a = newAlpha;
+//    color = ofColor(color.r, color.g, color.b, newAlpha);
 }
 
 //---------------------------------------------------------------------------
