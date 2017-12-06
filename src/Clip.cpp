@@ -63,7 +63,6 @@ void loopier::Clip::setup(PlayerPtr aplayer)
 //---------------------------------------------------------------------------
 void loopier::Clip::update()
 {
-    if (!bVisible) return;
     //    if (bPlaySequence) updateSequence();
     player->update();
     

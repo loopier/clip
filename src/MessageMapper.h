@@ -106,12 +106,15 @@ private:
     void hideClipNames      (const Message & msg);
     
     // Cv commands
+    void setCvColor         (const Message & msg);
     void setCvThreshold     (const Message & msg);
     void setCvMinArea       (const Message & msg);
     void setCvMaxArea       (const Message & msg);
     void setCvHoles         (const Message & msg);
     void setCvInputClip     (const Message & msg);
     void setCvDeviceId      (const Message & msg);
+    void showCv             (const Message & msg);
+    void hideCv             (const Message & msg);
     
     // Console commands
     void setConsoleColor    (const Message & msg);

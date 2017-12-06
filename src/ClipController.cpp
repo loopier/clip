@@ -151,6 +151,30 @@ namespace {
         else                                return true;
     }
     
+    // Returns a CV player from the given clip
+    loopier::CvPlayerPtr getPlayerAsCvPlayer(string clipname)
+    {
+        return dynamic_pointer_cast<loopier::CvPlayer> (clips[clipname]->getPlayer());
+    }
+    
+    // Returns a Frame player from the given clip
+    loopier::FramePlayerPtr getPlayerAsFramePlayer(string clipname)
+    {
+        return dynamic_pointer_cast<loopier::FramePlayer> (clips[clipname]->getPlayer());
+    }
+    
+    // Returns a Frame player from the given clip
+    loopier::MoviePlayerPtr getPlayerAsMoviePlayer(string clipname)
+    {
+        return dynamic_pointer_cast<loopier::MoviePlayer> (clips[clipname]->getPlayer());
+    }
+    
+    // Returns a Frame player from the given clip
+    loopier::CameraPlayerPtr getPlayerAsCameraPlayer(string clipname)
+    {
+        return dynamic_pointer_cast<loopier::CameraPlayer> (clips[clipname]->getPlayer());
+    }
+    
 } // namesapce
 
 
@@ -385,36 +409,6 @@ namespace loopier {
         {
             if (!exists(clipname)) return;
             setClipDrawOrder(clipname, drawingLayers.size() - 1);
-        }
-        
-        // Frame
-        
-        
-        // CV
-        //---------------------------------------------------------------------------
-        void setCvInput(string clipname)
-        {
-            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-            //            if (!exists("cv"))      return; // there's no cv clip -- TODO: change if there'd be
-            
-            ClipPtr cvclip = getClip("cv");
-            
-            //            CameraPlayerPtr inputplayer = cameraplayers.begin()->second;
-            
-            //                                            // other instances of cv clips
-            //            if (!exists(clipname))  return;
-            //            ClipPtr inputclip = getClip(clipname);
-            //            // cast from PlayerPtr to CvPlayerPtr -- note that
-            //            // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
-            //            CvPlayerPtr cvplayer = dynamic_pointer_cast<CvPlayer> (getClip("cv")->getPlayer());
-            //            cvplayer->setInputPlayer(inputclip->getPlayer());
-            //            inputclip->hide(); // hides input clip
-        }
-        
-        //---------------------------------------------------------------------------
-        void setCvDeviceId(const int n)
-        {
-            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
         }
         
         //---------------------------------------------------------------------------
@@ -806,15 +800,26 @@ namespace loopier {
     namespace cv {
         
         //---------------------------------------------------------------------------
+        void setDeviceId(int deviceid)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
+
+        
+        //---------------------------------------------------------------------------
         void setInputClip(string clipname)
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            
+            if (!clip::exists("cv")) return;
+            ClipPtr cvclip = clips["cv"];
         }
         
         //---------------------------------------------------------------------------
         void setColor(ofColor& color)
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//            clip::setClipColor("cv", color);
         }
         
         //---------------------------------------------------------------------------
@@ -827,12 +832,16 @@ namespace loopier {
         void show()
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            clips["cv"]->show();
         }
         
         //---------------------------------------------------------------------------
         void hide()
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            clips["cv"]->hide();
         }
         
         //---------------------------------------------------------------------------
@@ -857,24 +866,32 @@ namespace loopier {
         void setMinArea(float newArea)
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            getPlayerAsCvPlayer("cv")->setMinArea(newArea);
         }
         
         //---------------------------------------------------------------------------
         void setMaxArea(float newArea)
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            getPlayerAsCvPlayer("cv")->setMaxArea(newArea);
         }
         
         //---------------------------------------------------------------------------
         void setThreshold(float newThreshold)
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            getPlayerAsCvPlayer("cv")->setThreshold(newThreshold);
         }
         
         //---------------------------------------------------------------------------
         void setFindHoles(bool findHoles)
         {
-            
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            getPlayerAsCvPlayer("cv")->setFindHoles(findHoles);
         }
         
         //---------------------------------------------------------------------------

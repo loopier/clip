@@ -21,7 +21,7 @@ namespace loopier {
         void    update();
         // biref    Needed for controlling render order
         void    draw();
-    }
+    } // namesapce app
     
     namespace resource {
         // \brief   Lists all available resources
@@ -30,7 +30,7 @@ namespace loopier {
         void    listAll();
         // \brief   Checks if a resource exists
         bool    exists(string resourcename);
-    }
+    } // namespace resource
     
     namespace clip {
         // \brief   Creates a clip named after a resource -- or an empty FramePlayer clip
@@ -56,10 +56,6 @@ namespace loopier {
         
         // \brief   Adds a frame to a (Frame)clip
         void    addFrame(ofImage & img);
-        
-        // \brief   Sets the given clip as the source for Cv
-        void    setCvInput(string clipname);
-        void    setCvDeviceId(const int n);
         
         //  \brief  Saves clip's images (frames) to a folder named after the clip
         //  \param  clipname    String      Name of the clip to be saved.  Will be used to
@@ -153,7 +149,30 @@ namespace loopier {
         // transparency
         void setClipAlpha(const string clipname, const float alpha);
         // reset attributes -- factory defaults
-    }
+    } // namespace clip
+    
+    namespace cv {
+        void    setDeviceId(const int n); // TODO: REMOVE when setting input clip works
+        /// \brief  Sets image to be processed by CV
+        void setInputClip(string clipname);
+        /// \brief  Sets contourfinder's color
+        void setColor(ofColor& color);
+        void toggleVisibility();
+        void show();
+        void hide();
+        /// \brief  Returns a B&W texture of the blobs
+        ofTexture & getMask();
+        ofTexture & getMaskTexture();
+        ofPixels & getMaskPixels();
+        /// \brief  Sets the minimum size for blobs to be detected
+        void setMinArea(float newArea);
+        /// \brief  Sets the maximum size for blobs to be detected
+        void setMaxArea(float newArea);
+        /// \brief  Sets the detection threshold
+        void setThreshold(float newThreshold);
+        /// \brief  Detect blobs indside blobs
+        void setFindHoles(bool findHoles);
+    } // namespace cv
 }
 
 #endif

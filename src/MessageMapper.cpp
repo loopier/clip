@@ -99,11 +99,14 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clips/hidenames"]     = &loopier::MessageMapper::hideClipNames;
 
     // CV commands
+    messageMap["/loopier/clip/cv/color"]            = &loopier::MessageMapper::setCvColor;
     messageMap["/loopier/clip/cv/threshold"]        = &loopier::MessageMapper::setCvThreshold;
     messageMap["/loopier/clip/cv/minArea"]          = &loopier::MessageMapper::setCvMinArea;
     messageMap["/loopier/clip/cv/maxArea"]          = &loopier::MessageMapper::setCvMaxArea;
     messageMap["/loopier/clip/cv/holes"]            = &loopier::MessageMapper::setCvHoles;
     messageMap["/loopier/clip/cv/setinput"]         = &loopier::MessageMapper::setCvInputClip;
+    messageMap["/loopier/clip/cv/show"]             = &loopier::MessageMapper::showCv;
+    messageMap["/loopier/clip/cv/hide"]             = &loopier::MessageMapper::hideCv;
     // !!!: REMOVE -- temporary
     messageMap["/loopier/clip/cv/deviceid"]         = &loopier::MessageMapper::setCvDeviceId;
     
@@ -526,41 +529,65 @@ void loopier::MessageMapper::hideClipNames(const Message & msg)
 //---------------------------------------------------------
 
 //---------------------------------------------------------
+void loopier::MessageMapper::setCvColor(const Message & msg)
+{
+    // change the color of the clip named "cv"
+    Message newmsg;
+    newmsg.setAddress(msg.getAddress());
+    newmsg.addStringArg("cv");
+    for (int i = 0; i < msg.getNumArgs(); i++) {
+        newmsg.addFloatArg(msg.getArgAsFloat(i));
+    }
+    setClipColor(newmsg);
+}
+
+//---------------------------------------------------------
 void loopier::MessageMapper::setCvThreshold(const Message & msg)
 {
-//    loopier::cv::setThreshold(msg.getArgAsFloat(0));
+    loopier::cv::setThreshold(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
 void loopier::MessageMapper::setCvMinArea(const Message & msg)
 {
-//    loopier::cv::setMinArea(msg.getArgAsFloat(0));
+    loopier::cv::setMinArea(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
 void loopier::MessageMapper::setCvMaxArea(const Message & msg)
 {
-//    loopier::cv::setMaxArea(msg.getArgAsFloat(0));
+    loopier::cv::setMaxArea(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
 void loopier::MessageMapper::setCvHoles(const Message & msg)
 {
-//    loopier::cv::setFindHoles(msg.getArgAsBool(0));
+    loopier::cv::setFindHoles(msg.getArgAsBool(0));
 }
 
 //---------------------------------------------------------
 void loopier::MessageMapper::setCvInputClip(const Message & msg)
 {
-    loopier::clip::setCvInput(msg.getArgAsString(0));
+    loopier::cv::setInputClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::MessageMapper::setCvDeviceId(const Message & msg)
 {
-    loopier::clip::setCvDeviceId(msg.getArgAsInt(0));
+    loopier::cv::setDeviceId(msg.getArgAsInt(0));
 }
 
+//---------------------------------------------------------
+void loopier::MessageMapper::showCv(const Message & msg)
+{
+    loopier::cv::show();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::hideCv(const Message & msg)
+{
+    loopier::cv::hide();
+}
 
 
 
