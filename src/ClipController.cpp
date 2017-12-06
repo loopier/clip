@@ -532,7 +532,6 @@ namespace loopier {
             if(!exists(clipname))       return;
             if(!exists(maskclipname))   return;
             clips[clipname]->setMask( clips[maskclipname]->getPlayer() );
-            clips[maskclipname]->hide();
         }
         
         //---------------------------------------------------------------------------

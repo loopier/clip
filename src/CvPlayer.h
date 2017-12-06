@@ -64,6 +64,7 @@ namespace loopier {
 //            PlayerPtr   inputPlayer; // image to be processed
             ofImage     outputImage;
             ofFbo       maskFbo;    // just the blobs
+            ofPixels    pixels;
             
             bool    bVisible;
             

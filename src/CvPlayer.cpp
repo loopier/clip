@@ -89,7 +89,8 @@ void loopier::CvPlayer::update(){
         ofEndShape();
     }
     maskFbo.end();
-    
+    maskFbo.readToPixels(pixels);
+//    outputImage.setFromPixels(pixels);
     outputImage.getTexture().setAlphaMask(maskFbo.getTexture());
 }
 
@@ -103,11 +104,11 @@ void loopier::CvPlayer::draw(float x, float y, float w, float h)
 void loopier::CvPlayer::draw()
 {
 //    outputImage.draw(0,0);
-    maskFbo.draw(0,0);
+//    maskFbo.draw(0,0);
 //    inputPlayer->draw();
 //    camera.draw(0,0);
 //    ofSetColor(255,0,0);
-//    contourFinder.draw();
+    contourFinder.draw();
 }
 
 //---------------------------------------------------------
@@ -152,13 +153,13 @@ bool loopier::CvPlayer::loadResource(string resourcename)
 //---------------------------------------------------------
 ofTexture & loopier::CvPlayer::getTexture()
 {
-    return outputImage.getTexture();
+    return maskFbo.getTexture();
 }
 
 //---------------------------------------------------------
 ofPixels & loopier::CvPlayer::getPixels()
 {
-    return outputImage.getPixels();
+    return pixels;
 }
 
 //---------------------------------------------------------
