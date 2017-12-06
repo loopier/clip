@@ -34,7 +34,7 @@ namespace loopier {
         void    draw(float x, float y, float w, float h);
         void    exit();
         
-        bool    loadResource(string resourcename);
+//        bool    loadResource(string resourcename);
         void    setCamera(CameraPtr cam);
         
         float       getWidth() const;

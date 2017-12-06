@@ -61,12 +61,7 @@ void    loopier::BasePlayer::exit()
 //    path = newPath;
 //}
 
-//---------------------------------------------------------
-bool    loopier::BasePlayer::loadResource(string resourcename)
-{
-    name = resourcename + ofToString(ofGetElapsedTimeMillis());
-    return true;
-}
+
 
 //---------------------------------------------------------
 void    loopier::BasePlayer::setName(string newName)

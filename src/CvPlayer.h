@@ -42,7 +42,7 @@ namespace loopier {
             float getWidth() const;
             float getHeight() const;
             
-            bool        loadResource(string resourcename);
+//            bool        loadResource(string resourcename);
             ofTexture & getTexture();
             ofPixels  & getPixels();
             ofImage &   getImage();

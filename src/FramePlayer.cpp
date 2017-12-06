@@ -88,17 +88,17 @@ void loopier::FramePlayer::exit()
        
 }
 
-//---------------------------------------------------------
-bool loopier::FramePlayer::loadResource(string resourcename)
-{
-    // copy frames
-//    frames = make_shared<FrameList>(*loopier::frameLists.find(resourcename)->second);
-//    
-//    ofLogVerbose() << __PRETTY_FUNCTION__ << "Needs imlpementation";
-//    BasePlayer::loadResource(resourcename);
-//    ofLogVerbose() << "Finished loading '" << resourcename << "' frame image files to '" << name << "' player";
-//    return bLoaded;
-}
+////---------------------------------------------------------
+//bool loopier::FramePlayer::loadResource(string resourcename)
+//{
+//    // copy frames
+////    frames = make_shared<FrameList>(*loopier::frameLists.find(resourcename)->second);
+////    
+////    ofLogVerbose() << __PRETTY_FUNCTION__ << "Needs imlpementation";
+////    BasePlayer::loadResource(resourcename);
+////    ofLogVerbose() << "Finished loading '" << resourcename << "' frame image files to '" << name << "' player";
+////    return bLoaded;
+//}
 
 //---------------------------------------------------------
 void loopier::FramePlayer::play()

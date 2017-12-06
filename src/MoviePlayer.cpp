@@ -62,17 +62,17 @@ void loopier::MoviePlayer::exit(){
     
 }
 
-//---------------------------------------------------------
-bool loopier::MoviePlayer::loadResource(string resourcename)
-{
-    string path = loopier::moviemap.find(resourcename)->second->getMoviePath();
-    movie->load(path);
-    play();
-    BasePlayer::loadResource(resourcename);
-    ofLogVerbose() << "Finished loading '" << resourcename << "' movie files to '" << name << "' player";
-    bLoaded = movie->isLoaded();
-    return bLoaded;
-}
+////---------------------------------------------------------
+//bool loopier::MoviePlayer::loadResource(string resourcename)
+//{
+//    string path = loopier::moviemap.find(resourcename)->second->getMoviePath();
+//    movie->load(path);
+//    play();
+//    BasePlayer::loadResource(resourcename);
+//    ofLogVerbose() << "Finished loading '" << resourcename << "' movie files to '" << name << "' player";
+//    bLoaded = movie->isLoaded();
+//    return bLoaded;
+//}
 
 //---------------------------------------------------------
 void loopier::MoviePlayer::load(string path)

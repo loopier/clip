@@ -415,8 +415,7 @@ namespace loopier {
         void saveImages(string clipname) // TODO: Save images
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-            // if directory 'clipname' exists, warn and change name to 'clipname_' + YYYYMMDD-HHMM
-            //    ofGetTimestampString(%Y%m%d-%H%M)
+            // see saveFrames(...)
             
         }
         
@@ -614,13 +613,20 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void saveFrames(const string clipname)
         {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
             if(!exists(clipname)) return;
-            FramePlayerPtr frameplayer = dynamic_pointer_cast<FramePlayer> (clips[clipname]->getPlayer());
-            FrameListPtr frames = frameplayer->getFrames();
+//            FramePlayerPtr frameplayer = dynamic_pointer_cast<FramePlayer> (clips[clipname]->getPlayer());
+//            FrameListPtr frames = frameplayer->getFrames();
             // get path from clipname
             string path = resourceFilesPath + "frames/" + clipname;
+            ofDirectory dir(path);
+            if (!dir.exists()) dir.create();
+            dir.listDir();
+            ofImage img;
+            img.setFromPixels(clips[clipname]->getPixels());
+            img.save(path + "/" + clipname + "_.png");
+            ofExit();
             // iterate frame list and save each file as 'clipname_xxx.png'
-            
         }
         
         //---------------------------------------------------------------------------

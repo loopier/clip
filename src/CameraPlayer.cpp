@@ -67,10 +67,10 @@ void loopier::CameraPlayer::exit()
 }
 
 //---------------------------------------------------------
-bool loopier::CameraPlayer::loadResource(string resourcename)
-{
-    camera = loopier::getCameraByName(resourcename);
-}
+//bool loopier::CameraPlayer::loadResource(string resourcename)
+//{
+//    camera = loopier::getCameraByName(resourcename);
+//}
 
 //---------------------------------------------------------
 void loopier::CameraPlayer::setCamera(CameraPtr cam)

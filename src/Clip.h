@@ -37,9 +37,6 @@ namespace loopier {
         /// \brief  Resets clip to the default state
         void reset();
         
-        /// \brief  Loads movies or images into the Player
-        void setResource(string & resourcename);
-        
         void setName(const string& newName);
         string getName() const;
         
@@ -83,7 +80,7 @@ namespace loopier {
         PlayerPtr   getPlayer() const;
         
         ofTexture & getTexture() const;
-        ofPixels &  getPixels() const;
+        ofPixels &   getPixels();
         ofImage &   getImage() const;
         
         // \brief   Sets the drawing order -- 0 = at the top.  Big numbers are drawn at the bottom
@@ -94,6 +91,7 @@ namespace loopier {
         PlayerPtr   player;     // TODO: Should be a vector of players
         PlayerPtr   maskPlayer; // a player used as a mask
         ofFbo       outputFbo; // final image to be drawn
+        ofPixels    outputPixels;
         bool        bMask;  // turn mask on and off
         
         string  name;

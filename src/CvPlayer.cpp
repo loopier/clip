@@ -103,7 +103,7 @@ void loopier::CvPlayer::draw(float x, float y, float w, float h)
 //---------------------------------------------------------
 void loopier::CvPlayer::draw()
 {
-//    outputImage.draw(0,0);
+    outputImage.draw(0,0);
 //    maskFbo.draw(0,0);
 //    inputPlayer->draw();
 //    camera.draw(0,0);
@@ -145,10 +145,10 @@ float loopier::CvPlayer::getHeight() const
 }
 
 //---------------------------------------------------------
-bool loopier::CvPlayer::loadResource(string resourcename)
-{
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-}
+//bool loopier::CvPlayer::loadResource(string resourcename)
+//{
+//    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//}
 
 //---------------------------------------------------------
 ofTexture & loopier::CvPlayer::getTexture()

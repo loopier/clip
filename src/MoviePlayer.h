@@ -35,7 +35,7 @@ namespace loopier {
         void    exit();
         
         /// \brief  Copies frames from global map
-        bool    loadResource(string resourcename);
+//        bool    loadResource(string resourcename);
         /// \brief  Loads movie to be played
         void    load(string path);
         

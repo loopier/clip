@@ -67,10 +67,9 @@ void loopier::Clip::update()
     player->update();
     
     outputFbo.begin();
-    ofClear(0);
+    ofClear(255,255,255,0);
     player->draw();
     outputFbo.end();
-    
     
     if (bMask)  {
         outputFbo.getTexture().setAlphaMask(maskPlayer->getTexture());
@@ -78,6 +77,8 @@ void loopier::Clip::update()
     } else {
         outputFbo.getTexture().disableAlphaMask();
     }
+    
+    outputFbo.readToPixels(outputPixels);
 }
 
 //---------------------------------------------------------------------------
@@ -129,27 +130,6 @@ void loopier::Clip::reset()
     scaleY = scale;
     color = ofColor(255);
     alpha = 1.0;
-}
-
-
-//---------------------------------------------------------------------------
-void loopier::Clip::setResource(string & resourcename)
-{
-//    if (loopier::resource::exists(resourcename)) {
-//        player = make_shared<MoviePlayer>();
-//        ofLogVerbose() << "'" << name << "'" << " will play the movie: " << resourcename << "'";
-//    } else if (loopier::resource::exists(resourcename)) {
-//        player = make_shared<FramePlayer>();
-//        ofLogVerbose() << "'" << name << "'" << " will play the frames: " << resourcename << "'";
-//    } else if (loopier::resource::exists(resourcename)) {
-//        player = make_shared<CameraPlayer>();
-//        ofLogVerbose() << "'" << name << "'" << " will run camera: " << resourcename << "'";
-//    }
-    
-    player->loadResource(resourcename);
-    width = player->getWidth();
-    height = player->getHeight();
-    loopier::addPlayer(player);
 }
 
 //---------------------------------------------------------------------------
@@ -378,7 +358,7 @@ ofTexture & loopier::Clip::getTexture() const
 
 
 //---------------------------------------------------------------------------
-ofPixels & loopier::Clip::getPixels() const
+ofPixels &  loopier::Clip::getPixels()
 {
     return player->getPixels();
 }
