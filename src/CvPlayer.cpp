@@ -223,52 +223,52 @@ void loopier::CvPlayer::setFindHoles(bool findHoles)
 // *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
 // *                                                                       *
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-//---------------------------------------------------------
-void loopier::setup()
-{
-    // create an instance of a player local to this file, to be used by other global functions of this file
-//    cvplayer = make_shared<CvPlayer>();
-//    cvplayer->setup();
-//    // create a new clip to hold the cv player
-//    ClipPtr clip = loopier::newClip("cv");
-//    clip->setPlayer(cvplayer);
-//    // create a camera clip to pass it as input to Cv
-//    ClipPtr cameraclip = loopier::newClip(loopier::cameras.begin()->first, loopier::cameras.begin()->first);
-//    loopier::setInputClip(loopier::cameras.begin()->first);
-}
-
-//---------------------------------------------------------
-void loopier::setInputClip(string clipname)
-{
-//    if (!loopier::clipExists(clipname)) return;
-//    ClipPtr clip = loopier::getClipByName(clipname);
-//    cvplayer->setInputPlayer( clip->getPlayer() );
-//    clip->hide();
-    
-}
-
-
-//---------------------------------------------------------
-void loopier::setMinArea(float newArea)
-{
-    cvplayer->setMinArea(newArea);
-}
-
-//---------------------------------------------------------
-void loopier::setMaxArea(float newArea)
-{
-    cvplayer->setMaxArea(newArea);
-}
-
-//---------------------------------------------------------
-void loopier::setThreshold(float newThreshold)
-{
-    cvplayer->setThreshold(newThreshold);
-}
-
-//---------------------------------------------------------
-void loopier::setFindHoles(bool findHoles)
-{
-    cvplayer->setFindHoles(findHoles);
-}
+//
+////---------------------------------------------------------
+//void loopier::setup()
+//{
+//    // create an instance of a player local to this file, to be used by other global functions of this file
+////    cvplayer = make_shared<CvPlayer>();
+////    cvplayer->setup();
+////    // create a new clip to hold the cv player
+////    ClipPtr clip = loopier::newClip("cv");
+////    clip->setPlayer(cvplayer);
+////    // create a camera clip to pass it as input to Cv
+////    ClipPtr cameraclip = loopier::newClip(loopier::cameras.begin()->first, loopier::cameras.begin()->first);
+////    loopier::setInputClip(loopier::cameras.begin()->first);
+//}
+//
+////---------------------------------------------------------
+//void loopier::setInputClip(string clipname)
+//{
+////    if (!loopier::clipExists(clipname)) return;
+////    ClipPtr clip = loopier::getClipByName(clipname);
+////    cvplayer->setInputPlayer( clip->getPlayer() );
+////    clip->hide();
+//    
+//}
+//
+//
+////---------------------------------------------------------
+//void loopier::setMinArea(float newArea)
+//{
+//    cvplayer->setMinArea(newArea);
+//}
+//
+////---------------------------------------------------------
+//void loopier::setMaxArea(float newArea)
+//{
+//    cvplayer->setMaxArea(newArea);
+//}
+//
+////---------------------------------------------------------
+//void loopier::setThreshold(float newThreshold)
+//{
+//    cvplayer->setThreshold(newThreshold);
+//}
+//
+////---------------------------------------------------------
+//void loopier::setFindHoles(bool findHoles)
+//{
+//    cvplayer->setFindHoles(findHoles);
+//}

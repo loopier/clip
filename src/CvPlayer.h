@@ -82,13 +82,13 @@ namespace loopier {
         typedef shared_ptr<CvPlayer> CvPlayerPtr;
 
 
-        void setup();
-        void setInputClip(string clipname);
-
-        void setMinArea(float newArea);
-        void setMaxArea(float newArea);
-        void setThreshold(float newThreshold);
-        void setFindHoles(bool findHoles);
+//        void setup();
+//        void setInputClip(string clipname);
+//
+//        void setMinArea(float newArea);
+//        void setMaxArea(float newArea);
+//        void setThreshold(float newThreshold);
+//        void setFindHoles(bool findHoles);
 
 
         // TODO: Add visibility commands

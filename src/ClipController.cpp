@@ -802,4 +802,81 @@ namespace loopier {
             clips[clipname]->setAlpha(alpha * 255);
         }
     } // namespace clip
+      // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    namespace cv {
+        
+        //---------------------------------------------------------------------------
+        void setInputClip(string clipname)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
+        
+        //---------------------------------------------------------------------------
+        void setColor(ofColor& color)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
+        
+        //---------------------------------------------------------------------------
+        void toggleVisibility()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
+        
+        //---------------------------------------------------------------------------
+        void show()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
+        
+        //---------------------------------------------------------------------------
+        void hide()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
+        
+        //---------------------------------------------------------------------------
+        ofTexture & getMask()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
+        
+        //---------------------------------------------------------------------------
+        ofTexture & getMaskTexture()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
+        
+        //---------------------------------------------------------------------------
+        ofPixels & getMaskPixels()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
+        
+        //---------------------------------------------------------------------------
+        void setMinArea(float newArea)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
+        
+        //---------------------------------------------------------------------------
+        void setMaxArea(float newArea)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
+        
+        //---------------------------------------------------------------------------
+        void setThreshold(float newThreshold)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
+        
+        //---------------------------------------------------------------------------
+        void setFindHoles(bool findHoles)
+        {
+            
+        }
+        
+        //---------------------------------------------------------------------------
+    }   // namespace cv
 }
