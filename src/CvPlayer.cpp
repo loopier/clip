@@ -51,14 +51,16 @@ void loopier::CvPlayer::setup()
     
     outputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
     maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+    
+    contourFinder.setSimplify(true);
 }
 
 //---------------------------------------------------------
 void loopier::CvPlayer::update(){
 //    if (!bVisible)       return;
-//    if (!inputPlayer)   return;
-    camera.update();
-    if (!camera.isFrameNew()) return;
+    if (!inputPlayer)   return;
+//    camera.update();
+//    if (!camera.isFrameNew()) return;
     
 //    ofLogVerbose() << __PRETTY_FUNCTION__;
     
@@ -67,31 +69,31 @@ void loopier::CvPlayer::update(){
     contourFinder.setMinAreaRadius(minArea);
     contourFinder.setMaxAreaRadius(maxArea);
     contourFinder.setThreshold(threshold);
-//    contourFinder.findContours(inputPlayer->getPixels());
-    contourFinder.findContours(camera.getPixels());
+    contourFinder.findContours(inputPlayer->getPixels());
+//    contourFinder.findContours(camera.getPixels());
     contourFinder.setFindHoles(bHoles);
 
 //        outputImage.setFromPixels(inputPlayer->getPixels());
-    outputImage.setFromPixels(camera.getPixels());
+//    outputImage.setFromPixels(camera.getPixels());
 
     // Create a mask with the blobs
-    vector<ofPolyline> polys = contourFinder.getPolylines();
-    maskFbo.begin();
-    ofClear(255,255,255,0);
-    ofFill();
-    ofSetColor(255);
-    for (int i = 0; i < polys.size(); i++) {
-        ofPolyline poly = polys.at(i);
-        ofBeginShape();
-        for( int i = 0; i < poly.getVertices().size(); i++) {
-            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
-        }
-        ofEndShape();
-    }
-    maskFbo.end();
-    maskFbo.readToPixels(pixels);
+//    vector<ofPolyline> polys = contourFinder.getPolylines();
+//    maskFbo.begin();
+//    ofClear(255,255,255,0);
+//    ofFill();
+//    ofSetColor(255);
+//    for (int i = 0; i < polys.size(); i++) {
+//        ofPolyline poly = polys.at(i);
+//        ofBeginShape();
+//        for( int i = 0; i < poly.getVertices().size(); i++) {
+//            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+//        }
+//        ofEndShape();
+//    }
+//    maskFbo.end();
+//    maskFbo.readToPixels(pixels);
 //    outputImage.setFromPixels(pixels);
-    outputImage.getTexture().setAlphaMask(maskFbo.getTexture());
+//    outputImage.getTexture().setAlphaMask(maskFbo.getTexture());
 }
 
 //---------------------------------------------------------
@@ -103,7 +105,7 @@ void loopier::CvPlayer::draw(float x, float y, float w, float h)
 //---------------------------------------------------------
 void loopier::CvPlayer::draw()
 {
-    outputImage.draw(0,0);
+//    outputImage.draw(0,0);
 //    maskFbo.draw(0,0);
 //    inputPlayer->draw();
 //    camera.draw(0,0);
@@ -121,15 +123,15 @@ void loopier::CvPlayer::setDeviceId(int n)
 {
     // reset camera
 //    camera.close();
-    camera.setDeviceID(1);
-    camera.setDesiredFrameRate(60);
-    camera.initGrabber(ofGetWidth(), ofGetHeight());
+//    camera.setDeviceID(1);
+//    camera.setDesiredFrameRate(60);
+//    camera.initGrabber(ofGetWidth(), ofGetHeight());
 }
 
 //---------------------------------------------------------
 void loopier::CvPlayer::setCamera(ofVideoGrabber & cam)
 {
-    camera = cam;
+//    camera = cam;
 }
 
 //---------------------------------------------------------
@@ -168,13 +170,19 @@ ofImage & loopier::CvPlayer::getImage()
     return outputImage;
 }
 
+//---------------------------------------------------------
+vector<ofPolyline> loopier::CvPlayer::getPolylines()
+{
+    return contourFinder.getPolylines();
+}
+
 ////---------------------------------------------------------
 // MOVED TO BASECLASS
-//void loopier::CvPlayer::setInputPlayer(PlayerPtr player)
-//{
-//    inputPlayer = player;
-////    outputImage.setFromPixels(player->getPixels());
-//}
+void loopier::CvPlayer::setInputPlayer(PlayerPtr player)
+{
+    inputPlayer = player;
+//    outputImage.setFromPixels(player->getPixels());
+}
 
 //---------------------------------------------------------
 void loopier::CvPlayer::toggleVisibility()

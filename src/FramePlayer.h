@@ -63,12 +63,13 @@ namespace loopier {
         /// \brief  Sets the player from where to extract images
         void    setRecordingSourcePlayer(PlayerPtr player);
         /// \brief  Adds an image at the end
-        void    addFrame(ofImage img);
+        void    addFrame(ofImage & img);
         /// \brief  Inserts an image at the current frame
-        void    insertFrame(ofImage img);
+        void    insertFrame(ofImage & img);
         void    removeFrame();
         void    clear();
     private:
+        ofFbo maskFbo;
         FrameListPtr    frames;
         float           lastFrameTime;
         PlayerPtr       recordingSourcePlayer; // frames are captured from this

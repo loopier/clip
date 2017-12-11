@@ -46,8 +46,9 @@ namespace loopier {
             ofTexture & getTexture();
             ofPixels  & getPixels();
             ofImage &   getImage();
+            vector<ofPolyline> getPolylines();
             
-//            void setInputPlayer(PlayerPtr player); // REMOVE: -- MOVED TO BASE CLASS
+            void setInputPlayer(PlayerPtr player); // REMOVE: -- MOVED TO BASE CLASS
 
             void toggleVisibility();
             void show();
@@ -59,9 +60,9 @@ namespace loopier {
             void setFindHoles(bool findHoles);
 
         private:
-            ofVideoGrabber  camera; // TODO: get input from other clips -- didn't manage to make it work yet
+//            ofVideoGrabber  camera; // TODO: get input from other clips -- didn't manage to make it work yet
             
-//            PlayerPtr   inputPlayer; // image to be processed
+            PlayerPtr   inputPlayer; // image to be processed
             ofImage     outputImage;
             ofFbo       maskFbo;    // just the blobs
             ofPixels    pixels;

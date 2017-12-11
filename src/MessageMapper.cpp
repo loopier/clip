@@ -99,12 +99,12 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clips/hidenames"]     = &loopier::MessageMapper::hideClipNames;
 
     // CV commands
+    messageMap["/loopier/clip/cv/setinput"]         = &loopier::MessageMapper::setCvInputClip;
     messageMap["/loopier/clip/cv/color"]            = &loopier::MessageMapper::setCvColor;
     messageMap["/loopier/clip/cv/threshold"]        = &loopier::MessageMapper::setCvThreshold;
     messageMap["/loopier/clip/cv/minArea"]          = &loopier::MessageMapper::setCvMinArea;
     messageMap["/loopier/clip/cv/maxArea"]          = &loopier::MessageMapper::setCvMaxArea;
     messageMap["/loopier/clip/cv/holes"]            = &loopier::MessageMapper::setCvHoles;
-    messageMap["/loopier/clip/cv/setinput"]         = &loopier::MessageMapper::setCvInputClip;
     messageMap["/loopier/clip/cv/show"]             = &loopier::MessageMapper::showCv;
     messageMap["/loopier/clip/cv/hide"]             = &loopier::MessageMapper::hideCv;
     // !!!: REMOVE -- temporary

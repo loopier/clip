@@ -1,6 +1,8 @@
 // Connect to the server
 m = NetAddr("localhost", 12345);
 
+m.sendMsg("/loopier/clip/clip/addFrame")
+
 //------------------------------------------------------------------
 //   CLIP LIST COMMANDS
 //------------------------------------------------------------------

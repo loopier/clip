@@ -26,8 +26,13 @@ namespace {
     
     vector<string>   drawingLayers; // used to control drawing order (depth)
     
+    vector<ofImage> addframeimages; // !!!:REMVOE addframe test
+    int addframecounter = 0;
+    
     map<string, loopier::CameraPlayerPtr>   cameraplayers;
-    vector<string>                          frameclipslist;
+    vector<string>                          frameclipslist;    
+    vector<ofImage> recordingframes;
+    int             currentRecordingFrame = 0;
     
     // * * * HELPER FUNCTIONS LOCAL TO THIS FILE * * * * * * * * * * * * * * * * * * * * *
     
@@ -204,6 +209,9 @@ namespace loopier {
             for (const auto &item : clips) {
                 clip::setClipDrawOrder(item.first, item.second->getDepth());
             };
+            
+            currentRecordingFrame++;
+            if (currentRecordingFrame > recordingframes.size()) currentRecordingFrame = 0;
         }
         
         //---------------------------------------------------------------------------
@@ -214,6 +222,14 @@ namespace loopier {
                 if (!clip::exists(clipname)) continue;
                 clips.at(clipname)->draw();
             };
+            
+            if (recordingframes.size() > 0) recordingframes[currentRecordingFrame].draw(100,100);
+            
+            if (addframeimages.size() <= 0) return;
+            
+            addframeimages[addframecounter].draw(0,0); // !!!:REMVOE addframe test
+            addframecounter++;
+            if (addframecounter >= addframeimages.size()) addframecounter = 0;
         }
     }   // namespace app
     
@@ -567,7 +583,41 @@ namespace loopier {
             // cast from PlayerPtr to FramePlayerPtr -- note that
             // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
             FramePlayerPtr recplayer = dynamic_pointer_cast<FramePlayer> (clips[recorderclip]->getPlayer());
-            recplayer->addFrame( clips[sourceclip]->getImage() );
+            ofImage img = clips[sourceclip]->getImage();
+//            addframeimage = img;
+            vector<ofPolyline> polys = getPlayerAsCvPlayer("cv")->getPolylines();
+            ofFbo maskFbo;
+            maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+            maskFbo.begin();
+            ofClear(255,255,255,0);
+            ofFill();
+            ofSetColor(255);
+            for (int i = 0; i < polys.size(); i++) {
+                ofPolyline poly = polys.at(i);
+                ofBeginShape();
+                for( int i = 0; i < poly.getVertices().size(); i++) {
+                    ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+                }
+                ofEndShape();
+            }
+            maskFbo.end();
+            
+            img.getTexture().setAlphaMask(maskFbo.getTexture());
+            
+            ofFbo imgFbo;
+            imgFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+            imgFbo.begin();
+            ofClear(255,255,255,0);
+            img.draw(0,0);
+            imgFbo.end();
+            
+            ofPixels pixels;
+            imgFbo.readToPixels(pixels);
+            img.setFromPixels(pixels);
+//            img = utils::getMaskedImage(img, maskFbo.getTexture());
+            addframeimages.push_back(img);
+//            recplayer->addFrame( img, polys );
+//            recordingframes.push_back(img);
             
             ofLogVerbose() << "Adding frame from '" << sourceclip <<"' to '" << recorderclip << "'";
         }
@@ -818,7 +868,8 @@ namespace loopier {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
             
             if (!clip::exists("cv")) return;
-            ClipPtr cvclip = clips["cv"];
+            CvPlayerPtr cvplayer = getPlayerAsCvPlayer("cv");
+            cvplayer->setInputPlayer(getPlayerAsCameraPlayer(clipname));
         }
         
         //---------------------------------------------------------------------------
@@ -902,4 +953,21 @@ namespace loopier {
         
         //---------------------------------------------------------------------------
     }   // namespace cv
+    
+    namespace utils {
+        ofImage getMaskedImage(ofImage & img, ofTexture & mask){
+            ofPixels maskpixels;
+            mask.readToPixels(maskpixels);
+            for ( int y = 0; y < mask.getHeight(); y ++) {
+                for ( int x = 0; x < mask.getWidth(); x ++) {
+                    if (maskpixels.getColor(x, y) == ofColor(0)) {
+                        ofColor color = img.getPixels().getColor(x, y);
+                        color.a = 0;
+                        img.getPixels().setColor(x, y, color);
+                    };
+                    
+                }
+            }
+        }
+    } // namespace utils
 }

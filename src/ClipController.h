@@ -173,6 +173,12 @@ namespace loopier {
         /// \brief  Detect blobs indside blobs
         void setFindHoles(bool findHoles);
     } // namespace cv
+    
+    namespace utils {
+        
+        /// \brief  Uses mask to set transparent pixels to the image
+        ofImage getMaskedImage(ofImage & img, ofTexture & mask);
+    }
 }
 
 #endif

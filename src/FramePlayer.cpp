@@ -14,7 +14,7 @@ loopier::FramePlayer::FramePlayer()
 : BasePlayer()
 , lastFrameTime(0.0)
 {
-    frameRate = 12;
+    frameRate = 24;
 }
 
 
@@ -26,8 +26,10 @@ loopier::FramePlayer::FramePlayer(FrameListPtr framelist)
         width = ofGetWidth();
         height = ofGetHeight();
     } 
-    frameRate = 12;
+    frameRate = 24;
     frames = framelist;
+    
+    maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
 }
 loopier::FramePlayer::~FramePlayer()
 {
@@ -70,7 +72,6 @@ void loopier::FramePlayer::update()
 void loopier::FramePlayer::draw()
 {
     if (frames->size() <= 0) return;
-    
     frames->at(currentFrame).draw(0, 0);
 }
 
@@ -237,17 +238,13 @@ void loopier::FramePlayer::setRecordingSourcePlayer(PlayerPtr player)
 }
 
 //---------------------------------------------------------
-void loopier::FramePlayer::addFrame(ofImage img)
+void loopier::FramePlayer::addFrame(ofImage & img)
 {
-//    frames->push_back(img);
-    frames->push_back(frames->back()); // duplicate last frame
-    
-    frames->back().setFromPixels(recordingSourcePlayer->getPixels());
-    
+    frames->push_back(img);
 }
 
 //---------------------------------------------------------
-void loopier::FramePlayer::insertFrame(ofImage img)
+void loopier::FramePlayer::insertFrame(ofImage & img)
 {
     vector<ofImage>::iterator pos = frames->begin() + currentFrame;
     frames->insert(pos, img);
