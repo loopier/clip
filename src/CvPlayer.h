@@ -62,12 +62,11 @@ namespace loopier {
             void setDetectionArea(const ofRectangle & rect);
 
         private:
-//            ofVideoGrabber  camera; // TODO: get input from other clips -- didn't manage to make it work yet
-            
-            PlayerPtr   inputPlayer; // image to be processed
+            PlayerPtr   inputPlayer;        // image to be processed
             ofImage     outputImage;
-            ofFbo       maskFbo;    // just the blobs
-            ofFbo       detectionAreaFbo;
+            ofFbo       shapeFbo;           // just the blobs
+            ofFbo       detectionAreaFbo;   // used to mask the blobs
+            ofFbo       maskFbo;            // the blobs in the detection area
             ofRectangle detectionRectangle;
             ofPixels    pixels;
             

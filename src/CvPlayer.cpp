@@ -50,16 +50,21 @@ void loopier::CvPlayer::setup()
     setDeviceId(0);
     
     outputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
-    maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+    shapeFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
     detectionAreaFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+    maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
     
-    maskFbo.begin();
-    ofClear(255,255,255,0);
-    maskFbo.end();
+    shapeFbo.begin();
+    ofClear(0);
+    shapeFbo.end();
     
     detectionAreaFbo.begin();
     ofClear(0);
     detectionAreaFbo.end();
+    
+    maskFbo.begin();
+    ofClear(255,255,255,0);
+    maskFbo.end();
     
     contourFinder.setSimplify(true);
 //    contourFinder.setInvert(true);
@@ -86,29 +91,58 @@ void loopier::CvPlayer::update(){
 //    contourFinder.findContours(outputImage);
     contourFinder.setFindHoles(bHoles);
 
+    
 //        outputImage.setFromPixels(inputPlayer->getPixels());
 //    outputImage.setFromPixels(camera.getPixels());
 
     // Create a mask with the blobs
     vector<ofPolyline> polys = contourFinder.getPolylines();
-    maskFbo.begin();
+    shapeFbo.begin();
     ofClear(255,255,255,0);
     ofFill();
     ofSetColor(255);
     for (int i = 0; i < polys.size(); i++) {
         ofPolyline poly = polys.at(i);
         ofBeginShape();
+//        ofPoint previousPoint(poly.getVertices().at(0).x, poly.getVertices().at(0).y);
         for( int i = 0; i < poly.getVertices().size(); i++) {
-            if (poly.getVertices().at(i).x < detectionRectangle.getLeft()   ||
-                poly.getVertices().at(i).x > detectionRectangle.getRight()  ||
-                poly.getVertices().at(i).y < detectionRectangle.getTop()    ||
-                poly.getVertices().at(i).y > detectionRectangle.getBottom() ) {
-                continue;
-            }
+//            ofPoint point( poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+            
+//            // We need to close the paths with the rectangle to avoi having weird shapes.
+//            // If this point is outside the detection rectangle, add the intersection point
+//            if ( !detectionRectangle.inside(point)) {
+//                // there's only an intersection if the preivous point is inside
+//                if ( detectionRectangle.inside(previousPoint) ) {
+//                    // look for the intersection point with any of the for sides of
+//                    // the detection rectangle
+//                    ofPoint intersectionPoint;
+//                    ofRectangle rect = detectionRectangle;
+//                    bool intersects = false;
+//                    intersects = ofLineSegmentIntersection(previousPoint, point, rect.getTopLeft(), rect.getTopRight(), intersectionPoint);
+//                    intersects = ofLineSegmentIntersection(previousPoint, point, rect.getBottomRight(), rect.getTopRight(), intersectionPoint);
+//                    intersects = ofLineSegmentIntersection(previousPoint, point, rect.getBottomRight(), rect.getBottomLeft(), intersectionPoint);
+//                    intersects = ofLineSegmentIntersection(previousPoint, point, rect.getTopLeft(), rect.getBottomLeft(), intersectionPoint);
+//                    // just add a vertex at the intersection if there is one -- it
+//                    // hould otherwise we would have not made it this far
+//                    if (intersects) ofVertex(intersectionPoint);
+//                }
+//            } else {
+//                ofVertex(point);
+//            }
+//            
+//            previousPoint = point;
+            
             ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
         }
         ofEndShape();
     }
+    shapeFbo.end();
+    
+    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
+    
+    maskFbo.begin();
+    ofClear(255,255,255,0);
+    shapeFbo.draw(0,0);
     maskFbo.end();
     
 //    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
