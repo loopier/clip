@@ -15,15 +15,11 @@
 #include "BasePlayer.h"
 
 namespace loopier {
-        
-        /// !!!:    Clumsy!  Won't compile if getPixels() and getTexture() don't
-        //          return pixels or texture from a pointer
-        typedef shared_ptr<ofImage> ImagePtr;
-
+    
         class CvPlayer: public BasePlayer {
 
         public:
-            CvPlayer();  // TODO: -- DIABLE: make private
+            CvPlayer();  // TODO: -- DIsABLE: make private
             CvPlayer(PlayerPtr input);
             virtual ~CvPlayer();
 
@@ -41,9 +37,9 @@ namespace loopier {
 
             float getWidth() const;
             float getHeight() const;
-            
-//            bool        loadResource(string resourcename);
+            /// \brief  Returns a B & W image of the blobs
             ofTexture & getTexture();
+            /// \brief  Returns a B & W image of the blobs
             ofPixels  & getPixels();
             ofImage &   getImage();
             vector<ofPolyline> getPolylines();

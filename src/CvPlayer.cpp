@@ -9,13 +9,6 @@
 #include "CvPlayer.h"
 #include "Clip.h"
 
-namespace {
-    // unique instance of CV
-    loopier::CvPlayerPtr cvplayer;
-    // other instances local to this file
-//    ofxCv::ContourFinder contourFinder;
-}
-
 loopier::CvPlayer::CvPlayer()
 : bVisible(true)
 , bDrawContours(true)
@@ -67,20 +60,15 @@ void loopier::CvPlayer::setup()
     maskFbo.end();
     
     contourFinder.setSimplify(true);
-//    contourFinder.setInvert(true);
     
     ofRectangle rect(0,0, ofGetWidth(), ofGetHeight());
     setDetectionArea(rect);
 }
 
 //---------------------------------------------------------
-void loopier::CvPlayer::update(){
-//    if (!bVisible)       return;
+void loopier::CvPlayer::update()
+{
     if (!inputPlayer)   return;
-//    camera.update();
-//    if (!camera.isFrameNew()) return;
-    
-//    ofLogVerbose() << __PRETTY_FUNCTION__;
     
     // TODO: draw contourFinder.minAreaRect like in https://github.com/kylemcdonald/ofxCv/blob/master/example-contours-advanced/src/ofApp.cpp
     
@@ -88,12 +76,7 @@ void loopier::CvPlayer::update(){
     contourFinder.setMaxAreaRadius(maxArea);
     contourFinder.setThreshold(threshold);
     contourFinder.findContours(inputPlayer->getPixels());
-//    contourFinder.findContours(outputImage);
     contourFinder.setFindHoles(bHoles);
-
-    
-//        outputImage.setFromPixels(inputPlayer->getPixels());
-//    outputImage.setFromPixels(camera.getPixels());
 
     // Create a mask with the blobs
     vector<ofPolyline> polys = contourFinder.getPolylines();
@@ -104,34 +87,7 @@ void loopier::CvPlayer::update(){
     for (int i = 0; i < polys.size(); i++) {
         ofPolyline poly = polys.at(i);
         ofBeginShape();
-//        ofPoint previousPoint(poly.getVertices().at(0).x, poly.getVertices().at(0).y);
         for( int i = 0; i < poly.getVertices().size(); i++) {
-//            ofPoint point( poly.getVertices().at(i).x, poly.getVertices().at(i).y);
-            
-//            // We need to close the paths with the rectangle to avoi having weird shapes.
-//            // If this point is outside the detection rectangle, add the intersection point
-//            if ( !detectionRectangle.inside(point)) {
-//                // there's only an intersection if the preivous point is inside
-//                if ( detectionRectangle.inside(previousPoint) ) {
-//                    // look for the intersection point with any of the for sides of
-//                    // the detection rectangle
-//                    ofPoint intersectionPoint;
-//                    ofRectangle rect = detectionRectangle;
-//                    bool intersects = false;
-//                    intersects = ofLineSegmentIntersection(previousPoint, point, rect.getTopLeft(), rect.getTopRight(), intersectionPoint);
-//                    intersects = ofLineSegmentIntersection(previousPoint, point, rect.getBottomRight(), rect.getTopRight(), intersectionPoint);
-//                    intersects = ofLineSegmentIntersection(previousPoint, point, rect.getBottomRight(), rect.getBottomLeft(), intersectionPoint);
-//                    intersects = ofLineSegmentIntersection(previousPoint, point, rect.getTopLeft(), rect.getBottomLeft(), intersectionPoint);
-//                    // just add a vertex at the intersection if there is one -- it
-//                    // hould otherwise we would have not made it this far
-//                    if (intersects) ofVertex(intersectionPoint);
-//                }
-//            } else {
-//                ofVertex(point);
-//            }
-//            
-//            previousPoint = point;
-            
             ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
         }
         ofEndShape();
@@ -144,11 +100,6 @@ void loopier::CvPlayer::update(){
     ofClear(255,255,255,0);
     shapeFbo.draw(0,0);
     maskFbo.end();
-    
-//    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
-//    maskFbo.readToPixels(pixels);
-//    outputImage.setFromPixels(pixels);
-//    outputImage.getTexture().setAlphaMask(maskFbo.getTexture());
 }
 
 //---------------------------------------------------------
@@ -160,11 +111,9 @@ void loopier::CvPlayer::draw(float x, float y, float w, float h)
 //---------------------------------------------------------
 void loopier::CvPlayer::draw()
 {
-//    outputImage.draw(0,0);
     maskFbo.draw(0,0);
     contourFinder.draw();
 //    inputPlayer->draw();
-//    camera.draw(0,0);
 //    ofSetColor(255,0,0);
 //    detectionAreaFbo.draw(0,0);
 }
@@ -203,12 +152,6 @@ float loopier::CvPlayer::getHeight() const
 }
 
 //---------------------------------------------------------
-//bool loopier::CvPlayer::loadResource(string resourcename)
-//{
-//    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-//}
-
-//---------------------------------------------------------
 ofTexture & loopier::CvPlayer::getTexture()
 {
     return maskFbo.getTexture();
@@ -217,6 +160,7 @@ ofTexture & loopier::CvPlayer::getTexture()
 //---------------------------------------------------------
 ofPixels & loopier::CvPlayer::getPixels()
 {
+    maskFbo.readToPixels(pixels);
     return pixels;
 }
 
