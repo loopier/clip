@@ -53,10 +53,6 @@ namespace loopier {
         // \brief   Keeps clip as the background
         void    setBackgroundClip(string clipname);
         
-        
-        // \brief   Adds a frame to a (Frame)clip
-        void    addFrame(ofImage & img);
-        
         //  \brief  Saves clip's images (frames) to a folder named after the clip
         //  \param  clipname    String      Name of the clip to be saved.  Will be used to
         //                                  find the directory or to create it (defaults to '+tmp'
@@ -101,7 +97,8 @@ namespace loopier {
         // ----- EDIT CLIP CONTENTS -----
         /// \brief  Appends clipplayer's current image to cliprecorder frames
         void setRecordingSource(const string clipname, const string sourceclip);
-        /// \brief  Appends clipplayer's current image to cliprecorder frames
+        /// \brief  Appends sourceclip's current image -masked with cv blobs- to cliprecorder frames
+        /// TODO: make some kind of abstraction with the masking part
         void addFrame(const string recorderclip, const string sourceclip);
         /// \brief  Inserts clipplayer's current image to cliprecorder's current frame
         void insertFrame(const string recorderclip, const string sourceclip);
@@ -178,6 +175,8 @@ namespace loopier {
         
         /// \brief  Uses mask to set transparent pixels to the image
         ofImage getMaskedImage(ofImage & img, ofTexture & mask);
+        /// \brief  Uses mask to set transparent pixels to the texture
+        ofTexture   getMaskedTexture(ofTexture & texture, ofTexture & mask);
     }
 }
 

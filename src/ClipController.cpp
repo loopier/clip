@@ -284,10 +284,9 @@ namespace loopier {
         //---------------------------------------------------------------------------
         ClipPtr newClip(string clipname, string resourcename)
         {
-            // if clip with this name exists -- change new clip's name to clipname + timestamp
-//            if (exists(clipname)) clipname += ofGetTimestampString("%H%M%S%i");
             if (resourcename == "") resourcename = clipname;
             
+            // if clip exists, replace it instead of creating a new one
             loopier::ClipPtr clip;
             if (exists(clipname)) {
                 clip = getClip(clipname);
@@ -306,7 +305,7 @@ namespace loopier {
             string cliptype = "";
             
             // look for a resource with this name
-            // if it doesn't exist, create a new Empty FrameClip, so it can be saved later
+            // if it doesn't exist, create a new Transparent FrameClip, so it can be saved later
             
             // movie
             if ( movies.count(resourcename) > 0) {
@@ -336,18 +335,13 @@ namespace loopier {
                 cliptype = "frame";
             }
             
-            // doesn't exist -- create a frame clip with an empty framelist -- aka framerecorder
-            else {
-//                loopier::FrameListPtr emptyframelist(new loopier::FrameList());
-//                loopier::FramePlayerPtr frameplayer(new FramePlayer(emptyframelist));
-                // !!!: CLUMSY should pass an empty framelist as above (commented out) but
-                //          it won't work when filled (doesn't draw in player)
-                loopier::FramePlayerPtr frameplayer(new FramePlayer(frames.begin()->second));
-                frameplayer->clear();
-
+            // doesn't exist -- create a frame clip with a single transparent frame -- aka frame recorder
+            else {                
+                loopier::FramePlayerPtr frameplayer(new FramePlayer(frames["transparent"]));
                 clip->setup(frameplayer);
                 frameclipslist.push_back(clipname);
                 cliptype = "frame";
+                frameplayer->clear();
             }
             
 //            clip->setDepth(0);
@@ -579,7 +573,7 @@ namespace loopier {
         {
             if(!exists(recorderclip) ||
                !exists(sourceclip)   ||
-               !isFrameClip(recorderclip)) return;
+               !isFrameClip(recorderclip)) return;            
             // cast from PlayerPtr to FramePlayerPtr -- note that
             // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
             FramePlayerPtr recplayer = dynamic_pointer_cast<FramePlayer> (clips[recorderclip]->getPlayer());
@@ -614,10 +608,8 @@ namespace loopier {
             ofPixels pixels;
             imgFbo.readToPixels(pixels);
             img.setFromPixels(pixels);
-//            img = utils::getMaskedImage(img, maskFbo.getTexture());
-            addframeimages.push_back(img);
-//            recplayer->addFrame( img, polys );
-//            recordingframes.push_back(img);
+//            addframeimages.push_back(img);
+            recplayer->addFrame( img );
             
             ofLogVerbose() << "Adding frame from '" << sourceclip <<"' to '" << recorderclip << "'";
         }
@@ -956,18 +948,28 @@ namespace loopier {
     
     namespace utils {
         ofImage getMaskedImage(ofImage & img, ofTexture & mask){
-            ofPixels maskpixels;
-            mask.readToPixels(maskpixels);
-            for ( int y = 0; y < mask.getHeight(); y ++) {
-                for ( int x = 0; x < mask.getWidth(); x ++) {
-                    if (maskpixels.getColor(x, y) == ofColor(0)) {
-                        ofColor color = img.getPixels().getColor(x, y);
-                        color.a = 0;
-                        img.getPixels().setColor(x, y, color);
-                    };
-                    
-                }
-            }
+            // if not using fbo, '.setAlphaMask(...)' is not permanent
+            ofFbo fbo;
+            fbo.allocate(img.getWidth(), img.getHeight(), GL_RGBA);
+            img.getTexture().setAlphaMask(mask);
+            fbo.begin();
+            img.draw(0,0);
+            fbo.end();
+            ofPixels pixels;
+            fbo.readToPixels(pixels);
+            img.setFromPixels(pixels);
+            return img;
+        }
+        
+        ofTexture getMaskedTexture(ofTexture & texture, ofTexture & mask){
+            // if not using fbo, '.setAlphaMask(...)' is not permanent
+            ofFbo fbo;
+            fbo.allocate(texture.getWidth(), texture.getHeight(), GL_RGBA);
+            texture.setAlphaMask(mask);
+            fbo.begin();
+            texture.draw(0,0);
+            fbo.end();
+            return fbo.getTexture();
         }
     } // namespace utils
 }

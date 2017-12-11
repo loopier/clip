@@ -65,6 +65,8 @@ void loopier::Clip::update()
 {
     //    if (bPlaySequence) updateSequence();
     player->update();
+    width = player->getWidth();
+    height = player->getHeight();
     
     outputFbo.begin();
     ofClear(255,255,255,0);

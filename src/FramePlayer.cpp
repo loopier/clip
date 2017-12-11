@@ -241,6 +241,8 @@ void loopier::FramePlayer::setRecordingSourcePlayer(PlayerPtr player)
 void loopier::FramePlayer::addFrame(ofImage & img)
 {
     frames->push_back(img);
+    width = img.getWidth();
+    height = img.getHeight();
 }
 
 //---------------------------------------------------------
