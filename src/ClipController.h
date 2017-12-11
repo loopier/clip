@@ -19,8 +19,13 @@ namespace loopier {
         // \brief   Sets everything up
         void    init();
         void    update();
-        // biref    Needed for controlling render order
+        // \brief    Needed for controlling render order
         void    draw();
+        void    mousePressed(int x, int y, int button);
+        void    mouseReleased(int x, int y, int button);
+        void    mouseDragged(int x, int y, int button);
+        // \breif   Sets mouse rectangle to fullscreen
+        void    resetDetectionAreaRectangle();
     } // namesapce app
     
     namespace resource {
@@ -169,6 +174,8 @@ namespace loopier {
         void setThreshold(float newThreshold);
         /// \brief  Detect blobs indside blobs
         void setFindHoles(bool findHoles);
+        /// \brief  Sets an area of detection
+        void setDetectionArea(ofRectangle & rect);
     } // namespace cv
     
     namespace utils {

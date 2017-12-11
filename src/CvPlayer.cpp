@@ -51,8 +51,21 @@ void loopier::CvPlayer::setup()
     
     outputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
     maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+    detectionAreaFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+    
+    maskFbo.begin();
+    ofClear(255,255,255,0);
+    maskFbo.end();
+    
+    detectionAreaFbo.begin();
+    ofClear(0);
+    detectionAreaFbo.end();
     
     contourFinder.setSimplify(true);
+//    contourFinder.setInvert(true);
+    
+    ofRectangle rect(0,0, ofGetWidth(), ofGetHeight());
+    setDetectionArea(rect);
 }
 
 //---------------------------------------------------------
@@ -70,27 +83,35 @@ void loopier::CvPlayer::update(){
     contourFinder.setMaxAreaRadius(maxArea);
     contourFinder.setThreshold(threshold);
     contourFinder.findContours(inputPlayer->getPixels());
-//    contourFinder.findContours(camera.getPixels());
+//    contourFinder.findContours(outputImage);
     contourFinder.setFindHoles(bHoles);
 
 //        outputImage.setFromPixels(inputPlayer->getPixels());
 //    outputImage.setFromPixels(camera.getPixels());
 
     // Create a mask with the blobs
-//    vector<ofPolyline> polys = contourFinder.getPolylines();
-//    maskFbo.begin();
-//    ofClear(255,255,255,0);
-//    ofFill();
-//    ofSetColor(255);
-//    for (int i = 0; i < polys.size(); i++) {
-//        ofPolyline poly = polys.at(i);
-//        ofBeginShape();
-//        for( int i = 0; i < poly.getVertices().size(); i++) {
-//            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
-//        }
-//        ofEndShape();
-//    }
-//    maskFbo.end();
+    vector<ofPolyline> polys = contourFinder.getPolylines();
+    maskFbo.begin();
+    ofClear(255,255,255,0);
+    ofFill();
+    ofSetColor(255);
+    for (int i = 0; i < polys.size(); i++) {
+        ofPolyline poly = polys.at(i);
+        ofBeginShape();
+        for( int i = 0; i < poly.getVertices().size(); i++) {
+            if (poly.getVertices().at(i).x < detectionRectangle.getLeft()   ||
+                poly.getVertices().at(i).x > detectionRectangle.getRight()  ||
+                poly.getVertices().at(i).y < detectionRectangle.getTop()    ||
+                poly.getVertices().at(i).y > detectionRectangle.getBottom() ) {
+                continue;
+            }
+            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+        }
+        ofEndShape();
+    }
+    maskFbo.end();
+    
+//    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
 //    maskFbo.readToPixels(pixels);
 //    outputImage.setFromPixels(pixels);
 //    outputImage.getTexture().setAlphaMask(maskFbo.getTexture());
@@ -106,11 +127,12 @@ void loopier::CvPlayer::draw(float x, float y, float w, float h)
 void loopier::CvPlayer::draw()
 {
 //    outputImage.draw(0,0);
-//    maskFbo.draw(0,0);
+    maskFbo.draw(0,0);
+    contourFinder.draw();
 //    inputPlayer->draw();
 //    camera.draw(0,0);
 //    ofSetColor(255,0,0);
-    contourFinder.draw();
+//    detectionAreaFbo.draw(0,0);
 }
 
 //---------------------------------------------------------
@@ -224,4 +246,22 @@ void loopier::CvPlayer::setThreshold(float newThreshold)
 void loopier::CvPlayer::setFindHoles(bool findHoles)
 {
     bHoles = findHoles;
+}
+
+//---------------------------------------------------------
+void loopier::CvPlayer::setDetectionArea(const ofRectangle & rect)
+{
+    detectionAreaFbo.begin();
+    ofClear(255,255,255,0);
+    ofFill();
+    ofSetColor(255);
+    ofBeginShape();
+    ofVertex(rect.getLeft(), rect.getTop());
+    ofVertex(rect.getRight(), rect.getTop());
+    ofVertex(rect.getRight(), rect.getBottom());
+    ofVertex(rect.getLeft(), rect.getBottom());
+    ofEndShape();
+    detectionAreaFbo.end();
+    
+    detectionRectangle = rect;
 }

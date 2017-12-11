@@ -30,8 +30,8 @@ public:
     void gotMessage(ofMessage msg);
     
 private:
-    ConsoleUI   console;
-    MessageMapper msgMapper;
+    ConsoleUI       console;
+    MessageMapper   msgMapper;
     
     string  applicationSupportPath; ///< Path to the directory with resources and config files
     

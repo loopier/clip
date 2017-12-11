@@ -58,6 +58,8 @@ namespace loopier {
             void setMaxArea(float newArea);
             void setThreshold(float newThreshold);
             void setFindHoles(bool findHoles);
+            
+            void setDetectionArea(const ofRectangle & rect);
 
         private:
 //            ofVideoGrabber  camera; // TODO: get input from other clips -- didn't manage to make it work yet
@@ -65,6 +67,8 @@ namespace loopier {
             PlayerPtr   inputPlayer; // image to be processed
             ofImage     outputImage;
             ofFbo       maskFbo;    // just the blobs
+            ofFbo       detectionAreaFbo;
+            ofRectangle detectionRectangle;
             ofPixels    pixels;
             
             bool    bVisible;

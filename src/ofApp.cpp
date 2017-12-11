@@ -50,18 +50,18 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-//    float fx = float(x)/float(ofGetWidth());
-//    float fy = float(y)/float(ofGetHeight());
-//    clips["default"]->setPosition(fx, fy);
+    loopier::app::mouseDragged(x,y,button);
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
+    loopier::app::mousePressed(x,y,button);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+    loopier::app::mouseReleased(x,y,button);
+    
 }
 
 //--------------------------------------------------------------
@@ -113,3 +113,5 @@ void ofApp::init()
     // create folder if it doesn't exist
     // load config/settings
 }
+
+

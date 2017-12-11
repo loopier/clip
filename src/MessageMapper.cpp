@@ -107,6 +107,7 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/cv/holes"]            = &loopier::MessageMapper::setCvHoles;
     messageMap["/loopier/clip/cv/show"]             = &loopier::MessageMapper::showCv;
     messageMap["/loopier/clip/cv/hide"]             = &loopier::MessageMapper::hideCv;
+    messageMap["/loopier/clip/cv/detectionarea"]    = &::loopier::MessageMapper::setCvDetectionArea;
     // !!!: REMOVE -- temporary
     messageMap["/loopier/clip/cv/deviceid"]         = &loopier::MessageMapper::setCvDeviceId;
     
@@ -587,6 +588,14 @@ void loopier::MessageMapper::showCv(const Message & msg)
 void loopier::MessageMapper::hideCv(const Message & msg)
 {
     loopier::cv::hide();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setCvDetectionArea(const Message & msg)
+{
+    ofRectangle rect(msg.getArgAsFloat(0), msg.getArgAsFloat(1),
+                     msg.getArgAsFloat(2), msg.getArgAsFloat(3));
+    loopier::cv::setDetectionArea(rect);
 }
 
 

@@ -115,6 +115,7 @@ private:
     void setCvDeviceId      (const Message & msg);
     void showCv             (const Message & msg);
     void hideCv             (const Message & msg);
+    void setCvDetectionArea (const Message & msg);
     
     // Console commands
     void setConsoleColor    (const Message & msg);

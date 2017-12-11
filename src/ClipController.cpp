@@ -26,8 +26,7 @@ namespace {
     
     vector<string>   drawingLayers; // used to control drawing order (depth)
     
-    vector<ofImage> addframeimages; // !!!:REMVOE addframe test
-    int addframecounter = 0;
+    ofRectangle detectionAreaRectangle; // a rectangle created dragging the mouse -- see mouse-event methods
     
     map<string, loopier::CameraPlayerPtr>   cameraplayers;
     vector<string>                          frameclipslist;    
@@ -209,9 +208,6 @@ namespace loopier {
             for (const auto &item : clips) {
                 clip::setClipDrawOrder(item.first, item.second->getDepth());
             };
-            
-            currentRecordingFrame++;
-            if (currentRecordingFrame > recordingframes.size()) currentRecordingFrame = 0;
         }
         
         //---------------------------------------------------------------------------
@@ -223,13 +219,41 @@ namespace loopier {
                 clips.at(clipname)->draw();
             };
             
-            if (recordingframes.size() > 0) recordingframes[currentRecordingFrame].draw(100,100);
+            ofPushStyle();
+            ofSetColor(127, 127, 0);
+            ofNoFill();
+            ofDrawRectangle(detectionAreaRectangle);
+            ofPopStyle();
+        }
+        
+        //---------------------------------------------------------------------------
+        void mousePressed(int x, int y, int button)
+        {
+            detectionAreaRectangle.setX(x);
+            detectionAreaRectangle.setY(y);
+        }
+        
+        //---------------------------------------------------------------------------
+        void mouseReleased(int x, int y, int button)
+        {
+            detectionAreaRectangle.setWidth(x - detectionAreaRectangle.x);
+            detectionAreaRectangle.setHeight(y - detectionAreaRectangle.y);
             
-            if (addframeimages.size() <= 0) return;
-            
-            addframeimages[addframecounter].draw(0,0); // !!!:REMVOE addframe test
-            addframecounter++;
-            if (addframecounter >= addframeimages.size()) addframecounter = 0;
+            if (x == detectionAreaRectangle.x ||  y == detectionAreaRectangle.y) {
+                resetDetectionAreaRectangle();
+            }
+            loopier::cv::setDetectionArea(detectionAreaRectangle);
+        }
+        
+        //---------------------------------------------------------------------------
+        void mouseDragged(int x, int y, int button)
+        {
+            mouseReleased(x, y, button);
+        }
+        
+        void resetDetectionAreaRectangle()
+        {
+            detectionAreaRectangle.set(0,0, ofGetWidth(), ofGetHeight());
         }
     }   // namespace app
     
@@ -579,24 +603,24 @@ namespace loopier {
             FramePlayerPtr recplayer = dynamic_pointer_cast<FramePlayer> (clips[recorderclip]->getPlayer());
             ofImage img = clips[sourceclip]->getImage();
 //            addframeimage = img;
-            vector<ofPolyline> polys = getPlayerAsCvPlayer("cv")->getPolylines();
-            ofFbo maskFbo;
-            maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
-            maskFbo.begin();
-            ofClear(255,255,255,0);
-            ofFill();
-            ofSetColor(255);
-            for (int i = 0; i < polys.size(); i++) {
-                ofPolyline poly = polys.at(i);
-                ofBeginShape();
-                for( int i = 0; i < poly.getVertices().size(); i++) {
-                    ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
-                }
-                ofEndShape();
-            }
-            maskFbo.end();
+//            vector<ofPolyline> polys = getPlayerAsCvPlayer("cv")->getPolylines();
+//            ofFbo maskFbo;
+//            maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+//            maskFbo.begin();
+//            ofClear(255,255,255,0);
+//            ofFill();
+//            ofSetColor(255);
+//            for (int i = 0; i < polys.size(); i++) {
+//                ofPolyline poly = polys.at(i);
+//                ofBeginShape();
+//                for( int i = 0; i < poly.getVertices().size(); i++) {
+//                    ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+//                }
+//                ofEndShape();
+//            }
+//            maskFbo.end();
             
-            img.getTexture().setAlphaMask(maskFbo.getTexture());
+            img.getTexture().setAlphaMask(getPlayerAsCvPlayer("cv")->getTexture());
             
             ofFbo imgFbo;
             imgFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
@@ -941,6 +965,12 @@ namespace loopier {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
             if (!clip::exists("cv")) return;
             getPlayerAsCvPlayer("cv")->setFindHoles(findHoles);
+        }
+        
+        void setDetectionArea(ofRectangle & rect)
+        {
+            getPlayerAsCvPlayer("cv")->setDetectionArea(rect);
+            detectionAreaRectangle = rect;
         }
         
         //---------------------------------------------------------------------------
