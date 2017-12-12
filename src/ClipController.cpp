@@ -29,9 +29,7 @@ namespace {
     ofRectangle detectionAreaRectangle; // a rectangle created dragging the mouse -- see mouse-event methods
     
     map<string, loopier::CameraPlayerPtr>   cameraplayers;
-    vector<string>                          frameclipslist;    
-    vector<ofImage> recordingframes;
-    int             currentRecordingFrame = 0;
+    vector<string>                          frameclipslist;
     
     // * * * HELPER FUNCTIONS LOCAL TO THIS FILE * * * * * * * * * * * * * * * * * * * * *
     
@@ -370,6 +368,7 @@ namespace loopier {
             
 //            clip->setDepth(0);
             clips[clipname] = clip;
+//            clip->setPosition(ofGetWidth(), ofGetHeight());
             clip->show();
             bringClipToFront(clipname);
             centerClip(clipname);
@@ -595,6 +594,7 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void addFrame(const string recorderclip, const string sourceclip)
         {
+            // FIXME: OFFSET
             if(!exists(recorderclip) ||
                !exists(sourceclip)   ||
                !isFrameClip(recorderclip)) return;            
@@ -602,28 +602,12 @@ namespace loopier {
             // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
             FramePlayerPtr recplayer = dynamic_pointer_cast<FramePlayer> (clips[recorderclip]->getPlayer());
             ofImage img = clips[sourceclip]->getImage();
-//            addframeimage = img;
-//            vector<ofPolyline> polys = getPlayerAsCvPlayer("cv")->getPolylines();
-//            ofFbo maskFbo;
-//            maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
-//            maskFbo.begin();
-//            ofClear(255,255,255,0);
-//            ofFill();
-//            ofSetColor(255);
-//            for (int i = 0; i < polys.size(); i++) {
-//                ofPolyline poly = polys.at(i);
-//                ofBeginShape();
-//                for( int i = 0; i < poly.getVertices().size(); i++) {
-//                    ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
-//                }
-//                ofEndShape();
-//            }
-//            maskFbo.end();
+            ofTexture maskTexture = getPlayerAsCvPlayer("cv")->getTexture();
             
-            img.getTexture().setAlphaMask(getPlayerAsCvPlayer("cv")->getTexture());
+            img.getTexture().setAlphaMask(maskTexture);
             
             ofFbo imgFbo;
-            imgFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+            imgFbo.allocate(img.getWidth(), img.getHeight(), GL_RGBA);
             imgFbo.begin();
             ofClear(255,255,255,0);
             img.draw(0,0);
@@ -632,10 +616,11 @@ namespace loopier {
             ofPixels pixels;
             imgFbo.readToPixels(pixels);
             img.setFromPixels(pixels);
-//            addframeimages.push_back(img);
-            recplayer->addFrame( img );
             
-            ofLogVerbose() << "Adding frame from '" << sourceclip <<"' to '" << recorderclip << "'";
+            clips[recorderclip]->setWidth(img.getWidth());
+            clips[recorderclip]->setHeight(img.getHeight());
+            clips[recorderclip]->setPosition(clips[sourceclip]->getPosition());
+            recplayer->addFrame( img );
         }
         
         //---------------------------------------------------------------------------

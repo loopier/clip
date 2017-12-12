@@ -49,9 +49,6 @@ void loopier::FramePlayer::update()
     if (frames->size() <= 0)    return;
     if (currentFrame > frames->size()) currentFrame = frames->size() - 1;
     
-    width = frames->at(currentFrame).getWidth();
-    height = frames->at(currentFrame).getHeight();
-    
     // FIXME: it crashes
     float rateRatio = (60 / getFrameRate()) / ofGetFrameRate();
     
@@ -88,18 +85,6 @@ void loopier::FramePlayer::exit()
 {
        
 }
-
-////---------------------------------------------------------
-//bool loopier::FramePlayer::loadResource(string resourcename)
-//{
-//    // copy frames
-////    frames = make_shared<FrameList>(*loopier::frameLists.find(resourcename)->second);
-////    
-////    ofLogVerbose() << __PRETTY_FUNCTION__ << "Needs imlpementation";
-////    BasePlayer::loadResource(resourcename);
-////    ofLogVerbose() << "Finished loading '" << resourcename << "' frame image files to '" << name << "' player";
-////    return bLoaded;
-//}
 
 //---------------------------------------------------------
 void loopier::FramePlayer::play()
@@ -241,8 +226,6 @@ void loopier::FramePlayer::setRecordingSourcePlayer(PlayerPtr player)
 void loopier::FramePlayer::addFrame(ofImage & img)
 {
     frames->push_back(img);
-    width = img.getWidth();
-    height = img.getHeight();
 }
 
 //---------------------------------------------------------

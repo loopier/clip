@@ -51,9 +51,13 @@ namespace loopier {
         void setScaleY(const float newScale);
         float getScale() const;
         
-        void setPosition(const float newX, const float newY);
-        void setPosition(const ofPoint& newPos);
+        void    setPosition(const float newX, const float newY);
+        void    setPosition(const ofPoint& newPos);
         ofPoint getPosition() const;
+        void    setWidth(const float w);
+        void    setHeight(const float h);
+        float   getWidth() const;
+        float   getHeight() const;
         
         void toggleFullscreen();
         void toggleVisibility();

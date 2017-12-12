@@ -41,7 +41,7 @@ loopier::Clip::Clip(string& clipname, string& resourcename)
     ofAddListener(ofEvents().update, this, &Clip::update);
     // -- DISABLED --   I need to control drawing order (or depth).  I do it manually because
     //                  I don't know how to do it automatic
-//    ofAddListener(ofEvents().draw, this, &Clip::draw);
+    //    ofAddListener(ofEvents().draw, this, &Clip::draw);
 }
 
 //---------------------------------------------------------
@@ -54,8 +54,12 @@ void loopier::Clip::setup(PlayerPtr aplayer)
 {
     sequenceOrder.push_back(0);
     aplayer->setLoopState(loopState);
-    outputFbo.allocate(aplayer->getWidth(), aplayer->getHeight());
+    outputFbo.allocate(ofGetWidth(), ofGetHeight());
+    width = ofGetWidth();
+    height = ofGetHeight();
     outputFbo.setAnchorPercent(0.5, 0.5);
+    
+    setPosition(0.5,0.5);
     setPlayer(aplayer);
 //    reset();
 }
@@ -65,8 +69,6 @@ void loopier::Clip::update()
 {
     //    if (bPlaySequence) updateSequence();
     player->update();
-    width = player->getWidth();
-    height = player->getHeight();
     
     outputFbo.begin();
     ofClear(255,255,255,0);
@@ -81,6 +83,7 @@ void loopier::Clip::update()
     }
     
     outputFbo.readToPixels(outputPixels);
+    
 }
 
 //---------------------------------------------------------------------------
@@ -190,9 +193,6 @@ void loopier::Clip::setScale(const float newScale)
     setScaleX(newScale);
     setScaleY(newScale);
     
-    width = player->getWidth() * scaleX;
-    height = player->getHeight() * scaleY;
-    
     ofLogVerbose() << name << " scale: " << scale;
 }
 
@@ -200,14 +200,14 @@ void loopier::Clip::setScale(const float newScale)
 void loopier::Clip::setScaleX(const float newScale)
 {
     scaleX = newScale * ofSign(scaleX);
-    width = player->getWidth() * scaleX;
+    width = ofGetWidth() * scaleX;
 }
 
 //---------------------------------------------------------------------------
 void loopier::Clip::setScaleY(const float newScale)
 {
     scaleY = newScale * ofSign(scaleY);
-    height = player->getHeight() * scaleY;
+    height = ofGetHeight() *  scaleY;
 }
 
 //---------------------------------------------------------------------------
@@ -234,7 +234,31 @@ void loopier::Clip::setPosition(const ofPoint& newPosition)
 //---------------------------------------------------------------------------
 ofPoint loopier::Clip::getPosition() const
 {
-    return ofPoint(x,y);
+    return ofPoint(x / ofGetWidth(),y / ofGetHeight());
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setWidth(const float w)
+{
+    width = w;
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setHeight(const float h)
+{
+    height = h;
+}
+
+//---------------------------------------------------------------------------
+float loopier::Clip::getWidth() const
+{
+    return width;
+}
+
+//---------------------------------------------------------------------------
+float loopier::Clip::getHeight() const
+{
+    return height;
 }
 
 //---------------------------------------------------------------------------
@@ -340,8 +364,6 @@ void loopier::Clip::setPlayer(loopier::PlayerPtr aPlayer)
 {
     ofLogVerbose() << __PRETTY_FUNCTION__;
     player = aPlayer;
-    width = player->getWidth();
-    height = player->getHeight();
 }
 
 

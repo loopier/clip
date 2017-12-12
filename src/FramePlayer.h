@@ -35,9 +35,6 @@ namespace loopier {
         void    draw(float x, float y, float w, float h);
         void    exit();
         
-        /// \brief  Copies frames from global map
-//        bool    loadResource(string resourcename);
-        
         void    play();
         void    stop();
         

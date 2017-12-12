@@ -15,7 +15,7 @@ loopier::BasePlayer::BasePlayer()
 , path("/Users/roger/Library/Application Support/Clip/resources/players/")
 , speed(1.0)
 //, frameRate(ofGetFrameRate())
-, position(0.0)
+, position(ofPoint(0,0))
 , currentFrame(0)
 , loopState(loopier::LoopType::normal)
 , playDirection(loopier::PlayDirection::normal)
@@ -141,7 +141,7 @@ bool loopier::BasePlayer::isPlaying() const
 }
 
 //---------------------------------------------------------
-float   loopier::BasePlayer::getPosition() const
+ofPoint   loopier::BasePlayer::getPosition() const
 {
     return position;
 }
@@ -172,9 +172,9 @@ void    loopier::BasePlayer::setPaused(bool bPause)
 }
 
 //---------------------------------------------------------
-void    loopier::BasePlayer::setPosition(float pct)
+void    loopier::BasePlayer::setPosition(ofPoint & pos)
 {
-    position = pct;
+    position = pos;
 }
 
 //---------------------------------------------------------

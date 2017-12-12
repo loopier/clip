@@ -51,13 +51,14 @@ namespace loopier {
         //    bool				isInitialized() const{ return isLoaded(); }
         
         //should implement!
-        virtual     float 				getPosition() const;
+        virtual     ofPoint             getPosition() const;
+        virtual     void 				setPosition(ofPoint & pos);
+        
         virtual     float 				getSpeed() const;
         virtual     float 				getDuration() const;
         virtual     bool				getIsMovieDone() const;
         
         virtual     void 				setPaused(bool bPause);
-        virtual     void 				setPosition(float pct);
         virtual     void 				setLoopState(LoopType state);
         virtual     void                setPlayDirection(PlayDirection dir);
         virtual     void                changePlayDirection();
@@ -79,13 +80,13 @@ namespace loopier {
     protected:
         BasePlayer();
         
+        ofPoint       position;
         float width, height;
         
         string      name;
         string      path; // Path to folder
         float       speed; // Playing speed
         float       frameRate;
-        float       position; // 0..1 (position in movie)
         int         currentFrame;
         LoopType    loopState;
         PlayDirection   playDirection;
