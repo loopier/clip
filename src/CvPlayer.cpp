@@ -77,29 +77,6 @@ void loopier::CvPlayer::update()
     contourFinder.setThreshold(threshold);
     contourFinder.findContours(inputPlayer->getPixels());
     contourFinder.setFindHoles(bHoles);
-
-    // Create a mask with the blobs
-    vector<ofPolyline> polys = contourFinder.getPolylines();
-    shapeFbo.begin();
-    ofClear(255,255,255,0);
-    ofFill();
-    ofSetColor(255);
-    for (int i = 0; i < polys.size(); i++) {
-        ofPolyline poly = polys.at(i);
-        ofBeginShape();
-        for( int i = 0; i < poly.getVertices().size(); i++) {
-            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
-        }
-        ofEndShape();
-    }
-    shapeFbo.end();
-    
-    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
-    
-    maskFbo.begin();
-    ofClear(255,255,255,0);
-    shapeFbo.draw(0,0);
-    maskFbo.end();
     
     // mask contourfinder -- reusing shape fbo
     shapeFbo.begin();
@@ -120,7 +97,7 @@ void loopier::CvPlayer::draw(float x, float y, float w, float h)
 //---------------------------------------------------------
 void loopier::CvPlayer::draw()
 {
-    maskFbo.draw(0,0);
+//    maskFbo.draw(0,0);
 //    contourFinder.draw();
 //    inputPlayer->draw();
 //    ofSetColor(255,0,0);
@@ -164,6 +141,28 @@ float loopier::CvPlayer::getHeight() const
 //---------------------------------------------------------
 ofTexture & loopier::CvPlayer::getTexture()
 {
+    // Create a mask with the blobs
+    vector<ofPolyline> polys = contourFinder.getPolylines();
+    shapeFbo.begin();
+    ofClear(255,255,255,0);
+    ofFill();
+    ofSetColor(255);
+    for (int i = 0; i < polys.size(); i++) {
+        ofPolyline poly = polys.at(i);
+        ofBeginShape();
+        for( int i = 0; i < poly.getVertices().size(); i++) {
+            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+        }
+        ofEndShape();
+    }
+    shapeFbo.end();
+    
+    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
+    
+    maskFbo.begin();
+    ofClear(255,255,255,0);
+    shapeFbo.draw(0,0);
+    maskFbo.end();
     return maskFbo.getTexture();
 }
 

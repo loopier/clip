@@ -220,6 +220,7 @@ namespace loopier {
             ofPushStyle();
             ofSetColor(127, 127, 0);
             ofNoFill();
+            ofSetLineWidth(1);
             ofDrawRectangle(detectionAreaRectangle);
             ofPopStyle();
         }
