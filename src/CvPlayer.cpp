@@ -100,6 +100,15 @@ void loopier::CvPlayer::update()
     ofClear(255,255,255,0);
     shapeFbo.draw(0,0);
     maskFbo.end();
+    
+    // mask contourfinder -- reusing shape fbo
+    shapeFbo.begin();
+    ofClear(255,255,255,0);
+    ofNoFill();
+    contourFinder.draw();
+    shapeFbo.end();
+    
+    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
 }
 
 //---------------------------------------------------------
@@ -112,10 +121,11 @@ void loopier::CvPlayer::draw(float x, float y, float w, float h)
 void loopier::CvPlayer::draw()
 {
     maskFbo.draw(0,0);
-    contourFinder.draw();
+//    contourFinder.draw();
 //    inputPlayer->draw();
 //    ofSetColor(255,0,0);
 //    detectionAreaFbo.draw(0,0);
+    shapeFbo.draw(0,0);
 }
 
 //---------------------------------------------------------
