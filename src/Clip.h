@@ -16,6 +16,7 @@
 #include "MoviePlayer.h"
 #include "CameraPlayer.h"
 #include "CvPlayer.h"
+#include "SyphonPlayer.h";
 
 namespace loopier {
     

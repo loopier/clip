@@ -195,6 +195,7 @@ namespace loopier {
 //                                 // ofVideoGrabber because I couldn't make it
 //                                 // work dynamically
 //            initializeCv();
+            clip::newClip("syphon");
             clip::newClip("cv");
             loopier::resource::listAll();
         }
@@ -336,11 +337,18 @@ namespace loopier {
                 clip->setup(movieplayer);
                 cliptype = "movie";
             }
+            // syphon
+            else if (resourcename == "syphon") {
+                loopier::SyphonPlayerPtr syphonplayer(new loopier::SyphonPlayer());
+                clip->setup(syphonplayer);
+                cliptype = "syphon";
+            }
             // cv
             else if (resourcename == "cv") {
                 loopier::CvPlayerPtr cvplayer(new loopier::CvPlayer());
                 cvplayer->setCamera(*cameras["C525"]);
                 clip->setup(cvplayer);
+                cliptype = "cv";
             }
             // camera
             else if ( cameras.count(resourcename) > 0) {
