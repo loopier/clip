@@ -26,4 +26,4 @@ m.sendMsg("/loopier/clip/clip/clearframes");
 // Save frames to disk
 //    Will save them in a directory named after the
 //    clip.  In this case it will be saved in app/path/frames/anim
-m.sendMsg("/loopier/clip/clip/saveframes", );
+m.sendMsg("/loopier/clip/clip/saveframes", "anim");
