@@ -68,7 +68,8 @@ void loopier::FramePlayer::update()
 //---------------------------------------------------------
 void loopier::FramePlayer::draw()
 {
-    if (frames->size() <= 0) return;
+    if (frames->size() <= 0)            return;
+    if (currentFrame >= frames->size()) return;
     frames->at(currentFrame).draw(0, 0);
 }
 
