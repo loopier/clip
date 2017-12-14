@@ -3,12 +3,11 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 6,
-			"minor" : 1,
-			"revision" : 10,
-			"architecture" : "x86"
+			"minor" : 0,
+			"revision" : 5
 		}
 ,
-		"rect" : [ 71.0, 272.0, 640.0, 480.0 ],
+		"rect" : [ 577.0, 379.0, 1098.0, 703.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -31,13 +30,151 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : 0.0,
+					"id" : "obj-40",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 467.5, 193.0, 231.0, 20.0 ],
+					"presentation_rect" : [ 467.5, 198.0, 0.0, 0.0 ],
+					"text" : "syphon-server.maxpat"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-39",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 524.5, 219.0, 231.0, 20.0 ],
+					"text" : "Syphon Simple Server example"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-30",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 658.0, 247.0, 150.0, 34.0 ],
+					"text" : "Openframeworks examples"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-12",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 416.0, 193.0, 37.0, 18.0 ],
+					"presentation_rect" : [ 529.0, 122.0, 0.0, 0.0 ],
+					"text" : " Max"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-10",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 416.0, 247.0, 232.0, 18.0 ],
+					"presentation_rect" : [ 627.0, 147.0, 0.0, 0.0 ],
+					"text" : "\"Screen Output\" example-BasicDebug"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-20",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 416.0, 219.0, 98.0, 18.0 ],
+					"text" : " \"Simple Server\""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-18",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 416.0, 265.0, 233.0, 18.0 ],
+					"text" : "\"Texture Output\" example-BasicDebug"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-3",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 416.0, 142.0, 367.0, 48.0 ],
+					"text" : "Choose syphon server - ServerName AppName\nYou may need to prepend \"\" (empty quotes) if you just have the appname, like in [\"\" Max] or [\"\" \"Simple Server]"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-6",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 416.0, 317.0, 39.0, 20.0 ],
+					"text" : "s osc"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-8",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 416.0, 294.0, 255.0, 18.0 ],
+					"text" : "/loopier/clip/syphon/servername syphon $1 $2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
 					"id" : "obj-36",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 208.0, 210.0, 179.0, 20.0 ],
-					"presentation_rect" : [ 204.0, 210.0, 0.0, 0.0 ],
 					"text" : "List all available clips"
 				}
 
@@ -51,7 +188,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 208.0, 253.0, 39.0, 20.0 ],
-					"presentation_rect" : [ 204.0, 253.0, 0.0, 0.0 ],
 					"text" : "s osc"
 				}
 
@@ -66,7 +202,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 208.0, 230.0, 153.0, 18.0 ],
-					"presentation_rect" : [ 204.0, 230.0, 0.0, 0.0 ],
 					"text" : "/loopier/clip/clips/listnames"
 				}
 
@@ -75,13 +210,11 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : 0.0,
 					"id" : "obj-32",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 208.0, 136.0, 179.0, 20.0 ],
-					"presentation_rect" : [ 209.0, 136.0, 0.0, 0.0 ],
 					"text" : "Save 'anim' frames to disc"
 				}
 
@@ -95,7 +228,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 208.0, 179.0, 39.0, 20.0 ],
-					"presentation_rect" : [ 209.0, 179.0, 0.0, 0.0 ],
 					"text" : "s osc"
 				}
 
@@ -110,7 +242,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 208.0, 156.0, 187.0, 18.0 ],
-					"presentation_rect" : [ 209.0, 156.0, 0.0, 0.0 ],
 					"text" : "/loopier/clip/clip/saveframes anim"
 				}
 
@@ -119,13 +250,11 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : 0.0,
 					"id" : "obj-28",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 427.0, 60.0, 179.0, 20.0 ],
-					"presentation_rect" : [ 417.0, 49.0, 0.0, 0.0 ],
 					"text" : "remove last frame from 'anim' "
 				}
 
@@ -139,7 +268,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 427.0, 103.0, 39.0, 20.0 ],
-					"presentation_rect" : [ 417.0, 138.0, 0.0, 0.0 ],
 					"text" : "s osc"
 				}
 
@@ -154,7 +282,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 427.0, 80.0, 196.0, 18.0 ],
-					"presentation_rect" : [ 417.0, 115.0, 0.0, 0.0 ],
 					"text" : "/loopier/clip/clip/removeframe anim"
 				}
 
@@ -168,7 +295,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 17.0, 225.0, 39.0, 20.0 ],
-					"presentation_rect" : [ 17.0, 226.0, 0.0, 0.0 ],
 					"text" : "s osc"
 				}
 
@@ -177,13 +303,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : 0.0,
 					"id" : "obj-26",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 13.0, 3.0, 66.0, 33.0 ],
+					"patching_rect" : [ 13.0, 3.0, 66.0, 34.0 ],
 					"text" : "set CV's threshold"
 				}
 
@@ -192,14 +317,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : 0.0,
 					"id" : "obj-24",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 208.0, 47.0, 150.0, 33.0 ],
-					"presentation_rect" : [ 257.0, 40.0, 0.0, 0.0 ],
+					"patching_rect" : [ 208.0, 47.0, 151.0, 34.0 ],
 					"text" : "add a frame to 'anim' from 'cam1' image"
 				}
 
@@ -213,7 +336,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 50.0, 102.0, 39.0, 20.0 ],
-					"presentation_rect" : [ 126.0, 138.0, 0.0, 0.0 ],
 					"text" : "s osc"
 				}
 
@@ -263,13 +385,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : 0.0,
 					"id" : "obj-16",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 50.0, 47.0, 150.0, 33.0 ],
+					"patching_rect" : [ 50.0, 47.0, 150.0, 34.0 ],
 					"text" : "create a new stop-motion\nclip names 'anim'"
 				}
 
@@ -292,7 +413,6 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : 0.0,
 					"id" : "obj-17",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -421,10 +541,28 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-12", 0 ]
 				}
 
 			}
@@ -475,10 +613,28 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-21", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-19", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-20", 0 ]
 				}
 
 			}
@@ -542,6 +698,15 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-8", 0 ]
 				}
 
 			}

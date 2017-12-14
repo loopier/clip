@@ -13,7 +13,7 @@
 loopier::SyphonPlayer::SyphonPlayer()
 {
     client.setup();
-    client.set("", "Jitter");
+    client.set("", "Screen Output");
     width = ofGetWidth();
     height = ofGetHeight();
 }
@@ -42,7 +42,8 @@ void loopier::SyphonPlayer::draw()
 }
 
 //---------------------------------------------------------
-void loopier::SyphonPlayer::exit(){
+void loopier::SyphonPlayer::exit()
+{
     
 }
 
@@ -62,4 +63,12 @@ ofPixels & loopier::SyphonPlayer::getPixels()
 ofImage & loopier::SyphonPlayer::getImage()
 {
     
+}
+
+//---------------------------------------------------------
+void loopier::SyphonPlayer::setServerName(const string servername, const string appname)
+{
+    client.setup();
+    client.set(servername, appname);
+    ofLogVerbose() << __PRETTY_FUNCTION__ << "\n\tSyphon client listening to: " << servername << " - " << appname;
 }

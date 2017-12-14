@@ -97,7 +97,10 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clips/togglenames"]   = &loopier::MessageMapper::toggleClipNames;
     messageMap["/loopier/clip/clips/shownames"]     = &loopier::MessageMapper::showClipNames;
     messageMap["/loopier/clip/clips/hidenames"]     = &loopier::MessageMapper::hideClipNames;
-
+    
+    // Syphon
+    messageMap["/loopier/clip/syphon/servername"]   = &loopier::MessageMapper::setSyphonServerName;
+    
     // CV commands
     messageMap["/loopier/clip/cv/setinput"]         = &loopier::MessageMapper::setCvInputClip;
     messageMap["/loopier/clip/cv/color"]            = &loopier::MessageMapper::setCvColor;
@@ -108,8 +111,6 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/cv/show"]             = &loopier::MessageMapper::showCv;
     messageMap["/loopier/clip/cv/hide"]             = &loopier::MessageMapper::hideCv;
     messageMap["/loopier/clip/cv/detectionarea"]    = &::loopier::MessageMapper::setCvDetectionArea;
-    // !!!: REMOVE -- temporary
-    messageMap["/loopier/clip/cv/deviceid"]         = &loopier::MessageMapper::setCvDeviceId;
     
     // Console commands
     messageMap["/loopier/clip/console/color"]       = &loopier::MessageMapper::setConsoleColor;
@@ -515,6 +516,26 @@ void loopier::MessageMapper::showClipNames(const Message & msg)
 void loopier::MessageMapper::hideClipNames(const Message & msg)
 {
     loopier::clip::hideNames();
+}
+
+
+
+
+
+
+
+//---------------------------------------------------------
+
+//        Syphon
+
+//---------------------------------------------------------
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setSyphonServerName(const Message & msg)
+{
+    loopier::resource::setSyphonServerName(msg.getArgAsString(0),
+                                           msg.getArgAsString(1),
+                                           msg.getArgAsString(2));
 }
 
 

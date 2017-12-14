@@ -177,6 +177,12 @@ namespace {
         return dynamic_pointer_cast<loopier::CameraPlayer> (clips[clipname]->getPlayer());
     }
     
+    // Returns a Syphon player from the given clip
+    loopier::SyphonPlayerPtr getPlayerAsSyphonPlayer(string clipname)
+    {
+        return dynamic_pointer_cast<loopier::SyphonPlayer> (clips[clipname]->getPlayer());
+    }
+    
 } // namesapce
 
 
@@ -293,6 +299,14 @@ namespace loopier {
                 movies.count(resourcename) ||
                 cameras.count(resourcename)) return true;
             else return false;
+        }
+        
+        //---------------------------------------------------------------------------
+        void setSyphonServerName(const string clipname, const string syphonservername, const string syphonserverapp)
+        {
+            if (!clip::exists(clipname)) return;
+            getPlayerAsSyphonPlayer(clipname)->setServerName(syphonservername, syphonserverapp);
+            
         }
     }  // namesapce resource
     

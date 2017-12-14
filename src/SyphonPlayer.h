@@ -30,6 +30,8 @@ namespace loopier {
         ofPixels &  getPixels();
         ofImage &   getImage();
         
+        void    setServerName(const string servername, const string appname);
+        
     private:
         ofxSyphonClient client; // input
     };

@@ -105,6 +105,9 @@ private:
     void showClipNames      (const Message & msg);
     void hideClipNames      (const Message & msg);
     
+    // Syphon
+    void setSyphonServerName    (const Message & msg);
+    
     // Cv commands
     void setCvColor         (const Message & msg);
     void setCvThreshold     (const Message & msg);
