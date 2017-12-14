@@ -13,7 +13,9 @@
 loopier::SyphonPlayer::SyphonPlayer()
 {
     client.setup();
-    client.set("", "Simple Server");
+    client.set("", "Jitter");
+    width = ofGetWidth();
+    height = ofGetHeight();
 }
 
 //---------------------------------------------------------
