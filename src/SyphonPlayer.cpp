@@ -70,5 +70,5 @@ void loopier::SyphonPlayer::setServerName(const string servername, const string 
 {
     client.setup();
     client.set(servername, appname);
-    ofLogVerbose() << __PRETTY_FUNCTION__ << "\n\tSyphon client listening to: " << servername << " - " << appname;
+    ofLogVerbose() << "Syphon client listening to: " << servername << " - " << appname;
 }
