@@ -633,8 +633,8 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void setClipSpeed(const string clipname, const float speed)
         {
-//            if(!exists(clipname)) return;
-//            clips[clipname]->setSpeed(speed);
+            if(!exists(clipname)) return;
+            clips[clipname]->setSpeed(speed);
         }
         
         //---------------------------------------------------------------------------

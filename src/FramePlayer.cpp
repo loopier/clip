@@ -152,8 +152,8 @@ float loopier::FramePlayer::getDuration() const
 void loopier::FramePlayer::setSpeed(float newSpeed)
 {
     speed = newSpeed;
-    frameRate = 60 / (speed * ofGetFrameRate());
-    ofLogVerbose() << frameRate << "\t" << speed;
+    frameRate = speed * ofGetFrameRate();
+    ofLogVerbose() << "FPS: " << frameRate << "\tSpeed: " << speed << "\tofFps: " << ofGetFrameRate();
 }
 
 //---------------------------------------------------------

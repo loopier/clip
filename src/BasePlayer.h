@@ -70,7 +70,7 @@ namespace loopier {
         virtual     int					getTotalNumFrames() const;
         virtual     LoopType			getLoopState() const;
         virtual     PlayDirection       getPlayDirection() const;
-        virtual     int                 getFrameRate() const;
+        virtual     float               getFrameRate() const;
         
         virtual     void				firstFrame();
         virtual     void				nextFrame();

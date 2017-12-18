@@ -239,7 +239,7 @@ loopier::PlayDirection  loopier::BasePlayer::getPlayDirection() const
 }
 
 //---------------------------------------------------------
-int     loopier::BasePlayer::getFrameRate() const
+float     loopier::BasePlayer::getFrameRate() const
 {
     return frameRate;
 }
