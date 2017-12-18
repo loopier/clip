@@ -3,10 +3,10 @@ m = NetAddr("localhost", 12345);
 
 // Create a clip with camera input
 m.sendMsg("/loopier/clip/clip/new", "cam1", "C525");
-// Set it as background to keep it in the back
-m.sendMsg("/loopier/clip/clip/background", "cam1");
 // Set the camera clip as input for Cv
 m.sendMsg("/loopier/clip/cv/setinput", "cam1");
+// Set it as background to keep it in the back
+m.sendMsg("/loopier/clip/clip/background", "cam1");
 // Hide camera to see just the blob
 m.sendMsg("/loopier/clip/clip/hide", "cam1");
 // Create a clip named 'anim' to record a new stop-motion animation
