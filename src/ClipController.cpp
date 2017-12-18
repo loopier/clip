@@ -494,7 +494,8 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void setPublicClip(const string clipname)
         {
-            if (!exists(clipname)) return;
+            if (!exists(clipname))  return;
+            if (isPublic(clipname)) return;
             if (isPrivate(clipname)) {
                 privateLayers.erase(std::remove(privateLayers.begin(),
                                                 privateLayers.end(),
@@ -507,7 +508,8 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void setPrivateClip(const string clipname)
         {
-            if (!exists(clipname)) return;
+            if (!exists(clipname))      return;
+            if (isPrivate(clipname))    return;
             if (isPublic(clipname)) {
                 publicLayers.erase(std::remove(publicLayers.begin(),
                                                publicLayers.end(),
