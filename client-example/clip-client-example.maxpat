@@ -7,7 +7,7 @@
 			"revision" : 5
 		}
 ,
-		"rect" : [ 577.0, 379.0, 1098.0, 703.0 ],
+		"rect" : [ 19.0, 71.0, 683.0, 703.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -30,11 +30,54 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"id" : "obj-47",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 73.0, 135.0, 39.0, 20.0 ],
+					"presentation_rect" : [ 223.0, 472.0, 0.0, 0.0 ],
+					"text" : "s osc"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-48",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 73.0, 92.0, 150.0, 20.0 ],
+					"presentation_rect" : [ 223.0, 417.0, 0.0, 0.0 ],
+					"text" : "load a movie"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-49",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 73.0, 113.0, 165.0, 18.0 ],
+					"presentation_rect" : [ 223.0, 450.0, 0.0, 0.0 ],
+					"text" : "/loopier/clip/clip/new mamma"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
 					"id" : "obj-40",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 467.5, 193.0, 231.0, 20.0 ],
+					"patching_rect" : [ 505.5, 150.0, 231.0, 20.0 ],
 					"presentation_rect" : [ 467.5, 198.0, 0.0, 0.0 ],
 					"text" : "syphon-server.maxpat"
 				}
@@ -48,7 +91,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 524.5, 219.0, 231.0, 20.0 ],
+					"patching_rect" : [ 562.5, 176.0, 231.0, 20.0 ],
 					"text" : "Syphon Simple Server example"
 				}
 
@@ -62,7 +105,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 658.0, 247.0, 150.0, 34.0 ],
+					"patching_rect" : [ 696.0, 204.0, 150.0, 34.0 ],
 					"text" : "Openframeworks examples"
 				}
 
@@ -76,7 +119,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 416.0, 193.0, 37.0, 18.0 ],
+					"patching_rect" : [ 454.0, 150.0, 37.0, 18.0 ],
 					"presentation_rect" : [ 529.0, 122.0, 0.0, 0.0 ],
 					"text" : " Max"
 				}
@@ -91,7 +134,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 416.0, 247.0, 232.0, 18.0 ],
+					"patching_rect" : [ 454.0, 204.0, 232.0, 18.0 ],
 					"presentation_rect" : [ 627.0, 147.0, 0.0, 0.0 ],
 					"text" : "\"Screen Output\" example-BasicDebug"
 				}
@@ -106,7 +149,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 416.0, 219.0, 98.0, 18.0 ],
+					"patching_rect" : [ 454.0, 176.0, 98.0, 18.0 ],
 					"text" : " \"Simple Server\""
 				}
 
@@ -120,7 +163,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 416.0, 265.0, 233.0, 18.0 ],
+					"patching_rect" : [ 454.0, 222.0, 233.0, 18.0 ],
 					"text" : "\"Texture Output\" example-BasicDebug"
 				}
 
@@ -134,7 +177,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 416.0, 142.0, 367.0, 48.0 ],
+					"patching_rect" : [ 454.0, 99.0, 367.0, 48.0 ],
 					"text" : "Choose syphon server - ServerName AppName\nYou may need to prepend \"\" (empty quotes) if you just have the appname, like in [\"\" Max] or [\"\" \"Simple Server]"
 				}
 
@@ -147,7 +190,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 416.0, 317.0, 39.0, 20.0 ],
+					"patching_rect" : [ 454.0, 274.0, 39.0, 20.0 ],
 					"text" : "s osc"
 				}
 
@@ -161,7 +204,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 416.0, 294.0, 255.0, 18.0 ],
+					"patching_rect" : [ 454.0, 251.0, 255.0, 18.0 ],
 					"text" : "/loopier/clip/syphon/servername syphon $1 $2"
 				}
 
@@ -174,7 +217,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 208.0, 210.0, 179.0, 20.0 ],
+					"patching_rect" : [ 246.0, 167.0, 179.0, 20.0 ],
 					"text" : "List all available clips"
 				}
 
@@ -187,7 +230,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 208.0, 253.0, 39.0, 20.0 ],
+					"patching_rect" : [ 246.0, 210.0, 39.0, 20.0 ],
 					"text" : "s osc"
 				}
 
@@ -201,7 +244,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 208.0, 230.0, 153.0, 18.0 ],
+					"patching_rect" : [ 246.0, 187.0, 153.0, 18.0 ],
 					"text" : "/loopier/clip/clips/listnames"
 				}
 
@@ -214,7 +257,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 208.0, 136.0, 179.0, 20.0 ],
+					"patching_rect" : [ 246.0, 93.0, 179.0, 20.0 ],
 					"text" : "Save 'anim' frames to disc"
 				}
 
@@ -227,7 +270,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 208.0, 179.0, 39.0, 20.0 ],
+					"patching_rect" : [ 246.0, 136.0, 39.0, 20.0 ],
 					"text" : "s osc"
 				}
 
@@ -241,7 +284,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 208.0, 156.0, 187.0, 18.0 ],
+					"patching_rect" : [ 246.0, 113.0, 187.0, 18.0 ],
 					"text" : "/loopier/clip/clip/saveframes anim"
 				}
 
@@ -254,7 +297,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 427.0, 60.0, 179.0, 20.0 ],
+					"patching_rect" : [ 465.0, 17.0, 179.0, 20.0 ],
 					"text" : "remove last frame from 'anim' "
 				}
 
@@ -267,7 +310,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 427.0, 103.0, 39.0, 20.0 ],
+					"patching_rect" : [ 465.0, 60.0, 39.0, 20.0 ],
 					"text" : "s osc"
 				}
 
@@ -281,7 +324,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 427.0, 80.0, 196.0, 18.0 ],
+					"patching_rect" : [ 465.0, 37.0, 196.0, 18.0 ],
 					"text" : "/loopier/clip/clip/removeframe anim"
 				}
 
@@ -294,7 +337,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 17.0, 225.0, 39.0, 20.0 ],
+					"patching_rect" : [ 17.0, 210.0, 39.0, 20.0 ],
 					"text" : "s osc"
 				}
 
@@ -322,7 +365,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 208.0, 47.0, 151.0, 34.0 ],
+					"patching_rect" : [ 246.0, 4.0, 151.0, 34.0 ],
 					"text" : "add a frame to 'anim' from 'cam1' image"
 				}
 
@@ -335,7 +378,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 50.0, 102.0, 39.0, 20.0 ],
+					"patching_rect" : [ 88.0, 59.0, 39.0, 20.0 ],
 					"text" : "s osc"
 				}
 
@@ -362,7 +405,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 208.0, 103.0, 39.0, 20.0 ],
+					"patching_rect" : [ 246.0, 60.0, 39.0, 20.0 ],
 					"text" : "s osc"
 				}
 
@@ -376,7 +419,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 208.0, 80.0, 209.0, 18.0 ],
+					"patching_rect" : [ 246.0, 37.0, 209.0, 18.0 ],
 					"text" : "/loopier/clip/clip/addframe anim cam1"
 				}
 
@@ -390,7 +433,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 50.0, 47.0, 150.0, 34.0 ],
+					"patching_rect" : [ 88.0, 4.0, 150.0, 34.0 ],
 					"text" : "create a new stop-motion\nclip names 'anim'"
 				}
 
@@ -404,7 +447,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 50.0, 80.0, 147.0, 18.0 ],
+					"patching_rect" : [ 88.0, 37.0, 147.0, 18.0 ],
 					"text" : "/loopier/clip/clip/new anim"
 				}
 
@@ -456,8 +499,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 73.0, 351.0, 151.0, 18.0 ],
-					"text" : "/loopier/clip/clip/hide cam1"
+					"patching_rect" : [ 73.0, 351.0, 157.0, 18.0 ],
+					"text" : "/loopier/clip/clip/show cam1"
 				}
 
 			}
@@ -680,6 +723,15 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-4", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-47", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-49", 0 ]
 				}
 
 			}

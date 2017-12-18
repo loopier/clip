@@ -62,6 +62,12 @@ namespace loopier {
         void    sendClipToBack(string clipname);
         /// \brief   Keeps clip as the background
         void    setBackgroundClip(string clipname);
+        /// \brief   Sets this clip as public and will be rendered in the public screen
+        void    setPublicClip(const string clipname);
+        /// \brief   Sets this clip as private and will be rendered only in private screen
+        void    setPrivateClip(const string clipname);
+        bool    isPublic(const string clipname);
+        bool    isPrivate(const string clipname);
         
         //  \brief  Saves clip's images (frames) to a folder named after the clip
         //  \param  clipname    String      Name of the clip to be saved.  Will be used to
@@ -72,7 +78,7 @@ namespace loopier {
         /// \brief   Prints all clip names to console
         void    listAll();
         /// \brief   Prints clip rendering order
-        void    listDrawOrder();
+        void    listLayers();
         /// \brief   Deletes all clips
         void    clearAll();
         /// \brief   Checks if a clip exists

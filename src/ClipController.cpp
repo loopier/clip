@@ -24,7 +24,11 @@ namespace {
     loopier::FrameListMap       frames;     // frame sequences in resources folder
     loopier::CameraMap          cameras;    // cameras plugged
     
-    vector<string>   drawingLayers; // used to control drawing order (depth)
+    vector<string>  publicLayers;      // used to control drawing order (depth)
+    vector<string>  privateLayers;      // rendered only in private screen
+    
+    ofxSyphonServer publicSyphonServer;
+    ofxSyphonServer privateSyphonServer;
     
     ofRectangle detectionAreaRectangle; // a rectangle created dragging the mouse -- see mouse-event methods
     
@@ -197,13 +201,14 @@ namespace loopier {
             loadFrameLists();
             loadMovies();
             initializeCameras(); // FIX: find a way to have them all on.
-//                                 // now it collides with CvPlayer that uses it's own
-//                                 // ofVideoGrabber because I couldn't make it
-//                                 // work dynamically
-//            initializeCv();
-            clip::newClip("syphon");
+            
+//            clip::newClip("syphon");
+//            clip::hideClip("syphon");
             clip::newClip("cv");
             loopier::resource::listAll();
+            
+            publicSyphonServer.setName("Public Screen");
+            privateSyphonServer.setName("Private Screen");
         }
         
         //---------------------------------------------------------------------------
@@ -218,8 +223,14 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void draw()
         {
-            // local helpers declared above in unnamed namespace
-            for (const auto &clipname : drawingLayers) {
+            for (const auto &clipname : publicLayers) {
+                if (!clip::exists(clipname)) continue;
+                clips.at(clipname)->draw();
+            };
+            
+            publicSyphonServer.publishScreen();
+            
+            for (const auto &clipname : privateLayers) {
                 if (!clip::exists(clipname)) continue;
                 clips.at(clipname)->draw();
             };
@@ -230,6 +241,8 @@ namespace loopier {
             ofSetLineWidth(1);
             ofDrawRectangle(detectionAreaRectangle);
             ofPopStyle();
+            
+            privateSyphonServer.publishScreen();
         }
         
         //---------------------------------------------------------------------------
@@ -330,7 +343,6 @@ namespace loopier {
                 clip = getClip(clipname);
             } else {
                 clip = make_shared<loopier::Clip>(clipname, resourcename);
-                drawingLayers.push_back(clipname);
             }
             
             // !!!: Should change to something more kosher, like classes returning their types
@@ -362,6 +374,7 @@ namespace loopier {
                 loopier::CvPlayerPtr cvplayer(new loopier::CvPlayer());
                 cvplayer->setCamera(*cameras["C525"]);
                 clip->setup(cvplayer);
+                setPrivateClip(clipname);
                 cliptype = "cv";
             }
             // camera
@@ -389,10 +402,10 @@ namespace loopier {
                 frameplayer->clear();
             }
             
-//            clip->setDepth(0);
+            
             clips[clipname] = clip;
-//            clip->setPosition(ofGetWidth(), ofGetHeight());
             clip->show();
+            if (!isPrivate(clipname)) setPublicClip(clipname);
             bringClipToFront(clipname);
             centerClip(clipname);
             ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << resourcename << "'";
@@ -418,18 +431,29 @@ namespace loopier {
         void setClipDrawOrder(string clipname, int position)
         {
             if (!exists(clipname)) return;
-            if (position >= drawingLayers.size()) position = drawingLayers.size()-1;
+            vector<string>& layers = publicLayers;
+            // get current position in public list
+            vector<string>::iterator it = find(publicLayers.begin(), publicLayers.end(), clipname);
+            // if it's not there get current position in private list
+            if (it == publicLayers.end()) {
+                it = find(publicLayers.begin(), publicLayers.end(), clipname);
+                layers = privateLayers;
+            }
+            //
+            if (it == privateLayers.end()) return;  // it's not there at all -- quit
+            
+            if (position >= publicLayers.size()) position = publicLayers.size()-1;
             if (position < 0 ) position = 0;
             
             getClip(clipname)->setDepth(position);
             
             // remove from current position
-            drawingLayers.erase(std::remove(drawingLayers.begin(),
-                                       drawingLayers.end(),
+            layers.erase(std::remove(layers.begin(),
+                                       layers.end(),
                                        clipname));
             // add to new position
-            drawingLayers.insert(drawingLayers.end() - position, clipname);
-            listDrawOrder();
+            layers.insert(layers.end() - position, clipname);
+            listLayers();
         }
         
         //---------------------------------------------------------------------------
@@ -457,14 +481,55 @@ namespace loopier {
         void sendClipToBack(string clipname)
         {
             if (!exists(clipname)) return;
-            setClipDrawOrder(clipname, drawingLayers.size() - 2);
+            setClipDrawOrder(clipname, publicLayers.size() - 2);
         }
         
         //---------------------------------------------------------------------------
         void setBackgroundClip(string clipname)
         {
             if (!exists(clipname)) return;
-            setClipDrawOrder(clipname, drawingLayers.size() - 1);
+            setClipDrawOrder(clipname, publicLayers.size() - 1);
+        }
+        
+        //---------------------------------------------------------------------------
+        void setPublicClip(const string clipname)
+        {
+            if (!exists(clipname)) return;
+            if (isPrivate(clipname)) {
+                privateLayers.erase(std::remove(privateLayers.begin(),
+                                                privateLayers.end(),
+                                                clipname));
+            }
+            
+            publicLayers.push_back(clipname);
+        }
+        
+        //---------------------------------------------------------------------------
+        void setPrivateClip(const string clipname)
+        {
+            if (!exists(clipname)) return;
+            if (isPublic(clipname)) {
+                publicLayers.erase(std::remove(publicLayers.begin(),
+                                               publicLayers.end(),
+                                               clipname));
+            }
+            privateLayers.insert(privateLayers.begin(), clipname);
+        }
+        
+        //---------------------------------------------------------------------------
+        bool isPublic(const string clipname)
+        {
+            if (!exists(clipname)) return;
+            vector<string>::iterator it = find(publicLayers.begin(), publicLayers.end(), clipname);
+            return it != publicLayers.end();
+        }
+        
+        //---------------------------------------------------------------------------
+        bool isPrivate(const string clipname)
+        {
+            if (!exists(clipname)) return;
+            vector<string>::iterator it = find(privateLayers.begin(), privateLayers.end(), clipname);
+            return it != privateLayers.end();
         }
         
         //---------------------------------------------------------------------------
@@ -483,12 +548,14 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
-        void listDrawOrder()
+        void listLayers()
         {
             string msg = "";
-            for (const auto &item : drawingLayers) {  msg += " : " + item; }
-            
-            ofLogNotice() << "Drawing order: " << msg;
+            for (const auto &item : publicLayers) {  msg += " : " + item; }
+            ofLogNotice() << "Public layers: " << msg;
+            msg = "";
+            for (const auto &item : privateLayers) {  msg += " : " + item; }
+            ofLogNotice() << "Private layers: " << msg;
         }
         
         //---------------------------------------------------------------------------

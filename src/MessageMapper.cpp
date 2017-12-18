@@ -44,12 +44,16 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/remove"]             = &loopier::MessageMapper::removeClip;
     messageMap["/loopier/clip/clip/reset"]              = &loopier::MessageMapper::resetClip;
     // Arrange
-    messageMap["/loopier/clip/clip/depth"]              = &loopier::MessageMapper::setClipDrawOrder;
-    messageMap["/loopier/clip/clip/front"]              = &loopier::MessageMapper::bringClipToFront;
-    messageMap["/loopier/clip/clip/forward"]            = &loopier::MessageMapper::bringClipForward;
-    messageMap["/loopier/clip/clip/backward"]           = &loopier::MessageMapper::sendClipBackward;
-    messageMap["/loopier/clip/clip/back"]               = &loopier::MessageMapper::sendClipToBack;
-    messageMap["/loopier/clip/clip/background"]         = &loopier::MessageMapper::setBackgroundClip;
+    messageMap["/loopier/clip/clip/depth"]          = &loopier::MessageMapper::setClipDrawOrder;
+    messageMap["/loopier/clip/clip/front"]          = &loopier::MessageMapper::bringClipToFront;
+    messageMap["/loopier/clip/clip/forward"]        = &loopier::MessageMapper::bringClipForward;
+    messageMap["/loopier/clip/clip/backward"]       = &loopier::MessageMapper::sendClipBackward;
+    messageMap["/loopier/clip/clip/back"]           = &loopier::MessageMapper::sendClipToBack;
+    messageMap["/loopier/clip/clip/background"]     = &loopier::MessageMapper::setBackgroundClip;
+    messageMap["/loopier/clip/clip/public"]         = &loopier::MessageMapper::setPublicClip;
+    messageMap["/loopier/clip/clip/private"]        = &loopier::MessageMapper::setPrivateClip;
+    // TODO: Move to ../app/.. or ../clips/..
+    messageMap["/loopier/clip/clip/layers"]         = &loopier::MessageMapper::listLayers;
     // Size
     messageMap["/loopier/clip/clip/scaleup"]            = &loopier::MessageMapper::scaleUpClip;
     messageMap["/loopier/clip/clip/scaledown"]          = &loopier::MessageMapper::scaleDownClip;
@@ -253,6 +257,24 @@ void loopier::MessageMapper::sendClipToBack(const Message & msg)
 void loopier::MessageMapper::setBackgroundClip(const Message & msg)
 {
     loopier::clip::setBackgroundClip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setPublicClip(const Message & msg)
+{
+    loopier::clip::setPublicClip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setPrivateClip(const Message & msg)
+{
+    loopier::clip::setPrivateClip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::listLayers(const Message & msg)
+{
+    loopier::clip::listLayers();
 }
 
 //---------------------------------------------------------
