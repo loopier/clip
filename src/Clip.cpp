@@ -106,7 +106,7 @@ void loopier::Clip::draw()
         
         outputFbo.draw(fx, fy, fw, fh);
     } else {
-        outputFbo.draw(x, y);
+        outputFbo.draw(x, y, width, height);
         if (bDrawName)  ofDrawBitmapString(name, x, y);
     }
     ofPopStyle();
