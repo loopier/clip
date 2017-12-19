@@ -111,15 +111,13 @@ void   loopier::BasePlayer::setHeight(float h)
 //---------------------------------------------------------
 float   loopier::BasePlayer::getWidth() const
 {
-    ofLogNotice() << __PRETTY_FUNCTION__ << " is not implemented";
-    return 1.0;
+    return width;
 }
 
 //---------------------------------------------------------
 float   loopier::BasePlayer::getHeight() const
 {
-    ofLogNotice() << __PRETTY_FUNCTION__ << " is not implemented";
-    return 1.0;
+    return height;
 }
 
 //---------------------------------------------------------

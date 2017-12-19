@@ -30,10 +30,6 @@ namespace loopier {
             void draw();
             void draw(float x, float y, float w, float h);
             void exit();
-            
-            // \brief   Sets the camera device ID
-            void setDeviceId(int n);
-            void setCamera(ofVideoGrabber & cam);
 
             float getWidth() const;
             float getHeight() const;

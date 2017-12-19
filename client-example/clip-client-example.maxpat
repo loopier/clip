@@ -3,11 +3,12 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 6,
-			"minor" : 0,
-			"revision" : 5
+			"minor" : 1,
+			"revision" : 10,
+			"architecture" : "x86"
 		}
 ,
-		"rect" : [ 574.0, 50.0, 925.0, 973.0 ],
+		"rect" : [ 591.0, 80.0, 925.0, 973.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -27,6 +28,88 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-81",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 355.25, 578.0, 39.0, 20.0 ],
+					"text" : "s osc"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frgb" : 0.0,
+					"id" : "obj-82",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 355.25, 533.0, 185.0, 20.0 ],
+					"text" : "create a new stop-motionclip"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-83",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 355.25, 554.0, 184.0, 18.0 ],
+					"text" : "/loopier/clip/clip/new cam2 iSight"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-78",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 355.25, 507.0, 39.0, 20.0 ],
+					"text" : "s osc"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frgb" : 0.0,
+					"id" : "obj-79",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 355.25, 460.0, 185.0, 20.0 ],
+					"text" : "create a new stop-motionclip"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-80",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 355.25, 480.0, 183.0, 18.0 ],
+					"text" : "/loopier/clip/clip/new cam1 C525"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
@@ -57,12 +140,13 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 10.0,
+					"frgb" : 0.0,
 					"id" : "obj-74",
 					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 617.0, 454.0, 73.0, 52.0 ],
+					"patching_rect" : [ 617.0, 454.0, 73.0, 51.0 ],
 					"text" : "This is so that you only get the mouse coordinates"
 				}
 
@@ -71,12 +155,13 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 10.0,
+					"frgb" : 0.0,
 					"id" : "obj-73",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 777.0, 427.0, 108.0, 41.0 ],
+					"patching_rect" : [ 777.0, 427.0, 108.0, 40.0 ],
 					"text" : "This is only routing the coordinates when the mouse is clicked"
 				}
 
@@ -119,8 +204,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 779.0, 506.0, 49.0, 18.0 ],
-					"presentation_rect" : [ 531.0, 612.0, 0.0, 0.0 ]
+					"patching_rect" : [ 779.0, 506.0, 49.0, 18.0 ]
 				}
 
 			}
@@ -134,8 +218,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 698.0, 506.0, 49.0, 18.0 ],
-					"presentation_rect" : [ 450.0, 612.0, 0.0, 0.0 ]
+					"patching_rect" : [ 698.0, 506.0, 49.0, 18.0 ]
 				}
 
 			}
@@ -165,7 +248,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 617.0, 555.0, 39.0, 20.0 ],
-					"presentation_rect" : [ 352.25, 554.0, 0.0, 0.0 ],
 					"text" : "s osc"
 				}
 
@@ -174,12 +256,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-57",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 617.0, 303.0, 100.0, 20.0 ],
-					"presentation_rect" : [ 352.25, 511.0, 0.0, 0.0 ],
 					"text" : "Move"
 				}
 
@@ -194,7 +276,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 617.0, 533.0, 235.0, 18.0 ],
-					"presentation_rect" : [ 352.25, 532.0, 0.0, 0.0 ],
 					"text" : "/loopier/clip/clip/moveto exampleclip $1 $2"
 				}
 
@@ -208,7 +289,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 355.25, 414.0, 39.0, 20.0 ],
-					"presentation_rect" : [ 352.0, 476.0, 0.0, 0.0 ],
 					"text" : "s osc"
 				}
 
@@ -217,13 +297,14 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-54",
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 355.25, 371.0, 185.0, 20.0 ],
-					"presentation_rect" : [ 352.0, 433.0, 0.0, 0.0 ],
-					"text" : "create a new stop-motionclip"
+					"patching_rect" : [ 355.25, 356.5, 185.0, 33.0 ],
+					"text" : "create a new stop-motionclip using 'exampleclip' frames"
 				}
 
 			}
@@ -237,7 +318,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 355.25, 392.0, 226.0, 18.0 ],
-					"presentation_rect" : [ 352.0, 454.0, 0.0, 0.0 ],
 					"text" : "/loopier/clip/clip/new clipone exampleclip"
 				}
 
@@ -246,12 +326,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-50",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 25.0, 615.0, 67.0, 20.0 ],
-					"presentation_rect" : [ 28.0, 615.0, 0.0, 0.0 ],
 					"text" : "Quit"
 				}
 
@@ -265,7 +345,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 25.0, 658.0, 39.0, 20.0 ],
-					"presentation_rect" : [ 28.0, 658.0, 0.0, 0.0 ],
 					"text" : "s osc"
 				}
 
@@ -280,7 +359,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 25.0, 635.0, 117.0, 18.0 ],
-					"presentation_rect" : [ 28.0, 635.0, 0.0, 0.0 ],
 					"text" : "/loopier/clip/app/quit"
 				}
 
@@ -331,12 +409,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-14",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 282.0, 252.0, 67.0, 20.0 ],
-					"presentation_rect" : [ 285.0, 247.0, 0.0, 0.0 ],
 					"text" : "Set speed"
 				}
 
@@ -350,7 +428,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 282.0, 295.0, 39.0, 20.0 ],
-					"presentation_rect" : [ 285.0, 290.0, 0.0, 0.0 ],
 					"text" : "s osc"
 				}
 
@@ -365,7 +442,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 282.0, 272.0, 212.0, 18.0 ],
-					"presentation_rect" : [ 285.0, 267.0, 0.0, 0.0 ],
 					"text" : "/loopier/clip/clip/speed exampleclip $1"
 				}
 
@@ -378,7 +454,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 73.0, 135.0, 39.0, 20.0 ],
+					"patching_rect" : [ 88.0, 134.0, 39.0, 20.0 ],
 					"text" : "s osc"
 				}
 
@@ -387,11 +463,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-48",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 73.0, 92.0, 150.0, 20.0 ],
+					"patching_rect" : [ 88.0, 91.0, 150.0, 20.0 ],
 					"text" : "load a movie"
 				}
 
@@ -405,7 +482,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 73.0, 113.0, 165.0, 18.0 ],
+					"patching_rect" : [ 88.0, 112.0, 165.0, 18.0 ],
 					"text" : "/loopier/clip/clip/new mamma"
 				}
 
@@ -414,6 +491,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-40",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -427,6 +505,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-39",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -440,12 +519,13 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-30",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 731.0, 204.0, 150.0, 34.0 ],
+					"patching_rect" : [ 731.0, 204.0, 150.0, 33.0 ],
 					"text" : "Openframeworks examples"
 				}
 
@@ -510,12 +590,13 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-3",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 525.0, 98.0, 367.0, 48.0 ],
+					"patching_rect" : [ 525.0, 98.0, 367.0, 47.0 ],
 					"text" : "Choose syphon server - ServerName AppName\nYou may need to prepend \"\" (empty quotes) if you just have the appname, like in [\"\" Max] or [\"\" \"Simple Server]"
 				}
 
@@ -551,6 +632,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-36",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -591,6 +673,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-32",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -631,6 +714,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-28",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -684,12 +768,13 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-26",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 13.0, 3.0, 66.0, 34.0 ],
+					"patching_rect" : [ 13.0, 3.0, 66.0, 33.0 ],
 					"text" : "set CV's threshold"
 				}
 
@@ -698,6 +783,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-24",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -765,6 +851,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-16",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -792,6 +879,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
 					"id" : "obj-17",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1221,6 +1309,24 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-78", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-80", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-81", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-83", 0 ]
 				}
 
 			}

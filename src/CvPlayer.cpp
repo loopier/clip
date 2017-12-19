@@ -40,7 +40,6 @@ loopier::CvPlayer::~CvPlayer()
 //---------------------------------------------------------
 void loopier::CvPlayer::setup()
 {
-    setDeviceId(0);
     
     outputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
     shapeFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
@@ -108,22 +107,6 @@ void loopier::CvPlayer::draw()
 //---------------------------------------------------------
 void loopier::CvPlayer::exit(){
 
-}
-
-//---------------------------------------------------------
-void loopier::CvPlayer::setDeviceId(int n)
-{
-    // reset camera
-//    camera.close();
-//    camera.setDeviceID(1);
-//    camera.setDesiredFrameRate(60);
-//    camera.initGrabber(ofGetWidth(), ofGetHeight());
-}
-
-//---------------------------------------------------------
-void loopier::CvPlayer::setCamera(ofVideoGrabber & cam)
-{
-//    camera = cam;
 }
 
 //---------------------------------------------------------

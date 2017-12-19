@@ -55,8 +55,8 @@ void loopier::Clip::setup(PlayerPtr aplayer)
     sequenceOrder.push_back(0);
     aplayer->setLoopState(loopState);
     outputFbo.allocate(ofGetWidth(), ofGetHeight());
-    width = ofGetWidth();
-    height = ofGetHeight();
+    width = aplayer->getWidth();
+    height = aplayer->getWidth();
     outputFbo.setAnchorPercent(0.5, 0.5);
     
     setPosition(0.5,0.5);
@@ -72,7 +72,11 @@ void loopier::Clip::update()
     
     outputFbo.begin();
     ofClear(255,255,255,0);
+    ofPushMatrix();
+    ofTranslate(outputFbo.getWidth()/2 - player->getWidth()/2,
+                outputFbo.getHeight()/2 - player->getHeight()/2);
     player->draw();
+    ofPopMatrix();
     outputFbo.end();
     
     if (bMask)  {
@@ -102,7 +106,7 @@ void loopier::Clip::draw()
         
         outputFbo.draw(fx, fy, fw, fh);
     } else {
-        outputFbo.draw(x, y, width, height);
+        outputFbo.draw(x, y);
         if (bDrawName)  ofDrawBitmapString(name, x, y);
     }
     ofPopStyle();

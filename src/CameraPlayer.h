@@ -17,6 +17,7 @@ namespace loopier {
     
     typedef ofVideoGrabber         Camera;
     typedef shared_ptr<Camera>     CameraPtr;
+    typedef vector<CameraPtr>       CameraList;
     typedef map<string, CameraPtr> CameraMap;
     
     extern CameraMap   cameramap; // global list of all cameras
@@ -25,17 +26,16 @@ namespace loopier {
         
     public:
         CameraPlayer();
-        CameraPlayer(CameraPtr cam);
+        CameraPlayer(Camera & cam);
+        CameraPlayer(const int deviceId);
+        CameraPlayer(const float camerawidth, const float cameraheight, const int deviceId = 0);
         virtual ~CameraPlayer();
         
-        void    setup();
+        void    setup(const float camerawidth, const float cameraheight, const int deviceId);
         void    update();
         void    draw();
         void    draw(float x, float y, float w, float h);
         void    exit();
-        
-//        bool    loadResource(string resourcename);
-        void    setCamera(CameraPtr cam);
         
         float       getWidth() const;
         float       getHeight() const;
@@ -43,23 +43,12 @@ namespace loopier {
         ofPixels &  getPixels();
         ofImage &   getImage();
         
-        Camera  getCamera() const;
     private:
-        CameraPtr   camera;
+        Camera      camera;
         ofImage     image;
     };
     
     typedef shared_ptr<CameraPlayer> CameraPlayerPtr;
-    
-    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    // *                                                                       *
-    // *    PUBLIC INTERFACE NON-MEMBER FUNCTIONS                              *
-    // *                                                                       *
-    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    
-    bool setupCameras();
-    void listCameras();
-    CameraPtr   getCameraByName(string name);
 }
 
 #endif

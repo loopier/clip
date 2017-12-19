@@ -22,7 +22,7 @@ namespace {
     // files
     loopier::MovieMap           movies;     // movies in resources folder
     loopier::FrameListMap       frames;     // frame sequences in resources folder
-    loopier::CameraMap          cameras;    // cameras plugged
+//    loopier::CameraList         cameras;    // cameras plugged -- handled by camera players
     
     vector<string>  publicLayers;      // used to control drawing order (depth)
     vector<string>  privateLayers;      // rendered only in private screen
@@ -34,6 +34,8 @@ namespace {
     
     map<string, loopier::CameraPlayerPtr>   cameraplayers;
     vector<string>                          frameclipslist;
+    
+    
     
     // * * * HELPER FUNCTIONS LOCAL TO THIS FILE * * * * * * * * * * * * * * * * * * * * *
     
@@ -102,30 +104,28 @@ namespace {
         vector<ofVideoDevice> devices = vidGrabber.listDevices();
         
         for (int i = 0; i < devices.size(); i++) {
-            loopier::CameraPtr cam(new loopier::Camera());
-            cam->setDeviceID(i);
-//            cam->initGrabber(ofGetWidth(), ofGetHeight());
             // Get las word of the name
             string name = ofSplitString(devices[i].deviceName, " ").back();
-            cameras[name] = cam;
             
             // create a player from this camera
-            loopier::CameraPlayerPtr cameraplayer(new loopier::CameraPlayer(cam));
-            cameraplayers[name + "-player"] = cameraplayer;
+            // FIX: There's a problem when camera size is not set to 320 x 240.  Only the
+            //      the camera that is initialized first will draw.
+            float width = 320; // ofGetWidth(); -- one of both cams won't work with this
+            float height = 240; // ofGetHeight(); -- one of both cams won't work with this
+            loopier::CameraPlayerPtr cameraplayer(new loopier::CameraPlayer(width, height, i));
+            cameraplayers[name] = cameraplayer;
         }
         
-        for (const auto &cam : cameras) cam.second->initGrabber(ofGetWidth(), ofGetHeight());
-        
-        ofLogVerbose() << "Loaded " << cameras.size() << " movie files";
+        ofLogVerbose() << "Inizialized " << cameraplayers.size() << " camera players";
     }
     
     //---------------------------------------------------------------------------
     loopier::ClipPtr initializeCv()
     {
-        if (cameras.size() <= 0) return;    // needs to provide a camera to the cv player constructor
+        if (cameraplayers.size() <= 0) return;    // needs to provide a camera to the cv player constructor
         
         // FIX: now sets first camera -- should set any camera.  Something like this:
-        string cameraname = cameras.begin()->first;
+        string cameraname = cameraplayers.begin()->first;
         // get camera from cameraplayers map
 //        loopier::CameraPlayerPtr cameraplayer = cameraplayers[cameraname+"-player"];
 //        // the cv player itself
@@ -143,7 +143,7 @@ namespace {
         clip->setup(cvplayer);
         clip->setPlayer(cvplayer);
         clips[clipname] = clip;
-        ofLogVerbose() << "Created cilp: [cv]\t'" << clipname << "' using '" <<cameraname << "'";
+        ofLogVerbose() << "Created cilp: [cv]\t'" << clipname << "' using '" << cameraname << "'";
         return clip;
         //                resourcename = cameraclip->getName(); // used in log message
     }
@@ -202,8 +202,8 @@ namespace loopier {
             loadMovies();
             initializeCameras(); // FIX: find a way to have them all on.
             
-//            clip::newClip("syphon");
-//            clip::hideClip("syphon");
+            clip::newClip("syphon");
+            clip::hideClip("syphon");
             clip::newClip("cv");
             loopier::resource::listAll();
             
@@ -214,10 +214,9 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void update()
         {
-            // local helpers declared above in unnamed namespace
             for (const auto &item : clips) {
-                clip::setClipDrawOrder(item.first, item.second->getDepth());
-            };
+                item.second->update();
+            }
         }
         
         //---------------------------------------------------------------------------
@@ -299,8 +298,6 @@ namespace loopier {
             for (const auto &item : frames) {   ofLogNotice() << "\t" << item.first; }
             ofLogNotice() << "Number of movies loaded: " << movies.size();
             for (const auto &item : movies) {   ofLogNotice() << "\t" << item.first; }
-            ofLogNotice() << "Number of cameras loaded: " << cameras.size();
-            for (const auto &item : cameras) {  ofLogNotice() << "\t" << item.first; }
             ofLogNotice() << "Number of cameras players loaded: " << cameraplayers.size();
             for (const auto &item : cameraplayers) {  ofLogNotice() << "\t" << item.first; }
         }
@@ -310,7 +307,7 @@ namespace loopier {
         {
             if (frames.count(resourcename) ||
                 movies.count(resourcename) ||
-                cameras.count(resourcename)) return true;
+                cameraplayers.count(resourcename)) return true;
             else return false;
         }
         
@@ -372,16 +369,14 @@ namespace loopier {
             // cv
             else if (resourcename == "cv") {
                 loopier::CvPlayerPtr cvplayer(new loopier::CvPlayer());
-                cvplayer->setCamera(*cameras["C525"]);
                 clip->setup(cvplayer);
                 setPrivateClip(clipname);
                 cliptype = "cv";
             }
             // camera
-            else if ( cameras.count(resourcename) > 0) {
-                loopier::CameraPlayerPtr cameraplayer(new CameraPlayer(cameras[resourcename]));
-                clip->setup(cameraplayer);
-                cameraplayers[resourcename + "-player"] = cameraplayer;
+            else if ( cameraplayers.count(resourcename) > 0) {
+                clip->setup(cameraplayers[resourcename]);
+                clip->setScale(3.2);
                 cliptype = "camera";
             }
             
