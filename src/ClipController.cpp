@@ -104,14 +104,17 @@ namespace {
         vector<ofVideoDevice> devices = vidGrabber.listDevices();
         
         for (int i = 0; i < devices.size(); i++) {
-            // Get las word of the name
-            string name = ofSplitString(devices[i].deviceName, " ").back();
-            
             // create a player from this camera
-            // FIX: There's a problem when camera size is not set to 320 x 240.  Only the
-            //      the camera that is initialized first will draw.
-            float width = 320; // ofGetWidth(); -- one of both cams won't work with this
-            float height = 240; // ofGetHeight(); -- one of both cams won't work with this
+            string name = devices[i].deviceName;
+            float width = ofGetWidth();
+            float height = ofGetHeight();
+            // !!!: Something's wrong when iSight is the same size as the other cameras and
+            //      they are not set to 320x240
+            if (devices[i].deviceName == "Built-in iSight") {
+                width = 320;
+                height = 240;
+            }
+            
             loopier::CameraPlayerPtr cameraplayer(new loopier::CameraPlayer(width, height, i));
             cameraplayers[name] = cameraplayer;
         }
@@ -376,7 +379,6 @@ namespace loopier {
             // camera
             else if ( cameraplayers.count(resourcename) > 0) {
                 clip->setup(cameraplayers[resourcename]);
-                clip->setScale(3.2);
                 cliptype = "camera";
             }
             
