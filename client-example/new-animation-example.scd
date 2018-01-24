@@ -2,7 +2,7 @@
 m = NetAddr("localhost", 12345);
 
 // Create a clip with camera input
-m.sendMsg("/loopier/clip/clip/new", "cam1", "C525");
+m.sendMsg("/loopier/clip/clip/new", "cam1", "HD Webcam C525 #2");
 // Set the camera clip as input for Cv
 m.sendMsg("/loopier/clip/cv/setinput", "cam1");
 // Set it as background to keep it in the back
@@ -27,3 +27,6 @@ m.sendMsg("/loopier/clip/clip/clearframes");
 //    Will save them in a directory named after the
 //    clip.  In this case it will be saved in app/path/frames/anim
 m.sendMsg("/loopier/clip/clip/saveframes", "anim");
+
+
+m.sendMsg("/loopier/clip/app/quit")

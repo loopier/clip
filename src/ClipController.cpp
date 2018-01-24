@@ -379,6 +379,8 @@ namespace loopier {
             // camera
             else if ( cameraplayers.count(resourcename) > 0) {
                 clip->setup(cameraplayers[resourcename]);
+                clip->setWidth(ofGetWidth());
+                clip->setHeight(ofGetHeight());
                 cliptype = "camera";
             }
             
@@ -690,7 +692,7 @@ namespace loopier {
             // cast from PlayerPtr to FramePlayerPtr -- note that
             // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
             FramePlayerPtr recplayer = dynamic_pointer_cast<FramePlayer> (clips[recorderclip]->getPlayer());
-            ofImage img = clips[sourceclip]->getImage();
+            ofImage img = clips[sourceclip]->getImage(); // TODO: Change to getTexture()
             ofTexture maskTexture = getPlayerAsCvPlayer("cv")->getTexture();
             
             img.getTexture().setAlphaMask(maskTexture);
@@ -965,7 +967,10 @@ namespace loopier {
             
             if (!clip::exists("cv")) return;
             CvPlayerPtr cvplayer = getPlayerAsCvPlayer("cv");
-            cvplayer->setInputPlayer(getPlayerAsCameraPlayer(clipname));
+            CameraPlayerPtr camplayer = getPlayerAsCameraPlayer(clipname);
+            clips["cv"]->setWidth(camplayer->getWidth());
+            clips["cv"]->setHeight(camplayer->getHeight());
+            cvplayer->setInputPlayer(camplayer);
         }
         
         //---------------------------------------------------------------------------
