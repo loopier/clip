@@ -28,9 +28,8 @@ loopier::FramePlayer::FramePlayer(FrameListPtr framelist)
     } 
     frameRate = 24;
     frames = framelist;
-    
-    maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
 }
+
 loopier::FramePlayer::~FramePlayer()
 {
     

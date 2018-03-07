@@ -66,7 +66,6 @@ namespace loopier {
         void    removeFrame();
         void    clear();
     private:
-        ofFbo maskFbo;
         FrameListPtr    frames;
         float           lastFrameTime;
         PlayerPtr       recordingSourcePlayer; // frames are captured from this
