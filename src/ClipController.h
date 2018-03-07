@@ -187,6 +187,8 @@ namespace loopier {
         void setFindHoles(bool findHoles);
         //// \brief  Sets an area of detection
         void setDetectionArea(ofRectangle & rect);
+        //// \breif  Returns the centroid of the given image
+        ofPoint getCentorid(ofTexture & texture);
     } // namespace cv
     
     namespace utils {

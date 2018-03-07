@@ -357,6 +357,8 @@ namespace loopier {
             // look for a resource with this name
             // if it doesn't exist, create a new Transparent FrameClip, so it can be saved later
             
+            // TODO: Move every 'if' statement to a dedicated method for every type of clip
+            
             // movie
             if ( movies.count(resourcename) > 0) {
                 loopier::MoviePlayerPtr movieplayer(new MoviePlayer(movies[resourcename]));
@@ -967,10 +969,10 @@ namespace loopier {
             
             if (!clip::exists("cv")) return;
             CvPlayerPtr cvplayer = getPlayerAsCvPlayer("cv");
-            CameraPlayerPtr camplayer = getPlayerAsCameraPlayer(clipname);
-            clips["cv"]->setWidth(camplayer->getWidth());
-            clips["cv"]->setHeight(camplayer->getHeight());
-            cvplayer->setInputPlayer(camplayer);
+            PlayerPtr player = clip::getClip(clipname)->getPlayer();
+            clips["cv"]->setWidth(player->getWidth());
+            clips["cv"]->setHeight(player->getHeight());
+            cvplayer->setInputPlayer(player);
         }
         
         //---------------------------------------------------------------------------
@@ -1056,6 +1058,13 @@ namespace loopier {
         {
             getPlayerAsCvPlayer("cv")->setDetectionArea(rect);
             detectionAreaRectangle = rect;
+        }
+        
+        ofPoint getCentroid(ofTexture & texture)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            getPlayerAsCvPlayer("cv")->getCentroid(texture);
         }
         
         //---------------------------------------------------------------------------
