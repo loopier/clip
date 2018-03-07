@@ -40,6 +40,11 @@ private:
     void mapMessageToFunc(Message & msg);
 
     typedef void (MessageMapper::* mappedFunc)(const Message&);
+    
+    // FIX: REMOVE!!!
+    // TEST
+    void test (const Message & msg);
+    // -- END REMOVE --
 
     // Application commands
     void quit       (const Message & msg);

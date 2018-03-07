@@ -35,6 +35,9 @@ void loopier::MessageMapper::setup()
 void loopier::MessageMapper::setupMap()
 {
     // Application commands
+    messageMap["/loopier/clip/app/test"]       = &loopier::MessageMapper::test;
+    
+    // Application commands
     messageMap["/loopier/clip/app/quit"]        = &loopier::MessageMapper::quit;
     messageMap["/loopier/clip/app/fullscreen"]  = &loopier::MessageMapper::fullscreen;
     messageMap["/loopier/clip/app/move"]        = &loopier::MessageMapper::move;
@@ -154,6 +157,26 @@ void loopier::MessageMapper::mapMessageToFunc(Message & msg)
 
 //---------------------------------------------------------
 
+
+
+
+
+
+
+
+//---------------------------------------------------------
+
+//        TEST
+
+//---------------------------------------------------------
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::test(const Message & msg)
+{
+    loopier::ClipPtr clip = loopier::clip::getClip(msg.getArgAsString(0));
+    
+}
 
 
 
