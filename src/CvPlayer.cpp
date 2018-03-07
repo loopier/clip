@@ -98,7 +98,7 @@ void loopier::CvPlayer::draw()
 {
 //    maskFbo.draw(0,0);
 //    contourFinder.draw();
-//    inputPlayer->draw();
+//    if (inputPlayer) inputPlayer->draw();
 //    ofSetColor(255,0,0);
 //    detectionAreaFbo.draw(0,0);
     shapeFbo.draw(0,0);
