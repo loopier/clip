@@ -39,6 +39,8 @@ namespace loopier {
             ofPixels  & getPixels();
             ofImage &   getImage();
             vector<ofPolyline> getPolylines();
+            /// \brief  Returns the centroid of the image
+            ofPoint getCentroid(ofTexture & texture);
             
             void setInputPlayer(PlayerPtr player); // REMOVE: -- MOVED TO BASE CLASS
 

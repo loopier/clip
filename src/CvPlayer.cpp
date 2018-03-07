@@ -168,6 +168,14 @@ vector<ofPolyline> loopier::CvPlayer::getPolylines()
     return contourFinder.getPolylines();
 }
 
+//---------------------------------------------------------
+ofPoint loopier::CvPlayer::getCentroid(ofTexture & texture)
+{
+    ofPoint centroid(ofGetWidth() / 2, ofGetHeight() / 2);
+    
+    return centroid;
+}
+
 ////---------------------------------------------------------
 // MOVED TO BASECLASS
 void loopier::CvPlayer::setInputPlayer(PlayerPtr player)
