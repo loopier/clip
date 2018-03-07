@@ -7,3 +7,4 @@
   - Could be CSV, JSON, plain text, ...
 - `[NEW]` Parent clips (and Cv)
 - `[NEW]` Make layers -- Fbo's that render clips and can be stacked in any order
+- `[FIX]` CV resizes input images when they're not from the camera
