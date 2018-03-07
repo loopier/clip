@@ -15,6 +15,16 @@ m.sendMsg("/loopier/clip/clips/clearall");
 // ---------------------------------------------------------------------
 // Create a clip with camera input
 m.sendMsg("/loopier/clip/app/test", "exampleclip");
+
+// Create a clip with camera input
+m.sendMsg("/loopier/clip/clip/new", "exampleclip");
+// Set the camera clip as input for Cv
+m.sendMsg("/loopier/clip/cv/setinput", "exampleclip");
+
+
+// Create a clip with camera input
+m.sendMsg("/loopier/clip/clip/new", "newemptyclip");
+
 // Create a clip with camera input
 m.sendMsg("/loopier/clip/clip/new", "cam1", "HD Webcam C525");
 // Set the camera clip as input for Cv
