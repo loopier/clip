@@ -55,8 +55,8 @@ void loopier::Clip::setup(PlayerPtr aplayer)
     sequenceOrder.push_back(0);
     aplayer->setLoopState(loopState);
     outputFbo.allocate(ofGetWidth(), ofGetHeight());
-    width = aplayer->getWidth();
-    height = aplayer->getWidth();
+//    width = aplayer->getWidth();
+//    height = aplayer->getWidth();
     outputFbo.setAnchorPercent(0.5, 0.5);
     
     setPosition(0.5,0.5);
