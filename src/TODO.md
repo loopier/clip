@@ -7,4 +7,4 @@
   - Could be CSV, JSON, plain text, ...
 - `[NEW]` Parent clips (and Cv)
 - `[NEW]` Make layers -- Fbo's that render clips and can be stacked in any order
-- `[FIX]` CV resizes input images when they're not from the camera
+- `[FIX]` CV resizes input images when they're not from the camera -- the problem is in Clip constructor.  Size is set by default and Cv player doesn't match.  Size needs to be centralized either in Clip or in Player, not on both.
