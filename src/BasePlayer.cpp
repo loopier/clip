@@ -121,6 +121,12 @@ float   loopier::BasePlayer::getHeight() const
 }
 
 //---------------------------------------------------------
+void   loopier::BasePlayer::setInputPlayer(shared_ptr<BasePlayer> aPlayer)
+{
+    inputPlayer = aPlayer;
+}
+
+//---------------------------------------------------------
 bool    loopier::BasePlayer::isPaused() const
 {
     return !bPlay;

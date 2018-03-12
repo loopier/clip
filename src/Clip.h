@@ -84,6 +84,8 @@ namespace loopier {
         void        setPlayer(PlayerPtr aPlayer);
         PlayerPtr   getPlayer() const;
         
+        void        setInputClip(shared_ptr<Clip> aClip);
+        
         ofTexture & getTexture() const;
         ofPixels &   getPixels();
         ofImage &   getImage() const;

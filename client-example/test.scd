@@ -26,6 +26,7 @@ m.sendMsg("/loopier/clip/cv/setinput", "exampleclip");
 m.sendMsg("/loopier/clip/clip/new", "newemptyclip");
 
 // Create a clip with camera input
+m.sendMsg("/loopier/clip/clip/new", "cam1", "Built-in iSight");
 m.sendMsg("/loopier/clip/clip/new", "cam1", "HD Webcam C525");
 // Set the camera clip as input for Cv
 m.sendMsg("/loopier/clip/cv/setinput", "cam1");
@@ -35,6 +36,10 @@ m.sendMsg("/loopier/clip/clip/background", "cam1");
 m.sendMsg("/loopier/clip/clip/hide", "cam1");
 // Create a clip named 'anim' to record a new stop-motion animation
 m.sendMsg("/loopier/clip/clip/new", "anim");
+
+
+m.sendMsg("/loopier/clip/clip/moveto", "exampleclip", 0.1, 0.1);
+m.sendMsg("/loopier/clip/clip/scale", "exampleclip", 0.5, 0.1);
 
 
 

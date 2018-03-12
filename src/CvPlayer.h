@@ -42,7 +42,7 @@ namespace loopier {
             /// \brief  Returns the centroid of the image
             ofPoint getCentroid(ofTexture & texture);
             
-            void setInputPlayer(PlayerPtr player); // REMOVE: -- MOVED TO BASE CLASS
+            void setInputPlayer(PlayerPtr aPlayer); // override
 
             void toggleVisibility();
             void show();
@@ -56,7 +56,6 @@ namespace loopier {
             void setDetectionArea(const ofRectangle & rect);
 
         private:
-            PlayerPtr   inputPlayer;        // image to be processed
             ofImage     outputImage;
             ofFbo       shapeFbo;           // just the blobs
             ofFbo       detectionAreaFbo;   // used to mask the blobs

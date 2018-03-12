@@ -968,11 +968,7 @@ namespace loopier {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
             
             if (!clip::exists("cv")) return;
-            CvPlayerPtr cvplayer = getPlayerAsCvPlayer("cv");
-            PlayerPtr player = clip::getClip(clipname)->getPlayer();
-            clips["cv"]->setWidth(player->getWidth());
-            clips["cv"]->setHeight(player->getHeight());
-            cvplayer->setInputPlayer(player);
+            clips["cv"]->setInputClip(clip::getClip(clipname));
         }
         
         //---------------------------------------------------------------------------

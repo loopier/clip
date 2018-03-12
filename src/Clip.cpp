@@ -21,8 +21,8 @@ loopier::Clip::Clip(string& clipname, string& resourcename)
 , name(clipname)
 , x(0)
 , y(0)
-, width(640)
-, height(400)
+, width(ofGetWidth())
+, height(ofGetHeight())
 , scale(1.0)
 , scaleX(1.0)
 , scaleY(1.0)
@@ -379,6 +379,13 @@ loopier::PlayerPtr loopier::Clip::getPlayer() const
 
 
 //---------------------------------------------------------------------------
+void loopier::Clip::setInputClip(shared_ptr<Clip> aClip)
+{
+    player->setInputPlayer(aClip->getPlayer());
+}
+
+
+//---------------------------------------------------------------------------
 ofTexture & loopier::Clip::getTexture() const
 {
     return player->getTexture();
@@ -388,7 +395,7 @@ ofTexture & loopier::Clip::getTexture() const
 //---------------------------------------------------------------------------
 ofPixels &  loopier::Clip::getPixels()
 {
-    return player->getPixels();
+    return outputPixels;
 }
 
 

@@ -177,11 +177,10 @@ ofPoint loopier::CvPlayer::getCentroid(ofTexture & texture)
 }
 
 ////---------------------------------------------------------
-// MOVED TO BASECLASS
-void loopier::CvPlayer::setInputPlayer(PlayerPtr player)
+void loopier::CvPlayer::setInputPlayer(PlayerPtr aPlayer)
 {
-    inputPlayer = player;
-//    outputImage.setFromPixels(player->getPixels());
+    BasePlayer::setInputPlayer(aPlayer);
+    shapeFbo.allocate(aPlayer->getWidth(), aPlayer->getHeight(), GL_RGBA);
 }
 
 //---------------------------------------------------------
