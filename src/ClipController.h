@@ -185,6 +185,8 @@ namespace loopier {
         void setThreshold(float newThreshold);
         //// \brief  Detect blobs indside blobs
         void setFindHoles(bool findHoles);
+        //// \brief  Sets the maximum number of blobs detected
+        void setMaxBlobs(int numBlobs);
         //// \brief  Sets an area of detection
         void setDetectionArea(ofRectangle & rect);
         //// \breif  Returns the centroid of the given image

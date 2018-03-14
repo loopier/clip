@@ -164,6 +164,9 @@ m.sendMsg("/loopier/clip/cv/maxArea", 200)
 // detect holes inside blobs
 m.sendMsg("/loopier/clip/cv/holes", true)
 m.sendMsg("/loopier/clip/cv/holes", false)
+// number of blobs to be detected
+m.sendMsg("/loopier/clip/cv/maxblobs", 1);
+m.sendMsg("/loopier/clip/cv/maxblobs", 5);
 // color
 m.sendMsg("/loopier/clip/cv/color", 1.0.rand, 1.0.rand, 1.0.rand)
 // visibility

@@ -122,6 +122,7 @@ private:
     void setCvMinArea       (const Message & msg);
     void setCvMaxArea       (const Message & msg);
     void setCvHoles         (const Message & msg);
+    void setCvMaxBlobs      (const Message & msg);
     void setCvInputClip     (const Message & msg);
     void setCvDeviceId      (const Message & msg);
     void showCv             (const Message & msg);

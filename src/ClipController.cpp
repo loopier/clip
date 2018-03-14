@@ -1050,6 +1050,14 @@ namespace loopier {
             getPlayerAsCvPlayer("cv")->setFindHoles(findHoles);
         }
         
+        //---------------------------------------------------------------------------
+        void setMaxBlobs(int numBlobs)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            getPlayerAsCvPlayer("cv")->setMaxBlobs(numBlobs);
+        }
+        
         void setDetectionArea(ofRectangle & rect)
         {
             getPlayerAsCvPlayer("cv")->setDetectionArea(rect);

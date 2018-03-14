@@ -25,6 +25,10 @@ m.sendMsg("/loopier/clip/cv/setinput", "exampleclip");
 m.sendMsg("/loopier/clip/clip/new", "cam1", "Logitech Camera #3");
 m.sendMsg("/loopier/clip/clip/background", "cam1");
 m.sendMsg("/loopier/clip/cv/setinput", "cam1");
+m.sendMsg("/loopier/clip/clip/mask", "cam1", "cv");
+m.sendMsg("/loopier/clip/clip/maskoff", "cam1", "cv");
+m.sendMsg("/loopier/clip/cv/maxblobs", 1);
+m.sendMsg("/loopier/clip/cv/maxblobs", 2);
 
 m.sendMsg("/loopier/clip/clip/scale", "cv", 0.5);
 m.sendMsg("/loopier/clip/clip/moveto", "cv", 0.28, 0.14);

@@ -256,6 +256,12 @@ void loopier::CvPlayer::setFindHoles(bool findHoles)
 }
 
 //---------------------------------------------------------
+void loopier::CvPlayer::setMaxBlobs(int numBlobs)
+{
+    maxBlobs = numBlobs;
+}
+
+//---------------------------------------------------------
 void loopier::CvPlayer::setDetectionArea(const ofRectangle & rect)
 {
     detectionAreaFbo.begin();

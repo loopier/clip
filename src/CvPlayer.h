@@ -53,6 +53,8 @@ namespace loopier {
             void setMaxArea(float newArea);
             void setThreshold(float newThreshold);
             void setFindHoles(bool findHoles);
+            /// \brief  Sets the maximum number of blobs to be detected
+            void setMaxBlobs(int numBlobs);
             
             void setDetectionArea(const ofRectangle & rect);
 

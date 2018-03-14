@@ -118,6 +118,7 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/cv/show"]             = &loopier::MessageMapper::showCv;
     messageMap["/loopier/clip/cv/hide"]             = &loopier::MessageMapper::hideCv;
     messageMap["/loopier/clip/cv/detectionarea"]    = &::loopier::MessageMapper::setCvDetectionArea;
+    messageMap["/loopier/clip/cv/maxblobs"]         = &loopier::MessageMapper::setCvMaxBlobs;
     
     // Console commands
     messageMap["/loopier/clip/console/color"]       = &loopier::MessageMapper::setConsoleColor;
@@ -630,6 +631,12 @@ void loopier::MessageMapper::setCvMaxArea(const Message & msg)
 void loopier::MessageMapper::setCvHoles(const Message & msg)
 {
     loopier::cv::setFindHoles(msg.getArgAsBool(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setCvMaxBlobs(const Message & msg)
+{
+    loopier::cv::setMaxBlobs(msg.getArgAsInt(0));
 }
 
 //---------------------------------------------------------
