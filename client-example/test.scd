@@ -22,6 +22,10 @@ m.sendMsg("/loopier/clip/clip/new", "exampleclip");
 m.sendMsg("/loopier/clip/cv/setinput", "exampleclip");
 
 
+m.sendMsg("/loopier/clip/clip/scale", "cv", 0.5);
+m.sendMsg("/loopier/clip/clip/moveto", "cv", 0.28, 0.14);
+
+
 // Create a clip with camera input
 m.sendMsg("/loopier/clip/clip/new", "newemptyclip");
 

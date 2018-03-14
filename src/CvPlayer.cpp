@@ -59,6 +59,7 @@ void loopier::CvPlayer::setup()
     maskFbo.end();
     
     contourFinder.setSimplify(true);
+    contourFinder.setSortBySize(true); // TODO: Set max blobs
     
     ofRectangle rect(0,0, ofGetWidth(), ofGetHeight());
     setDetectionArea(rect);
@@ -69,12 +70,14 @@ void loopier::CvPlayer::update()
 {
     if (!inputPlayer)   return;
     
-    // TODO: draw contourFinder.minAreaRect like in https://github.com/kylemcdonald/ofxCv/blob/master/example-contours-advanced/src/ofApp.cpp
+    pixels = inputPlayer->getPixels();
+//    pixels.resize(getWidth(), getHeight());
     
+    // TODO: draw contourFinder.minAreaRect like in https://github.com/kylemcdonald/ofxCv/blob/master/example-contours-advanced/src/ofApp.cpp
     contourFinder.setMinAreaRadius(minArea);
     contourFinder.setMaxAreaRadius(maxArea);
     contourFinder.setThreshold(threshold);
-    contourFinder.findContours(inputPlayer->getPixels());
+    contourFinder.findContours(pixels);
     contourFinder.setFindHoles(bHoles);
     
     // mask contourfinder -- reusing shape fbo
@@ -101,7 +104,7 @@ void loopier::CvPlayer::draw()
 //    if (inputPlayer) inputPlayer->draw();
 //    ofSetColor(255,0,0);
 //    detectionAreaFbo.draw(0,0);
-    shapeFbo.draw(0,0);
+    shapeFbo.draw(0,0, pixels.getWidth(), pixels.getHeight());
 }
 
 //---------------------------------------------------------
@@ -180,7 +183,9 @@ ofPoint loopier::CvPlayer::getCentroid(ofTexture & texture)
 void loopier::CvPlayer::setInputPlayer(PlayerPtr aPlayer)
 {
     BasePlayer::setInputPlayer(aPlayer);
-    shapeFbo.allocate(aPlayer->getWidth(), aPlayer->getHeight(), GL_RGBA);
+//    setWidth(aPlayer->getWidth());
+//    setHeight(aPlayer->getHeight());
+//    shapeFbo.allocate(getWidth(), getHeight(), GL_RGBA);
 }
 
 //---------------------------------------------------------
