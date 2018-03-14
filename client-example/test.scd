@@ -18,7 +18,6 @@ m.sendMsg("/loopier/clip/app/test", "exampleclip");
 
 // Create a clip with camera input
 m.sendMsg("/loopier/clip/clip/new", "exampleclip");
-// Set the camera clip as input for Cv
 m.sendMsg("/loopier/clip/cv/setinput", "exampleclip");
 
 

@@ -195,7 +195,7 @@ vector<ofPolyline> loopier::CvPlayer::getPolylines()
 //---------------------------------------------------------
 ofPoint loopier::CvPlayer::getCentroid()
 {
-    if(!inputPlayer) return;
+    if(contourFinder.getPolylines().size() < 1) return;
     ofPoint centroid(contourFinder.getCenter(0).x, contourFinder.getCenter(0).y);
     return centroid;
 }
