@@ -39,8 +39,8 @@ namespace loopier {
             ofPixels  & getPixels();
             ofImage &   getImage();
             vector<ofPolyline> getPolylines();
-            /// \brief  Returns the centroid of the image
-            ofPoint getCentroid(ofTexture & texture);
+            /// \brief  Returns the center of the bounding box of the biggest blob
+            ofPoint getCentroid();
             
             void setInputPlayer(PlayerPtr aPlayer); // override
 

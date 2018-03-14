@@ -105,6 +105,7 @@ void loopier::CvPlayer::draw()
 //    ofSetColor(255,0,0);
 //    detectionAreaFbo.draw(0,0);
     shapeFbo.draw(0,0, pixels.getWidth(), pixels.getHeight());
+    ofDrawCircle(getCentroid().x, getCentroid().y, 20);
 }
 
 //---------------------------------------------------------
@@ -172,10 +173,10 @@ vector<ofPolyline> loopier::CvPlayer::getPolylines()
 }
 
 //---------------------------------------------------------
-ofPoint loopier::CvPlayer::getCentroid(ofTexture & texture)
+ofPoint loopier::CvPlayer::getCentroid()
 {
-    ofPoint centroid(ofGetWidth() / 2, ofGetHeight() / 2);
-    
+    if(!inputPlayer) return;
+    ofPoint centroid(contourFinder.getCenter(0).x, contourFinder.getCenter(0).y);
     return centroid;
 }
 

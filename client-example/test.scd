@@ -22,6 +22,10 @@ m.sendMsg("/loopier/clip/clip/new", "exampleclip");
 m.sendMsg("/loopier/clip/cv/setinput", "exampleclip");
 
 
+m.sendMsg("/loopier/clip/clip/new", "cam1", "Logitech Camera #3");
+m.sendMsg("/loopier/clip/clip/background", "cam1");
+m.sendMsg("/loopier/clip/cv/setinput", "cam1");
+
 m.sendMsg("/loopier/clip/clip/scale", "cv", 0.5);
 m.sendMsg("/loopier/clip/clip/moveto", "cv", 0.28, 0.14);
 
@@ -32,6 +36,7 @@ m.sendMsg("/loopier/clip/clip/new", "newemptyclip");
 // Create a clip with camera input
 m.sendMsg("/loopier/clip/clip/new", "cam1", "Built-in iSight");
 m.sendMsg("/loopier/clip/clip/new", "cam1", "HD Webcam C525");
+m.sendMsg("/loopier/clip/clip/new", "cam1", "Logitech Camera #3");
 // Set the camera clip as input for Cv
 m.sendMsg("/loopier/clip/cv/setinput", "cam1");
 // Set it as background to keep it in the back

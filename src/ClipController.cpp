@@ -1060,7 +1060,6 @@ namespace loopier {
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
             if (!clip::exists("cv")) return;
-            getPlayerAsCvPlayer("cv")->getCentroid(texture);
         }
         
         //---------------------------------------------------------------------------
