@@ -16,6 +16,7 @@ loopier::CvPlayer::CvPlayer()
 , minArea(10.0)
 , maxArea(200)
 , bHoles(true)
+, maxBlobs(2)
 {
     setup();
 }
@@ -81,13 +82,14 @@ void loopier::CvPlayer::update()
     contourFinder.setFindHoles(bHoles);
     
     // mask contourfinder -- reusing shape fbo
-    shapeFbo.begin();
-    ofClear(255,255,255,0);
-    ofNoFill();
-    contourFinder.draw();
-    shapeFbo.end();
-    
-    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
+//    shapeFbo.begin();
+//    ofClear(255,255,255,0);
+//    ofNoFill();
+//    contourFinder.draw();
+//    shapeFbo.end();
+//    
+//    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
+    drawBlobs();
 }
 
 //---------------------------------------------------------
@@ -106,6 +108,28 @@ void loopier::CvPlayer::draw()
 //    detectionAreaFbo.draw(0,0);
     shapeFbo.draw(0,0, pixels.getWidth(), pixels.getHeight());
     ofDrawCircle(getCentroid().x, getCentroid().y, 20);
+}
+
+//
+void loopier::CvPlayer::drawBlobs()
+{
+    // Create a mask with the blobs
+    vector<ofPolyline> polys = contourFinder.getPolylines();
+    shapeFbo.begin();
+    ofClear(255,255,255,0);
+    ofFill();
+    ofSetColor(255,0,0);
+    for (int i = 0; i < maxBlobs && i < polys.size(); i++) {
+        ofPolyline poly = polys.at(i);
+        ofBeginShape();
+        for( int i = 0; i < poly.getVertices().size(); i++) {
+            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+        }
+        ofEndShape();
+    }
+    shapeFbo.end();
+    
+    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
 }
 
 //---------------------------------------------------------
@@ -128,23 +152,23 @@ float loopier::CvPlayer::getHeight() const
 //---------------------------------------------------------
 ofTexture & loopier::CvPlayer::getTexture()
 {
-    // Create a mask with the blobs
-    vector<ofPolyline> polys = contourFinder.getPolylines();
-    shapeFbo.begin();
-    ofClear(255,255,255,0);
-    ofFill();
-    ofSetColor(255);
-    for (int i = 0; i < polys.size(); i++) {
-        ofPolyline poly = polys.at(i);
-        ofBeginShape();
-        for( int i = 0; i < poly.getVertices().size(); i++) {
-            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
-        }
-        ofEndShape();
-    }
-    shapeFbo.end();
-    
-    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
+//    // Create a mask with the blobs
+//    vector<ofPolyline> polys = contourFinder.getPolylines();
+//    shapeFbo.begin();
+//    ofClear(255,255,255,0);
+//    ofFill();
+//    ofSetColor(255);
+//    for (int i = 0; i < polys.size(); i++) {
+//        ofPolyline poly = polys.at(i);
+//        ofBeginShape();
+//        for( int i = 0; i < poly.getVertices().size(); i++) {
+//            ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+//        }
+//        ofEndShape();
+//    }
+//    shapeFbo.end();
+//    
+//    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
     
     maskFbo.begin();
     ofClear(255,255,255,0);

@@ -29,6 +29,7 @@ namespace loopier {
             void draw(ofEventArgs& e);  // automatic draw
             void draw();
             void draw(float x, float y, float w, float h);
+            void drawBlobs();
             void exit();
 
             float getWidth() const;
@@ -71,6 +72,7 @@ namespace loopier {
             float   minArea;
             float   maxArea;
             float   bHoles;
+            int     maxBlobs;
             
 //            CvPlayer(); // Disable default constructor.  You need to provide an input player
             
