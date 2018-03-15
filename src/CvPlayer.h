@@ -42,6 +42,8 @@ namespace loopier {
             vector<ofPolyline> getPolylines();
             /// \brief  Returns the center of the bounding box of the biggest blob
             ofPoint getCentroid();
+            /// \brief  Returns the bounding rectangle of the biggest blob
+            ofRectangle  getBoundingRect();
             
             void setInputPlayer(PlayerPtr aPlayer); // override
 

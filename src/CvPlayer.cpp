@@ -118,10 +118,7 @@ void loopier::CvPlayer::drawBlobs()
         }
         ofEndShape();
         
-        ofDrawRectangle(contourFinder.getBoundingRect(i).x,
-                        contourFinder.getBoundingRect(i).y,
-                        contourFinder.getBoundingRect(i).width,
-                        contourFinder.getBoundingRect(i).height);
+        ofDrawRectangle(getBoundingRect());
     }
     shapeFbo.end();
     
@@ -200,13 +197,21 @@ ofPoint loopier::CvPlayer::getCentroid()
     return centroid;
 }
 
+//---------------------------------------------------------
+ofRectangle loopier::CvPlayer::getBoundingRect()
+{
+    if(contourFinder.getPolylines().size() < 1) return;
+    ofRectangle boundingRect(contourFinder.getBoundingRect(0).x,
+                        contourFinder.getBoundingRect(0).y,
+                        contourFinder.getBoundingRect(0).width,
+                        contourFinder.getBoundingRect(0).height);
+    return boundingRect;
+}
+
 ////---------------------------------------------------------
 void loopier::CvPlayer::setInputPlayer(PlayerPtr aPlayer)
 {
     BasePlayer::setInputPlayer(aPlayer);
-//    setWidth(aPlayer->getWidth());
-//    setHeight(aPlayer->getHeight());
-//    shapeFbo.allocate(getWidth(), getHeight(), GL_RGBA);
 }
 
 //---------------------------------------------------------
