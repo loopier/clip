@@ -73,8 +73,9 @@ void loopier::Clip::update()
     outputFbo.begin();
     ofClear(255,255,255,0);
     ofPushMatrix();
-    ofTranslate(outputFbo.getWidth()/2 - player->getWidth()/2,
-                outputFbo.getHeight()/2 - player->getHeight()/2);
+    ofTranslate(outputFbo.getWidth()/2 - (player->getWidth()/2 * scaleX),
+                outputFbo.getHeight()/2 - (player->getHeight()/2 * scaleY));
+    ofScale(scale, scale);
     player->draw();
     ofPopMatrix();
     outputFbo.end();
@@ -105,7 +106,7 @@ void loopier::Clip::draw()
     } else {
         float x = position.x * ofGetWidth();
         float y = position.y * ofGetHeight();
-        outputFbo.draw(x, y, width, height);
+        outputFbo.draw(x, y);
         if (bDrawName)  ofDrawBitmapString(name, x, y);
     }
     ofPopStyle();
