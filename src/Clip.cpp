@@ -229,8 +229,6 @@ void loopier::Clip::setPosition(const float newX, const float newY)
     y = newY;
     position.x = x;
     position.y = y;
-    
-    ofLogVerbose() << "Clip::" << __FUNCTION__ << "\t" << name << " \tx: " << x << " " << newX << " - y: " << y << " " << newY;
 }
 
 //---------------------------------------------------------------------------
