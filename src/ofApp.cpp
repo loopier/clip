@@ -5,7 +5,7 @@ void ofApp::setup(){
     //    ofSetLogLevel(OF_LOG_NOTICE);
     
     ofSetWindowPosition(ofGetScreenWidth(), 0);
-    ofSetFrameRate(60);
+    ofSetFrameRate(30);
 //    ofSetFullscreen(true);
     ofBackground(0,0,0);
     ofSetVerticalSync(true);
