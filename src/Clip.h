@@ -88,7 +88,7 @@ namespace loopier {
         
         void        setInputClip(shared_ptr<Clip> aClip);
         
-        ofTexture & getTexture() const;
+        ofTexture & getTexture() ;
         ofPixels &   getPixels();
         ofImage &   getImage() const;
         

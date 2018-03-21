@@ -54,20 +54,18 @@ void loopier::Clip::setup(PlayerPtr aplayer)
 {
     sequenceOrder.push_back(0);
     aplayer->setLoopState(loopState);
-    outputFbo.allocate(ofGetWidth(), ofGetHeight());
-//    width = aplayer->getWidth();
-//    height = aplayer->getWidth();
-    outputFbo.setAnchorPercent(0.5, 0.5);
     
     setPosition(0.5,0.5);
     setPlayer(aplayer);
-//    reset();
+    
+    outputFbo.clear();
+    outputFbo.allocate(player->getWidth(), player->getHeight());
+    outputFbo.setAnchorPercent(0.5, 0.5);
 }
 
 //---------------------------------------------------------------------------
 void loopier::Clip::update()
 {
-    //    if (bPlaySequence) updateSequence();
     updateParent();
     
     player->update();
@@ -87,8 +85,6 @@ void loopier::Clip::update()
     } else {
         outputFbo.getTexture().disableAlphaMask();
     }
-    
-    outputFbo.readToPixels(outputPixels);
     
 }
 //---------------------------------------------------------------------------
@@ -394,15 +390,16 @@ void loopier::Clip::setInputClip(shared_ptr<Clip> aClip)
 
 
 //---------------------------------------------------------------------------
-ofTexture & loopier::Clip::getTexture() const
+ofTexture & loopier::Clip::getTexture()
 {
-    return player->getTexture();
+    return outputFbo.getTexture();
 }
 
 
 //---------------------------------------------------------------------------
 ofPixels &  loopier::Clip::getPixels()
 {
+    outputFbo.readToPixels(outputPixels);
     return outputPixels;
 }
 
