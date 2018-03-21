@@ -16,14 +16,30 @@ m.sendMsg("/loopier/clip/clips/clearall");
 // Create a clip with camera input
 m.sendMsg("/loopier/clip/app/test", "exampleclip");
 
+
 // Create a clip with camera input
 m.sendMsg("/loopier/clip/clip/new", "exampleclip");
+m.sendMsg("/loopier/clip/clip/new", "manwalk", "exampleclip");
+m.sendMsg("/loopier/clip/clip/color", "manwalk", 1,0,0);
+m.sendMsg("/loopier/clip/clip/parent", "manwalk", "exampleclip");
+m.sendMsg("/loopier/clip/clip/scale", "manwalk", 0.5);
+m.sendMsg("/loopier/clip/clip/moveto", "manwalk", 0.75,0.5);
+m.sendMsg("/loopier/clip/clip/parent", "manwalk", "exampleclip");
+m.sendMsg("/loopier/clip/clip/moveto", "exampleclip", 0.5,0.2);
+m.sendMsg("/loopier/clip/clip/removeparent", "manwalk");
 m.sendMsg("/loopier/clip/cv/setinput", "exampleclip");
 
 
-m.sendMsg("/loopier/clip/clip/new", "cam1", "Built-in iSight");
+m.sendMsg("/loopier/clip/clip/new", "cam1", "HD Webcam C525");
+m.sendMsg("/loopier/clip/clip/scale", "cam1", 0.5);
+m.sendMsg("/loopier/clip/clip/moveto", "cam1", 0.8, 0.2);
+m.sendMsg("/loopier/clip/clip/new", "cam2", "HD Webcam C525 #2");
+m.sendMsg("/loopier/clip/clip/scale", "cam2", 0.5);
+m.sendMsg("/loopier/clip/clip/moveto", "cam2", 0.2, 0.2);
+m.sendMsg("/loopier/clip/clip/new", "cam3", "Built-in iSight");
 m.sendMsg("/loopier/clip/clip/background", "cam1");
-m.sendMsg("/loopier/clip/cv/setinput", "cam1");
+
+m.sendMsg("/loopier/clip/cv/setinput", "cam2");
 m.sendMsg("/loopier/clip/clip/mask", "cam1", "cv");
 m.sendMsg("/loopier/clip/clip/maskoff", "cam1", "cv");
 m.sendMsg("/loopier/clip/clip/hide", "cam1");

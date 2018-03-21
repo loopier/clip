@@ -21,6 +21,7 @@ loopier::Clip::Clip(string& clipname, string& resourcename)
 , name(clipname)
 , x(0)
 , y(0)
+, position(0,0)
 , width(ofGetWidth())
 , height(ofGetHeight())
 , scale(1.0)
@@ -68,6 +69,8 @@ void loopier::Clip::setup(PlayerPtr aplayer)
 void loopier::Clip::update()
 {
     //    if (bPlaySequence) updateSequence();
+    updateParent();
+    
     player->update();
     
     outputFbo.begin();
@@ -89,7 +92,6 @@ void loopier::Clip::update()
     outputFbo.readToPixels(outputPixels);
     
 }
-
 //---------------------------------------------------------------------------
 void loopier::Clip::draw()
 {
@@ -106,8 +108,8 @@ void loopier::Clip::draw()
         
         outputFbo.draw(fx, fy, fw, fh);
     } else {
-        outputFbo.draw(x, y, width, height);
-        if (bDrawName)  ofDrawBitmapString(name, x, y);
+        outputFbo.draw(position.x * ofGetWidth(), position.y * ofGetHeight(), width, height);
+        if (bDrawName)  ofDrawBitmapString(name, x * ofGetWidth(), y * ofGetHeight());
     }
     ofPopStyle();
 }
@@ -223,10 +225,12 @@ float loopier::Clip::getScale() const
 //---------------------------------------------------------------------------
 void loopier::Clip::setPosition(const float newX, const float newY)
 {
-    x = newX * ofGetWidth();
-    y = newY * ofGetHeight();
+    x = newX;
+    y = newY;
+    position.x = x;
+    position.y = y;
     
-    ofLogVerbose() << "Clip::" << __FUNCTION__ << "\t" << name << " \tx: " << x << " - y: " << y;
+    ofLogVerbose() << "Clip::" << __FUNCTION__ << "\t" << name << " \tx: " << x << " " << newX << " - y: " << y << " " << newY;
 }
 
 //---------------------------------------------------------------------------
@@ -238,7 +242,7 @@ void loopier::Clip::setPosition(const ofPoint& newPosition)
 //---------------------------------------------------------------------------
 ofPoint loopier::Clip::getPosition() const
 {
-    return ofPoint(x / ofGetWidth(),y / ofGetHeight());
+    return position;
 }
 
 //---------------------------------------------------------------------------
@@ -411,8 +415,28 @@ void loopier::Clip::setDepth(int order)
 {
     depth = order;
 }
+
 //---------------------------------------------------------------------------
 int loopier::Clip::getDepth() const
 {
     return depth;
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setParent(const shared_ptr<Clip> clip)
+{
+    parent = clip;
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::updateParent()
+{
+    if (!parent) return;
+    setPosition(parent->getPosition());
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::removeParent()
+{
+    parent = shared_ptr<Clip>(new Clip);
 }

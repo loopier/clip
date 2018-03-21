@@ -94,6 +94,10 @@ namespace loopier {
         void        setDepth(int order);
         int         getDepth() const;
         
+        /// \brief  Sets given clip as parent of this clip.  It will copy attributes from parent
+        void    setParent(const shared_ptr<Clip> clip);
+        void    updateParent();
+        void    removeParent();
     private:
         PlayerPtr   player;     // TODO: Should be a vector of players
         PlayerPtr   maskPlayer; // a player used as a mask
@@ -103,6 +107,7 @@ namespace loopier {
         
         string  name;
         float   x, y;
+        ofPoint position;
         float   width, height;
         float   scale, scaleX, scaleY;
         float   anchorPercentX, anchorPercentY;
@@ -123,6 +128,8 @@ namespace loopier {
         bool        bPlaySequence; ///< If true, all movies are played in sequence order.
         int         sequenceIndex; ///< Used to keep track of the sequence order.
         vector<int> sequenceOrder; ///< Each element is a movie index.  They'll be played in order.
+        
+        shared_ptr<Clip> parent;
         
         Clip(); // Disable default constructor.  All clips must have a name
         

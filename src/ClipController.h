@@ -68,6 +68,9 @@ namespace loopier {
         void    setPrivateClip(const string clipname);
         bool    isPublic(const string clipname);
         bool    isPrivate(const string clipname);
+        /// \brief  Sets one clip as parent of another clip
+        void    setParentClip(const string childclip, const string parentclip);
+        void    removeParentClip(const string childclip);
         
         //  \brief  Saves clip's images (frames) to a folder named after the clip
         //  \param  clipname    String      Name of the clip to be saved.  Will be used to

@@ -46,6 +46,9 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/new"]                = &loopier::MessageMapper::newClip;
     messageMap["/loopier/clip/clip/remove"]             = &loopier::MessageMapper::removeClip;
     messageMap["/loopier/clip/clip/reset"]              = &loopier::MessageMapper::resetClip;
+    // parent
+    messageMap["/loopier/clip/clip/parent"]         = &loopier::MessageMapper::setParent;
+    messageMap["/loopier/clip/clip/removeparent"]   = &loopier::MessageMapper::removeParent;
     // Arrange
     messageMap["/loopier/clip/clip/depth"]          = &loopier::MessageMapper::setClipDrawOrder;
     messageMap["/loopier/clip/clip/front"]          = &loopier::MessageMapper::bringClipToFront;
@@ -245,6 +248,18 @@ void loopier::MessageMapper::removeClip(const Message & msg)
 void loopier::MessageMapper::resetClip(const Message & msg)
 {
     loopier::clip::resetClip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setParent(const Message & msg)
+{
+    loopier::clip::setParentClip(msg.getArgAsString(0), msg.getArgAsString(1));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::removeParent(const Message & msg)
+{
+    loopier::clip::removeParentClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------

@@ -536,6 +536,22 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        void setParentClip(const string childclip, const string parentclip)
+        {
+            if (!exists(childclip) || !exists(parentclip)) return;
+            getClip(childclip)->setParent(getClip(parentclip));
+            
+        }
+        
+        //---------------------------------------------------------------------------
+        void removeParentClip(const string childclip)
+        {
+            if (!exists(childclip)) return;
+            getClip(childclip)->removeParent();
+            
+        }
+        
+        //---------------------------------------------------------------------------
         void saveImages(string clipname) // TODO: Save images
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
