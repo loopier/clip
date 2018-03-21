@@ -58,6 +58,7 @@ private:
     // parent
     void setParent            (const Message & msg);
     void removeParent         (const Message & msg);
+    void setOffset            (const Message & msg);
     // arrange
     void setClipDrawOrder       (const Message & msg);
     void bringClipForward       (const Message & msg);

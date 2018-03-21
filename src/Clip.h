@@ -52,9 +52,11 @@ namespace loopier {
         void setScaleY(const float newScale);
         float getScale() const;
         
-        void    setPosition(const float newX, const float newY);
+        void    setPosition(const float x, const float y);
         void    setPosition(const ofPoint& newPos);
         ofPoint getPosition() const;
+        /// \brief  Sets the offset in relation to parent's position
+        void    setOffset(const float x, const float y);
         void    setWidth(const float w);
         void    setHeight(const float h);
         float   getWidth() const;
@@ -106,8 +108,8 @@ namespace loopier {
         bool        bMask;  // turn mask on and off
         
         string  name;
-        float   x, y;
         ofPoint position;
+        ofPoint offset; // offset to parent position
         float   width, height;
         float   scale, scaleX, scaleY;
         float   anchorPercentX, anchorPercentY;

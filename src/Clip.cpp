@@ -19,9 +19,8 @@ loopier::Clip::Clip(){
 loopier::Clip::Clip(string& clipname, string& resourcename)
 : bMask(false)
 , name(clipname)
-, x(0)
-, y(0)
 , position(0,0)
+, offset(0,0)
 , width(ofGetWidth())
 , height(ofGetHeight())
 , scale(1.0)
@@ -108,8 +107,10 @@ void loopier::Clip::draw()
         
         outputFbo.draw(fx, fy, fw, fh);
     } else {
-        outputFbo.draw(position.x * ofGetWidth(), position.y * ofGetHeight(), width, height);
-        if (bDrawName)  ofDrawBitmapString(name, x * ofGetWidth(), y * ofGetHeight());
+        float x = position.x * ofGetWidth();
+        float y = position.y * ofGetHeight();
+        outputFbo.draw(x, y, width, height);
+        if (bDrawName)  ofDrawBitmapString(name, x, y);
     }
     ofPopStyle();
 }
@@ -134,8 +135,8 @@ void loopier::Clip::reset()
     anchorPercentX = 0.5;
     anchorPercentY = 0.5;
     player->setAnchorPercent(anchorPercentX, anchorPercentY);
-    x = ofGetWidth() / 2;
-    y = ofGetHeight() / 2;
+    position.x = ofGetWidth() / 2;
+    position.y = ofGetHeight() / 2;
     scale = 1.0;
     scaleX = scale;
     scaleY = scale;
@@ -223,10 +224,8 @@ float loopier::Clip::getScale() const
 }
 
 //---------------------------------------------------------------------------
-void loopier::Clip::setPosition(const float newX, const float newY)
+void loopier::Clip::setPosition(const float x, const float y)
 {
-    x = newX;
-    y = newY;
     position.x = x;
     position.y = y;
 }
@@ -241,6 +240,13 @@ void loopier::Clip::setPosition(const ofPoint& newPosition)
 ofPoint loopier::Clip::getPosition() const
 {
     return position;
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setOffset(const float x, const float y)
+{
+    offset.x = x;
+    offset.y = y;
 }
 
 //---------------------------------------------------------------------------
@@ -430,7 +436,7 @@ void loopier::Clip::setParent(const shared_ptr<Clip> clip)
 void loopier::Clip::updateParent()
 {
     if (!parent) return;
-    setPosition(parent->getPosition());
+    setPosition(parent->getPosition()+offset);
 }
 
 //---------------------------------------------------------------------------

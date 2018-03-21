@@ -22,10 +22,10 @@ m.sendMsg("/loopier/clip/clip/new", "exampleclip");
 m.sendMsg("/loopier/clip/clip/new", "manwalk", "exampleclip");
 m.sendMsg("/loopier/clip/clip/color", "manwalk", 1,0,0);
 m.sendMsg("/loopier/clip/clip/parent", "manwalk", "exampleclip");
+m.sendMsg("/loopier/clip/clip/offset", "manwalk", 0.5, 0);
+m.sendMsg("/loopier/clip/clip/moveto", "exampleclip", 0.5,0.72);
 m.sendMsg("/loopier/clip/clip/scale", "manwalk", 0.5);
-m.sendMsg("/loopier/clip/clip/moveto", "manwalk", 0.75,0.5);
 m.sendMsg("/loopier/clip/clip/parent", "manwalk", "exampleclip");
-m.sendMsg("/loopier/clip/clip/moveto", "exampleclip", 0.5,0.2);
 m.sendMsg("/loopier/clip/clip/removeparent", "manwalk");
 m.sendMsg("/loopier/clip/cv/setinput", "exampleclip");
 

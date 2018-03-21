@@ -552,6 +552,14 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        void setOffsetToParentClip(const string childclip, const float xoffset, const float yoffset)
+        {
+            if (!exists(childclip)) return;
+            getClip(childclip)->setOffset(xoffset, yoffset);
+            
+        }
+        
+        //---------------------------------------------------------------------------
         void saveImages(string clipname) // TODO: Save images
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";

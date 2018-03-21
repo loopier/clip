@@ -71,6 +71,8 @@ namespace loopier {
         /// \brief  Sets one clip as parent of another clip
         void    setParentClip(const string childclip, const string parentclip);
         void    removeParentClip(const string childclip);
+        /// \brief  Sets the offset position of the child in relation to parent's position
+        void    setOffsetToParentClip(const string childclip, const float xoffset, const float yoffset);
         
         //  \brief  Saves clip's images (frames) to a folder named after the clip
         //  \param  clipname    String      Name of the clip to be saved.  Will be used to
