@@ -9,24 +9,22 @@
 #ifndef Uvc_h
 #define Uvc_h
 
+#include "ofMain.h"
 #include "ofxUVC.h"
 
 namespace loopier {
-    class Uvc {
-    public:
-        Uvc();
-        virtual ~Uvc();
+    namespace uvc {
+        struct UvcCam {
+            int     vendorId;
+            int     productId;
+            int     interfaceNum;
+            string  name;
+        };
         
-        void setup();
-        void update();
-        void draw();
+        void init();
+        void addCamera(int aVendorId, int aProductId, int anInterfaceNum, string aName);
         
-        ofxUVC  uvcControl;
-        string  cameraName;
-        int     camWidth, camHeight;
-        float   focus;
-        vector<ofxUVCControl>   controls;
-    };
+    } // namespace uvc
 }
 
 #endif /* Uvc_hpp */

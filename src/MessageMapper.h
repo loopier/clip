@@ -22,6 +22,7 @@
 #include "Cv.h"
 #include "ConsoleUI.h"
 #include "Types.h"
+#include "Uvc.h"
 
 namespace loopier {
     typedef ofxOscMessage Message;

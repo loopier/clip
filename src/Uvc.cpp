@@ -8,28 +8,24 @@
 
 #include "Uvc.h"
 
-loopier::Uvc::Uvc()
-{
-    
+namespace {
+    ofxUVCControl   uvcControl;
+    vector<loopier::uvc::UvcCam>  cameras;
 }
 
-loopier::Uvc::~Uvc()
+void loopier::uvc::init()
 {
-    
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
 }
 
-void loopier::Uvc::setup()
+void loopier::uvc::addCamera(int aVendorId, int aProductId, int anInterfaceNum, string aName)
 {
+    UvcCam cam;
+    cam.vendorId = aVendorId;
+    cam.productId = aProductId;
+    cam.interfaceNum = anInterfaceNum;
+    cam.name = aName;
     
-}
-
-void loopier::Uvc::udpate()
-{
-    
-}
-
-void loopier::Uvc::draw()
-{
-    
+    cameras.push_back(cam);
 }
 

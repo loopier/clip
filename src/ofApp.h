@@ -6,6 +6,7 @@
 #include "Clip.h"
 #include "ConsoleUI.h"
 #include "Types.h"
+#include "Uvc.h"
 
 using namespace loopier;
 

@@ -14,6 +14,7 @@ void ofApp::setup(){
     applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/";
     loopier::resource::setPath(applicationSupportPath + "resources/");
     loopier::app::init();
+    loopier::uvc::init();
     
     msgMapper.setup();
 }
