@@ -27,6 +27,7 @@ void loopier::MessageMapper::setup()
     osc.setup();
     ofAddListener(osc.newOscMessageEvent, this, &loopier::MessageMapper::mapMessageToFunc);
     setupMap();
+    setupUvcMap();
 
     loopier::ConsoleUI::setup();
 }
@@ -137,6 +138,13 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/console/moveto"]      = &loopier::MessageMapper::moveConsole;
     messageMap["/loopier/clip/console/font"]        = &loopier::MessageMapper::setConsoleFont;
     messageMap["/loopier/clip/console/fontsize"]    = &loopier::MessageMapper::setConsoleFontSize;
+}
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setupUvcMap()
+{
+    messageMap["/loopier/uvc/autoexposure"]      = &loopier::MessageMapper::setUvcAutoExposure;
 }
 
 
@@ -773,6 +781,25 @@ void loopier::MessageMapper::setConsoleFont(const Message & msg)
 void loopier::MessageMapper::setConsoleFontSize(const Message & msg)
 {
     loopier::ConsoleUI::setFontSize(msg.getArgAsInt(0));
+}
+
+
+
+
+
+
+
+//---------------------------------------------------------
+
+//        CONSOLE
+
+//---------------------------------------------------------
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setUvcAutoExposure(const Message & msg)
+{
+    loopier::uvc::setAutoExposure(msg.getArgAsBool(0));
 }
 
 

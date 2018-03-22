@@ -35,6 +35,7 @@ public:
 
     void setup();
     void setupMap();
+    void setupUvcMap();
 
 private:
     void printMessage(Message & msg);
@@ -146,6 +147,9 @@ private:
     void moveConsole        (const Message & msg);
     void setConsoleFont     (const Message & msg);
     void setConsoleFontSize (const Message & msg);
+    
+    // UVC
+    void setUvcAutoExposure (const Message & msg);
     
     // Helpers
     /// \brief  Translates a message with variable arguments to a color object

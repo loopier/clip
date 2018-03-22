@@ -22,7 +22,11 @@ namespace loopier {
         };
         
         void init();
+        void update();
+        void addCamera(UvcCam & cam);
         void addCamera(int aVendorId, int aProductId, int anInterfaceNum, string aName);
+        
+        void setAutoExposure(const bool autoexposure);
         
     } // namespace uvc
 }
