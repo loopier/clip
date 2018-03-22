@@ -208,14 +208,6 @@ ofRectangle loopier::CvPlayer::getBoundingRect()
     return boundingRect;
 }
 
-////---------------------------------------------------------
-void loopier::CvPlayer::setInputPlayer(PlayerPtr aPlayer)
-{
-    BasePlayer::setInputPlayer(aPlayer);
-    shapeFbo.clear();
-    shapeFbo.allocate(aPlayer->getWidth(), aPlayer->getHeight());
-}
-
 //---------------------------------------------------------
 void loopier::CvPlayer::toggleVisibility()
 {

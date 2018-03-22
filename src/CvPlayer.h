@@ -44,8 +44,6 @@ namespace loopier {
             ofPoint getCentroid();
             /// \brief  Returns the bounding rectangle of the biggest blob
             ofRectangle  getBoundingRect();
-            
-            void setInputPlayer(PlayerPtr aPlayer); // override
 
             void toggleVisibility();
             void show();
