@@ -425,8 +425,8 @@ namespace loopier {
             float x = blob.getCenter().x / ofGetWidth();
             float y = blob.getCenter().y / ofGetHeight();
             clip->setPosition(x, y);
-            clip->setWidth(blob.getWidth());
-            clip->setHeight(blob.getHeight());
+            clip->setScaleX(blob.getWidth() / ofGetWidth());
+            clip->setScaleY(blob.getHeight() / ofGetHeight());
             return clip;
         }
         

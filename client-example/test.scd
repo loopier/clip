@@ -53,7 +53,9 @@ m.sendMsg("/loopier/clip/clip/new", "cam1", "HD Pro Webcam C920");
 m.sendMsg("/loopier/clip/cv/setinput", "cam1");
 m.sendMsg("/loopier/clip/clip/color", "cv", 1,0,1);
 m.sendMsg("/loopier/clip/clip/mask", "cam1", "cv");
-m.sendMsg("/loopier/clip/cv/maxblobs", 1);)
+m.sendMsg("/loopier/clip/cv/maxblobs", 1);
+m.sendMsg("/loopier/clip/cv/maxArea", 50));
+m.sendMsg("/loopier/clip/cv/maxArea", 200);
 
 m.sendMsg("/loopier/clip/clip/replaceblob", "exampleclip");
 
