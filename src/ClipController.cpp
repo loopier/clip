@@ -343,6 +343,7 @@ namespace loopier {
                 clip = getClip(clipname);
             } else {
                 clip = make_shared<loopier::Clip>(clipname, resourcename);
+                clip->setPosition(0.5, 0.5);
             }
             
             // !!!: Should change to something more kosher, like classes returning their types
@@ -408,7 +409,6 @@ namespace loopier {
             clip->show();
             if (!isPrivate(clipname)) setPublicClip(clipname);
             bringClipToFront(clipname);
-            centerClip(clipname);
             ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << resourcename << "'";
             return clip;
         

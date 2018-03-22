@@ -18,6 +18,9 @@ m.sendMsg("/loopier/clip/app/test", "exampleclip");
 
 
 m.sendMsg("/loopier/clip/clip/new", "exampleclip");
+m.sendMsg("/loopier/clip/clip/scale", "exampleclip", 0.5);
+m.sendMsg("/loopier/clip/clip/new", "exampleclip", "mammaframes");
+m.sendMsg("/loopier/clip/clip/moveto", "exampleclip", 0.7, 0.5);
 (m.sendMsg("/loopier/clip/cv/setinput", "exampleclip");
 m.sendMsg("/loopier/clip/clip/color", "cv", 1,0,0);
 m.sendMsg("/loopier/clip/clip/background", "exampleclip");)

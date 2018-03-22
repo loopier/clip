@@ -55,7 +55,6 @@ void loopier::Clip::setup(PlayerPtr aplayer)
     sequenceOrder.push_back(0);
     aplayer->setLoopState(loopState);
     
-    setPosition(0.5,0.5);
     setPlayer(aplayer);
     
     outputFbo.clear();
