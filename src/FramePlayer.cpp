@@ -217,15 +217,15 @@ void loopier::FramePlayer::previousFrame()
 }
 
 //---------------------------------------------------------
-void loopier::FramePlayer::setRecordingSourcePlayer(PlayerPtr player)
-{
-    recordingSourcePlayer = player;
-}
-
-//---------------------------------------------------------
 void loopier::FramePlayer::addFrame(ofImage & img)
 {
     frames->push_back(img);
+}
+
+//---------------------------------------------------------
+void loopier::FramePlayer::addFrame()
+{
+    frames->push_back(inputPlayer->getImage());
 }
 
 //---------------------------------------------------------

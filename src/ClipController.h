@@ -115,10 +115,7 @@ namespace loopier {
         void enableClipMask(const string clipname);
         void disableClipMask(const string clipname);
         
-        // ----- EDIT CLIP CONTENTS -----
-        //// \brief  Appends clipplayer's current image to cliprecorder frames
-        void setRecordingSource(const string clipname, const string sourceclip);
-        //// \brief  Appends sourceclip's current image -masked with cv blobs- to cliprecorder frames
+        // ----- EDIT CLIP CONTENTS -----        //// \brief  Appends sourceclip's current image -masked with cv blobs- to cliprecorder frames
         /// TODO: make some kind of abstraction with the masking part
         void addFrame(const string recorderclip, const string sourceclip);
         //// \brief  Inserts clipplayer's current image to cliprecorder's current frame

@@ -28,6 +28,9 @@ m.sendMsg("/loopier/clip/clip/offset", "cv", 1, 1);
 m.sendMsg("/loopier/clip/clip/speed", "cv", 2);
 
 
+m.sendMsg("/loopier/clip/clip/new", "anim");
+m.sendMsg("/loopier/clip/clip/addframe", "anim", "cam1");
+
 m.sendMsg("/loopier/clip/clip/new", "manwalk", "exampleclip");
 m.sendMsg("/loopier/clip/clip/speed", "manwalk", 4);
 m.sendMsg("/loopier/clip/clip/scale", "cv", 0.5);
@@ -48,6 +51,8 @@ m.sendMsg("/loopier/clip/cv/setinput", "cam1");
 m.sendMsg("/loopier/clip/clip/color", "cv", 1,0,1);)
 m.sendMsg("/loopier/clip/clip/scale", "cam1", 1);
 m.sendMsg("/loopier/clip/clip/hide", "cam1");
+m.sendMsg("/loopier/clip/clip/alpha", "cam1", 0.5);
+m.sendMsg("/loopier/clip/clip/color", "cam1", 1,0,0);
 m.sendMsg("/loopier/clip/clip/scale", "cv", 1);
 m.sendMsg("/loopier/clip/clip/mask", "cam1", "cv");
 m.sendMsg("/loopier/clip/cv/maxblobs", 1);

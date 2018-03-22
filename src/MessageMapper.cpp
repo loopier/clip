@@ -87,7 +87,6 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/loop"]       = &loopier::MessageMapper::setClipLoopState;
     messageMap["/loopier/clip/clip/speed"]      = &loopier::MessageMapper::setClipSpeed;
     // edit
-    messageMap["/loopier/clip/clip/recordingsource"]    = &loopier::MessageMapper::setRecordingSource;
     messageMap["/loopier/clip/clip/addframe"]           = &loopier::MessageMapper::addFrame;
     messageMap["/loopier/clip/clip/insertframe"]        = &loopier::MessageMapper::insertFrame;
     messageMap["/loopier/clip/clip/removeframe"]        = &loopier::MessageMapper::removeFrame;
@@ -453,11 +452,6 @@ void loopier::MessageMapper::setClipSpeed(const Message & msg)
 }
 
 // EDIT
-//---------------------------------------------------------
-void loopier::MessageMapper::setRecordingSource(const Message & msg)
-{
-    loopier::clip::setRecordingSource(msg.getArgAsString(0), msg.getArgAsString(1));
-}
 
 //---------------------------------------------------------
 void loopier::MessageMapper::addFrame(const Message & msg)

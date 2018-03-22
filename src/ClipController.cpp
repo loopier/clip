@@ -694,19 +694,6 @@ namespace loopier {
         //---------------------------------------------------------------------------
         //  EDIT
         //---------------------------------------------------------------------------
-        //---------------------------------------------------------------------------
-        void setRecordingSource(const string clipname, const string sourceclip)
-        {
-            if(!exists(clipname) ||
-               !exists(sourceclip)   ||
-               !isFrameClip(clipname)) return;
-            // cast from PlayerPtr to FramePlayerPtr -- note that
-            // dynamic_pointer_cast uses the class name, not the class pointer name (--Ptr)
-            FramePlayerPtr recplayer = dynamic_pointer_cast<FramePlayer> (clips[clipname]->getPlayer());
-            recplayer->setRecordingSourcePlayer(clips[sourceclip]->getPlayer());
-            
-            ofLogVerbose() << "Set '" << sourceclip <<"' as source for recording to '" << clipname << "'";
-        }
         
         //---------------------------------------------------------------------------
         void addFrame(const string recorderclip, const string sourceclip)
