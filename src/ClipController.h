@@ -47,6 +47,8 @@ namespace loopier {
         ClipPtr newClip(string clipname);
         /// \brief   Creates a clip with the given resource
         ClipPtr newClip(string clipname, string resourcename);
+        /// \brief   Creates a clip with the given resource at the position of the biggest CV blob
+        ClipPtr newClipFromBlob(string clipname, string resourcename="");
         void    removeClip(string clipname);
         
         /// \brief   Sets the order in which the clip will be drawn -- 0 is top; big numbers are at the bottom

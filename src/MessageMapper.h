@@ -53,6 +53,7 @@ private:
 
     // One Clip commands
     void newClip              (const Message & msg);
+    void newClipFromBlob      (const Message & msg);
     void removeClip           (const Message & msg);
     void resetClip            (const Message & msg);
     // parent

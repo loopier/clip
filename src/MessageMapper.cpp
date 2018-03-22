@@ -44,6 +44,8 @@ void loopier::MessageMapper::setupMap()
 
     // One Clip commands
     messageMap["/loopier/clip/clip/new"]                = &loopier::MessageMapper::newClip;
+    messageMap["/loopier/clip/clip/replace"]            = &loopier::MessageMapper::newClip;
+    messageMap["/loopier/clip/clip/replaceblob"]        = &loopier::MessageMapper::newClipFromBlob;
     messageMap["/loopier/clip/clip/remove"]             = &loopier::MessageMapper::removeClip;
     messageMap["/loopier/clip/clip/reset"]              = &loopier::MessageMapper::resetClip;
     // parent
@@ -236,6 +238,14 @@ void loopier::MessageMapper::newClip(const Message & msg)
     int n = msg.getNumArgs();
     if      (n == 1)    loopier::clip::newClip(msg.getArgAsString(0));
     else if (n == 2)    loopier::clip::newClip(msg.getArgAsString(0), msg.getArgAsString(1));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::newClipFromBlob(const Message & msg)
+{
+    int n = msg.getNumArgs();
+    if      (n == 1)    loopier::clip::newClipFromBlob(msg.getArgAsString(0));
+    else if (n == 2)    loopier::clip::newClipFromBlob(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------

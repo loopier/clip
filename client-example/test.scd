@@ -48,11 +48,18 @@ m.sendMsg("/loopier/clip/cv/setinput", "exampleclip");
 m.sendMsg("/loopier/clip/clips/togglenames");
 
 
-m.sendMsg("/loopier/clip/clip/new", "cam1", "HD Webcam C525");
+m.sendMsg("/loopier/clip/clip/new", "cam1", "HD Pro Webcam C920");
 (m.sendMsg("/loopier/clip/clip/background", "cam1");
 m.sendMsg("/loopier/clip/cv/setinput", "cam1");
-m.sendMsg("/loopier/clip/clip/color", "cv", 1,0,1);)
+m.sendMsg("/loopier/clip/clip/color", "cv", 1,0,1);
+m.sendMsg("/loopier/clip/clip/mask", "cam1", "cv");
+m.sendMsg("/loopier/clip/cv/maxblobs", 1);)
+
+m.sendMsg("/loopier/clip/clip/replaceblob", "exampleclip");
+
 m.sendMsg("/loopier/clip/clip/scale", "cam1", 1);
+
+
 m.sendMsg("/loopier/clip/clip/hide", "cam1");
 m.sendMsg("/loopier/clip/clip/alpha", "cam1", 0.5);
 m.sendMsg("/loopier/clip/clip/color", "cam1", 1,0,0);

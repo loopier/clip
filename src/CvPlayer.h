@@ -43,7 +43,8 @@ namespace loopier {
             /// \brief  Returns the center of the bounding box of the biggest blob
             ofPoint getCentroid();
             /// \brief  Returns the bounding rectangle of the biggest blob
-            ofRectangle  getBoundingRect();
+            /// \param  blobindex   Int     Index of the blob in the polylines vector
+            ofRectangle  getBoundingRect(int blobindex=0);
 
             void toggleVisibility();
             void show();

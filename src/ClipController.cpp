@@ -415,6 +415,22 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        ClipPtr newClipFromBlob(string clipname, string resourcename)
+        {
+            if (!exists("cv")) return;
+            if (resourcename.length() == 0) resourcename = clipname;
+            ClipPtr clip = newClip(clipname, resourcename);
+            CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
+            ofRectangle blob = cv->getBoundingRect(0);
+            float x = blob.getCenter().x / ofGetWidth();
+            float y = blob.getCenter().y / ofGetHeight();
+            clip->setPosition(x, y);
+            clip->setWidth(blob.getWidth());
+            clip->setHeight(blob.getHeight());
+            return clip;
+        }
+        
+        //---------------------------------------------------------------------------
         void removeClip(string clipname)
         {
             // FIX: removing from map CRASHES APP
