@@ -57,6 +57,7 @@
 		DB0FE6AC1FD1968F002BBFAC /* CvPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB0FE6AA1FD1968F002BBFAC /* CvPlayer.cpp */; };
 		DB10A5CD1FD45C2C0032FC67 /* ClipController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB10A5CB1FD45C2C0032FC67 /* ClipController.cpp */; };
 		DB647EDD1FCD860A00F3023B /* MessageMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB647EDB1FCD860A00F3023B /* MessageMapper.cpp */; };
+		DB6631742063D9ED00AA9855 /* Uvc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB6631722063D9ED00AA9855 /* Uvc.cpp */; };
 		DB6E390A1FC7302C0016954C /* FramePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB6E39081FC7302C0016954C /* FramePlayer.cpp */; };
 		DB85C4E41FE1B2A50007CA2F /* SyphonPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB85C4E21FE1B2A50007CA2F /* SyphonPlayer.cpp */; };
 		DB99396D1FCEEF5A0089A2DF /* CameraPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB99396B1FCEEF5A0089A2DF /* CameraPlayer.cpp */; };
@@ -353,6 +354,8 @@
 		DB10A5CC1FD45C2C0032FC67 /* ClipController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipController.h; sourceTree = "<group>"; };
 		DB647EDB1FCD860A00F3023B /* MessageMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MessageMapper.cpp; sourceTree = "<group>"; };
 		DB647EDC1FCD860A00F3023B /* MessageMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMapper.h; sourceTree = "<group>"; };
+		DB6631722063D9ED00AA9855 /* Uvc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Uvc.cpp; sourceTree = "<group>"; };
+		DB6631732063D9ED00AA9855 /* Uvc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Uvc.h; sourceTree = "<group>"; };
 		DB6E39081FC7302C0016954C /* FramePlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FramePlayer.cpp; sourceTree = "<group>"; };
 		DB6E39091FC7302C0016954C /* FramePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FramePlayer.h; sourceTree = "<group>"; };
 		DB85C4E21FE1B2A50007CA2F /* SyphonPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SyphonPlayer.cpp; sourceTree = "<group>"; };
@@ -1200,6 +1203,8 @@
 				DB0FE6AB1FD1968F002BBFAC /* CvPlayer.h */,
 				DB85C4E21FE1B2A50007CA2F /* SyphonPlayer.cpp */,
 				DB85C4E31FE1B2A50007CA2F /* SyphonPlayer.h */,
+				DB6631722063D9ED00AA9855 /* Uvc.cpp */,
+				DB6631732063D9ED00AA9855 /* Uvc.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1378,6 +1383,7 @@
 				311DF864378748129984EA1D /* Kalman.cpp in Sources */,
 				C602002DE761F9B52DB4400A /* ObjectFinder.cpp in Sources */,
 				DB9939761FCF68390089A2DF /* README.md in Sources */,
+				DB6631742063D9ED00AA9855 /* Uvc.cpp in Sources */,
 				7CDAD32BE4FA46701E3552C7 /* RunningBackground.cpp in Sources */,
 				DB85C4E41FE1B2A50007CA2F /* SyphonPlayer.cpp in Sources */,
 				10B69DE456AED1288FC9316B /* Tracker.cpp in Sources */,
