@@ -27,6 +27,16 @@ namespace loopier {
         void addCamera(int aVendorId, int aProductId, int anInterfaceNum, string aName);
         
         void setAutoExposure(const bool autoexposure);
+        void setExposure(const float exposure);
+        void setAutoFocus(const bool autofocus);
+        void setFocus(const float focus);
+        void setAutoWhiteBalance(const bool autowhitebalance);
+        void setWhiteBalance(const float whitebalance);
+        void setGain(const float gain);
+        void setBrightness(const float brightness);
+        void setContrast(const float contrast);
+        void setSaturation(const float saturation);
+        void setSharpness(const float sharpness);
         
     } // namespace uvc
 }

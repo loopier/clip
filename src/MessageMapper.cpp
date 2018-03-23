@@ -144,7 +144,17 @@ void loopier::MessageMapper::setupMap()
 //---------------------------------------------------------
 void loopier::MessageMapper::setupUvcMap()
 {
-    messageMap["/loopier/uvc/autoexposure"]      = &loopier::MessageMapper::setUvcAutoExposure;
+    messageMap["/loopier/uvc/autoexposure"] = &loopier::MessageMapper::setUvcAutoExposure;
+    messageMap["/loopier/uvc/exposure"]     = &loopier::MessageMapper::setUvcExposure;
+    messageMap["/loopier/uvc/autofocus"]    = &loopier::MessageMapper::setUvcAutoFocus;
+    messageMap["/loopier/uvc/focus"]        = &loopier::MessageMapper::setUvcFocus;
+    messageMap["/loopier/uvc/autowhitebalance"] = &loopier::MessageMapper::setUvcAutoWhiteBalance;
+    messageMap["/loopier/uvc/whitebalance"] = &loopier::MessageMapper::setUvcWhiteBalance;
+    messageMap["/loopier/uvc/gain"]         = &loopier::MessageMapper::setUvcGain;
+    messageMap["/loopier/uvc/brightness"]   = &loopier::MessageMapper::setUvcBrightness;
+    messageMap["/loopier/uvc/contrast"]     = &loopier::MessageMapper::setUvcContrast;
+    messageMap["/loopier/uvc/saturation"]   = &loopier::MessageMapper::setUvcSaturation;
+    messageMap["/loopier/uvc/sharpness"]    = &loopier::MessageMapper::setUvcSharpness;
 }
 
 
@@ -791,7 +801,7 @@ void loopier::MessageMapper::setConsoleFontSize(const Message & msg)
 
 //---------------------------------------------------------
 
-//        CONSOLE
+//        UVC
 
 //---------------------------------------------------------
 
@@ -802,6 +812,65 @@ void loopier::MessageMapper::setUvcAutoExposure(const Message & msg)
     loopier::uvc::setAutoExposure(msg.getArgAsBool(0));
 }
 
+//---------------------------------------------------------
+void loopier::MessageMapper::setUvcExposure(const Message & msg)
+{
+    loopier::uvc::setExposure(msg.getArgAsFloat(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setUvcAutoFocus(const Message & msg)
+{
+    loopier::uvc::setAutoFocus(msg.getArgAsBool(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setUvcFocus(const Message & msg)
+{
+    loopier::uvc::setFocus(msg.getArgAsFloat(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setUvcAutoWhiteBalance(const Message & msg)
+{
+    loopier::uvc::setAutoWhiteBalance(msg.getArgAsBool(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setUvcWhiteBalance(const Message & msg)
+{
+    loopier::uvc::setWhiteBalance(msg.getArgAsFloat(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setUvcGain(const Message & msg)
+{
+    loopier::uvc::setGain(msg.getArgAsFloat(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setUvcBrightness(const Message & msg)
+{
+    loopier::uvc::setBrightness(msg.getArgAsFloat(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setUvcContrast(const Message & msg)
+{
+    loopier::uvc::setContrast(msg.getArgAsFloat(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setUvcSaturation(const Message & msg)
+{
+    loopier::uvc::setSaturation(msg.getArgAsFloat(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setUvcSharpness(const Message & msg)
+{
+    loopier::uvc::setSharpness(msg.getArgAsFloat(0));
+}
 
 
 

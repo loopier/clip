@@ -57,9 +57,16 @@ m.sendMsg("/loopier/clip/cv/maxblobs", 1);
 m.sendMsg("/loopier/clip/cv/maxArea", 50));
 m.sendMsg("/loopier/clip/cv/maxArea", 200);
 
-m.sendMsg("/loopier/clip/clip/replaceblob", "exampleclip");
+m.sendMsg("/loopier/clip/clip/replaceblob", "exampleclip", "mammaframes");
+m.sendMsg("/loopier/clip/clip/replaceblob", "mamma", "mammaframes");
 
-m.sendMsg("/loopier/clip/clip/scale", "cam1", 1);
+m.sendMsg("/loopier/clip/clip/new", "cam1", "HD Webcam C525 #2");
+m.sendMsg("/loopier/clip/clip/scale", "cam1", 0.5);
+m.sendMsg("/loopier/clip/clip/moveto", "cam1", 0.25,0.25);
+
+m.sendMsg("/loopier/clip/clip/new", "cam2", "HD Webcam C525 #2");
+m.sendMsg("/loopier/clip/clip/scale", "cam2", 0.5);
+m.sendMsg("/loopier/clip/clip/moveto", "cam2", 0.75,0.25);
 
 
 m.sendMsg("/loopier/clip/clip/hide", "cam1");

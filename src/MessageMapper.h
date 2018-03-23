@@ -150,6 +150,16 @@ private:
     
     // UVC
     void setUvcAutoExposure (const Message & msg);
+    void setUvcExposure     (const Message & msg);
+    void setUvcAutoFocus    (const Message & msg);
+    void setUvcFocus        (const Message & msg);
+    void setUvcAutoWhiteBalance (const Message & msg);
+    void setUvcWhiteBalance (const Message & msg);
+    void setUvcGain         (const Message & msg);
+    void setUvcBrightness   (const Message & msg);
+    void setUvcContrast     (const Message & msg);
+    void setUvcSaturation   (const Message & msg);
+    void setUvcSharpness    (const Message & msg);
     
     // Helpers
     /// \brief  Translates a message with variable arguments to a color object
