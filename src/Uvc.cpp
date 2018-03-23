@@ -23,7 +23,7 @@ void loopier::uvc::init()
     // TODO: Add cameras from config file
     addCamera(1133, 2093, 1, "HD Pro Webcam C920");
     addCamera(1133, 2086, 2, "HD Webcam C525 #2");
-    UvcCam cam = cameras["HD Webcam C525 #2"];
+    UvcCam cam = cameras["HD Pro Webcam C920"];
     uvcControl.useCamera(cam.vendorId, cam.productId, cam.interfaceNum);
     controls = uvcControl.getCameraControls();
 }
