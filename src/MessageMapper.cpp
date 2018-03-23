@@ -144,6 +144,8 @@ void loopier::MessageMapper::setupMap()
 //---------------------------------------------------------
 void loopier::MessageMapper::setupUvcMap()
 {
+    messageMap["/loopier/uvc/add"]          = &loopier::MessageMapper::addUvcCamera;
+    messageMap["/loopier/uvc/use"]          = &loopier::MessageMapper::useUvcCamera;
     messageMap["/loopier/uvc/autoexposure"] = &loopier::MessageMapper::setUvcAutoExposure;
     messageMap["/loopier/uvc/exposure"]     = &loopier::MessageMapper::setUvcExposure;
     messageMap["/loopier/uvc/autofocus"]    = &loopier::MessageMapper::setUvcAutoFocus;
@@ -804,6 +806,24 @@ void loopier::MessageMapper::setConsoleFontSize(const Message & msg)
 //        UVC
 
 //---------------------------------------------------------
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::addUvcCamera(const Message & msg)
+{
+    int     vendorId        = msg.getArgAsInt(0);
+    int     productId       = msg.getArgAsInt(1);
+    int     interfaceNum    = msg.getArgAsInt(2);
+    string  name            = msg.getArgAsString(3);
+    loopier::uvc::addCamera(vendorId, productId, interfaceNum, name);
+}
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::useUvcCamera(const Message & msg)
+{
+    loopier::uvc::useCamera(msg.getArgAsString(0)); // camera name
+}
 
 
 //---------------------------------------------------------

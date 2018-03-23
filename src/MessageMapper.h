@@ -149,6 +149,8 @@ private:
     void setConsoleFontSize (const Message & msg);
     
     // UVC
+    void addUvcCamera       (const Message & msg);
+    void useUvcCamera       (const Message & msg);
     void setUvcAutoExposure (const Message & msg);
     void setUvcExposure     (const Message & msg);
     void setUvcAutoFocus    (const Message & msg);

@@ -19,30 +19,30 @@ namespace {
 void loopier::uvc::init()
 {
     ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    
     // TODO: Add cameras from config file
-    UvcCam cam;
-    cam.vendorId = 1133;
-//    cam.productId = 2093; // C920
-//    cam.name = "HD Pro Webcam C920";
-//    cam.interfaceNum = 1;
-    cam.productId = 2086; // C525
-    cam.name = "HD Webcam C525 #2";
-    cam.interfaceNum = 2;
-    addCamera(cam);
+    addCamera(1133, 2093, 1, "HD Pro Webcam C920");
+    addCamera(1133, 2086, 2, "HD Webcam C525 #2");
+    UvcCam cam = cameras["HD Webcam C525 #2"];
     uvcControl.useCamera(cam.vendorId, cam.productId, cam.interfaceNum);
-    uvcControl.setAutoExposure(true);
     controls = uvcControl.getCameraControls();
 }
 
 //---------------------------------------------------------
 void loopier::uvc::update()
 {
-    controls = uvcControl.getCameraControls();
+    // uncomment this if you want control feedback (I guess -- it's in ofxUvc example)
+//    controls = uvcControl.getCameraControls();
 }
 
 //---------------------------------------------------------
 void loopier::uvc::addCamera(UvcCam & cam)
 {
+    ofLogNotice()   << "Added camera to UVC:\n"
+    << "\tName: " << cam.name << endl
+    << "\tVendorID: " << cam.vendorId << endl
+    << "\tProductID: " << cam.productId << endl
+    << "\tInterface #" << cam.interfaceNum << endl;
     cameras[cam.name] = cam;
 }
 
@@ -56,6 +56,14 @@ void loopier::uvc::addCamera(int aVendorId, int aProductId, int anInterfaceNum, 
     cam.name = aName;
 
     addCamera(cam);
+}
+
+//---------------------------------------------------------
+void loopier::uvc::useCamera(string name)
+{
+    uvcControl.useCamera(cameras[name].vendorId,
+                         cameras[name].productId,
+                         cameras[name].interfaceNum);
 }
 
 //---------------------------------------------------------

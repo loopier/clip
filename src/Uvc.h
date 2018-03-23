@@ -25,6 +25,8 @@ namespace loopier {
         void update();
         void addCamera(UvcCam & cam);
         void addCamera(int aVendorId, int aProductId, int anInterfaceNum, string aName);
+        /// \brief  Activates controls for the given camera
+        void useCamera(string name);
         
         void setAutoExposure(const bool autoexposure);
         void setExposure(const float exposure);
