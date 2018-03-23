@@ -151,7 +151,7 @@ ofTexture & loopier::CvPlayer::getTexture()
     ofClear(255,255,255,0);
     ofFill();
     ofSetColor(255);
-    for (int i = 0; i < polys.size(); i++) {
+    for (int i = 0; i < maxBlobs && i < polys.size(); i++) {
         ofPolyline poly = polys.at(i);
         ofBeginShape();
         for( int i = 0; i < poly.getVertices().size(); i++) {
