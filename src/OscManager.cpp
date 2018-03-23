@@ -40,8 +40,6 @@ void loopier::OscManager::update()
     while (receiver.hasWaitingMessages()) {
         ofxOscMessage m;
         if (receiver.getNextMessage(m)) {
-            loopier::printOscMessage(m, "OscManager::update\t OSC message received:", OF_LOG_VERBOSE);
-            
             // notify all the listeners about this message and send it to them
             ofNotifyEvent(newOscMessageEvent, m, this);
         }
