@@ -418,15 +418,25 @@ namespace loopier {
         ClipPtr newClipFromBlob(string clipname, string resourcename)
         {
             if (!exists("cv")) return;
-            if (resourcename.length() == 0) resourcename = clipname;
-            ClipPtr clip = newClip(clipname, resourcename);
+            
+            ClipPtr clip;
+            if (exists(clipname)) {
+                clip = getClip(clipname);
+            } else {
+                if (resourcename.length() == 0) resourcename = clipname;
+                clip = newClip(clipname, resourcename);
+            }
+            
             CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
             ofRectangle blob = cv->getBoundingRect(0);
+            
             float x = blob.getCenter().x / ofGetWidth();
             float y = blob.getCenter().y / ofGetHeight();
+            
             clip->setPosition(x, y);
             clip->setScaleX(blob.getWidth() / ofGetWidth());
             clip->setScaleY(blob.getHeight() / ofGetHeight());
+            
             return clip;
         }
         
