@@ -44,7 +44,9 @@ namespace loopier {
             ofPoint getCentroid();
             /// \brief  Returns the bounding rectangle of the biggest blob
             /// \param  blobindex   Int     Index of the blob in the polylines vector
-            ofRectangle  getBoundingRect(int blobindex=0);
+            ofRectangle getBoundingRect(int blobindex=0);
+            /// \brief  Returns the bounding rectangle of the largest blob in the given image
+            ofRectangle getBoundingRect(ofPixels & pix);
 
             void toggleVisibility();
             void show();

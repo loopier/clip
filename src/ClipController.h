@@ -194,8 +194,10 @@ namespace loopier {
         void setMaxBlobs(int numBlobs);
         //// \brief  Sets an area of detection
         void setDetectionArea(ofRectangle & rect);
-        //// \breif  Returns the centroid of the given image
-        ofPoint getCentorid(ofTexture & texture);
+        /// \breif  Returns the bounding rect of the largest blob of the current cv input
+        ofRectangle getBoundingRect();
+        //// \breif  Returns the bounding rect of the given image
+        ofRectangle getBoundingRect(ofImage & image);
     } // namespace cv
     
     namespace utils {

@@ -441,3 +441,27 @@ void loopier::Clip::removeParent()
 {
     parent = shared_ptr<Clip>(new Clip);
 }
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setOriginalHeight(const float h)
+{
+    originalHeight = h;
+}
+
+//---------------------------------------------------------------------------
+float loopier::Clip::getOriginalHeight() const
+{
+    return originalHeight;
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setOriginalOffset(const ofPoint & pos)
+{
+    originalOffset = pos;
+}
+
+//---------------------------------------------------------------------------
+ofPoint & loopier::Clip::getOriginalOffset() 
+{
+    return originalOffset;
+}

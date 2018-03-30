@@ -209,6 +209,14 @@ ofRectangle loopier::CvPlayer::getBoundingRect(int blobindex)
 }
 
 //---------------------------------------------------------
+ofRectangle loopier::CvPlayer::getBoundingRect(ofPixels & pix)
+{
+    if(contourFinder.getPolylines().size() < 1) return;
+    contourFinder.findContours(pix);
+    return getBoundingRect(0);
+}
+
+//---------------------------------------------------------
 void loopier::CvPlayer::toggleVisibility()
 {
     bVisible = !bVisible;

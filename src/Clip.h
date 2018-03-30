@@ -100,6 +100,19 @@ namespace loopier {
         void    setParent(const shared_ptr<Clip> clip);
         void    updateParent();
         void    removeParent();
+        
+        /// \brief  Sets the original height of the blob that created the clip.  Usually used only
+        ///         in frame-player clips, but who knows...
+        void        setOriginalHeight(const float h);
+        /// \brief  Returns the original height of the blob when the clip was created.  Used when
+        ///         replacing blobs
+        float       getOriginalHeight() const;
+        /// \brief  Sets the offset of the blob that created the clip, relative to the clip's
+        ///         center.  Usually used only in frame-player clips, but who knows...
+        void        setOriginalOffset(const ofPoint & pos);
+        /// \brief  Returns the original offset of the blob's cetner when the clip was created.
+        ///         Used when replacing blobs
+        ofPoint &   getOriginalOffset();
     private:
         PlayerPtr   player;     // TODO: Should be a vector of players
         PlayerPtr   maskPlayer; // a player used as a mask
@@ -111,6 +124,8 @@ namespace loopier {
         ofPoint position;
         ofPoint offset; // offset to parent position
         float   width, height;
+        float   originalHeight; ///< Used to scale clip when replacing a blob
+        ofPoint originalOffset; ///< Used to set postition of the clip when replacing a blob
         float   scale, scaleX, scaleY;
         float   anchorPercentX, anchorPercentY;
         ofColor color; ///< Tint

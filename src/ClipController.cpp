@@ -751,6 +751,19 @@ namespace loopier {
             clips[recorderclip]->setHeight(img.getHeight());
             clips[recorderclip]->setPosition(clips[sourceclip]->getPosition());
             recplayer->addFrame( img );
+            
+            // set first frame's blob rectangle as original reference
+            // -- see Clip::setOriginal[Height/Offset](...)
+            int numframes = recplayer->getTotalNumFrames();
+            if (numframes > 1) return;
+            ofRectangle blobrect = cv::getBoundingRect();
+            // height
+            clips[recorderclip]->setOriginalHeight(blobrect.getHeight());
+            // offset
+            ofPoint offset;
+            offset.x = (img.getWidth() / 2) - blobrect.getCenter().x;
+            offset.y = (img.getHeight() / 2) - blobrect.getCenter().y;
+            clips[recorderclip]->setOriginalOffset(offset);
         }
         
         //---------------------------------------------------------------------------
@@ -1101,10 +1114,20 @@ namespace loopier {
             detectionAreaRectangle = rect;
         }
         
-        ofPoint getCentroid(ofTexture & texture)
+        ofRectangle getBoundingRect()
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
             if (!clip::exists("cv")) return;
+            CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
+            return cv->getBoundingRect(0);
+        }
+        
+        ofRectangle getBoundingRect(ofImage & image)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
+            return cv->getBoundingRect(image);
         }
         
         //---------------------------------------------------------------------------
