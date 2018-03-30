@@ -827,6 +827,8 @@ namespace loopier {
                 frames->at(i).save(filename);
                 ofLogVerbose() << "Saving image as: " << filename;
             }
+            
+            saveClip(clipname);
         }
         
         //---------------------------------------------------------------------------
@@ -834,6 +836,51 @@ namespace loopier {
         {
 //            if(!exists(clipname)) return;
             newClip(clipname, resourcename);
+        }
+        
+        //---------------------------------------------------------------------------
+        void saveClip(const string clipname)
+        {
+            if(!exists(clipname)) return;
+            
+            string filename = resourceFilesPath+"clips/"+clipname+".yml";
+            ofLogVerbose() << clipname << ": Saving clip to " << filename;
+            ofFile file(filename, ofFile::WriteOnly);
+            // populate yaml object with clip's info
+            string tab = "  	";
+            ClipPtr clip = clips[clipname];
+            file << "clip:" << endl;
+            file << tab << "name: " << clip->getName() << endl;
+            file << tab << "position:" << endl;
+            file << tab << tab << "x: " << clip->getPosition().x << endl;
+            file << tab << tab << "y: " << clip->getPosition().y << endl;
+            file << tab << "offset:" << endl;
+            file << tab << tab << "x: " << clip->getOffset().x << endl;
+            file << tab << tab << "y: " << clip->getOffset().y << endl;
+            file << tab << "width: " << clip->getWidth() << endl;
+            file << tab << "height: " << clip->getHeight() << endl;
+            file << tab << "originalHeight: " << clip->getOriginalHeight() << endl;
+            file << tab << "originalOffset: " << endl;
+            file << tab << tab << "x: " << clip->getOriginalOffset().x << endl;
+            file << tab << tab << "y: " << clip->getOriginalOffset().y << endl;
+            file << tab << "scale: " << clip->getScale() << endl;
+//            file << tab << tab << "x: " << clip->getScaleX() << endl;
+//            file << tab << tab << "y: " << clip->getScaleY() << endl;
+            file << tab << "color: " << endl;
+            file << tab << tab << "r: " << clip->getColor().r << endl;
+            file << tab << tab << "g: " << clip->getColor().g << endl;
+            file << tab << tab << "b: " << clip->getColor().b << endl;
+            file << tab << tab << "a: " << clip->getColor().a << endl;
+            file << tab << "depth: " << clip->getDepth() << endl;
+            file << tab << "fullscreen: " << clip->isFullscreen() << endl;
+            file << tab << "visible: " << clip->isVisible() << endl;
+//            file << tab << "flipV:" << clip->isFlippedVertically() << endl;
+//            file << tab << "flipH:" << clip->isFlippedHorizontally() << endl;
+            file << tab << "loop: " << static_cast<int>(clip->getLoopState()) << endl;
+            file << tab << "parent: " << clip->getParentName() << endl;
+            
+            file.close();
+            // save info to file
         }
         
         //---------------------------------------------------------------------------

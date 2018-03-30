@@ -96,6 +96,7 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/clearframes"]        = &loopier::MessageMapper::clearFrames;
     messageMap["/loopier/clip/clip/saveframes"]         = &loopier::MessageMapper::saveFrames;
     messageMap["/loopier/clip/clip/loadframes"]         = &loopier::MessageMapper::loadFrames;
+    messageMap["/loopier/clip/clip/save"]               = &loopier::MessageMapper::saveClip;
     // move
     messageMap["/loopier/clip/clip/moveto"] = &loopier::MessageMapper::moveClipTo;
     messageMap["/loopier/clip/clip/center"] = &loopier::MessageMapper::centerClip;
@@ -517,6 +518,12 @@ void loopier::MessageMapper::saveFrames(const Message & msg)
 void loopier::MessageMapper::loadFrames(const Message & msg)
 {
     loopier::clip::loadFrames(msg.getArgAsString(0), msg.getArgAsString(1));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::saveClip(const Message & msg)
+{
+    loopier::clip::saveClip(msg.getArgAsString(0));
 }
 
 // MOVE

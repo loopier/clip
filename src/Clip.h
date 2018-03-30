@@ -41,11 +41,12 @@ namespace loopier {
         void setName(const string& newName);
         string getName() const;
         
-        void play();
-        void stop();
-        void pause(bool bPause=true);
-        void setLoopState(const LoopType state);
-        void setSpeed(const float newSpeed);
+        void        play();
+        void        stop();
+        void        pause(bool bPause=true);
+        void        setLoopState(const LoopType state);
+        LoopType &  getLoopState();
+        void        setSpeed(const float newSpeed);
         
         void setScale(const float newScale);
         void setScaleX(const float newScale);
@@ -56,19 +57,23 @@ namespace loopier {
         void    setPosition(const ofPoint& newPos);
         ofPoint getPosition() const;
         /// \brief  Sets the offset in relation to parent's position
-        void    setOffset(const float x, const float y);
-        void    setWidth(const float w);
-        void    setHeight(const float h);
-        float   getWidth() const;
-        float   getHeight() const;
+        void        setOffset(const float x, const float y);
+        ofPoint &   getOffset();
+        void        setWidth(const float w);
+        void        setHeight(const float h);
+        float       getWidth() const;
+        float       getHeight() const;
         
         void toggleFullscreen();
+        bool isFullscreen();
         void toggleVisibility();
+        bool isVisible();
         void show();
         void hide();
         
-        void setColor(const ofColor& newColor);
-        void setAlpha(const float newAlpha);
+        void        setColor(const ofColor& newColor);
+        ofColor &   getColor();
+        void        setAlpha(const float newAlpha);
         
         void setMask(PlayerPtr aPlayer);
         void maskOn();
@@ -98,6 +103,7 @@ namespace loopier {
         
         /// \brief  Sets given clip as parent of this clip.  It will copy attributes from parent
         void    setParent(const shared_ptr<Clip> clip);
+        string  getParentName();
         void    updateParent();
         void    removeParent();
         

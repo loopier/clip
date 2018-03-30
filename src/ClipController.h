@@ -127,6 +127,8 @@ namespace loopier {
         void clearFrames(const string clipname);
         void saveFrames(const string clipname);
         void loadFrames(const string clipname, const string resourcename);
+        /// \brief  Saves clip's current status
+        void saveClip(const string clipname);
         
         // ----- CLIP ATTRIBUTES -----
         // reset all attributes

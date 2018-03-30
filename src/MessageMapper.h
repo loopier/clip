@@ -104,6 +104,7 @@ private:
     void clearFrames      (const Message & msg);
     void saveFrames       (const Message & msg);
     void loadFrames       (const Message & msg);
+    void saveClip         (const Message & msg);
     // move
     void moveClipTo   (const Message & msg);
     void centerClip   (const Message & msg);

@@ -182,6 +182,12 @@ void loopier::Clip::setLoopState(const loopier::LoopType state)
 }
 
 //---------------------------------------------------------------------------
+loopier::LoopType & loopier::Clip::getLoopState()
+{
+    return loopState;
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::setSpeed(const float newSpeed)
 {
     player->setSpeed(newSpeed);
@@ -246,6 +252,12 @@ void loopier::Clip::setOffset(const float x, const float y)
 }
 
 //---------------------------------------------------------------------------
+ofPoint & loopier::Clip::getOffset()
+{
+    return offset;
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::setWidth(const float w)
 {
     width = w;
@@ -277,10 +289,22 @@ void loopier::Clip::toggleFullscreen()
 }
 
 //---------------------------------------------------------------------------
+bool loopier::Clip::isFullscreen()
+{
+    return bFullscreen;
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::toggleVisibility()
 {
     bVisible = !bVisible;
     ofLogVerbose() << "'" << name << "' visibility: "<< (bVisible? "on" : "off");
+}
+
+//---------------------------------------------------------------------------
+bool loopier::Clip::isVisible()
+{
+    return bVisible;
 }
 
 //---------------------------------------------------------------------------
@@ -303,6 +327,12 @@ void loopier::Clip::setColor(const ofColor & newColor)
     color = newColor;
 //    color.a = alpha * 255;
     ofLogVerbose() << __PRETTY_FUNCTION__ << color;
+}
+
+//---------------------------------------------------------------------------
+ofColor & loopier::Clip::getColor()
+{
+    return color;
 }
 
 //---------------------------------------------------------------------------
@@ -427,6 +457,14 @@ int loopier::Clip::getDepth() const
 void loopier::Clip::setParent(const shared_ptr<Clip> clip)
 {
     parent = clip;
+}
+
+//---------------------------------------------------------------------------
+string loopier::Clip::getParentName()
+{
+    string parentname;
+    if (parent != NULL) return parent->getParentName();
+    else                return "";
 }
 
 //---------------------------------------------------------------------------
