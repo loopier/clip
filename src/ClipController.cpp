@@ -406,10 +406,11 @@ namespace loopier {
             
             
             clips[clipname] = clip;
+            clip->setResourceName(resourcename);
             clip->show();
             if (!isPrivate(clipname)) setPublicClip(clipname);
             bringClipToFront(clipname);
-            ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << resourcename << "'";
+            ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << clip->getResourceName() << "'";
             return clip;
         
         }
@@ -851,6 +852,7 @@ namespace loopier {
             ClipPtr clip = clips[clipname];
             file << "clip:" << endl;
             file << tab << "name: " << clip->getName() << endl;
+            file << tab << "resource: " << clip->getResourceName() << endl;
             file << tab << "position:" << endl;
             file << tab << tab << "x: " << clip->getPosition().x << endl;
             file << tab << tab << "y: " << clip->getPosition().y << endl;
@@ -863,9 +865,9 @@ namespace loopier {
             file << tab << "originalOffset: " << endl;
             file << tab << tab << "x: " << clip->getOriginalOffset().x << endl;
             file << tab << tab << "y: " << clip->getOriginalOffset().y << endl;
-            file << tab << "scale: " << clip->getScale() << endl;
-//            file << tab << tab << "x: " << clip->getScaleX() << endl;
-//            file << tab << tab << "y: " << clip->getScaleY() << endl;
+            file << tab << "scale: " /*<< clip->getScale()*/ << endl;
+            file << tab << tab << "x: " << clip->getScaleX() << endl;
+            file << tab << tab << "y: " << clip->getScaleY() << endl;
             file << tab << "color: " << endl;
             file << tab << tab << "r: " << clip->getColor().r << endl;
             file << tab << tab << "g: " << clip->getColor().g << endl;

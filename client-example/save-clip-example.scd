@@ -21,5 +21,11 @@ g = {
 
 f.value;
 g.value;
-m.sendMsg("/loopier/clip/clip/new", "anim")
 m.sendMsg("/loopier/clip/clip/addframe", "anim", "cam1")
+m.sendMsg("/loopier/clip/clip/save", "anim")
+
+m.sendMsg("/loopier/clip/clip/new", "anim", "exampleclip")
+m.sendMsg("/loopier/clip/clip/new", "oneclip")
+m.sendMsg("/loopier/clip/clip/parent", "anim", "oneclip")
+m.sendMsg("/loopier/clip/clip/new", "exampleclip")
+m.sendMsg("/loopier/clip/clip/save", "exampleclip")

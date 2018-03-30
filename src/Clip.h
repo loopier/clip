@@ -38,8 +38,10 @@ namespace loopier {
         /// \brief  Resets clip to the default state
         void reset();
         
-        void setName(const string& newName);
-        string getName() const;
+        void    setName(const string& newName);
+        string  getName() const;
+        void    setResourceName(const string & newName);
+        string  getResourceName() const;
         
         void        play();
         void        stop();
@@ -52,6 +54,8 @@ namespace loopier {
         void setScaleX(const float newScale);
         void setScaleY(const float newScale);
         float getScale() const;
+        float getScaleX() const;
+        float getScaleY() const;
         
         void    setPosition(const float x, const float y);
         void    setPosition(const ofPoint& newPos);
@@ -127,6 +131,7 @@ namespace loopier {
         bool        bMask;  // turn mask on and off
         
         string  name;
+        string  resourceName;
         ofPoint position;
         ofPoint offset; // offset to parent position
         float   width, height;

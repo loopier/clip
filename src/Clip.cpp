@@ -154,6 +154,19 @@ string loopier::Clip::getName() const
 }
 
 //---------------------------------------------------------------------------
+void loopier::Clip::setResourceName(const string & newName)
+{
+    ofLogVerbose() << name << " using resource: " << newName;
+    resourceName = newName;
+}
+
+//---------------------------------------------------------------------------
+string loopier::Clip::getResourceName() const
+{
+    return resourceName;
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::play()
 {
     player->play();
@@ -223,6 +236,18 @@ void loopier::Clip::setScaleY(const float newScale)
 float loopier::Clip::getScale() const
 {
     return scale;
+}
+
+//---------------------------------------------------------------------------
+float loopier::Clip::getScaleX() const
+{
+    return scaleX;
+}
+
+//---------------------------------------------------------------------------
+float loopier::Clip::getScaleY() const
+{
+    return scaleY;
 }
 
 //---------------------------------------------------------------------------
