@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "ofxUVC.h"
+#include "ofxYAML.h"
 
 namespace loopier {
     namespace uvc {

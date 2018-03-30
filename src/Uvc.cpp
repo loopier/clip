@@ -9,10 +9,23 @@
 #include "Uvc.h"
 
 namespace {
+    ofxYAML                 yaml;
     ofxUVC                  uvcControl;
     vector<ofxUVCControl>   controls;
     map<string, loopier::uvc::UvcCam>  cameras;
     float focus = 0.5;
+    
+    void loadCameraSettings() {
+        yaml.load("camerasettings.yml");
+        for (int i = 0; i < yaml["cameras"].size(); i++) {
+            loopier::uvc::UvcCam cam;
+            cam.name = yaml["cameras"][i]["name"].as<string>();
+            cam.vendorId = yaml["cameras"][i]["vendorId"].as<int>();
+            cam.productId = yaml["cameras"][i]["productId"].as<int>();
+            cam.interfaceNum = yaml["cameras"][i]["interfaceNum"].as<int>();
+            loopier::uvc::addCamera(cam);
+        }
+    }
 }
 
 //---------------------------------------------------------
@@ -21,9 +34,13 @@ void loopier::uvc::init()
     ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
     
     // TODO: Add cameras from config file
-    addCamera(1133, 2093, 1, "HD Pro Webcam C920");
-    addCamera(1133, 2086, 2, "HD Webcam C525 #2");
+//    addCamera(1133, 2093, 1, "HD Pro Webcam C920");
+//    addCamera(1133, 2086, 2, "HD Webcam C525 #2");
+//    UvcCam cam = cameras["HD Pro Webcam C920"];
+    loadCameraSettings();
+    
     UvcCam cam = cameras["HD Pro Webcam C920"];
+    
     uvcControl.useCamera(cam.vendorId, cam.productId, cam.interfaceNum);
     controls = uvcControl.getCameraControls();
 }
@@ -42,7 +59,7 @@ void loopier::uvc::addCamera(UvcCam & cam)
     << "\tName: " << cam.name << endl
     << "\tVendorID: " << cam.vendorId << endl
     << "\tProductID: " << cam.productId << endl
-    << "\tInterface #" << cam.interfaceNum << endl;
+    << "\tInterfaceNum: " << cam.interfaceNum << endl;
     cameras[cam.name] = cam;
 }
 
