@@ -13,6 +13,7 @@
 
 #include "ofMain.h"
 #include "Clip.h"
+#include "ofxYAML.h"
 
 namespace loopier {
     namespace app {
