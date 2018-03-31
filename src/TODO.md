@@ -1,10 +1,7 @@
-- `[NEW]`  SyphonPlayer: similar to CameraPlayer
-  - Needs a vector of players in the Clip class
 - `[NEW]` Convert Console to TextPlayer
 - `[NEW]`  Add ShapePlayer to draw shapes
-- `[NEW]`  Use OSC messages as setup and config files.
+- `[OPT]`  Use OSC messages as setup and config files.
   - Make the app load the file and send messages to itself?
   - Could be CSV, JSON, plain text, ...
-- `[NEW]` Parent clips (and Cv)
 - `[NEW]` Make layers -- Fbo's that render clips and can be stacked in any order
-- `[FIX]` CV resizes input images when they're not from the camera -- CV needs to get the image from an FBO inside Clip, scaled to origin-clip dimensions
+- `[NEW]` Load clips and frames
