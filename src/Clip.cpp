@@ -110,8 +110,8 @@ void loopier::Clip::draw()
         ofSetColor(0, 255, 255);
         if (bDrawName)  ofDrawBitmapString(name, x, y);
         ofNoFill();
-        ofDrawCircle(anchorPercentX * width, anchorPercentY * height, 10);
-        ofDrawRectangle(position.x, position.y, width, height);
+        ofDrawCircle(anchor.x, anchor.y, 10);
+        ofDrawRectangle(x + anchor.x, y + anchor.y, width, height);
         ofDrawBitmapString(name+" "+ofToString(x)+" "+ofToString(y), x+15, y+5);
     }
     ofPopStyle();
