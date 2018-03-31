@@ -759,12 +759,12 @@ namespace loopier {
             if (numframes > 1) return;
             ofRectangle blobrect = cv::getBoundingRect();
             // height
-            clips[recorderclip]->setOriginalHeight(blobrect.getHeight());
+            clips[recorderclip]->setResourceHeight(blobrect.getHeight());
             // offset
             ofPoint offset;
             offset.x = (img.getWidth() / 2) - blobrect.getCenter().x;
             offset.y = (img.getHeight() / 2) - blobrect.getCenter().y;
-            clips[recorderclip]->setOriginalOffset(offset);
+            clips[recorderclip]->setPlayerAnchor(offset);
         }
         
         //---------------------------------------------------------------------------
@@ -859,12 +859,8 @@ namespace loopier {
             file << tab << "offset:" << endl;
             file << tab << tab << "x: " << clip->getOffset().x << endl;
             file << tab << tab << "y: " << clip->getOffset().y << endl;
-            file << tab << "width: " << clip->getWidth() << endl;
-            file << tab << "height: " << clip->getHeight() << endl;
-            file << tab << "originalHeight: " << clip->getOriginalHeight() << endl;
-            file << tab << "originalOffset: " << endl;
-            file << tab << tab << "x: " << clip->getOriginalOffset().x << endl;
-            file << tab << tab << "y: " << clip->getOriginalOffset().y << endl;
+//            file << tab << "width: " << clip->getWidth() << endl;
+//            file << tab << "height: " << clip->getHeight() << endl;
             file << tab << "scale: " /*<< clip->getScale()*/ << endl;
             file << tab << tab << "x: " << clip->getScaleX() << endl;
             file << tab << tab << "y: " << clip->getScaleY() << endl;
@@ -882,9 +878,14 @@ namespace loopier {
             file << tab << "parent: " << clip->getParentName() << endl;
             
             file.close();
-            // save info to file
         }
         
+        //---------------------------------------------------------------------------
+        void loadClip(const string clipname)
+        {
+            if(!exists(clipname)) return;
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+        }
         //---------------------------------------------------------------------------
         //
         //---------------------------------------------------------------------------
