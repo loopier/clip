@@ -341,6 +341,7 @@ namespace loopier {
             loopier::ClipPtr clip;
             if (exists(clipname)) {
                 clip = getClip(clipname);
+                clip->setResourceName(resourcename);
             } else {
                 clip = make_shared<loopier::Clip>(clipname, resourcename);
                 clip->setPosition(0.5, 0.5);
@@ -406,7 +407,6 @@ namespace loopier {
             
             
             clips[clipname] = clip;
-            clip->setResourceName(resourcename);
             clip->show();
             if (!isPrivate(clipname)) setPublicClip(clipname);
             bringClipToFront(clipname);
