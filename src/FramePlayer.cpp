@@ -48,9 +48,6 @@ void loopier::FramePlayer::update()
     if (frames->size() <= 0)    return;
     if (currentFrame > frames->size()) currentFrame = frames->size() - 1;
     
-    setWidth(frames->at(0).getWidth());
-    setHeight(frames->at(0).getHeight());
-    
     float rateRatio = (60 / getFrameRate()) / ofGetFrameRate();
     
     if (lastFrameTime < rateRatio ) {

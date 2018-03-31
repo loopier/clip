@@ -205,9 +205,13 @@ namespace {
             ofPushStyle();
             ofSetColor(255, 255, 0);
             ofNoFill();
+            // clip's margins
             ofDrawRectangle(clipbox);
+            // center of clip
             ofDrawCircle(clipcenter, 10);
-            ofDrawBitmapString(clipname, clipcenter.x+15, clipcenter.y);
+            ofDrawBitmapString(clipname, clipcenter.x+15, clipcenter.y-7);
+            ofDrawBitmapString(ofToString(clipcenter.x)+" "+ofToString(clipcenter.y), clipcenter.x+15, clipcenter.y+7);
+            //
             ofPopStyle();
         }
     }
@@ -451,15 +455,20 @@ namespace loopier {
                 clip = newClip(clipname, resourcename);
             }
             
+            // get info from the blob (size and position)
             CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
             ofRectangle blob = cv->getBoundingRect(0);
+            // get info from the original resource
+            ofRectangle resource = clip->getPlayer()->getBoundingBox();
             
-            float x = blob.getCenter().x / ofGetWidth();
-            float y = blob.getCenter().y / ofGetHeight();
+            float   scaleratio = blob.getHeight() / resource.getHeight();
             
-            clip->setPosition(x, y);
-            clip->setScaleX(blob.getWidth() / ofGetWidth());
-            clip->setScaleY(blob.getHeight() / ofGetHeight());
+            ofPoint finalposition;
+            finalposition.x = blob.x + clip->getPlayerRelativePosition().x;
+            finalposition.y = blob.y + clip->getPlayerRelativePosition().y;
+            
+            clip->setPosition(finalposition);
+            clip->setScale(scaleratio);
             
             return clip;
         }
@@ -791,12 +800,9 @@ namespace loopier {
             recplayer->addFrame( img );
             
             // set first frame's blob rectangle as original reference
-            // -- see Clip::setOriginal[Height/Offset](...)
             int numframes = recplayer->getTotalNumFrames();
             if (numframes > 1) return;
             ofRectangle blobrect = cv::getBoundingRect();
-            // height
-            clips[recorderclip]->getPlayer()->setHeight(blobrect.getHeight());
             // offset
             ofPoint offset;
             offset.x = blobrect.x;
@@ -804,9 +810,6 @@ namespace loopier {
             clips[recorderclip]->getPlayer()->setPosition(offset);
             clips[recorderclip]->getPlayer()->setWidth(blobrect.getWidth());
             clips[recorderclip]->getPlayer()->setHeight(blobrect.getHeight());
-            // normalize offset
-            offset.x /= img.getWidth();
-            offset.y /= img.getHeight();
         }
         
         //---------------------------------------------------------------------------

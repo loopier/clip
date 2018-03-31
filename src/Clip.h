@@ -105,6 +105,9 @@ namespace loopier {
         
         void        setPlayer(PlayerPtr aPlayer);
         PlayerPtr   getPlayer() const;
+        /// \brief  Returns the position of the player RELATIVE to the anchor of the
+        ///         clip containing it
+        ofPoint     getPlayerRelativePosition() const;
         
         void        setInputClip(shared_ptr<Clip> aClip);
         

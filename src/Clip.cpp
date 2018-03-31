@@ -478,6 +478,13 @@ loopier::PlayerPtr loopier::Clip::getPlayer() const
 
 
 //---------------------------------------------------------------------------
+ofPoint loopier::Clip::getPlayerRelativePosition() const
+{
+    return ofPoint(anchor - player->getPosition());;
+}
+
+
+//---------------------------------------------------------------------------
 void loopier::Clip::setInputClip(shared_ptr<Clip> aClip)
 {
     player->setInputPlayer(aClip->getPlayer());

@@ -151,6 +151,12 @@ ofPoint & loopier::BasePlayer::getPosition()
 }
 
 //---------------------------------------------------------
+ofRectangle loopier::BasePlayer::getBoundingBox() const
+{
+    return ofRectangle(position, width, height);
+}
+
+//---------------------------------------------------------
 float loopier::BasePlayer::getSpeed() const
 {
     return speed;

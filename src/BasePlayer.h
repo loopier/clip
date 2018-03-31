@@ -56,6 +56,10 @@ namespace loopier {
         virtual     ofPoint &           getPosition();
         virtual     void 				setPosition(ofPoint & pos);
         
+        /// \brief  Returns the bounding box. Used as reference to resize and reposition when
+        ///         replacing blobs.  Each subclass should override (?)
+        virtual     ofRectangle         getBoundingBox() const;
+        
         virtual     float 				getSpeed() const;
         virtual     float 				getDuration() const;
         virtual     bool				getIsMovieDone() const;
