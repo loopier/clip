@@ -52,6 +52,8 @@ namespace loopier {
         ClipPtr newClipFromBlob(string clipname, string resourcename="");
         void    removeClip(string clipname);
         
+        /// \brief   Adds the clip to the selected clips vector
+        void    selectClip(string clipname);
         /// \brief   Sets the order in which the clip will be drawn -- 0 is top; big numbers are at the bottom
         void    setClipDrawOrder(string clipname, int position);
         /// \brief   Sets clip to the front of all other clips

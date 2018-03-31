@@ -109,10 +109,10 @@ void loopier::Clip::draw()
         outputFbo.draw(x, y);
         ofSetColor(0, 255, 255);
         if (bDrawName)  ofDrawBitmapString(name, x, y);
-        ofNoFill();
-        ofDrawCircle(anchor.x, anchor.y, 10);
-        ofDrawRectangle(x + anchor.x, y + anchor.y, width, height);
-        ofDrawBitmapString(name+" "+ofToString(x)+" "+ofToString(y), x+15, y+5);
+//        ofNoFill();
+//        ofDrawCircle(anchor.x, anchor.y, 10);
+//        ofDrawRectangle(x, y, width, height);
+//        ofDrawBitmapString(name+" "+ofToString(x)+" "+ofToString(y), x+15, y+5);
     }
     ofPopStyle();
 }

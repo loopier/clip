@@ -58,6 +58,7 @@ private:
     void newClipFromBlob      (const Message & msg);
     void removeClip           (const Message & msg);
     void resetClip            (const Message & msg);
+    void selectClip           (const Message & msg);
     // parent
     void setParent            (const Message & msg);
     void removeParent         (const Message & msg);

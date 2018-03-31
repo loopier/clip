@@ -17,6 +17,7 @@ namespace {
     
     // clips
     loopier::ClipMap            clips;      // all clips that have been created
+    vector<string>              selectedclips; // all clips that are selected
     loopier::PlayerMap          players;    // all players
     
     // files
@@ -190,6 +191,21 @@ namespace {
         return dynamic_pointer_cast<loopier::SyphonPlayer> (clips[clipname]->getPlayer());
     }
     
+    // Draws the bounding boxes, centers, names, coords, ... of the selected clips
+    void drawClipsSelection()
+    {
+        for (const auto &clipname : selectedclips) {
+            if (!loopier::clip::exists(clipname)) continue;
+            loopier::ClipPtr clip = clips[clipname];
+            ofRectangle clipboundingbox(clip->getPosition(), clip->getWidth(), clip->getHeight());
+            ofPoint     clipcenter(clip->getPosition() + clip->getAnchor());
+            ofSetColor(255, 255, 0);
+            ofNoFill();
+            ofDrawRectangle(clipboundingbox);
+            ofDrawCircle(clipcenter, 10);
+            ofDrawBitmapString(clipname, clipcenter.x+15, clipcenter.y);
+        }
+    }
 } // namesapce
 
 
@@ -236,6 +252,8 @@ namespace loopier {
                 if (!clip::exists(clipname)) continue;
                 clips.at(clipname)->draw();
             };
+            
+            drawClipsSelection();
             
             ofPushStyle();
             ofSetColor(127, 127, 0);
@@ -454,6 +472,20 @@ namespace loopier {
             clips[clipname]->stop();
 //            clips.erase(clipname);
         }
+        
+        //---------------------------------------------------------------------------
+        void selectClip(string clipname)
+        {
+            if (!exists(clipname)) return;
+            // add only if clip is not already in the list
+            if (std::find(selectedclips.begin(), selectedclips.end(), clipname) != selectedclips.end()) {
+                ofLogError() << "You are trying to select a clip that's already selected";
+            } else {
+                selectedclips.push_back(clipname);
+                ofLogVerbose() << __PRETTY_FUNCTION__ << " " << clipname;
+            }
+        }
+        
         
         //---------------------------------------------------------------------------
         void setClipDrawOrder(string clipname, int position)

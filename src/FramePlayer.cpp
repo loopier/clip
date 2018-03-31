@@ -76,16 +76,16 @@ void loopier::FramePlayer::draw()
                           frames->at(currentFrame).getWidth(),
                           frames->at(currentFrame).getHeight());
     
-    ofSetColor(255, 0, 255);
-    ofNoFill();
-    ofDrawRectangle(framerect);
-    ofDrawRectangle(blobrect);
-    ofDrawBitmapString("blob "+ofToString(blobrect.x)+" "+ofToString(blobrect.y), blobrect.x, blobrect.y-5);
-    ofDrawBitmapString("frame "+ofToString(framerect.x)+" "+ofToString(framerect.y), framerect.x, framerect.y-20);
-    ofDrawBitmapString(ofToString(blobrect.getCenter().x)+" "+ofToString(blobrect.getCenter().y), blobrect.getCenter().x+15, blobrect.getCenter().y);
-    ofDrawBitmapString(ofToString(framerect.getCenter().x)+" "+ofToString(framerect.getCenter().y), framerect.getCenter().x+20, framerect.getCenter().y);
-    ofDrawCircle(framerect.getCenter(), 15);
-    ofDrawCircle(blobrect.getCenter(), 10);
+//    ofSetColor(255, 0, 255);
+//    ofNoFill();
+//    ofDrawRectangle(framerect);
+//    ofDrawRectangle(blobrect);
+//    ofDrawBitmapString("blob "+ofToString(blobrect.x)+" "+ofToString(blobrect.y), blobrect.x, blobrect.y-5);
+//    ofDrawBitmapString("frame "+ofToString(framerect.x)+" "+ofToString(framerect.y), framerect.x, framerect.y-20);
+//    ofDrawBitmapString(ofToString(blobrect.getCenter().x)+" "+ofToString(blobrect.getCenter().y), blobrect.getCenter().x+15, blobrect.getCenter().y);
+//    ofDrawBitmapString(ofToString(framerect.getCenter().x)+" "+ofToString(framerect.getCenter().y), framerect.getCenter().x+20, framerect.getCenter().y);
+//    ofDrawCircle(framerect.getCenter(), 15);
+//    ofDrawCircle(blobrect.getCenter(), 10);
 }
 
 //---------------------------------------------------------
