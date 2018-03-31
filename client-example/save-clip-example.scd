@@ -22,8 +22,10 @@ g = {
 f.value;
 g.value;
 m.sendMsg("/loopier/clip/clip/addframe", "anim", "cam1")
+m.sendMsg("/loopier/clip/clip/scale", "anim", 0.5)
 m.sendMsg("/loopier/clip/clip/save", "anim")
-m.sendMsg("/loopier/clip/clip/moveto", "anim", 0.5, 0.5)
+m.sendMsg("/loopier/clip/clip/moveto", "anim", 0.25, 0.5)
+m.sendMsg("/loopier/clip/clip/scale", "anim", 0.5)
 
 
 m.sendMsg("/loopier/clip/clip/new", "cam2", "HD Pro Webcam C920");
