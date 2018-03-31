@@ -435,6 +435,7 @@ namespace loopier {
             
             clips[clipname] = clip;
             clip->show();
+            clip->getPlayer()->setName(resourcename);
             if (!isPrivate(clipname)) setPublicClip(clipname);
             bringClipToFront(clipname);
             ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << clip->getResourceName() << "'";
@@ -851,6 +852,27 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        namespace { // anonymous namespace to keep this method private
+            // creates a unique YAML file for storing frame information
+            void saveFrameInfo(const string name, const ofRectangle & rect) {
+                string filename = resourceFilesPath+"frames/"+name+"/resource.yml";
+                ofFile file(filename, ofFile::WriteOnly);
+                string tab = "  	";
+                file << "name: " << name << endl;
+                file << "type: frame" << endl;
+                file << "# The following rectangle represents the bounging box of the" << endl;
+                file << "# largest blob in the first frame.  It is used to replace other" << endl;
+                file << "# camera blobs, or other clips." << endl;
+                file << "rect: " << endl;
+                file << tab << "x: " << rect.x << endl;
+                file << tab << "y: " << rect.y << endl;
+                file << tab << "width: " << ofToString(rect.width) << endl;
+                file << tab << "height: " << ofToString(rect.height) << endl;
+                file.close();
+            }
+        }
+        
+        //---------------------------------------------------------------------------
         void saveFrames(const string clipname)
         {
             if(!exists(clipname)) return;
@@ -860,7 +882,8 @@ namespace loopier {
             string path = resourceFilesPath + "frames/" + clipname;
             ofDirectory dir(path);
             // create directory with clip's name if it doesn't exist
-            if (!dir.exists()) dir.create();
+            dir.remove(true);
+            dir.create();
             dir.listDir();
             
             // iterate frame list and save each file as 'clipname_xxx.png'
@@ -874,7 +897,7 @@ namespace loopier {
                 ofLogVerbose() << "Saving image as: " << filename;
             }
             
-            saveClip(clipname);
+            saveFrameInfo(frameplayer->getName(), frameplayer->getBoundingBox());
         }
         
         //---------------------------------------------------------------------------
