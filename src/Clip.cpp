@@ -297,7 +297,7 @@ void loopier::Clip::setPosition(const ofPoint& newPosition)
 //---------------------------------------------------------------------------
 ofPoint loopier::Clip::getPosition() const
 {
-    return position;
+    return position + anchor;
 }
 
 //---------------------------------------------------------------------------
@@ -335,6 +335,15 @@ float loopier::Clip::getWidth() const
 float loopier::Clip::getHeight() const
 {
     return height;
+}
+
+//---------------------------------------------------------------------------
+ofRectangle loopier::Clip::getBoundingBox() const
+{
+    return ofRectangle(getPosition().x - (getWidth() / 2),
+                       getPosition().y - (getHeight() / 2),
+                       getWidth(),
+                       getHeight());
 }
 
 //---------------------------------------------------------------------------

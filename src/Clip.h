@@ -64,14 +64,20 @@ namespace loopier {
         
         void    setPosition(const float x, const float y);
         void    setPosition(const ofPoint& newPos);
+        /// \brief  Returns the position modified by the anchor
         ofPoint getPosition() const;
         /// \brief  Sets the offset in relation to parent's position
         void        setOffset(const float x, const float y);
+        /// \brief  Returns the offset in relation to parent's position
         ofPoint &   getOffset();
         void        setWidth(const float w);
         void        setHeight(const float h);
+        /// \brief  Returns the scaled width of the clip
         float       getWidth() const;
+        /// \brief  Returns the scaled height of the clip
         float       getHeight() const;
+        /// \brief  Returns a rectangle representing the clip's bounding box
+        ofRectangle getBoundingBox() const;
         
         void toggleFullscreen();
         bool isFullscreen();

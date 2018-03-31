@@ -196,14 +196,19 @@ namespace {
     {
         for (const auto &clipname : selectedclips) {
             if (!loopier::clip::exists(clipname)) continue;
+            
             loopier::ClipPtr clip = clips[clipname];
-            ofRectangle clipboundingbox(clip->getPosition(), clip->getWidth(), clip->getHeight());
-            ofPoint     clipcenter(clip->getPosition() + clip->getAnchor());
+            
+            ofRectangle clipbox     = clip->getBoundingBox();
+            ofPoint     clipcenter  = clipbox.getCenter();
+            
+            ofPushStyle();
             ofSetColor(255, 255, 0);
             ofNoFill();
-            ofDrawRectangle(clipboundingbox);
+            ofDrawRectangle(clipbox);
             ofDrawCircle(clipcenter, 10);
             ofDrawBitmapString(clipname, clipcenter.x+15, clipcenter.y);
+            ofPopStyle();
         }
     }
 } // namesapce
