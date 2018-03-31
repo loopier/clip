@@ -344,7 +344,7 @@ namespace loopier {
                 clip->setResourceName(resourcename);
             } else {
                 clip = make_shared<loopier::Clip>(clipname, resourcename);
-                clip->setPosition(0.5, 0.5);
+                centerClip(clipname);
             }
             
             // !!!: Should change to something more kosher, like classes returning their types
@@ -748,9 +748,9 @@ namespace loopier {
             imgFbo.readToPixels(pixels);
             img.setFromPixels(pixels);
             
-            clips[recorderclip]->setWidth(img.getWidth());
-            clips[recorderclip]->setHeight(img.getHeight());
-            clips[recorderclip]->setPosition(clips[sourceclip]->getPosition());
+//            clips[recorderclip]->setWidth(img.getWidth());
+//            clips[recorderclip]->setHeight(img.getHeight());
+//            clips[recorderclip]->setPosition(clips[sourceclip]->getPosition());
             recplayer->addFrame( img );
             
             // set first frame's blob rectangle as original reference
@@ -759,12 +759,17 @@ namespace loopier {
             if (numframes > 1) return;
             ofRectangle blobrect = cv::getBoundingRect();
             // height
-            clips[recorderclip]->setResourceHeight(blobrect.getHeight());
+            clips[recorderclip]->getPlayer()->setHeight(blobrect.getHeight());
             // offset
             ofPoint offset;
-            offset.x = (img.getWidth() / 2) - blobrect.getCenter().x;
-            offset.y = (img.getHeight() / 2) - blobrect.getCenter().y;
-            clips[recorderclip]->setPlayerAnchor(offset);
+            offset.x = blobrect.x;
+            offset.y = blobrect.y;
+            clips[recorderclip]->getPlayer()->setPosition(offset);
+            clips[recorderclip]->getPlayer()->setWidth(blobrect.getWidth());
+            clips[recorderclip]->getPlayer()->setHeight(blobrect.getHeight());
+            // normalize offset
+            offset.x /= img.getWidth();
+            offset.y /= img.getHeight();
         }
         
         //---------------------------------------------------------------------------
@@ -903,7 +908,7 @@ namespace loopier {
         void moveClipTo(const string clipname, const float x, const float y)
         {
             if(!exists(clipname)) return;
-            clips[clipname]->setPosition(x, y);
+            clips[clipname]->setPosition(x * ofGetWidth(), y * ofGetHeight());
         }
         
         //---------------------------------------------------------------------------

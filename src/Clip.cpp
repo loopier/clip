@@ -73,6 +73,8 @@ void loopier::Clip::update()
     outputFbo.begin();
     ofClear(255,255,255,0);
     ofPushMatrix();
+//    ofTranslate(outputFbo.getWidth()/2 - (player->getWidth()/2 * scaleX),
+//                outputFbo.getHeight()/2 - (player->getHeight()/2 * scaleY));
     ofTranslate(outputFbo.getWidth()/2 - (player->getWidth()/2 * scaleX),
                 outputFbo.getHeight()/2 - (player->getHeight()/2 * scaleY));
     ofScale(scaleX, scaleY);
@@ -104,10 +106,15 @@ void loopier::Clip::draw()
         
         outputFbo.draw(fx, fy, fw, fh);
     } else {
-        float x = position.x * ofGetWidth();
-        float y = position.y * ofGetHeight();
+        float x = position.x + (anchorPercentX * width);
+        float y = position.y + (anchorPercentY * height);
         outputFbo.draw(x, y);
+        ofSetColor(0, 255, 255);
         if (bDrawName)  ofDrawBitmapString(name, x, y);
+        ofNoFill();
+        ofDrawCircle(anchorPercentX * width, anchorPercentY * height, 10);
+        ofDrawRectangle(position.x, position.y, width, height);
+        ofDrawBitmapString(name+" "+ofToString(x)+" "+ofToString(y), x+15, y+5);
     }
     ofPopStyle();
 }

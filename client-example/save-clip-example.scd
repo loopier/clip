@@ -7,7 +7,7 @@ m.sendMsg("/loopier/clip/clip/new", "cam1", "HD Webcam C525 #2");
 (
 f = {
 	m.sendMsg("/loopier/clip/clip/new", "cam1", "HD Pro Webcam C920");
-	m.sendMsg("/loopier/clip/clip/new", "anim");
+	m.sendMsg("/loopier/clip/clip/new", "oneclip");
 };
 g = {
 	m.sendMsg("/loopier/clip/cv/setinput", "cam1");
@@ -21,7 +21,7 @@ g = {
 
 f.value;
 g.value;
-m.sendMsg("/loopier/clip/clip/addframe", "anim", "cam1")
+m.sendMsg("/loopier/clip/clip/addframe", "oneclip", "cam1")
 m.sendMsg("/loopier/clip/clip/save", "anim")
 
 m.sendMsg("/loopier/clip/clip/new", "anim", "exampleclip")

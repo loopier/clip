@@ -145,7 +145,7 @@ bool loopier::BasePlayer::isPlaying() const
 }
 
 //---------------------------------------------------------
-ofPoint & loopier::BasePlayer::getPosition() const
+ofPoint & loopier::BasePlayer::getPosition()
 {
     return position;
 }

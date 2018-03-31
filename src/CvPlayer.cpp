@@ -119,6 +119,8 @@ void loopier::CvPlayer::drawBlobs()
         ofEndShape();
         
         ofDrawRectangle(getBoundingRect(i));
+        ofDrawBitmapString("cv "+ofToString(getBoundingRect(i).getCenter().x)+" "+ofToString(getBoundingRect(i).getCenter().y),
+                           getBoundingRect(i).getCenter().x, getBoundingRect(i).getCenter().y-5);
     }
     shapeFbo.end();
     

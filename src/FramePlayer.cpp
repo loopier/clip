@@ -69,7 +69,23 @@ void loopier::FramePlayer::draw()
 {
     if (frames->size() <= 0)            return;
     if (currentFrame >= frames->size()) return;
-    frames->at(currentFrame).draw(position);
+    frames->at(currentFrame).draw(0,0);
+    
+    ofRectangle blobrect(position, width, height);
+    ofRectangle framerect(0, 0,
+                          frames->at(currentFrame).getWidth(),
+                          frames->at(currentFrame).getHeight());
+    
+    ofSetColor(255, 0, 255);
+    ofNoFill();
+    ofDrawRectangle(framerect);
+    ofDrawRectangle(blobrect);
+    ofDrawBitmapString("blob "+ofToString(blobrect.x)+" "+ofToString(blobrect.y), blobrect.x, blobrect.y-5);
+    ofDrawBitmapString("frame "+ofToString(framerect.x)+" "+ofToString(framerect.y), framerect.x, framerect.y-20);
+    ofDrawBitmapString(ofToString(blobrect.getCenter().x)+" "+ofToString(blobrect.getCenter().y), blobrect.getCenter().x+15, blobrect.getCenter().y);
+    ofDrawBitmapString(ofToString(framerect.getCenter().x)+" "+ofToString(framerect.getCenter().y), framerect.getCenter().x+20, framerect.getCenter().y);
+    ofDrawCircle(framerect.getCenter(), 15);
+    ofDrawCircle(blobrect.getCenter(), 10);
 }
 
 //---------------------------------------------------------
