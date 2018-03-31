@@ -267,37 +267,6 @@ void    loopier::BasePlayer::previousFrame()
 }
 
 //---------------------------------------------------------
-void    loopier::BasePlayer::setResourceDimensions(const float w, const float h)
-{
-    setResourceWidth(w);
-    setResourceHeight(h);
-}
-
-//---------------------------------------------------------
-void    loopier::BasePlayer::setResourceWidth(const float w)
-{
-    resourceWidth = w;
-}
-
-//---------------------------------------------------------
-void    loopier::BasePlayer::setResourceHeight(const float h)
-{
-    resourceHeight = h;
-}
-
-//---------------------------------------------------------
-float    loopier::BasePlayer::getResourceWidth()
-{
-    return resourceWidth;
-}
-
-//---------------------------------------------------------
-float    loopier::BasePlayer::getResourceHeight()
-{
-    return resourceWidth;
-}
-
-//---------------------------------------------------------
 void    loopier::BasePlayer::setAnchorPercent(const float x, const float y)
 {
     anchor.x = x;

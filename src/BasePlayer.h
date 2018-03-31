@@ -78,12 +78,6 @@ namespace loopier {
         virtual     void				nextFrame();
         virtual     void				previousFrame();
         
-        virtual     void                setResourceDimensions(const float w, const float h);
-        virtual     void                setResourceWidth(const float w);
-        virtual     void                setResourceHeight(const float h);
-        virtual     float               getResourceWidth();
-        virtual     float               getResourceHeight();
-        
         virtual     void                setAnchorPercent(const float x, const float y);
         virtual     void                setAnchorPercent(const ofPoint & point);
         virtual     ofPoint             getAnchorPercent();
@@ -92,8 +86,6 @@ namespace loopier {
         
         ofPoint position;
         float   width, height;
-        float   resourceWidth; ///< Reference width for resizing when replacing blobs
-        float   resourceHeight; ///< Reference width for resizing when replacing blobs
         ofPoint anchor; ///< Drawing 'center' (normalized)
         
         shared_ptr<BasePlayer>  inputPlayer;
