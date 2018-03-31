@@ -57,7 +57,7 @@ void loopier::Clip::setup(PlayerPtr aplayer)
     aplayer->setLoopState(loopState);
     
     setPlayer(aplayer);
-    
+    setAnchorPercent(0.5, 0.5);
     outputFbo.clear();
     outputFbo.allocate(player->getWidth(), player->getHeight());
     outputFbo.setAnchorPercent(0.5, 0.5);
@@ -104,8 +104,8 @@ void loopier::Clip::draw()
         
         outputFbo.draw(fx, fy, fw, fh);
     } else {
-        float x = position.x + (anchorPercentX * width);
-        float y = position.y + (anchorPercentY * height);
+        float x = position.x + anchor.x;
+        float y = position.y + anchor.y;
         outputFbo.draw(x, y);
         ofSetColor(0, 255, 255);
         if (bDrawName)  ofDrawBitmapString(name, x, y);
@@ -254,6 +254,31 @@ float loopier::Clip::getScaleX() const
 float loopier::Clip::getScaleY() const
 {
     return scaleY;
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setAnchorPercent(const float anchorX, const float anchorY)
+{
+    anchor.x = anchorX * width;
+    anchor.y = anchorY * height;
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setAnchorPercent(const ofPoint & newAnchorPercent)
+{
+    setAnchorPercent(newAnchorPercent.x, newAnchorPercent.y);
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::setAnchor(const ofPoint & newAnchor)
+{
+    anchor = newAnchor;
+}
+
+//---------------------------------------------------------------------------
+ofPoint & loopier::Clip::getAnchor()
+{
+    return anchor;
 }
 
 //---------------------------------------------------------------------------

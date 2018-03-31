@@ -57,6 +57,11 @@ namespace loopier {
         float getScaleX() const;
         float getScaleY() const;
         
+        void setAnchorPercent(const float anchorX, const float anchorY);
+        void setAnchorPercent(const ofPoint & newAnchorPercent);
+        void setAnchor(const ofPoint & newAnchor);
+        ofPoint & getAnchor();
+        
         void    setPosition(const float x, const float y);
         void    setPosition(const ofPoint& newPos);
         ofPoint getPosition() const;
@@ -125,6 +130,7 @@ namespace loopier {
         float   width, height;
         float   scale, scaleX, scaleY;
         float   anchorPercentX, anchorPercentY;
+        ofPoint anchor;
         ofColor color; ///< Tint
         float   alpha; ///< Transparency of the clip
         
