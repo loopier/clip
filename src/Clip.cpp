@@ -73,8 +73,6 @@ void loopier::Clip::update()
     outputFbo.begin();
     ofClear(255,255,255,0);
     ofPushMatrix();
-//    ofTranslate(outputFbo.getWidth()/2 - (player->getWidth()/2 * scaleX),
-//                outputFbo.getHeight()/2 - (player->getHeight()/2 * scaleY));
     ofTranslate(outputFbo.getWidth()/2 - (player->getWidth()/2 * scaleX),
                 outputFbo.getHeight()/2 - (player->getHeight()/2 * scaleY));
     ofScale(scaleX, scaleY);
