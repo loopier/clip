@@ -19,6 +19,7 @@ loopier::Clip::Clip(){
 loopier::Clip::Clip(string& clipname, string& resourcename)
 : bMask(false)
 , name(clipname)
+, resourceName(resourcename)
 , position(0,0)
 , offset(0,0)
 , width(ofGetWidth())
@@ -130,7 +131,7 @@ void loopier::Clip::reset()
     height = player->getHeight();
     anchorPercentX = 0.5;
     anchorPercentY = 0.5;
-    player->setAnchorPercent(anchorPercentX, anchorPercentY);
+//    player->setAnchorPercent(anchorPercentX, anchorPercentY);
     position.x = ofGetWidth() / 2;
     position.y = ofGetHeight() / 2;
     scale = 1.0;
@@ -503,28 +504,4 @@ void loopier::Clip::updateParent()
 void loopier::Clip::removeParent()
 {
     parent = shared_ptr<Clip>(new Clip);
-}
-
-//---------------------------------------------------------------------------
-void loopier::Clip::setOriginalHeight(const float h)
-{
-    originalHeight = h;
-}
-
-//---------------------------------------------------------------------------
-float loopier::Clip::getOriginalHeight() const
-{
-    return originalHeight;
-}
-
-//---------------------------------------------------------------------------
-void loopier::Clip::setOriginalOffset(const ofPoint & pos)
-{
-    originalOffset = pos;
-}
-
-//---------------------------------------------------------------------------
-ofPoint & loopier::Clip::getOriginalOffset() 
-{
-    return originalOffset;
 }

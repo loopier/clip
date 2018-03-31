@@ -16,12 +16,12 @@ loopier::BasePlayer::BasePlayer()
 , speed(1.0)
 //, frameRate(ofGetFrameRate())
 , position(ofPoint(0,0))
+, anchor(0.0,0.0)
 , currentFrame(0)
 , loopState(loopier::LoopType::normal)
 , playDirection(loopier::PlayDirection::normal)
 , bLoaded(false)
 , bPlay(true)
-, anchor(0.0,0.0)
 {
     
 }
@@ -145,7 +145,7 @@ bool loopier::BasePlayer::isPlaying() const
 }
 
 //---------------------------------------------------------
-ofPoint   loopier::BasePlayer::getPosition() const
+ofPoint & loopier::BasePlayer::getPosition() const
 {
     return position;
 }
@@ -267,10 +267,53 @@ void    loopier::BasePlayer::previousFrame()
 }
 
 //---------------------------------------------------------
-void    loopier::BasePlayer::setAnchorPercent(float x, float y)
+void    loopier::BasePlayer::setResourceDimensions(const float w, const float h)
+{
+    setResourceWidth(w);
+    setResourceHeight(h);
+}
+
+//---------------------------------------------------------
+void    loopier::BasePlayer::setResourceWidth(const float w)
+{
+    resourceWidth = w;
+}
+
+//---------------------------------------------------------
+void    loopier::BasePlayer::setResourceHeight(const float h)
+{
+    resourceHeight = h;
+}
+
+//---------------------------------------------------------
+float    loopier::BasePlayer::getResourceWidth()
+{
+    return resourceWidth;
+}
+
+//---------------------------------------------------------
+float    loopier::BasePlayer::getResourceHeight()
+{
+    return resourceWidth;
+}
+
+//---------------------------------------------------------
+void    loopier::BasePlayer::setAnchorPercent(const float x, const float y)
 {
     anchor.x = x;
     anchor.y = y;
+}
+
+//---------------------------------------------------------
+void    loopier::BasePlayer::setAnchorPercent(const ofPoint & pos)
+{
+    setAnchorPercent(pos.x, pos.y);
+}
+
+//---------------------------------------------------------
+ofPoint    loopier::BasePlayer::getAnchorPercent()
+{
+    return anchor;
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

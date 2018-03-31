@@ -53,7 +53,7 @@ namespace loopier {
         //    bool				isInitialized() const{ return isLoaded(); }
         
         //should implement!
-        virtual     ofPoint             getPosition() const;
+        virtual     ofPoint &           getPosition() const;
         virtual     void 				setPosition(ofPoint & pos);
         
         virtual     float 				getSpeed() const;
@@ -78,12 +78,23 @@ namespace loopier {
         virtual     void				nextFrame();
         virtual     void				previousFrame();
         
-        virtual     void                setAnchorPercent(float x, float y);
+        virtual     void                setResourceDimensions(const float w, const float h);
+        virtual     void                setResourceWidth(const float w);
+        virtual     void                setResourceHeight(const float h);
+        virtual     float               getResourceWidth();
+        virtual     float               getResourceHeight();
+        
+        virtual     void                setAnchorPercent(const float x, const float y);
+        virtual     void                setAnchorPercent(const ofPoint & point);
+        virtual     ofPoint             getAnchorPercent();
     protected:
         BasePlayer();
         
-        ofPoint       position;
-        float width, height;
+        ofPoint position;
+        float   width, height;
+        float   resourceWidth; ///< Reference width for resizing when replacing blobs
+        float   resourceHeight; ///< Reference width for resizing when replacing blobs
+        ofPoint anchor; ///< Drawing 'center' (normalized)
         
         shared_ptr<BasePlayer>  inputPlayer;
         
@@ -99,7 +110,6 @@ namespace loopier {
         bool    bPlay;
         bool    bMovieDone;
         
-        ofPoint     anchor; // Drawing 'center'
     };
     
     typedef shared_ptr<BasePlayer>      PlayerPtr;
