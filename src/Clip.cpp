@@ -259,8 +259,8 @@ float loopier::Clip::getScaleY() const
 //---------------------------------------------------------------------------
 void loopier::Clip::setPosition(const float x, const float y)
 {
-    position.x = x;
-    position.y = y;
+    position.x = x - (anchorPercentX * width);
+    position.y = y - (anchorPercentY * height);
 }
 
 //---------------------------------------------------------------------------
