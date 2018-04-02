@@ -918,6 +918,34 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        void firstFrame(const string clipname)
+        {
+            if(!exists(clipname)) return;
+            clips[clipname]->getPlayer()->firstFrame();
+        }
+        
+        //---------------------------------------------------------------------------
+        void nextFrame(const string clipname)
+        {
+            if(!exists(clipname)) return;
+            clips[clipname]->getPlayer()->nextFrame();
+        }
+        
+        //---------------------------------------------------------------------------
+        void previousFrame(const string clipname)
+        {
+            if(!exists(clipname)) return;
+            clips[clipname]->getPlayer()->previousFrame();
+        }
+        
+        //---------------------------------------------------------------------------
+        void lastFrame(const string clipname)
+        {
+            if(!exists(clipname)) return;
+            clips[clipname]->getPlayer()->lastFrame();
+        }
+        
+        //---------------------------------------------------------------------------
         void saveClip(const string clipname)
         {
             if(!exists(clipname)) return;

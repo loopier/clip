@@ -129,6 +129,14 @@ namespace loopier {
         void clearFrames(const string clipname);
         void saveFrames(const string clipname);
         void loadFrames(const string clipname, const string resourcename);
+        /// \brief  Goes to the first frame of the player
+        void firstFrame(const string clipname);
+        /// \brief  Plays one frame
+        void nextFrame(const string clipname);
+        /// \brief  Goes back one frame
+        void previousFrame(const string clipname);
+        /// \brief  Goes to last frame of the movie
+        void lastFrame(const string clipname);
         /// \brief  Saves clip's current status
         void saveClip(const string clipname);
         /// \brief  Loads a clip

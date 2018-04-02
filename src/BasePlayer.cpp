@@ -280,6 +280,12 @@ void    loopier::BasePlayer::previousFrame()
 }
 
 //---------------------------------------------------------
+void    loopier::BasePlayer::lastFrame()
+{
+    ofLogNotice() << __PRETTY_FUNCTION__ << " is not implemented";
+}
+
+//---------------------------------------------------------
 void    loopier::BasePlayer::setAnchorPercent(const float x, const float y)
 {
     anchor.x = x;

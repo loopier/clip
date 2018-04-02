@@ -105,6 +105,10 @@ private:
     void clearFrames      (const Message & msg);
     void saveFrames       (const Message & msg);
     void loadFrames       (const Message & msg);
+    void firstFrame       (const Message & msg);
+    void nextFrame        (const Message & msg);
+    void previousFrame    (const Message & msg);
+    void lastFrame        (const Message & msg);
     void saveClip         (const Message & msg);
     // move
     void moveClipTo   (const Message & msg);

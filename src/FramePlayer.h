@@ -56,6 +56,7 @@ namespace loopier {
         void    firstFrame();
         void    nextFrame();
         void    previousFrame();
+        void    lastFrame();
         
         /// \brief  Adds an image at the end
         void    addFrame(ofImage & img);

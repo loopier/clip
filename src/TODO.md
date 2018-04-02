@@ -6,3 +6,4 @@
 - `[NEW]` Make layers -- Fbo's that render clips and can be stacked in any order
 - `[NEW]` Navigate through frames (next, previous, ...)
 - `[NEW]` Load clips
+- `[NEW]` Delete clips

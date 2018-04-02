@@ -82,6 +82,7 @@ namespace loopier {
         virtual     void				firstFrame();
         virtual     void				nextFrame();
         virtual     void				previousFrame();
+        virtual     void				lastFrame();
         
         virtual     void                setAnchorPercent(const float x, const float y);
         virtual     void                setAnchorPercent(const ofPoint & point);

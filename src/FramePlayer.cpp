@@ -232,6 +232,12 @@ void loopier::FramePlayer::previousFrame()
 }
 
 //---------------------------------------------------------
+void loopier::FramePlayer::lastFrame()
+{
+    currentFrame = frames->size() - 1;
+}
+
+//---------------------------------------------------------
 void loopier::FramePlayer::addFrame(ofImage & img)
 {
     frames->push_back(img);
