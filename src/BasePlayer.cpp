@@ -209,7 +209,11 @@ void    loopier::BasePlayer::setPlayDirection(PlayDirection dir)
 //---------------------------------------------------------
 void    loopier::BasePlayer::changePlayDirection()
 {
-    playDirection == loopier::PlayDirection::normal? loopier::PlayDirection::reverse : loopier::PlayDirection::normal;
+    if (playDirection == loopier::PlayDirection::normal) {
+        playDirection = loopier::PlayDirection::reverse;
+    } else {
+        playDirection = loopier::PlayDirection::normal;
+    }
 }
 
 //---------------------------------------------------------

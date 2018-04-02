@@ -200,8 +200,8 @@ void loopier::FramePlayer::nextFrame()
         if (loopState == loopier::LoopType::normal) {
             firstFrame();
         } else if (loopState == loopier::LoopType::palindrome) {
-            currentFrame--;
             changePlayDirection();
+            currentFrame--;
         } else if (loopState == loopier::LoopType::none) {
             currentFrame--;
             stop();
@@ -220,8 +220,8 @@ void loopier::FramePlayer::previousFrame()
         if (loopState == loopier::LoopType::normal) {
             currentFrame = frames->size() - 1;
         } else if (loopState == loopier::LoopType::palindrome) {
-            currentFrame++;
             changePlayDirection();
+            currentFrame++;
         } else if (loopState == loopier::LoopType::none) {
             currentFrame++;
             stop();

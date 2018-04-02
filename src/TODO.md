@@ -4,6 +4,6 @@
   - Make the app load the file and send messages to itself?
   - Could be CSV, JSON, plain text, ...
 - `[NEW]` Make layers -- Fbo's that render clips and can be stacked in any order
-- `[NEW]` Navigate through frames (next, previous, ...)
 - `[NEW]` Load clips
+- `[NEW]` Fade away -- in frame clips add alpha to previous frames
 - `[NEW]` Delete clips
