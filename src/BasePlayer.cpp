@@ -188,6 +188,13 @@ void    loopier::BasePlayer::setPosition(ofPoint & pos)
 }
 
 //---------------------------------------------------------
+void    loopier::BasePlayer::setPosition(const float x, const float y)
+{
+    position.x = x;
+    position.y = y;
+}
+
+//---------------------------------------------------------
 void    loopier::BasePlayer::setLoopState(LoopType state)
 {
     loopState = state;

@@ -420,6 +420,14 @@ namespace loopier {
                 loopier::FramePlayerPtr frameplayer(new FramePlayer(frames[resourcename]));
                 clip->setup(frameplayer);
                 frameclipslist.push_back(clipname);
+                // load YAML info from the file
+                string filename = resourceFilesPath+"frames/"+resourcename+"/resource.yml";
+                ofxYAML yaml;
+                yaml.load(filename);
+                frameplayer->setName(yaml["name"].as<string>());
+                frameplayer->setPosition(yaml["rect"]["x"].as<float>(), yaml["rect"]["y"].as<float>());
+                frameplayer->setWidth(yaml["rect"]["width"].as<float>());
+                frameplayer->setHeight(yaml["rect"]["height"].as<float>());
                 cliptype = "frame";
             }
             
@@ -901,9 +909,11 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        // load the info of the frames into the clip
         void loadFrames(const string clipname, const string resourcename)
         {
-//            if(!exists(clipname)) return;
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if(!exists(clipname)) return;
             newClip(clipname, resourcename);
         }
         

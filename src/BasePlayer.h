@@ -55,6 +55,7 @@ namespace loopier {
         //should implement!
         virtual     ofPoint &           getPosition();
         virtual     void 				setPosition(ofPoint & pos);
+        virtual     void                setPosition(const float x, const float y);
         
         /// \brief  Returns the bounding box. Used as reference to resize and reposition when
         ///         replacing blobs.  Each subclass should override (?)

@@ -132,7 +132,7 @@ namespace loopier {
         /// \brief  Saves clip's current status
         void saveClip(const string clipname);
         /// \brief  Loads a clip
-        void loadclip(const string clipname);
+        void loadClip(const string clipname);
         
         // ----- CLIP ATTRIBUTES -----
         // reset all attributes
