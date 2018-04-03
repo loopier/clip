@@ -946,6 +946,13 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        void goToFrame(const string clipname, const int framenumber)
+        {
+            if(!exists(clipname)) return;
+            clips[clipname]->getPlayer()->setFrame(framenumber);
+        }
+        
+        //---------------------------------------------------------------------------
         void saveClip(const string clipname)
         {
             if(!exists(clipname)) return;

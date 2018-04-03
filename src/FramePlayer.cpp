@@ -163,7 +163,7 @@ float loopier::FramePlayer::getDuration() const
 
 
 //---------------------------------------------------------
-void loopier::FramePlayer::setSpeed(float newSpeed)
+void loopier::FramePlayer::setSpeed(const float newSpeed)
 {
     speed = newSpeed;
     frameRate = speed * ofGetFrameRate();
@@ -171,10 +171,17 @@ void loopier::FramePlayer::setSpeed(float newSpeed)
 }
 
 //---------------------------------------------------------
-void loopier::FramePlayer::setFrameRate(int fps)
+void loopier::FramePlayer::setFrameRate(const int fps)
 {
     frameRate = fps;
     speed = (60 / frameRate) / ofGetFrameRate();
+}
+
+//---------------------------------------------------------
+void loopier::FramePlayer::setFrame(const int frame)
+{
+    currentFrame = frame % frames->size();
+    ofLogWarning() << "There are only " << frames->size() << " frames in '" << name << "'.  Wrapping frame to number " << currentFrame;
 }
 
 

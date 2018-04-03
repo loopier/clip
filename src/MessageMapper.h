@@ -109,6 +109,7 @@ private:
     void nextFrame        (const Message & msg);
     void previousFrame    (const Message & msg);
     void lastFrame        (const Message & msg);
+    void goToFrame        (const Message & msg);
     void saveClip         (const Message & msg);
     // move
     void moveClipTo   (const Message & msg);

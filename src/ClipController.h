@@ -137,6 +137,8 @@ namespace loopier {
         void previousFrame(const string clipname);
         /// \brief  Goes to last frame of the movie
         void lastFrame(const string clipname);
+        /// \brief  Sets player's head to the given frame
+        void goToFrame(const string clipname, const int framenumber);
         /// \brief  Saves clip's current status
         void saveClip(const string clipname);
         /// \brief  Loads a clip

@@ -101,6 +101,7 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clip/nextframe"]          = &loopier::MessageMapper::nextFrame;
     messageMap["/loopier/clip/clip/previousframe"]      = &loopier::MessageMapper::previousFrame;
     messageMap["/loopier/clip/clip/lastframe"]          = &loopier::MessageMapper::lastFrame;
+    messageMap["/loopier/clip/clip/gotoframe"]          = &loopier::MessageMapper::goToFrame;
     messageMap["/loopier/clip/clip/save"]               = &loopier::MessageMapper::saveClip;
     // move
     messageMap["/loopier/clip/clip/moveto"] = &loopier::MessageMapper::moveClipTo;
@@ -553,6 +554,12 @@ void loopier::MessageMapper::previousFrame(const Message & msg)
 void loopier::MessageMapper::lastFrame(const Message & msg)
 {
     loopier::clip::lastFrame(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::goToFrame(const Message & msg)
+{
+    loopier::clip::goToFrame(msg.getArgAsString(0), msg.getArgAsInt(1));
 }
 
 //---------------------------------------------------------

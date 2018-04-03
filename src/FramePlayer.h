@@ -48,8 +48,9 @@ namespace loopier {
         
         float     getDuration() const;
         
-        void    setSpeed(float newSpeed);
-        void    setFrameRate(int fps);
+        void    setSpeed(const float newSpeed);
+        void    setFrameRate(const int fps);
+        void    setFrame(const int frame);
         
         int    	getTotalNumFrames() const;
         
