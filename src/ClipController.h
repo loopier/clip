@@ -216,6 +216,8 @@ namespace loopier {
         ofRectangle getBoundingRect(ofImage & image);
         //// \breif  Adds the active blob to the selection
         void selectBlob();
+        //// \breif  Removes the active blob from the selection
+        void deselectBlob();
         //// \breif  Sets first blob as active
         void firstBlob();
         //// \breif  Sets next blob as active

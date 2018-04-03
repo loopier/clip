@@ -95,7 +95,10 @@ void loopier::CvPlayer::draw(float x, float y, float w, float h)
 //---------------------------------------------------------
 void loopier::CvPlayer::draw()
 {
+//    ofPushStyle();
+//    ofSetColor(255,200);
 //    maskFbo.draw(0,0);
+//    ofPopStyle();
 //    contourFinder.draw();
 //    if (inputPlayer) inputPlayer->draw();
 //    ofSetColor(255,0,0);
@@ -112,7 +115,6 @@ void loopier::CvPlayer::drawBlobs()
     shapeFbo.begin();
     ofClear(255,255,255,0);
     ofNoFill();
-    ofSetColor(255);
     for (int i = 0; i < maxBlobs && i < polys.size(); i++) {
         ofPolyline poly = polys.at(i);
         ofBeginShape();
@@ -121,7 +123,11 @@ void loopier::CvPlayer::drawBlobs()
         }
         ofEndShape();
         
+        if (!isBlobSelected(i) && i != currentBlob) continue;
+        ofPushStyle();
+        if (i == currentBlob) ofSetLineWidth(4);
         ofDrawRectangle(getBoundingRect(i));
+        ofPopStyle();
         ofDrawBitmapString("cv "+ofToString(getBoundingRect(i).getCenter().x)+" "+ofToString(getBoundingRect(i).getCenter().y),
                            getBoundingRect(i).getCenter().x, getBoundingRect(i).getCenter().y-5);
     }
@@ -157,7 +163,7 @@ ofTexture & loopier::CvPlayer::getTexture()
     ofFill();
     ofSetColor(255);
     for (int i = 0; i < maxBlobs && i < polys.size(); i++) {
-        if (!isBlobSelected(i)) continue;
+        if (!isBlobSelected(i) && i != currentBlob) continue;
         ofPolyline poly = polys.at(i);
         ofBeginShape();
         for( int i = 0; i < poly.getVertices().size(); i++) {
@@ -291,25 +297,27 @@ void loopier::CvPlayer::setDetectionArea(const ofRectangle & rect)
 //---------------------------------------------------------
 void loopier::CvPlayer::firstBlob()
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    currentBlob = 0;
 }
 
 //---------------------------------------------------------
 void loopier::CvPlayer::nextBlob()
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    currentBlob++;
+    if (currentBlob >= maxBlobs || currentBlob >= contourFinder.getPolylines().size()) currentBlob = 0;
 }
 
 //---------------------------------------------------------
 void loopier::CvPlayer::previousBlob()
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    currentBlob--;
+    if (currentBlob < 0) currentBlob = std::min(maxBlobs, int(contourFinder.getPolylines().size())) - 1;
 }
 
 //---------------------------------------------------------
 void loopier::CvPlayer::lastBlob()
 {
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    currentBlob = maxBlobs - 1;
 }
 
 //---------------------------------------------------------
