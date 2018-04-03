@@ -56,9 +56,7 @@ void loopier::MessageMapper::setupAppCommandsMap()
 void loopier::MessageMapper::setupRecorderCommandsMap()
 {
     // Application commands
-    messageMap["/loopier/clip/app/rec"]     = &loopier::MessageMapper::toggleRecording;
-    messageMap["/loopier/clip/app/record"]  = &loopier::MessageMapper::toggleRecording;
-    messageMap["/loopier/clip/rec"]         = &loopier::MessageMapper::toggleRecording;
+    messageMap["/loopier/clip/rec/record"]  = &loopier::MessageMapper::toggleRecording;
     messageMap["/loopier/clip/rec/start"]   = &loopier::MessageMapper::startRecording;
     messageMap["/loopier/clip/rec/stop"]    = &loopier::MessageMapper::stopRecording;
     messageMap["/loopier/clip/rec/codec"]   = &loopier::MessageMapper::setRecordingVideoCodec;
