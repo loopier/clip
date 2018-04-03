@@ -238,7 +238,7 @@ namespace loopier {
             publicSyphonServer.setName("Public Screen");
             privateSyphonServer.setName("Private Screen");
             
-            recordFbo->allocate(ofGetWidth(), ofGetHeight());
+            recordFbo->allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
             loopier::recorder::setup(recordFbo);
         }
         
@@ -250,19 +250,20 @@ namespace loopier {
             }
             
             recordFbo->begin();
-            ofClear(255,255,255,0);
+            ofEnableAlphaBlending();
+            ofClear(0,0,0,0);
             for (const auto &clipname : publicLayers) {
                 if (!clip::exists(clipname)) continue;
                 clips.at(clipname)->draw();
             };
+            ofDisableAlphaBlending();
             recordFbo->end();
         }
         
         //---------------------------------------------------------------------------
         void draw()
         {
-            recordFbo->draw(0,0);
-            
+            recordFbo->draw(0, 0);
             publicSyphonServer.publishScreen();
             
             for (const auto &clipname : privateLayers) {

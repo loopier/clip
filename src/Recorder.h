@@ -36,7 +36,8 @@ namespace loopier {
             void stop();
             void toggle();
             
-            shared_ptr<ofFbo>   recordFbo;
+            shared_ptr<ofFbo>   inputFbo;
+            ofFbo               recordFbo;
             ofPixels            recordPixels;
         };
         

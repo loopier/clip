@@ -35,14 +35,21 @@ void loopier::recorder::Recorder::setup(shared_ptr<ofFbo> fbo)
     ofAddListener(ofEvents().update, this, &Recorder::update);
     ofAddListener(ofEvents().draw, this, &Recorder::draw);
     
-    recordFbo = fbo;
+    recordFbo.allocate(fbo->getWidth(), fbo->getHeight(), GL_RGBA);
+    inputFbo = fbo;
 }
 
 //--------------------------------------------------------------
 void loopier::recorder::Recorder::update()
 {
     if (bRecording) {
-        recordFbo->readToPixels(recordPixels);
+        recordFbo.begin();
+        ofEnableAlphaBlending();
+        inputFbo->draw(0, 0);
+        ofDisableAlphaBlending();
+        recordFbo.end();
+        
+        recordFbo.readToPixels(recordPixels);
         bool success = vidRecorder.addFrame(recordPixels);
         if (!success) {
             ofLogWarning() << "This frame was not added!";
@@ -81,7 +88,7 @@ void loopier::recorder::Recorder::draw(ofEventArgs& e)
 //--------------------------------------------------------------
 void loopier::recorder::Recorder::recordingComplete(ofxVideoRecorderOutputFileCompleteEventArgs &args)
 {
-    cout << "The recorded vicdeo file is now complete" << endl;
+    cout << "The recorded video file is now complete" << endl;
 }
 
 //--------------------------------------------------------------
@@ -95,7 +102,7 @@ void loopier::recorder::Recorder::start()
 void loopier::recorder::Recorder::stop()
 {
     bRecording = false;
-    cout << "Stopped recording '" << fileName << fileExt << "'" << endl;
+    vidRecorder.close();
 }
 
 //--------------------------------------------------------------
@@ -103,13 +110,16 @@ void loopier::recorder::Recorder::toggle()
 {
     bRecording = !bRecording;
     if (bRecording && !vidRecorder.isInitialized()) {
-        vidRecorder.setup(fileName+fileExt, recorderFbo->getWidth(), recorderFbo->getHeight(), 30);
+        vidRecorder.setup(fileName+fileExt, recordFbo.getWidth(), recordFbo.getHeight(), 30);
         vidRecorder.start();
+        ofLog() << "Started recording to '" << fileName << fileExt << "'" << endl;
+    } else if (!bRecording && vidRecorder.isInitialized()) {
+        vidRecorder.setPaused(true);
+        ofLog() << "Started recording '" << fileName << fileExt << "'" << endl;
+    } else if (bRecording && vidRecorder.isInitialized()) {
+        vidRecorder.setPaused(false);
+        ofLog() << "Resumed recording to '" << fileName << fileExt << "'" << endl;
     }
-    
-    
-    if (bRecording) cout << "Started recording to '" << fileName << fileExt << endl;
-    else            cout << "Stopped recording '" << fileName << fileExt << endl;
 }
 
 //--------------------------------------------------------------
