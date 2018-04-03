@@ -19,11 +19,11 @@ m.sendMsg("/loopier/uvc/use", "HD Pro Webcam C920");
 // change camera settings
 m.sendMsg("/loopier/uvc/autoexposure", 0);
 m.sendMsg("/loopier/uvc/exposure", 0.1);
-m.sendMsg("/loopier/uvc/exposure", 0.9);
+m.sendMsg("/loopier/uvc/exposure", 0.97);
 m.sendMsg("/loopier/uvc/autoexposure", 1);
 m.sendMsg("/loopier/uvc/autofocus", 0);
 m.sendMsg("/loopier/uvc/focus", 0.9);
-m.sendMsg("/loopier/uvc/focus", 0.1);
+m.sendMsg("/loopier/uvc/focus", 0.05);
 m.sendMsg("/loopier/uvc/autofocus", 1);
 m.sendMsg("/loopier/uvc/autowhitebalance", 0);
 m.sendMsg("/loopier/uvc/whitebalance", 0.19);
@@ -31,7 +31,7 @@ m.sendMsg("/loopier/uvc/autowhitebalance", 1);
 m.sendMsg("/loopier/uvc/gain", 0.15);
 m.sendMsg("/loopier/uvc/brightness", 0.5);
 m.sendMsg("/loopier/uvc/contrast", 0.15);
-m.sendMsg("/loopier/uvc/saturation", 0.25);
+m.sendMsg("/loopier/uvc/saturation", 0);
 m.sendMsg("/loopier/uvc/sharpness", 0.1);
 // quit app
 m.sendMsg("/loopier/clip/app/quit");
