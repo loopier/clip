@@ -62,6 +62,11 @@ private:
     void startRecording     (const Message & msg);
     void stopRecording      (const Message & msg);
     void toggleRecording    (const Message & msg);
+    void setRecordingVideoCodec     (const Message & msg);
+    void setRecordingVideoBitrate   (const Message & msg);
+    void setRecordingPath           (const Message & msg);
+    void setRecordingFileName       (const Message & msg);
+    void setRecordingFileExtension  (const Message & msg);
 
     // One Clip commands
     void newClip              (const Message & msg);

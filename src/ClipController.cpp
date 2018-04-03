@@ -125,6 +125,23 @@ namespace {
     }
     
     //---------------------------------------------------------------------------
+    void initializeRecorder()
+    {
+        publicFbo->allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+        loopier::recorder::setup(publicFbo);
+        
+        string path = resourceFilesPath + "recordings/";
+        string filename = "clip_";
+        string ext = ".mov";
+        
+        loopier::recorder::setPath(path);
+        loopier::recorder::setFileName(filename);
+        loopier::recorder::setFileExtension(ext);
+        
+        ofLogVerbose() << "Inizialized " << cameraplayers.size() << " camera players";
+    }
+    
+    //---------------------------------------------------------------------------
     loopier::ClipPtr initializeCv()
     {
         if (cameraplayers.size() <= 0) return;    // needs to provide a camera to the cv player constructor
@@ -230,6 +247,7 @@ namespace loopier {
             loadFrameLists();
             loadMovies();
             initializeCameras(); // FIX: find a way to have them all on.
+            initializeRecorder();
             
             clip::newClip("syphon");
             clip::hideClip("syphon");
@@ -238,9 +256,6 @@ namespace loopier {
             
             publicSyphonServer.setName("Public Screen");
             privateSyphonServer.setName("Private Screen");
-            
-            publicFbo->allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
-            loopier::recorder::setup(publicFbo);
         }
         
         //---------------------------------------------------------------------------
@@ -250,6 +265,7 @@ namespace loopier {
                 item.second->update();
             }
             
+            // Draw public output into an FBO to be able to record it to a movie file
             publicFbo->begin();
             ofEnableAlphaBlending();
             ofClear(0,0,0,0);
@@ -264,7 +280,7 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void draw()
         {
-            recordFbo->draw(0, 0);
+            publicFbo->draw(0, 0);
             publicSyphonServer.publishScreen();
             
             for (const auto &clipname : privateLayers) {

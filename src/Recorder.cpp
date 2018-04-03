@@ -9,7 +9,8 @@
 #include "Recorder.h"
 //--------------------------------------------------------------
 loopier::recorder::Recorder::Recorder()
-: fileName("testMovie")
+: path("") // will save to bin/data by default
+, fileName("testMovie")
 , fileExt(".mov")
 {
     
@@ -88,8 +89,7 @@ void loopier::recorder::Recorder::recordingComplete(ofxVideoRecorderOutputFileCo
 //--------------------------------------------------------------
 void loopier::recorder::Recorder::start()
 {
-    bRecording = true;
-    cout << "Started recording to '" << fileName << fileExt << "'" << endl;
+    ofLogWarning() << __PRETTY_FUNCTION__ << " needs implementation.";
 }
 
 //--------------------------------------------------------------
@@ -104,7 +104,10 @@ void loopier::recorder::Recorder::toggle()
 {
     bRecording = !bRecording;
     if (bRecording && !vidRecorder.isInitialized()) {
-        vidRecorder.setup(fileName+fileExt, recordFbo->getWidth(), recordFbo->getHeight(), 30);
+        vidRecorder.setup(path + fileName + "_" +  ofGetTimestampString("%Y%m%d%H%M%S%i") + fileExt,
+                          recordFbo->getWidth(),
+                          recordFbo->getHeight(),
+                          ofGetFrameRate());
         vidRecorder.start();
         ofLog() << "Started recording to '" << fileName << fileExt << "'" << endl;
     } else if (!bRecording && vidRecorder.isInitialized()) {
@@ -114,6 +117,42 @@ void loopier::recorder::Recorder::toggle()
         vidRecorder.setPaused(false);
         ofLog() << "Resumed recording to '" << fileName << fileExt << "'" << endl;
     }
+}
+
+//--------------------------------------------------------------
+void loopier::recorder::Recorder::setInputFbo(shared_ptr<ofFbo> fbo)
+{
+    recordFbo = fbo;
+}
+
+//--------------------------------------------------------------
+void loopier::recorder::Recorder::setVideoCodec(const string codec)
+{
+    vidRecorder.setVideoCodec(codec);
+}
+
+//--------------------------------------------------------------
+void loopier::recorder::Recorder::setVideoBitrate(const string bitrate)
+{
+    vidRecorder.setVideoBitrate(bitrate);
+}
+
+//--------------------------------------------------------------
+void loopier::recorder::Recorder::setPath(const string newPath)
+{
+    path = newPath;
+}
+
+//--------------------------------------------------------------
+void loopier::recorder::Recorder::setFileName(const string name)
+{
+    fileName = name;
+}
+
+//--------------------------------------------------------------
+void loopier::recorder::Recorder::setFileExtension(const string ext)
+{
+    fileExt = ext;
 }
 
 //--------------------------------------------------------------
@@ -157,4 +196,40 @@ void loopier::recorder::stop()
 void loopier::recorder::toggle()
 {
     rec.toggle();
+}
+
+//--------------------------------------------------------------
+void loopier::recorder::setInputFbo(shared_ptr<ofFbo> fbo)
+{
+    rec.setInputFbo(fbo);
+}
+
+//--------------------------------------------------------------
+void loopier::recorder::setVideoCodec(const string codec)
+{
+    rec.setVideoCodec(codec);
+}
+
+//--------------------------------------------------------------
+void loopier::recorder::setVideoBitrate(const string bitrate)
+{
+    rec.setVideoBitrate(bitrate);
+}
+
+//--------------------------------------------------------------
+void loopier::recorder::setPath(const string path)
+{
+    rec.setPath(path);
+}
+
+//--------------------------------------------------------------
+void loopier::recorder::setFileName(const string name)
+{
+    rec.setFileName(name);
+}
+
+//--------------------------------------------------------------
+void loopier::recorder::setFileExtension(const string ext)
+{
+    rec.setFileExtension(ext);
 }

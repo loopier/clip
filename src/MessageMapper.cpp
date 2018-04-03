@@ -61,6 +61,11 @@ void loopier::MessageMapper::setupRecorderCommandsMap()
     messageMap["/loopier/clip/rec"]         = &loopier::MessageMapper::toggleRecording;
     messageMap["/loopier/clip/rec/start"]   = &loopier::MessageMapper::startRecording;
     messageMap["/loopier/clip/rec/stop"]    = &loopier::MessageMapper::stopRecording;
+    messageMap["/loopier/clip/rec/codec"]   = &loopier::MessageMapper::setRecordingVideoCodec;
+    messageMap["/loopier/clip/rec/bitrate"] = &loopier::MessageMapper::setRecordingVideoBitrate;
+    messageMap["/loopier/clip/rec/path"]    = &loopier::MessageMapper::setRecordingPath;
+    messageMap["/loopier/clip/rec/name"]    = &loopier::MessageMapper::setRecordingFileName;
+    messageMap["/loopier/clip/rec/ext"]     = &loopier::MessageMapper::setRecordingFileExtension;
 }
 
 
@@ -326,7 +331,38 @@ void loopier::MessageMapper::stopRecording(const Message & msg)
 //---------------------------------------------------------
 void loopier::MessageMapper::toggleRecording(const Message & msg)
 {
+    loopier::recorder::setFileName(msg.getArgAsString(0));
     loopier::recorder::toggle();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setRecordingVideoCodec(const Message & msg)
+{
+    loopier::recorder::setVideoCodec(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setRecordingVideoBitrate(const Message & msg)
+{
+    loopier::recorder::setVideoBitrate(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setRecordingPath(const Message & msg)
+{
+    loopier::recorder::setPath(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setRecordingFileName(const Message & msg)
+{
+    loopier::recorder::setFileName(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setRecordingFileExtension(const Message & msg)
+{
+    loopier::recorder::setFileExtension(msg.getArgAsString(0));
 }
 
 
