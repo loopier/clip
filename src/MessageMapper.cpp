@@ -30,6 +30,7 @@ void loopier::MessageMapper::setup()
     setupClipCommandsMap();
     setupClipCollectionCommandsMap();
     setupSyphonCommandsMap();
+    setupCvCommandsMap();
     setupConsoleCommandsMap();
     setupUvcCommandsMap();
 
@@ -159,7 +160,12 @@ void loopier::MessageMapper::setupCvCommandsMap()
     messageMap["/loopier/clip/cv/show"]             = &loopier::MessageMapper::showCv;
     messageMap["/loopier/clip/cv/hide"]             = &loopier::MessageMapper::hideCv;
     messageMap["/loopier/clip/cv/detectionarea"]    = &::loopier::MessageMapper::setCvDetectionArea;
-messageMap["/loopier/clip/cv/maxblobs"]         = &loopier::MessageMapper::setCvMaxBlobs;
+    messageMap["/loopier/clip/cv/maxblobs"]         = &loopier::MessageMapper::setCvMaxBlobs;
+    messageMap["/loopier/clip/cv/select"]           = &loopier::MessageMapper::selectBlob;
+    messageMap["/loopier/clip/cv/first"]            = &loopier::MessageMapper::firstBlob;
+    messageMap["/loopier/clip/cv/next"]             = &loopier::MessageMapper::nextBlob;
+    messageMap["/loopier/clip/cv/previous"]         = &loopier::MessageMapper::previousBlob;
+    messageMap["/loopier/clip/cv/last"]             = &loopier::MessageMapper::lastBlob;
 }
 
 
@@ -797,6 +803,36 @@ void loopier::MessageMapper::setCvDetectionArea(const Message & msg)
     ofRectangle rect(msg.getArgAsFloat(0), msg.getArgAsFloat(1),
                      msg.getArgAsFloat(2), msg.getArgAsFloat(3));
     loopier::cv::setDetectionArea(rect);
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::selectBlob(const Message & msg)
+{
+    loopier::cv::selectBlob();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::firstBlob(const Message & msg)
+{
+    loopier::cv::firstBlob();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::nextBlob(const Message & msg)
+{
+    loopier::cv::nextBlob();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::previousBlob(const Message & msg)
+{
+    loopier::cv::previousBlob();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::lastBlob(const Message & msg)
+{
+    loopier::cv::lastBlob();
 }
 
 

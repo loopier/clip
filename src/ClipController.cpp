@@ -498,6 +498,9 @@ namespace loopier {
             // remove from private layers vector
             it = std::find(privateLayers.begin(), privateLayers.end(), clipname);
             if (it != privateLayers.end()) privateLayers.erase(it);
+            // remove from private layers vector
+            it = std::find(selectedclips.begin(), selectedclips.end(), clipname);
+            if (it != selectedclips.end()) selectedclips.erase(it);
             // remove clip
             clips.erase(clipname);
             
@@ -1302,6 +1305,51 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        void selectBlob()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
+            cv->selectCurrentBlob();
+        }
+        
+        //---------------------------------------------------------------------------
+        void firstBlob()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
+            cv->firstBlob();
+        }
+        
+        //---------------------------------------------------------------------------
+        void nextBlob()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
+            cv->nextBlob();
+        }
+        
+        //---------------------------------------------------------------------------
+        void previousBlob()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
+            cv->previousBlob();
+        }
+        
+        //---------------------------------------------------------------------------
+        void lastBlob()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
+            cv->lastBlob();
+        }
+        
+        
     }   // namespace cv
     
     namespace utils {

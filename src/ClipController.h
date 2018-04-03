@@ -214,6 +214,16 @@ namespace loopier {
         ofRectangle getBoundingRect();
         //// \breif  Returns the bounding rect of the given image
         ofRectangle getBoundingRect(ofImage & image);
+        //// \breif  Adds the active blob to the selection
+        void selectBlob();
+        //// \breif  Sets first blob as active
+        void firstBlob();
+        //// \breif  Sets next blob as active
+        void nextBlob();
+        //// \breif  Sets previous blob as active
+        void previousBlob();
+        //// \breif  Sets last blob as active
+        void lastBlob();
     } // namespace cv
     
     namespace utils {

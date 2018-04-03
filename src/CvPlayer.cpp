@@ -17,6 +17,7 @@ loopier::CvPlayer::CvPlayer()
 , maxArea(200)
 , bHoles(true)
 , maxBlobs(2)
+, currentBlob(0)
 {
     setup();
 }
@@ -28,6 +29,8 @@ loopier::CvPlayer::CvPlayer(PlayerPtr input)
 , minArea(10.0)
 , maxArea(200)
 , bHoles(true)
+, maxBlobs(2)
+, currentBlob(0)
 {
 //    inputPlayer = input;
     setup();
@@ -154,6 +157,7 @@ ofTexture & loopier::CvPlayer::getTexture()
     ofFill();
     ofSetColor(255);
     for (int i = 0; i < maxBlobs && i < polys.size(); i++) {
+        if (!isBlobSelected(i)) continue;
         ofPolyline poly = polys.at(i);
         ofBeginShape();
         for( int i = 0; i < poly.getVertices().size(); i++) {
@@ -282,4 +286,61 @@ void loopier::CvPlayer::setDetectionArea(const ofRectangle & rect)
     detectionAreaFbo.end();
     
     detectionRectangle = rect;
+}
+
+//---------------------------------------------------------
+void loopier::CvPlayer::firstBlob()
+{
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+}
+
+//---------------------------------------------------------
+void loopier::CvPlayer::nextBlob()
+{
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+}
+
+//---------------------------------------------------------
+void loopier::CvPlayer::previousBlob()
+{
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+}
+
+//---------------------------------------------------------
+void loopier::CvPlayer::lastBlob()
+{
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+}
+
+//---------------------------------------------------------
+void loopier::CvPlayer::selectBlob(const int index)
+{
+    selectedBlobs.push_back(index);
+}
+
+//---------------------------------------------------------
+void loopier::CvPlayer::deselectBlob(const int index)
+{
+    selectedBlobs.erase(std::remove(selectedBlobs.begin(), selectedBlobs.end(), index), selectedBlobs.end());
+}
+
+//---------------------------------------------------------
+void loopier::CvPlayer::selectCurrentBlob()
+{
+    selectedBlobs.push_back(currentBlob);
+}
+
+//---------------------------------------------------------
+void loopier::CvPlayer::deselectCurrentBlob()
+{
+    selectedBlobs.erase(std::remove(selectedBlobs.begin(), selectedBlobs.end(), currentBlob), selectedBlobs.end());
+}
+
+//---------------------------------------------------------
+bool loopier::CvPlayer::isBlobSelected(const int index)
+{
+    if ( std::find(selectedBlobs.begin(), selectedBlobs.end(), index) != selectedBlobs.end() )
+        return true;
+    else
+        return false;
 }

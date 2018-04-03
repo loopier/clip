@@ -146,6 +146,11 @@ private:
     void showCv             (const Message & msg);
     void hideCv             (const Message & msg);
     void setCvDetectionArea (const Message & msg);
+    void selectBlob         (const Message & msg);
+    void firstBlob          (const Message & msg);
+    void nextBlob           (const Message & msg);
+    void previousBlob       (const Message & msg);
+    void lastBlob           (const Message & msg);
     
     // Console commands
     void setConsoleColor    (const Message & msg);

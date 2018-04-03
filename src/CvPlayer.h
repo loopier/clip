@@ -59,7 +59,27 @@ namespace loopier {
             /// \brief  Sets the maximum number of blobs to be detected
             void setMaxBlobs(int numBlobs);
             
-            void setDetectionArea(const ofRectangle & rect);
+            void    setDetectionArea(const ofRectangle & rect);
+            
+            /// \brief  Set first blob as active
+            void    firstBlob();
+            /// \brief  Set next blob as active
+            void    nextBlob();
+            /// \brief  Set previous blob as active
+            void    previousBlob();
+            /// \brief  Set last blob as active
+            void    lastBlob();
+            /// \brief  Adds the blob at the given index to the selection
+            void    selectBlob(const int index);
+            /// \brief  Removes the blob at the given index from the selection
+            void    deselectBlob(const int index);
+            /// \brief  Selects the current blob
+            void    selectCurrentBlob();
+            /// \brief  Deselects the current blob
+            void    deselectCurrentBlob();
+            
+            /// \brief  Returns TRUE if the blob represented by the index is selected
+            bool    isBlobSelected(const int index);
 
         private:
             ofImage     outputImage;
@@ -78,6 +98,9 @@ namespace loopier {
             float   maxArea;
             float   bHoles;
             int     maxBlobs;
+            
+            int currentBlob; ///< index of the blob that is selected
+            vector<int> selectedBlobs; ///< indexes of selected blobs
             
 //            CvPlayer(); // Disable default constructor.  You need to provide an input player
             
