@@ -488,12 +488,20 @@ namespace loopier {
             // FIX: removing from map CRASHES APP
             if (!exists(clipname)) return;
             
-//            vector<string>::iterator it;
-//            it = std::find(frameplayerslist.begin(), frameplayerslist.end(), clipname);
-//            frameplayerslist.erase(it);
-            clips[clipname]->hide();
-            clips[clipname]->stop();
-//            clips.erase(clipname);
+            vector<string>::iterator it;
+            // remove from frameclipslist vector
+            it = std::find(frameclipslist.begin(), frameclipslist.end(), clipname);
+            if (it != frameclipslist.end()) frameclipslist.erase(it);
+            // remove from public layers vector
+            it = std::find(publicLayers.begin(), publicLayers.end(), clipname);
+            if (it != publicLayers.end()) publicLayers.erase(it);
+            // remove from private layers vector
+            it = std::find(privateLayers.begin(), privateLayers.end(), clipname);
+            if (it != privateLayers.end()) privateLayers.erase(it);
+            // remove clip
+            clips.erase(clipname);
+            
+            ofLogNotice() << "Clip '" << clipname << "' has been removed.";
         }
         
         //---------------------------------------------------------------------------

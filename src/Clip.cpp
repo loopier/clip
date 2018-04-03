@@ -47,7 +47,7 @@ loopier::Clip::Clip(string& clipname, string& resourcename)
 
 //---------------------------------------------------------
 loopier::Clip::~Clip(){
-    
+    ofRemoveListener(ofEvents().update, this, &Clip::update);
 }
 
 //---------------------------------------------------------------------------
