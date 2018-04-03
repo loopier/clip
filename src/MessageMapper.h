@@ -35,6 +35,7 @@ public:
 
     void setup();
     void setupAppCommandsMap();
+    void setupRecorderCommandsMap();
     void setupClipCommandsMap();
     void setupClipCollectionCommandsMap();
     void setupSyphonCommandsMap();
@@ -57,6 +58,10 @@ private:
     void quit       (const Message & msg);
     void fullscreen (const Message & msg);
     void move       (const Message & msg);
+    
+    void startRecording     (const Message & msg);
+    void stopRecording      (const Message & msg);
+    void toggleRecording    (const Message & msg);
 
     // One Clip commands
     void newClip              (const Message & msg);

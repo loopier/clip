@@ -5,6 +5,7 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "D506F6925B7C8D0508819DE90CBEA2E7369A306E" : 0,
+    "4131F34236DEB94090351DE98CD44A123F2873AB" : 0,
     "BFC16E6159FFD1E8A65A4A603FFB46276266EFD1" : 0,
     "37526DA425E5430474A14FBFA1BC4525160B5FC1" : 0,
     "F4CCB893AFADB97238A965FD2F28717F1CAAE613" : 0,
@@ -13,6 +14,7 @@
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "56999D9D-E06C-439C-8FB5-4A115058BAE1",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "D506F6925B7C8D0508819DE90CBEA2E7369A306E" : "..\/..\/addons\/ofxYAML",
+    "4131F34236DEB94090351DE98CD44A123F2873AB" : "..\/..\/addons\/ofxVideoRecorder",
     "BFC16E6159FFD1E8A65A4A603FFB46276266EFD1" : "clip\/",
     "37526DA425E5430474A14FBFA1BC4525160B5FC1" : "..\/..\/addons\/ofxCv",
     "F4CCB893AFADB97238A965FD2F28717F1CAAE613" : "..\/..\/addons\/ofxSyphon",
@@ -26,6 +28,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kylemcdonald\/ofxCv.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "37526DA425E5430474A14FBFA1BC4525160B5FC1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/timscaffidi\/ofxVideoRecorder.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4131F34236DEB94090351DE98CD44A123F2873AB"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/atduskgreg\/ofxUVC.git",

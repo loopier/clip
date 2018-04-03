@@ -27,6 +27,7 @@ void loopier::MessageMapper::setup()
     osc.setup();
     ofAddListener(osc.newOscMessageEvent, this, &loopier::MessageMapper::mapMessageToFunc);
     setupAppCommandsMap();
+    setupRecorderCommandsMap();
     setupClipCommandsMap();
     setupClipCollectionCommandsMap();
     setupSyphonCommandsMap();
@@ -48,6 +49,18 @@ void loopier::MessageMapper::setupAppCommandsMap()
     messageMap["/loopier/clip/app/quit"]        = &loopier::MessageMapper::quit;
     messageMap["/loopier/clip/app/fullscreen"]  = &loopier::MessageMapper::fullscreen;
     messageMap["/loopier/clip/app/move"]        = &loopier::MessageMapper::move;
+}
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setupRecorderCommandsMap()
+{
+    // Application commands
+    messageMap["/loopier/clip/app/rec"]     = &loopier::MessageMapper::toggleRecording;
+    messageMap["/loopier/clip/app/record"]  = &loopier::MessageMapper::toggleRecording;
+    messageMap["/loopier/clip/rec"]         = &loopier::MessageMapper::toggleRecording;
+    messageMap["/loopier/clip/rec/start"]   = &loopier::MessageMapper::startRecording;
+    messageMap["/loopier/clip/rec/stop"]    = &loopier::MessageMapper::stopRecording;
 }
 
 
@@ -283,6 +296,37 @@ void loopier::MessageMapper::move(const Message & msg)
     float x = msg.getArgAsFloat(1) * ofGetScreenWidth();
     float y = msg.getArgAsFloat(2) * ofGetScreenHeight();
     ofSetWindowPosition(x, y);
+}
+
+
+
+
+
+
+
+//---------------------------------------------------------
+
+//        RECORDING
+
+//---------------------------------------------------------
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::startRecording(const Message & msg)
+{
+    loopier::recorder::start();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::stopRecording(const Message & msg)
+{
+    loopier::recorder::stop();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::toggleRecording(const Message & msg)
+{
+    loopier::recorder::toggle();
 }
 
 

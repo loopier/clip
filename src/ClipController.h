@@ -14,6 +14,7 @@
 #include "ofMain.h"
 #include "Clip.h"
 #include "ofxYAML.h"
+#include "Recorder.h"
 
 namespace loopier {
     namespace app {
@@ -25,8 +26,9 @@ namespace loopier {
         void    mousePressed(int x, int y, int button);
         void    mouseReleased(int x, int y, int button);
         void    mouseDragged(int x, int y, int button);
-        /// \breif   Sets mouse rectangle to fullscreen
+        /// \brief   Sets mouse rectangle to fullscreen
         void    resetDetectionAreaRectangle();
+        /// \brief  Record output
     } // namesapce app
     
     namespace resource {
