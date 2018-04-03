@@ -36,7 +36,8 @@ namespace {
     map<string, loopier::CameraPlayerPtr>   cameraplayers;
     vector<string>                          frameclipslist;
     
-    shared_ptr<ofFbo> recordFbo(new ofFbo);
+    // an FBO is needed to record.
+    shared_ptr<ofFbo> publicFbo(new ofFbo);
     
     // * * * HELPER FUNCTIONS LOCAL TO THIS FILE * * * * * * * * * * * * * * * * * * * * *
     
@@ -238,8 +239,8 @@ namespace loopier {
             publicSyphonServer.setName("Public Screen");
             privateSyphonServer.setName("Private Screen");
             
-            recordFbo->allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
-            loopier::recorder::setup(recordFbo);
+            publicFbo->allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+            loopier::recorder::setup(publicFbo);
         }
         
         //---------------------------------------------------------------------------
@@ -249,7 +250,7 @@ namespace loopier {
                 item.second->update();
             }
             
-            recordFbo->begin();
+            publicFbo->begin();
             ofEnableAlphaBlending();
             ofClear(0,0,0,0);
             for (const auto &clipname : publicLayers) {
@@ -257,7 +258,7 @@ namespace loopier {
                 clips.at(clipname)->draw();
             };
             ofDisableAlphaBlending();
-            recordFbo->end();
+            publicFbo->end();
         }
         
         //---------------------------------------------------------------------------

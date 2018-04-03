@@ -36,21 +36,14 @@ void loopier::recorder::Recorder::setup(shared_ptr<ofFbo> fbo)
     ofAddListener(ofEvents().update, this, &Recorder::update);
     ofAddListener(ofEvents().draw, this, &Recorder::draw);
     
-    recordFbo.allocate(fbo->getWidth(), fbo->getHeight(), GL_RGBA);
-    inputFbo = fbo;
+    recordFbo = fbo;
 }
 
 //--------------------------------------------------------------
 void loopier::recorder::Recorder::update()
 {
     if (bRecording) {
-        recordFbo.begin();
-        ofEnableAlphaBlending();
-        inputFbo->draw(0, 0);
-        ofDisableAlphaBlending();
-        recordFbo.end();
-        
-        inputFbo->readToPixels(recordPixels);
+        recordFbo->readToPixels(recordPixels);
         bool success = vidRecorder.addFrame(recordPixels);
         if (!success) {
             ofLogWarning() << "This frame was not added!";
@@ -111,7 +104,7 @@ void loopier::recorder::Recorder::toggle()
 {
     bRecording = !bRecording;
     if (bRecording && !vidRecorder.isInitialized()) {
-        vidRecorder.setup(fileName+fileExt, recordFbo.getWidth(), recordFbo.getHeight(), 30);
+        vidRecorder.setup(fileName+fileExt, recordFbo->getWidth(), recordFbo->getHeight(), 30);
         vidRecorder.start();
         ofLog() << "Started recording to '" << fileName << fileExt << "'" << endl;
     } else if (!bRecording && vidRecorder.isInitialized()) {
