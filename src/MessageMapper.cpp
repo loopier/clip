@@ -26,14 +26,19 @@ void loopier::MessageMapper::setup()
 {
     osc.setup();
     ofAddListener(osc.newOscMessageEvent, this, &loopier::MessageMapper::mapMessageToFunc);
-    setupMap();
-    setupUvcMap();
+    setupAppCommandsMap();
+    setupClipCommandsMap();
+    setupClipCollectionCommandsMap();
+    setupSyphonCommandsMap();
+    setupConsoleCommandsMap();
+    setupUvcCommandsMap();
 
     loopier::ConsoleUI::setup();
 }
 
+
 //---------------------------------------------------------
-void loopier::MessageMapper::setupMap()
+void loopier::MessageMapper::setupAppCommandsMap()
 {
     // Application commands
     messageMap["/loopier/clip/app/test"]       = &loopier::MessageMapper::test;
@@ -42,6 +47,12 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/app/quit"]        = &loopier::MessageMapper::quit;
     messageMap["/loopier/clip/app/fullscreen"]  = &loopier::MessageMapper::fullscreen;
     messageMap["/loopier/clip/app/move"]        = &loopier::MessageMapper::move;
+}
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setupClipCommandsMap()
+{
 
     // One Clip commands
     messageMap["/loopier/clip/clip/new"]                = &loopier::MessageMapper::newClip;
@@ -109,6 +120,12 @@ void loopier::MessageMapper::setupMap()
     // color
     messageMap["/loopier/clip/clip/color"]  = &loopier::MessageMapper::setClipColor;
     messageMap["/loopier/clip/clip/alpha"]  = &loopier::MessageMapper::setClipAlpha;
+}
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setupClipCollectionCommandsMap()
+{
 
     // Clip collection commands
     messageMap["/loopier/clip/clips/clearall"]      = &loopier::MessageMapper::clearClips;
@@ -118,9 +135,20 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/clips/shownames"]     = &loopier::MessageMapper::showClipNames;
     messageMap["/loopier/clip/clips/hidenames"]     = &loopier::MessageMapper::hideClipNames;
     
+}
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setupSyphonCommandsMap()
+{
     // Syphon
     messageMap["/loopier/clip/syphon/servername"]   = &loopier::MessageMapper::setSyphonServerName;
-    
+}
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setupCvCommandsMap()
+{
     // CV commands
     messageMap["/loopier/clip/cv/setinput"]         = &loopier::MessageMapper::setCvInputClip;
     messageMap["/loopier/clip/cv/color"]            = &loopier::MessageMapper::setCvColor;
@@ -131,8 +159,13 @@ void loopier::MessageMapper::setupMap()
     messageMap["/loopier/clip/cv/show"]             = &loopier::MessageMapper::showCv;
     messageMap["/loopier/clip/cv/hide"]             = &loopier::MessageMapper::hideCv;
     messageMap["/loopier/clip/cv/detectionarea"]    = &::loopier::MessageMapper::setCvDetectionArea;
-    messageMap["/loopier/clip/cv/maxblobs"]         = &loopier::MessageMapper::setCvMaxBlobs;
-    
+messageMap["/loopier/clip/cv/maxblobs"]         = &loopier::MessageMapper::setCvMaxBlobs;
+}
+
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setupConsoleCommandsMap()
+{
     // Console commands
     messageMap["/loopier/clip/console/color"]       = &loopier::MessageMapper::setConsoleColor;
     messageMap["/loopier/clip/console/alpha"]       = &loopier::MessageMapper::setConsoleAlpha;
@@ -149,7 +182,7 @@ void loopier::MessageMapper::setupMap()
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setupUvcMap()
+void loopier::MessageMapper::setupUvcCommandsMap()
 {
     messageMap["/loopier/uvc/add"]          = &loopier::MessageMapper::addUvcCamera;
     messageMap["/loopier/uvc/use"]          = &loopier::MessageMapper::useUvcCamera;

@@ -34,8 +34,13 @@ public:
 //    virtual MessageMapper();
 
     void setup();
-    void setupMap();
-    void setupUvcMap();
+    void setupAppCommandsMap();
+    void setupClipCommandsMap();
+    void setupClipCollectionCommandsMap();
+    void setupSyphonCommandsMap();
+    void setupCvCommandsMap();
+    void setupConsoleCommandsMap();
+    void setupUvcCommandsMap();
 
 private:
     void printMessage(Message & msg);
