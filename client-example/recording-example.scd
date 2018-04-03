@@ -22,5 +22,3 @@ m.sendMsg("/loopier/clip/rec/stop");
 
 // quit app
 m.sendMsg("/loopier/clip/app/quit");
-
-Platform.userHomeDir++"/Desktop/"
