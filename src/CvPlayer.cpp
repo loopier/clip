@@ -104,7 +104,7 @@ void loopier::CvPlayer::draw()
 //    ofSetColor(255,0,0);
 //    detectionAreaFbo.draw(0,0);
     shapeFbo.draw(0,0, pixels.getWidth(), pixels.getHeight());
-    ofDrawCircle(getCentroid().x, getCentroid().y, 20);
+    ofDrawCircle(getCentroid().x, getCentroid().y, 10);
 }
 
 //
@@ -128,8 +128,8 @@ void loopier::CvPlayer::drawBlobs()
         if (i == currentBlob) ofSetLineWidth(4);
         ofDrawRectangle(getBoundingRect(i));
         ofPopStyle();
-        ofDrawBitmapString("cv "+ofToString(getBoundingRect(i).getCenter().x)+" "+ofToString(getBoundingRect(i).getCenter().y),
-                           getBoundingRect(i).getCenter().x, getBoundingRect(i).getCenter().y-5);
+        ofDrawBitmapString("cv "+ofToString(int(getBoundingRect(i).getCenter().x))+" "+ofToString(int(getBoundingRect(i).getCenter().y)),
+                           getBoundingRect(i).getCenter().x, getBoundingRect(i).getCenter().y);
     }
     shapeFbo.end();
     
@@ -205,7 +205,7 @@ vector<ofPolyline> loopier::CvPlayer::getPolylines()
 ofPoint loopier::CvPlayer::getCentroid()
 {
     if(contourFinder.getPolylines().size() < 1) return;
-    ofPoint centroid(contourFinder.getCenter(0).x, contourFinder.getCenter(0).y);
+    ofPoint centroid(contourFinder.getCenter(currentBlob).x, contourFinder.getCenter(currentBlob).y);
     return centroid;
 }
 

@@ -1190,7 +1190,7 @@ namespace loopier {
         void setInputClip(string clipname)
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-            
+            if (!clip::exists(clipname)) return;
             if (!clip::exists("cv")) return;
             clips["cv"]->setInputClip(clip::getClip(clipname));
         }
