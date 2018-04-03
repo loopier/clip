@@ -30,6 +30,7 @@ void loopier::recorder::Recorder::setup(shared_ptr<ofFbo> fbo)
     
     vidRecorder.setVideoCodec("mpeg4");
     vidRecorder.setVideoBitrate("800k");
+    vidRecorder.setPixelFormat("rgba");
     
     ofAddListener(vidRecorder.outputFileCompleteEvent, this, &loopier::recorder::Recorder::recordingComplete);
     ofAddListener(ofEvents().update, this, &Recorder::update);
@@ -49,7 +50,7 @@ void loopier::recorder::Recorder::update()
         ofDisableAlphaBlending();
         recordFbo.end();
         
-        recordFbo.readToPixels(recordPixels);
+        inputFbo->readToPixels(recordPixels);
         bool success = vidRecorder.addFrame(recordPixels);
         if (!success) {
             ofLogWarning() << "This frame was not added!";
