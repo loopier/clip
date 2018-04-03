@@ -7,4 +7,3 @@
 - `[NEW]` Load clips
 - `[NEW]` Fade away -- in frame clips add alpha to previous frames
 - `[NEW]` Save output
-- `[NEW]` Select blobs
