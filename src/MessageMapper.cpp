@@ -62,6 +62,7 @@ void loopier::MessageMapper::setupClipCommandsMap()
     messageMap["/loopier/clip/clip/remove"]             = &loopier::MessageMapper::removeClip;
     messageMap["/loopier/clip/clip/reset"]              = &loopier::MessageMapper::resetClip;
     messageMap["/loopier/clip/clip/select"]             = &loopier::MessageMapper::selectClip;
+    messageMap["/loopier/clip/clip/deselect"]           = &loopier::MessageMapper::deselectClip;
     // parent
     messageMap["/loopier/clip/clip/parent"]         = &loopier::MessageMapper::setParent;
     messageMap["/loopier/clip/clip/removeparent"]   = &loopier::MessageMapper::removeParent;
@@ -331,6 +332,12 @@ void loopier::MessageMapper::resetClip(const Message & msg)
 void loopier::MessageMapper::selectClip(const Message & msg)
 {
     loopier::clip::selectClip(msg.getArgAsString(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::deselectClip(const Message & msg)
+{
+    loopier::clip::deselectClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------

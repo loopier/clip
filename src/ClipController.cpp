@@ -520,6 +520,13 @@ namespace loopier {
             }
         }
         
+        //---------------------------------------------------------------------------
+        void deselectClip(string clipname)
+        {
+            if (!exists(clipname)) return;            vector<string>::iterator it = std::find(selectedclips.begin(), selectedclips.end(), clipname);
+            if (it != selectedclips.end()) selectedclips.erase(it);
+        }
+        
         
         //---------------------------------------------------------------------------
         void setClipDrawOrder(string clipname, int position)
