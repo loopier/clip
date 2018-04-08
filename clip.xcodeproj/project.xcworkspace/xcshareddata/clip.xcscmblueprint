@@ -4,19 +4,21 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "61A01F31214718FD2AE2EF78A34ADADFCB50C4E0" : 0,
     "D506F6925B7C8D0508819DE90CBEA2E7369A306E" : 0,
     "BFC16E6159FFD1E8A65A4A603FFB46276266EFD1" : 0,
     "37526DA425E5430474A14FBFA1BC4525160B5FC1" : 0,
     "F4CCB893AFADB97238A965FD2F28717F1CAAE613" : 0,
-    "61A01F31214718FD2AE2EF78A34ADADFCB50C4E0" : 0
+    "5DB7C332A3A89035E93556A2A38BF414005BA671" : 0
   },
-  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "56999D9D-E06C-439C-8FB5-4A115058BAE1",
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "47F6D7D2-36DA-4500-A70E-CF6F71557957",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "61A01F31214718FD2AE2EF78A34ADADFCB50C4E0" : "..\/..\/addons\/ofxUVC",
     "D506F6925B7C8D0508819DE90CBEA2E7369A306E" : "..\/..\/addons\/ofxYAML",
     "BFC16E6159FFD1E8A65A4A603FFB46276266EFD1" : "clip\/",
     "37526DA425E5430474A14FBFA1BC4525160B5FC1" : "..\/..\/addons\/ofxCv",
     "F4CCB893AFADB97238A965FD2F28717F1CAAE613" : "..\/..\/addons\/ofxSyphon",
-    "61A01F31214718FD2AE2EF78A34ADADFCB50C4E0" : "..\/..\/addons\/ofxUVC"
+    "5DB7C332A3A89035E93556A2A38BF414005BA671" : "..\/..\/addons\/ofxJSON"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "clip",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -26,6 +28,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kylemcdonald\/ofxCv.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "37526DA425E5430474A14FBFA1BC4525160B5FC1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jeffcrouse\/ofxJSON.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5DB7C332A3A89035E93556A2A38BF414005BA671"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/atduskgreg\/ofxUVC.git",

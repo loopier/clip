@@ -1,7 +1,9 @@
 ofxCv
 ofxGui
+ofxJSON
 ofxOpenCv
 ofxOsc
 ofxSyphon
 ofxUVC
 ofxXmlSettings
+ofxYAML
