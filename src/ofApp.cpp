@@ -4,12 +4,8 @@ void ofApp::setup(){
     ofSetLogLevel(OF_LOG_VERBOSE);
     //    ofSetLogLevel(OF_LOG_NOTICE);
     
-    string file = "commands.json";
-    bool parsingSuccessful = json.open(file);
-    if(parsingSuccessful) { ofLogVerbose() << json.getRawString(); }
-    ofExit();
-    
-    ofSetWindowPosition(ofGetScreenWidth(), 0);
+//    ofSetWindowPosition(ofGetScreenWidth(), 0);
+    ofSetWindowPosition(0, 0);
     ofSetFrameRate(30);
 //    ofSetFullscreen(true);
     ofBackground(0,0,0);

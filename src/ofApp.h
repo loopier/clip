@@ -7,7 +7,6 @@
 #include "ConsoleUI.h"
 #include "Types.h"
 #include "Uvc.h"
-#include "ofxJSON.h"
 
 using namespace loopier;
 
@@ -36,8 +35,6 @@ private:
     MessageMapper   msgMapper;
     
     string  applicationSupportPath; ///< Path to the directory with resources and config files
-    
-    ofxJSONElement json;
     
     /// \brief  Creates a folder in ~/Library/Application Support/Clip/
     ///     for all the resources and config files.
