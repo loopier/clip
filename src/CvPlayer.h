@@ -77,6 +77,10 @@ namespace loopier {
             void    selectCurrentBlob();
             /// \brief  Deselects the current blob
             void    deselectCurrentBlob();
+            /// \brief  Selects all blobs
+            void    selectAllBlobs();
+            /// \brief  Deselects all blobs
+            void    deselectAllBlobs();
             
             /// \brief  Returns TRUE if the blob represented by the index is selected
             bool    isBlobSelected(const int index);
@@ -84,7 +88,6 @@ namespace loopier {
         private:
             ofImage     outputImage;
             ofFbo       shapeFbo;           // just the blobs
-            ofFbo       detectionAreaFbo;   // used to mask the blobs
             ofFbo       maskFbo;            // the blobs in the detection area
             ofRectangle detectionRectangle;
             ofPixels    pixels;

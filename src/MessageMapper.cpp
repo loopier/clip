@@ -164,6 +164,8 @@ void loopier::MessageMapper::setupCvCommandsMap()
     messageMap["/loopier/clip/cv/maxblobs"]         = &loopier::MessageMapper::setCvMaxBlobs;
     messageMap["/loopier/clip/cv/select"]           = &loopier::MessageMapper::selectBlob;
     messageMap["/loopier/clip/cv/deselect"]         = &loopier::MessageMapper::deselectBlob;
+    messageMap["/loopier/clip/cv/selectall"]        = &loopier::MessageMapper::selectAllBlobs;
+    messageMap["/loopier/clip/cv/deselectall"]      = &loopier::MessageMapper::deselectAllBlobs;
     messageMap["/loopier/clip/cv/first"]            = &loopier::MessageMapper::firstBlob;
     messageMap["/loopier/clip/cv/next"]             = &loopier::MessageMapper::nextBlob;
     messageMap["/loopier/clip/cv/previous"]         = &loopier::MessageMapper::previousBlob;
@@ -823,6 +825,18 @@ void loopier::MessageMapper::selectBlob(const Message & msg)
 void loopier::MessageMapper::deselectBlob(const Message & msg)
 {
     loopier::cv::deselectBlob();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::selectAllBlobs(const Message & msg)
+{
+    loopier::cv::selectAllBlobs();
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::deselectAllBlobs(const Message & msg)
+{
+    loopier::cv::deselectAllBlobs();
 }
 
 //---------------------------------------------------------

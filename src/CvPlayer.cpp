@@ -47,16 +47,11 @@ void loopier::CvPlayer::setup()
     
     outputImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR_ALPHA);
     shapeFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
-    detectionAreaFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
     maskFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
     
     shapeFbo.begin();
     ofClear(0);
     shapeFbo.end();
-    
-    detectionAreaFbo.begin();
-    ofClear(0);
-    detectionAreaFbo.end();
     
     maskFbo.begin();
     ofClear(255,255,255,0);
@@ -102,7 +97,6 @@ void loopier::CvPlayer::draw()
 //    contourFinder.draw();
 //    if (inputPlayer) inputPlayer->draw();
 //    ofSetColor(255,0,0);
-//    detectionAreaFbo.draw(0,0);
     shapeFbo.draw(0,0, pixels.getWidth(), pixels.getHeight());
     ofDrawCircle(getCentroid().x, getCentroid().y, 10);
 }
@@ -116,6 +110,8 @@ void loopier::CvPlayer::drawBlobs()
     ofClear(255,255,255,0);
     ofNoFill();
     for (int i = 0; i < maxBlobs && i < polys.size(); i++) {
+        if (!getBoundingRect(i).intersects(detectionRectangle)) continue;
+        
         ofPolyline poly = polys.at(i);
         ofBeginShape();
         for( int i = 0; i < poly.getVertices().size(); i++) {
@@ -132,8 +128,6 @@ void loopier::CvPlayer::drawBlobs()
                            getBoundingRect(i).getCenter().x, getBoundingRect(i).getCenter().y);
     }
     shapeFbo.end();
-    
-    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
 }
 
 //---------------------------------------------------------
@@ -163,7 +157,7 @@ ofTexture & loopier::CvPlayer::getTexture()
     ofFill();
     ofSetColor(255);
     for (int i = 0; i < maxBlobs && i < polys.size(); i++) {
-        if (!isBlobSelected(i) && i != currentBlob) continue;
+        if (!isBlobSelected(i) && i != currentBlob && !getBoundingRect(i).intersects(detectionRectangle)) continue;
         ofPolyline poly = polys.at(i);
         ofBeginShape();
         for( int i = 0; i < poly.getVertices().size(); i++) {
@@ -172,8 +166,6 @@ ofTexture & loopier::CvPlayer::getTexture()
         ofEndShape();
     }
     shapeFbo.end();
-    
-    shapeFbo.getTexture().setAlphaMask(detectionAreaFbo.getTexture());
     
     maskFbo.begin();
     ofClear(255,255,255,0);
@@ -279,18 +271,6 @@ void loopier::CvPlayer::setMaxBlobs(int numBlobs)
 //---------------------------------------------------------
 void loopier::CvPlayer::setDetectionArea(const ofRectangle & rect)
 {
-    detectionAreaFbo.begin();
-    ofClear(255,255,255,0);
-    ofFill();
-    ofSetColor(255);
-    ofBeginShape();
-    ofVertex(rect.getLeft(), rect.getTop());
-    ofVertex(rect.getRight(), rect.getTop());
-    ofVertex(rect.getRight(), rect.getBottom());
-    ofVertex(rect.getLeft(), rect.getBottom());
-    ofEndShape();
-    detectionAreaFbo.end();
-    
     detectionRectangle = rect;
 }
 
@@ -305,6 +285,7 @@ void loopier::CvPlayer::nextBlob()
 {
     currentBlob++;
     if (currentBlob >= maxBlobs || currentBlob >= contourFinder.getPolylines().size()) currentBlob = 0;
+    if (!getBoundingRect(currentBlob).intersects(detectionRectangle)) nextBlob();
 }
 
 //---------------------------------------------------------
@@ -312,6 +293,7 @@ void loopier::CvPlayer::previousBlob()
 {
     currentBlob--;
     if (currentBlob < 0) currentBlob = std::min(maxBlobs, int(contourFinder.getPolylines().size())) - 1;
+    if (!getBoundingRect(currentBlob).intersects(detectionRectangle)) previousBlob();
 }
 
 //---------------------------------------------------------
@@ -342,6 +324,22 @@ void loopier::CvPlayer::selectCurrentBlob()
 void loopier::CvPlayer::deselectCurrentBlob()
 {
     selectedBlobs.erase(std::remove(selectedBlobs.begin(), selectedBlobs.end(), currentBlob), selectedBlobs.end());
+}
+
+//---------------------------------------------------------
+void loopier::CvPlayer::selectAllBlobs()
+{
+    int numberOfBlobs = contourFinder.getPolylines().size();
+    for (int i = 0; i < numberOfBlobs; i++) {
+        if (!getBoundingRect(i).intersects(detectionRectangle)) continue;
+        selectedBlobs.push_back(i);
+    }
+}
+
+//---------------------------------------------------------
+void loopier::CvPlayer::deselectAllBlobs()
+{
+    selectedBlobs.clear();
 }
 
 //---------------------------------------------------------

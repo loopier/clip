@@ -1330,6 +1330,24 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        void selectAllBlobs()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
+            cv->selectAllBlobs();
+        }
+        
+        //---------------------------------------------------------------------------
+        void deselectAllBlobs()
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
+            cv->deselectAllBlobs();
+        }
+        
+        //---------------------------------------------------------------------------
         void firstBlob()
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";

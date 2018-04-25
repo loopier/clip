@@ -220,6 +220,10 @@ namespace loopier {
         void selectBlob();
         //// \breif  Removes the active blob from the selection
         void deselectBlob();
+        //// \breif  Selects all blobs
+        void selectAllBlobs();
+        //// \breif  Deselects all blobs
+        void deselectAllBlobs();
         //// \breif  Sets first blob as active
         void firstBlob();
         //// \breif  Sets next blob as active

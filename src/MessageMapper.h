@@ -149,6 +149,8 @@ private:
     void setCvDetectionArea (const Message & msg);
     void selectBlob         (const Message & msg);
     void deselectBlob       (const Message & msg);
+    void selectAllBlobs     (const Message & msg);
+    void deselectAllBlobs   (const Message & msg);
     void firstBlob          (const Message & msg);
     void nextBlob           (const Message & msg);
     void previousBlob       (const Message & msg);
