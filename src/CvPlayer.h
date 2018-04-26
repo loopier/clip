@@ -40,11 +40,15 @@ namespace loopier {
             ofPixels  & getPixels();
             ofImage &   getImage();
             vector<ofPolyline> getPolylines();
-            /// \brief  Returns the center of the bounding box of the biggest blob
+            /// \brief  Returns the average center of the selected blobs
             ofPoint getCentroid();
-            /// \brief  Returns the bounding rectangle of the biggest blob
+            /// \brief  Returns the center of the bounding box of the given blob
+            ofPoint getBlobCentroid(const int blobindex=0);
+            /// \brief  Returns the bounding rectangle of the selected blobs
+            ofRectangle getBoundingRect();
+            /// \brief  Returns the bounding rectangle of the given blob
             /// \param  blobindex   Int     Index of the blob in the polylines vector
-            ofRectangle getBoundingRect(int blobindex=0);
+            ofRectangle getBlobBoundingRect(int blobindex=0);
             /// \brief  Returns the bounding rectangle of the largest blob in the given image
             ofRectangle getBoundingRect(ofPixels & pix);
 

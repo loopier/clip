@@ -466,7 +466,7 @@ namespace loopier {
             
             // get info from the blob (size and position)
             CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
-            ofRectangle blob = cv->getBoundingRect(0);
+            ofRectangle blob = cv->getBoundingRect();
             // get info from the original resource
             ofRectangle resource = clip->getPlayer()->getBoundingBox();
             
@@ -1300,7 +1300,7 @@ namespace loopier {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
             if (!clip::exists("cv")) return;
             CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
-            return cv->getBoundingRect(0);
+            return cv->getBoundingRect();
         }
         
         ofRectangle getBoundingRect(ofImage & image)

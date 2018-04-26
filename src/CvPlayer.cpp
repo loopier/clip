@@ -110,7 +110,7 @@ void loopier::CvPlayer::drawBlobs()
     ofClear(255,255,255,0);
     ofNoFill();
     for (int i = 0; i < maxBlobs && i < polys.size(); i++) {
-        if (!isInDetectionArea(getBoundingRect(i))) continue;
+        if (!isInDetectionArea(getBlobBoundingRect(i))) continue;
         
         ofPolyline poly = polys.at(i);
         ofBeginShape();
@@ -122,11 +122,14 @@ void loopier::CvPlayer::drawBlobs()
         if (!isBlobSelected(i) && i != currentBlob) continue;
         ofPushStyle();
         if (i == currentBlob) ofSetLineWidth(4);
-        ofDrawRectangle(getBoundingRect(i));
+        ofDrawRectangle(getBlobBoundingRect(i));
         ofPopStyle();
-        ofDrawBitmapString("cv "+ofToString(int(getBoundingRect(i).getCenter().x))+" "+ofToString(int(getBoundingRect(i).getCenter().y)),
-                           getBoundingRect(i).getCenter().x, getBoundingRect(i).getCenter().y);
+        ofDrawBitmapString("cv "+ofToString(int(getBlobBoundingRect(i).getCenter().x))+" "+ofToString(int(getBlobBoundingRect(i).getCenter().y)),
+                           getBlobBoundingRect(i).getCenter().x, getBlobBoundingRect(i).getCenter().y);
     }
+    
+    ofSetColor(255,255,0);
+    ofDrawRectangle(getBoundingRect());
     shapeFbo.end();
 }
 
@@ -157,7 +160,7 @@ ofTexture & loopier::CvPlayer::getTexture()
     ofFill();
     ofSetColor(255);
     for (int i = 0; i < maxBlobs && i < polys.size(); i++) {
-        if (!isBlobSelected(i) && i != currentBlob || !isInDetectionArea(getBoundingRect(i))) continue;
+        if ((!isBlobSelected(i) && i != currentBlob) || !isInDetectionArea(getBlobBoundingRect(i))) continue;
         ofPolyline poly = polys.at(i);
         ofBeginShape();
         for( int i = 0; i < poly.getVertices().size(); i++) {
@@ -196,13 +199,35 @@ vector<ofPolyline> loopier::CvPlayer::getPolylines()
 //---------------------------------------------------------
 ofPoint loopier::CvPlayer::getCentroid()
 {
+    if(selectedBlobs.size() < 1) return ofPoint();
+    
+    return getBoundingRect().getCenter();
+}
+
+//---------------------------------------------------------
+ofPoint loopier::CvPlayer::getBlobCentroid(const int blobindex)
+{
     if(contourFinder.getPolylines().size() < 1) return;
-    ofPoint centroid(contourFinder.getCenter(currentBlob).x, contourFinder.getCenter(currentBlob).y);
+    ofPoint centroid(contourFinder.getCenter(blobindex).x, contourFinder.getCenter(blobindex).y);
     return centroid;
 }
 
 //---------------------------------------------------------
-ofRectangle loopier::CvPlayer::getBoundingRect(int blobindex)
+ofRectangle loopier::CvPlayer::getBoundingRect()
+{
+    if(selectedBlobs.size() < 1) return ofRectangle();
+    
+    ofRectangle boundingRect(getBlobBoundingRect(selectedBlobs[0]));
+    for (int i=0; i < selectedBlobs.size(); i++) {
+        if (!isInDetectionArea(getBlobBoundingRect(selectedBlobs[i]))) continue;
+        boundingRect.growToInclude(getBlobBoundingRect(selectedBlobs[i]));
+    }
+    
+    return boundingRect;
+}
+
+//---------------------------------------------------------
+ofRectangle loopier::CvPlayer::getBlobBoundingRect(int blobindex)
 {
     if(contourFinder.getPolylines().size() < 1) return;
     ofRectangle boundingRect(contourFinder.getBoundingRect(blobindex).x,
@@ -217,7 +242,7 @@ ofRectangle loopier::CvPlayer::getBoundingRect(ofPixels & pix)
 {
     if(contourFinder.getPolylines().size() < 1) return;
     contourFinder.findContours(pix);
-    return getBoundingRect(0);
+    return getBlobBoundingRect(0);
 }
 
 //---------------------------------------------------------
@@ -291,7 +316,7 @@ void loopier::CvPlayer::nextBlob()
 {
     currentBlob++;
     if (currentBlob >= maxBlobs || currentBlob >= contourFinder.getPolylines().size()) currentBlob = 0;
-    if (!getBoundingRect(currentBlob).intersects(detectionRectangle)) nextBlob();
+    if (!isInDetectionArea( getBlobBoundingRect(currentBlob) )) nextBlob();
 }
 
 //---------------------------------------------------------
@@ -299,7 +324,7 @@ void loopier::CvPlayer::previousBlob()
 {
     currentBlob--;
     if (currentBlob < 0) currentBlob = std::min(maxBlobs, int(contourFinder.getPolylines().size())) - 1;
-    if (!getBoundingRect(currentBlob).intersects(detectionRectangle)) previousBlob();
+    if (!isInDetectionArea( getBlobBoundingRect(currentBlob) )) previousBlob();
 }
 
 //---------------------------------------------------------
@@ -337,7 +362,7 @@ void loopier::CvPlayer::selectAllBlobs()
 {
     int numberOfBlobs = contourFinder.getPolylines().size();
     for (int i = 0; i < numberOfBlobs; i++) {
-        if (!getBoundingRect(i).intersects(detectionRectangle)) continue;
+        if (!isInDetectionArea( getBlobBoundingRect(i) )) continue;
         selectedBlobs.push_back(i);
     }
 }
