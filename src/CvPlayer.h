@@ -60,6 +60,8 @@ namespace loopier {
             void setMaxBlobs(int numBlobs);
             
             void    setDetectionArea(const ofRectangle & rect);
+            /// \brief  Returns TRUE if the given rectangle is in the selection area
+            bool    isInDetectionArea(const ofRectangle & rect);
             
             /// \brief  Set first blob as active
             void    firstBlob();

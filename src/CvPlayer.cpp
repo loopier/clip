@@ -110,7 +110,7 @@ void loopier::CvPlayer::drawBlobs()
     ofClear(255,255,255,0);
     ofNoFill();
     for (int i = 0; i < maxBlobs && i < polys.size(); i++) {
-        if (!getBoundingRect(i).intersects(detectionRectangle)) continue;
+        if (!isInDetectionArea(getBoundingRect(i))) continue;
         
         ofPolyline poly = polys.at(i);
         ofBeginShape();
@@ -157,7 +157,7 @@ ofTexture & loopier::CvPlayer::getTexture()
     ofFill();
     ofSetColor(255);
     for (int i = 0; i < maxBlobs && i < polys.size(); i++) {
-        if (!isBlobSelected(i) && i != currentBlob && !getBoundingRect(i).intersects(detectionRectangle)) continue;
+        if (!isBlobSelected(i) && i != currentBlob || !isInDetectionArea(getBoundingRect(i))) continue;
         ofPolyline poly = polys.at(i);
         ofBeginShape();
         for( int i = 0; i < poly.getVertices().size(); i++) {
@@ -272,6 +272,12 @@ void loopier::CvPlayer::setMaxBlobs(int numBlobs)
 void loopier::CvPlayer::setDetectionArea(const ofRectangle & rect)
 {
     detectionRectangle = rect;
+}
+
+//---------------------------------------------------------
+bool loopier::CvPlayer::isInDetectionArea(const ofRectangle & rect)
+{
+    return detectionRectangle.inside(rect);
 }
 
 //---------------------------------------------------------
