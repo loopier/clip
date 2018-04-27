@@ -62,6 +62,10 @@ namespace loopier {
             void setFindHoles(bool findHoles);
             /// \brief  Sets the maximum number of blobs to be detected
             void setMaxBlobs(int numBlobs);
+            /// \brief  Removes blobs that are outside the detection area
+            void updateBlobs();
+            /// \brief  Returns all blobs that are inside the detection area
+            vector<ofPolyline> getBlobs();
             
             void    setDetectionArea(const ofRectangle & rect);
             /// \brief  Returns TRUE if the given rectangle is in the selection area
@@ -110,6 +114,7 @@ namespace loopier {
             
             int currentBlob; ///< index of the blob that is selected
             vector<int> selectedBlobs; ///< indexes of selected blobs
+            vector<ofPolyline> blobs; ///< blobs that are inside the detection area
             
 //            CvPlayer(); // Disable default constructor.  You need to provide an input player
             

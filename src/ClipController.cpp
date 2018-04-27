@@ -1297,7 +1297,6 @@ namespace loopier {
         
         ofRectangle getBoundingRect()
         {
-            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
             if (!clip::exists("cv")) return;
             CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
             return cv->getBoundingRect();
