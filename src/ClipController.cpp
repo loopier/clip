@@ -1213,6 +1213,8 @@ namespace loopier {
         void toggleVisibility()
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            clips["cv"]->toggleVisibility();
         }
         
         //---------------------------------------------------------------------------

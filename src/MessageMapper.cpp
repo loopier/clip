@@ -158,6 +158,7 @@ void loopier::MessageMapper::setupCvCommandsMap()
     messageMap["/loopier/clip/cv/minArea"]          = &loopier::MessageMapper::setCvMinArea;
     messageMap["/loopier/clip/cv/maxArea"]          = &loopier::MessageMapper::setCvMaxArea;
     messageMap["/loopier/clip/cv/holes"]            = &loopier::MessageMapper::setCvHoles;
+    messageMap["/loopier/clip/cv/toggle"]           = &loopier::MessageMapper::toggleCvVisibility;
     messageMap["/loopier/clip/cv/show"]             = &loopier::MessageMapper::showCv;
     messageMap["/loopier/clip/cv/hide"]             = &loopier::MessageMapper::hideCv;
     messageMap["/loopier/clip/cv/detectionarea"]    = &::loopier::MessageMapper::setCvDetectionArea;
@@ -793,6 +794,12 @@ void loopier::MessageMapper::setCvInputClip(const Message & msg)
 void loopier::MessageMapper::setCvDeviceId(const Message & msg)
 {
     loopier::cv::setDeviceId(msg.getArgAsInt(0));
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::toggleCvVisibility(const Message & msg)
+{
+    loopier::cv::toggleVisibility();
 }
 
 //---------------------------------------------------------

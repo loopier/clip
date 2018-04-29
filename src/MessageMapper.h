@@ -144,6 +144,7 @@ private:
     void setCvMaxBlobs      (const Message & msg);
     void setCvInputClip     (const Message & msg);
     void setCvDeviceId      (const Message & msg);
+    void toggleCvVisibility (const Message & msg);
     void showCv             (const Message & msg);
     void hideCv             (const Message & msg);
     void setCvDetectionArea (const Message & msg);
