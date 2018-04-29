@@ -117,6 +117,9 @@ namespace loopier {
         void setClipSpeed(const string clipname, const float speed);
         //// \brief Set loop state (none | normal | palindrome)
         void setClipLoopState(const string clipname, const LoopType state);
+        //// \brief Set play direction (normal | reverse)
+        void setClipPlayDirection(const string clipname, const PlayDirection direction);
+        void setClipChangePlayDirection(const string clipname);
         //// \brief  Mask one clip with any player
         void setClipMask(const string clipname, const string maskclipname);
         void enableClipMask(const string clipname);

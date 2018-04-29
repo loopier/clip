@@ -99,11 +99,12 @@ private:
     void enableClipMask       (const Message & msg);
     void disableClipMask      (const Message & msg);
     // play
-    void playClip         (const Message & msg);
-    void stopClip         (const Message & msg);
-    void pauseClip        (const Message & msg);
-    void setClipLoopState (const Message & msg);
-    void setClipSpeed     (const Message & msg);
+    void playClip               (const Message & msg);
+    void stopClip               (const Message & msg);
+    void pauseClip              (const Message & msg);
+    void setClipLoopState       (const Message & msg);
+    void setClipPlayDirection   (const Message & msg);
+    void setClipSpeed           (const Message & msg);
     // edit
     void addFrame         (const Message & msg);
     void insertFrame      (const Message & msg);

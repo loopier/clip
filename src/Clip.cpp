@@ -207,6 +207,20 @@ loopier::LoopType & loopier::Clip::getLoopState()
 }
 
 //---------------------------------------------------------------------------
+void loopier::Clip::setPlayDirection(const loopier::PlayDirection direction)
+{
+    player->setPlayDirection(direction);
+    if (player->isPaused()) player->play();
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::changePlayDirection()
+{
+    player->changePlayDirection();
+    if (player->isPaused()) player->play();
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::setSpeed(const float newSpeed)
 {
     player->setSpeed(newSpeed);

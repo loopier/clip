@@ -98,11 +98,12 @@ void loopier::MessageMapper::setupClipCommandsMap()
     messageMap["/loopier/clip/clip/maskon"]             = &loopier::MessageMapper::enableClipMask;
     messageMap["/loopier/clip/clip/maskoff"]            = &loopier::MessageMapper::disableClipMask;
     // play
-    messageMap["/loopier/clip/clip/play"]       = &loopier::MessageMapper::playClip;
-    messageMap["/loopier/clip/clip/stop"]       = &loopier::MessageMapper::stopClip;
-    messageMap["/loopier/clip/clip/pause"]      = &loopier::MessageMapper::pauseClip;
-    messageMap["/loopier/clip/clip/loop"]       = &loopier::MessageMapper::setClipLoopState;
-    messageMap["/loopier/clip/clip/speed"]      = &loopier::MessageMapper::setClipSpeed;
+    messageMap["/loopier/clip/clip/play"]           = &loopier::MessageMapper::playClip;
+    messageMap["/loopier/clip/clip/stop"]           = &loopier::MessageMapper::stopClip;
+    messageMap["/loopier/clip/clip/pause"]          = &loopier::MessageMapper::pauseClip;
+    messageMap["/loopier/clip/clip/loop"]           = &loopier::MessageMapper::setClipLoopState;
+    messageMap["/loopier/clip/clip/playdirection"]  = &loopier::MessageMapper::setClipPlayDirection;
+    messageMap["/loopier/clip/clip/speed"]          = &loopier::MessageMapper::setClipSpeed;
     // edit
     messageMap["/loopier/clip/clip/addframe"]           = &loopier::MessageMapper::addFrame;
     messageMap["/loopier/clip/clip/insertframe"]        = &loopier::MessageMapper::insertFrame;
@@ -536,6 +537,17 @@ void loopier::MessageMapper::setClipLoopState(const Message & msg)
     else if (arg == "once" )        looptype = loopier::LoopType::once;
     
     loopier::clip::setClipLoopState(msg.getArgAsString(0), looptype);
+}
+
+//---------------------------------------------------------
+void loopier::MessageMapper::setClipPlayDirection(const Message & msg)
+{
+    string arg = msg.getArgAsString(1);
+    loopier::PlayDirection direction = loopier::PlayDirection::normal;
+    
+    if (arg == "reverse")   direction = loopier::PlayDirection::reverse;
+    
+    loopier::clip::setClipPlayDirection(msg.getArgAsString(0), direction);
 }
 
 //---------------------------------------------------------

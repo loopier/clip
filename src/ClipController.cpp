@@ -770,6 +770,20 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        void setClipPlayDirection(const string clipname, const loopier::PlayDirection direction)
+        {
+            if(!exists(clipname)) return;
+            clips[clipname]->setPlayDirection(direction);
+        }
+        
+        //---------------------------------------------------------------------------
+        void setClipChangePlayDirection(const string clipname)
+        {
+            if(!exists(clipname)) return;
+            clips[clipname]->changePlayDirection();
+        }
+        
+        //---------------------------------------------------------------------------
         void setClipMask(const string clipname, const string maskclipname)
         {
             if(!exists(clipname))       return;

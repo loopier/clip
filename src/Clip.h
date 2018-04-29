@@ -48,6 +48,8 @@ namespace loopier {
         void        pause(bool bPause=true);
         void        setLoopState(const LoopType state);
         LoopType &  getLoopState();
+        void        setPlayDirection(const PlayDirection direction);
+        void        changePlayDirection();
         void        setSpeed(const float newSpeed);
         
         void setScale(const float newScale);

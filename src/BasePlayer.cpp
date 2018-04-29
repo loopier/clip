@@ -219,7 +219,9 @@ void    loopier::BasePlayer::changePlayDirection()
 //---------------------------------------------------------
 void    loopier::BasePlayer::setSpeed(float newSpeed)
 {
-    speed = newSpeed;
+    if (newSpeed < 0)   setPlayDirection(loopier::PlayDirection::reverse);
+    else                setPlayDirection(loopier::PlayDirection::normal);
+    speed = abs(newSpeed);
 }
 
 //---------------------------------------------------------
