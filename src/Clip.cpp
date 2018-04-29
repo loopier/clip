@@ -59,7 +59,7 @@ void loopier::Clip::setup(PlayerPtr aplayer)
     setPlayer(aplayer);
     setAnchorPercent(0.5, 0.5);
     outputFbo.clear();
-    outputFbo.allocate(player->getWidth(), player->getHeight());
+    outputFbo.allocate(ofGetWidth(), ofGetHeight());
     outputFbo.setAnchorPercent(0.5, 0.5);
 }
 
