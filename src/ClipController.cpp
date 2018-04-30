@@ -897,7 +897,7 @@ namespace loopier {
             void saveFrameInfo(const string name, const ofRectangle & rect) {
                 string filename = resourceFilesPath+"frames/"+name+"/resource.yml";
                 ofFile file(filename, ofFile::WriteOnly);
-                string tab = "  	";
+                string tab = "  ";
                 file << "name: " << name << endl;
                 file << "type: frame" << endl;
                 file << "# The following rectangle represents the bounging box of the" << endl;
