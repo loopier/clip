@@ -1,0 +1,38 @@
+[
+  {
+    "name" : "bigmama",
+    "resource" : "mamma",
+    "play" : true,
+    "loop" : "palindrome",
+    "playdirection" : "forward",
+    "speed" : 2,
+    "position" : {
+      "x" : 0.5,
+      "y" : 0.5
+    },
+    "width" : 100,
+    "height" : 200,
+    "scale" : 1.0,
+    "color" : {
+      "r" : 1.0,
+      "g" : 1.0,
+      "b" : 1.0,
+      "a" : 0.5
+    },
+    "depth" : 0,
+    "visible" : true,
+    "mask" : "",
+    "fullscreen" : false,
+    "flipv" : false,
+    "fliph" : false,
+    "parent" : "",
+    "offset" : {
+      "x" : 0.0,
+      "y" : 0.0
+    }
+  },{
+    "name" : "mamma"
+  },{
+    "name" : "manflyround"
+  },
+]
