@@ -13,6 +13,13 @@ void ofApp::setup(){
 
 //    loopier::ConsoleUI::setup();
     applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/";
+    
+    ofDirectory dir(applicationSupportPath);
+    if (!dir.exists()) {
+        ofSystemAlertDialog(applicationSupportPath + " doesn't exist.");
+        ofExit();
+    }
+    
     loopier::resource::setPath(applicationSupportPath + "resources/");
     loopier::app::init();
     loopier::uvc::init();

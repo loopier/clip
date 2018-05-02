@@ -225,6 +225,11 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void init()
         {
+            ofDirectory dir(ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/");
+            if (!dir.exists()) {
+                
+            }
+            
             // local helpers declared above in unnamed namespace
             loadFrameLists();
             loadMovies();
