@@ -1145,6 +1145,30 @@ namespace loopier {
             ofLogVerbose() << "Clip Library path: " << clipLibraryPath;
         }
         
+        //---------------------------------------------------------------------------
+        void listClipLibraryNames()
+        {
+            vector<string> names = getClipLibraryNames();
+            for (const auto &name : names) {
+                ofLogVerbose() << name;
+            }
+            
+            return names;
+        }
+        
+        //---------------------------------------------------------------------------
+        vector<string> getClipLibraryNames()
+        {
+            ofDirectory dir(clipLibraryPath);
+            vector<ofFile> files = dir.getFiles();
+            vector<string> names;
+            for (const auto &file : files) {
+                names.push_back(file.getBaseName());
+            }
+            
+            return names;
+        }
+        
         
         
         //---------------------------------------------------------------------------

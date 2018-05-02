@@ -131,6 +131,7 @@ namespace loopier {
             void clearClips         (const Message & msg);
             void listClipNames      (const Message & msg);
             void listResourceNames  (const Message & msg);
+            void listClipLibraryNames   (const Message & msg);
             void toggleClipNames    (const Message & msg);
             void showClipNames      (const Message & msg);
             void hideClipNames      (const Message & msg);
@@ -194,6 +195,7 @@ namespace loopier {
             
             void sendClipNames();
             void sendResourceNames();
+            void sendLibraryNames();
             
             // Helpers
             /// \brief  Translates a message with variable arguments to a color object

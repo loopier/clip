@@ -156,6 +156,9 @@ namespace loopier {
         /// \brief  Loads a library of clips
         void loadClipLibrary(const string libraryname);
         void setClipLibraryPath(const string path);
+        void listClipLibraryNames();
+        /// \brief  Returns a list of all available clip libraries
+        vector<string> getClipLibraryNames();
         
         // ----- CLIP ATTRIBUTES -----
         // reset all attributes
