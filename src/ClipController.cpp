@@ -706,7 +706,15 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void clearAll()
         {
-            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            ofLogVerbose() << __PRETTY_FUNCTION__;
+            
+            while (clips.size() > 0) {
+                removeClip(clips.begin()->first);
+            }
+            
+            clip::newClip("syphon");
+            clip::hideClip("syphon");
+            clip::newClip("cv");
         }
         
         //---------------------------------------------------------------------------
