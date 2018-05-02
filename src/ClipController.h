@@ -155,6 +155,7 @@ namespace loopier {
         void loadClip(const string clipname);
         /// \brief  Loads a library of clips
         void loadClipLibrary(const string libraryname);
+        void setClipLibraryPath(const string path);
         
         // ----- CLIP ATTRIBUTES -----
         // reset all attributes

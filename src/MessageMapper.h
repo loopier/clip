@@ -127,6 +127,7 @@ namespace loopier {
             void setClipAlpha (const Message & msg);
             
             // Clip collection commands
+            void loadClipLibrary    (const Message & msg);
             void clearClips         (const Message & msg);
             void listClipNames      (const Message & msg);
             void listResourceNames  (const Message & msg);

@@ -121,6 +121,7 @@ namespace loopier {
         {
             
             // Clip collection commands
+            messageMap["/loopier/clip/clips/loadlibrary"]   = &MessageMapper::loadClipLibrary;
             messageMap["/loopier/clip/clips/clearall"]      = &MessageMapper::clearClips;
             messageMap["/loopier/clip/clips/listnames"]     = &MessageMapper::listClipNames;
             messageMap["/loopier/clip/clips/listresources"] = &MessageMapper::listResourceNames;
@@ -672,6 +673,13 @@ namespace loopier {
         //        CLIP COLLECTIONS
         
         //---------------------------------------------------------
+        
+        
+        //---------------------------------------------------------
+        void MessageMapper::loadClipLibrary(const Message & msg)
+        {
+            clip::loadClipLibrary(msg.getArgAsString(0));
+        }
         
         
         //---------------------------------------------------------

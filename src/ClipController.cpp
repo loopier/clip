@@ -15,6 +15,7 @@ namespace {
     // app settings
     string  applicationSupportPath = "";
     string  resourceFilesPath  = "";
+    string  clipLibraryPath = "";
     
     // clips
     loopier::ClipMap            clips;      // all clips that have been created
@@ -235,6 +236,7 @@ namespace loopier {
             }
             
             resource::setPath(applicationSupportPath);
+            clip::setClipLibraryPath(applicationSupportPath);
             
             // local helpers declared above in unnamed namespace
             loadFrameLists();
@@ -1080,8 +1082,66 @@ namespace loopier {
         void loadClipLibrary(const string libraryname)
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            
             ofxJSONElement json;
-//            json.load()
+                                        
+            bool parsingSuccessful = json.open(clipLibraryPath + libraryname + ".json");
+            
+            if (parsingSuccessful) {
+                ofLogVerbose() << json.getRawString();
+                ofLogVerbose() << json.size();
+                
+                for (const auto &clip : json) {
+                    string  clipname        = clip["name"].asString();
+                    string  resourcename    = clip["resource"].asString();
+                    bool    play            = clip["play"].asBool();
+                    string  loop            = clip["loop"].asString();
+                    float   x               = clip["position"]["x"].asFloat() * ofGetWidth();
+                    float   y               = clip["position"]["y"].asFloat() * ofGetHeight();
+                    float   width           = clip["width"].asFloat();
+                    float   height          = clip["height"].asFloat();
+                    float   scale           = clip["scale"].asFloat();
+                    float   r               = clip["color"]["r"].asFloat() * 255;
+                    float   g               = clip["color"]["g"].asFloat() * 255;
+                    float   b               = clip["color"]["b"].asFloat() * 255;
+                    float   a               = clip["color"]["a"].asFloat() * 255;
+                    ofColor color(r, g, b);
+                    int     depth           = clip["depth"].asInt();
+                    bool    visible         = clip["visible"].asBool();
+                    string  mask            = clip["mask"].asString();
+                    bool    fullscreen      = clip["fullscreen"].asBool();
+                    bool    flipv           = clip["flipv"].asBool();
+                    bool    fliph           = clip["fliph"].asBool();
+                    string  parent          = clip["parent"].asString();
+                    float   offsetX         = clip["offset"]["x"].asFloat();
+                    float   offsetY         = clip["offset"]["y"].asFloat();
+                    
+                    ClipPtr newclip = newClip(clipname, resourcename);
+                    if (!play) newclip->stop();
+                    if (loop == "palindrome")   newclip->setLoopState(LoopType::palindrome);
+                    else if (loop == "once")    newclip->setLoopState(LoopType::once);
+                    newclip->setPosition(x, y);
+                    if (width)  newclip->setWidth(width);
+                    if (height) newclip->setHeight(height);
+                    if (scale)  newclip->setScale(scale);
+                    newclip->setColor(color);
+                    if (a > 0)  newclip->setAlpha(a);
+                    newclip->setDepth(depth);
+                    if (!visible) newclip->hide();
+//                    newclip->setMask(should be clipPtr not playerPtr);
+                    if (fullscreen) newclip->toggleFullscreen();
+                    if (flipv) newclip->flipV();
+                    if (fliph) newclip->flipH();
+                    if (parent != "")   newclip->setParent(getClip(parent));
+                }
+            }
+        }
+        
+        //---------------------------------------------------------------------------
+        void setClipLibraryPath(const string path)
+        {
+            clipLibraryPath = path + "clips/";
+            ofLogVerbose() << "Clip Library path: " << clipLibraryPath;
         }
         
         
