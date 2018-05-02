@@ -187,6 +187,13 @@ namespace loopier {
             void setUvcSaturation   (const Message & msg);
             void setUvcSharpness    (const Message & msg);
             
+            
+            //------------------------------------------------------------------------------------------
+            // SENDER METHODS
+            
+            void sendClipNames();
+            void sendResourceNames();
+            
             // Helpers
             /// \brief  Translates a message with variable arguments to a color object
             static ofColor getColorFromMessage(const Message & msg);

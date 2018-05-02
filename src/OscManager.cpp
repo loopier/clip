@@ -63,6 +63,12 @@ void loopier::osc::OscManager::listenToPort(const int port)
     ofLogVerbose() << __FUNCTION__ << ": Now listening to port " << listenPort;
 }
 
+void loopier::osc::OscManager::sendMessage(ofxOscMessage& m)
+{
+    sender.sendMessage(m);
+    printMessage(m, "Sent OSC:");
+}
+
 //------------------------------------------------------------------------------------------
 //      INTERFACE FUNCTIONS
 //------------------------------------------------------------------------------------------

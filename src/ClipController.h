@@ -34,6 +34,8 @@ namespace loopier {
         void    setPath(string path);
         string& getPath();
         void    listAll();
+        /// \brief  Returns a list of the names of all resources
+        vector<string> getNamesList();
         /// \brief   Checks if a resource exists
         bool    exists(string resourcename);
         /// \brief   Sets the syphon player of the given clip to listen to the given syphon server
@@ -89,6 +91,8 @@ namespace loopier {
         
         /// \brief   Prints all clip names to console
         void    listAll();
+        /// \brief  Returns a list of the names of all clips
+        vector<string> getNamesList();
         /// \brief   Prints clip rendering order
         void    listLayers();
         /// \brief   Deletes all clips

@@ -333,6 +333,16 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        vector<string> getNamesList()
+        {
+            vector<string> names;
+            for (const auto &item : frames) {   names.push_back(item.first); }
+            for (const auto &item : movies) {   names.push_back(item.first); }
+            for (const auto &item : cameraplayers) {  names.push_back(item.first); }
+            return names;
+        }
+        
+        //---------------------------------------------------------------------------
         bool exists(string resourcename)
         {
             if (frames.count(resourcename) ||
@@ -672,6 +682,14 @@ namespace loopier {
         {
             ofLogNotice() << clips.size() << " available clips";
             for (const auto &item : clips) {  ofLogNotice() << "\t" << item.first; }
+        }
+        
+        //---------------------------------------------------------------------------
+        vector<string> getNamesList()
+        {
+            vector<string> names;
+            for (const auto &item : clips) {   names.push_back(item.first); }
+            return names;
         }
         
         //---------------------------------------------------------------------------
