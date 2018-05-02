@@ -14,6 +14,7 @@
 #include "ofMain.h"
 #include "Clip.h"
 #include "ofxYAML.h"
+#include "ofxJSON.h"
 
 namespace loopier {
     namespace app {
@@ -152,6 +153,8 @@ namespace loopier {
         void saveClip(const string clipname);
         /// \brief  Loads a clip
         void loadClip(const string clipname);
+        /// \brief  Loads a library of clips
+        void loadClipLibrary(const string libraryname);
         
         // ----- CLIP ATTRIBUTES -----
         // reset all attributes

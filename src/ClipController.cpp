@@ -1059,9 +1059,20 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void loadClip(const string clipname)
         {
-            if(!exists(clipname)) return;
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            
         }
+        
+        //---------------------------------------------------------------------------
+        void loadClipLibrary(const string libraryname)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            ofxJSONElement json;
+//            json.load()
+        }
+        
+        
+        
         //---------------------------------------------------------------------------
         //
         //---------------------------------------------------------------------------
