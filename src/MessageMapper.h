@@ -191,7 +191,7 @@ private:
     static ofColor getColorFromMessage(const Message & msg);
 
     map<string, mappedFunc> messageMap;
-    OscManager              osc;
+    osc::OscManager         osc;
 
     ConsoleUI   console;
 };

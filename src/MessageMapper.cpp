@@ -215,8 +215,8 @@ void loopier::MessageMapper::setupUvcCommandsMap()
 //---------------------------------------------------------
 void loopier::MessageMapper::printMessage(Message & msg)
 {
-    loopier::printOscMessage(msg, "OSC:");
-    loopier::ConsoleUI::print(loopier::getSimplifiedOscMessage(msg));
+    osc::printMessage(msg, "OSC:");
+    loopier::ConsoleUI::print(osc::getSimplifiedMessage(msg));
 }
 
 //---------------------------------------------------------

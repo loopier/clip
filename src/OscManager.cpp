@@ -13,29 +13,32 @@
 //      CLASS
 //------------------------------------------------------------------------------------------
 
-loopier::OscManager::OscManager()
+loopier::osc::OscManager::OscManager()
 : listenPort(12345)
+, remoteIp("localhost")
+, remotePort(54321)
 {
     ofLogVerbose() << __FUNCTION__ << ": Automatically listening to 'update' event";
     // automatically update without needing to call it from ofApp
-    ofAddListener(ofEvents().update, this, &loopier::OscManager::update);
+    ofAddListener(ofEvents().update, this, &loopier::osc::OscManager::update);
     
     counterfortest=0;
 }
 
-loopier::OscManager::~OscManager()
+loopier::osc::OscManager::~OscManager()
 {
-    ofRemoveListener(ofEvents().update, this, &loopier::OscManager::update);
+    ofRemoveListener(ofEvents().update, this, &loopier::osc::OscManager::update);
     ofLogVerbose() << __FUNCTION__ << ": OscManager object destroyed";
 }
 
-void loopier::OscManager::setup()
+void loopier::osc::OscManager::setup()
 {
     receiver.setup(listenPort);
     ofLogNotice() << "OSC listening on port " << listenPort;
+    sender.setup(remoteIp, remotePort);
 }
 
-void loopier::OscManager::update()
+void loopier::osc::OscManager::update()
 {
     while (receiver.hasWaitingMessages()) {
         ofxOscMessage m;
@@ -49,12 +52,12 @@ void loopier::OscManager::update()
     
 }
 
-void loopier::OscManager::update(ofEventArgs& e)
+void loopier::osc::OscManager::update(ofEventArgs& e)
 {
     update();
 }
 
-void loopier::OscManager::listenToPort(const int port)
+void loopier::osc::OscManager::listenToPort(const int port)
 {
     listenPort = port;
     ofLogVerbose() << __FUNCTION__ << ": Now listening to port " << listenPort;
@@ -64,16 +67,16 @@ void loopier::OscManager::listenToPort(const int port)
 //      INTERFACE FUNCTIONS
 //------------------------------------------------------------------------------------------
 
-void loopier::printOscMessage(const ofxOscMessage& m, const string& prepend, const ofLogLevel& loglevel)
+void loopier::osc::printMessage(const ofxOscMessage& m, const string& prepend, const ofLogLevel& loglevel)
 {
     //    ofLogVerbose() << typeid(this).name() << "::" << __FUNCTION__;
     string msg = prepend + "\t";
-    msg += loopier::getPrintableOscMessage(m);
+    msg += loopier::osc::getPrintableMessage(m);
     
     ofLogNotice() << msg;
 }
 
-string loopier::getPrintableOscMessage(const ofxOscMessage& m)
+string loopier::osc::getPrintableMessage(const ofxOscMessage& m)
 {
     string msg;
     msg = m.getAddress();
@@ -102,7 +105,7 @@ string loopier::getPrintableOscMessage(const ofxOscMessage& m)
     return msg;
 }
 
-string loopier::getSimplifiedOscMessage(const ofxOscMessage& m)
+string loopier::osc::getSimplifiedMessage(const ofxOscMessage& m)
 {
     string msg;
     msg = m.getAddress();

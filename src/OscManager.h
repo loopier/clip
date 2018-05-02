@@ -15,6 +15,7 @@
 
 
 namespace loopier {
+    namespace osc {
     class OscManager
     {
     public:
@@ -36,8 +37,11 @@ namespace loopier {
         void update(ofEventArgs& e);
         
         int listenPort;
+        string remoteIp;
+        int remotePort;
         
         ofxOscReceiver receiver;
+        ofxOscSender    sender;
         float counterfortest;
         
     };
@@ -47,9 +51,10 @@ namespace loopier {
     /// \param  prepend     String          Something to write before the
     ///                                     message address (e.g. who's asking
     ///                                     to print it)
-    void printOscMessage(const ofxOscMessage& m, const string& prepend="", const ofLogLevel& loglevel=OF_LOG_NOTICE);
-    string getPrintableOscMessage(const ofxOscMessage& m);
-    string getSimplifiedOscMessage(const ofxOscMessage& m);
-}
+    void printMessage(const ofxOscMessage& m, const string& prepend="", const ofLogLevel& loglevel=OF_LOG_NOTICE);
+    string getPrintableMessage(const ofxOscMessage& m);
+    string getSimplifiedMessage(const ofxOscMessage& m);
+    } // namespace osc
+} // namespace loopier
 
 #endif /* OscManager_hpp */
