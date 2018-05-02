@@ -8,24 +8,14 @@
 
 #include "MessageMapper.h"
 
+namespace loopier {
+namespace osc {
 
 //---------------------------------------------------------
-//loopier::MessageMapper::MessageMapper()
-//{
-//
-//}
-//
-////---------------------------------------------------------
-//loopier::MessageMapper::~MessageMapper()
-//{
-//
-//}
-
-//---------------------------------------------------------
-void loopier::MessageMapper::setup()
+void MessageMapper::setup()
 {
     osc.setup();
-    ofAddListener(osc.newOscMessageEvent, this, &loopier::MessageMapper::mapMessageToFunc);
+    ofAddListener(osc.newOscMessageEvent, this, &MessageMapper::mapMessageToFunc);
     setupAppCommandsMap();
     setupClipCommandsMap();
     setupClipCollectionCommandsMap();
@@ -34,193 +24,193 @@ void loopier::MessageMapper::setup()
     setupConsoleCommandsMap();
     setupUvcCommandsMap();
 
-    loopier::ConsoleUI::setup();
+    ConsoleUI::setup();
 }
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setupAppCommandsMap()
+void MessageMapper::setupAppCommandsMap()
 {
     // Application commands
-    messageMap["/loopier/clip/app/test"]       = &loopier::MessageMapper::test;
+    messageMap["/loopier/clip/app/test"]       = &MessageMapper::test;
     
     // Application commands
-    messageMap["/loopier/clip/app/quit"]        = &loopier::MessageMapper::quit;
-    messageMap["/loopier/clip/app/fullscreen"]  = &loopier::MessageMapper::fullscreen;
-    messageMap["/loopier/clip/app/move"]        = &loopier::MessageMapper::move;
+    messageMap["/loopier/clip/app/quit"]        = &MessageMapper::quit;
+    messageMap["/loopier/clip/app/fullscreen"]  = &MessageMapper::fullscreen;
+    messageMap["/loopier/clip/app/move"]        = &MessageMapper::move;
 }
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setupClipCommandsMap()
+void MessageMapper::setupClipCommandsMap()
 {
 
     // One Clip commands
-    messageMap["/loopier/clip/clip/new"]                = &loopier::MessageMapper::newClip;
-    messageMap["/loopier/clip/clip/replace"]            = &loopier::MessageMapper::newClip;
-    messageMap["/loopier/clip/clip/replaceblob"]        = &loopier::MessageMapper::newClipFromBlob;
-    messageMap["/loopier/clip/clip/remove"]             = &loopier::MessageMapper::removeClip;
-    messageMap["/loopier/clip/clip/reset"]              = &loopier::MessageMapper::resetClip;
-    messageMap["/loopier/clip/clip/select"]             = &loopier::MessageMapper::selectClip;
-    messageMap["/loopier/clip/clip/deselect"]           = &loopier::MessageMapper::deselectClip;
+    messageMap["/loopier/clip/clip/new"]                = &MessageMapper::newClip;
+    messageMap["/loopier/clip/clip/replace"]            = &MessageMapper::newClip;
+    messageMap["/loopier/clip/clip/replaceblob"]        = &MessageMapper::newClipFromBlob;
+    messageMap["/loopier/clip/clip/remove"]             = &MessageMapper::removeClip;
+    messageMap["/loopier/clip/clip/reset"]              = &MessageMapper::resetClip;
+    messageMap["/loopier/clip/clip/select"]             = &MessageMapper::selectClip;
+    messageMap["/loopier/clip/clip/deselect"]           = &MessageMapper::deselectClip;
     // parent
-    messageMap["/loopier/clip/clip/parent"]         = &loopier::MessageMapper::setParent;
-    messageMap["/loopier/clip/clip/removeparent"]   = &loopier::MessageMapper::removeParent;
-    messageMap["/loopier/clip/clip/offset"]         = &loopier::MessageMapper::setOffset;
+    messageMap["/loopier/clip/clip/parent"]         = &MessageMapper::setParent;
+    messageMap["/loopier/clip/clip/removeparent"]   = &MessageMapper::removeParent;
+    messageMap["/loopier/clip/clip/offset"]         = &MessageMapper::setOffset;
     // Arrange
-    messageMap["/loopier/clip/clip/depth"]          = &loopier::MessageMapper::setClipDrawOrder;
-    messageMap["/loopier/clip/clip/front"]          = &loopier::MessageMapper::bringClipToFront;
-    messageMap["/loopier/clip/clip/forward"]        = &loopier::MessageMapper::bringClipForward;
-    messageMap["/loopier/clip/clip/backward"]       = &loopier::MessageMapper::sendClipBackward;
-    messageMap["/loopier/clip/clip/back"]           = &loopier::MessageMapper::sendClipToBack;
-    messageMap["/loopier/clip/clip/background"]     = &loopier::MessageMapper::setBackgroundClip;
-    messageMap["/loopier/clip/clip/public"]         = &loopier::MessageMapper::setPublicClip;
-    messageMap["/loopier/clip/clip/private"]        = &loopier::MessageMapper::setPrivateClip;
+    messageMap["/loopier/clip/clip/depth"]          = &MessageMapper::setClipDrawOrder;
+    messageMap["/loopier/clip/clip/front"]          = &MessageMapper::bringClipToFront;
+    messageMap["/loopier/clip/clip/forward"]        = &MessageMapper::bringClipForward;
+    messageMap["/loopier/clip/clip/backward"]       = &MessageMapper::sendClipBackward;
+    messageMap["/loopier/clip/clip/back"]           = &MessageMapper::sendClipToBack;
+    messageMap["/loopier/clip/clip/background"]     = &MessageMapper::setBackgroundClip;
+    messageMap["/loopier/clip/clip/public"]         = &MessageMapper::setPublicClip;
+    messageMap["/loopier/clip/clip/private"]        = &MessageMapper::setPrivateClip;
     // TODO: Move to ../app/.. or ../clips/..
-    messageMap["/loopier/clip/clip/layers"]         = &loopier::MessageMapper::listLayers;
+    messageMap["/loopier/clip/clip/layers"]         = &MessageMapper::listLayers;
     // Size
-    messageMap["/loopier/clip/clip/scaleup"]            = &loopier::MessageMapper::scaleUpClip;
-    messageMap["/loopier/clip/clip/scaledown"]          = &loopier::MessageMapper::scaleDownClip;
-    messageMap["/loopier/clip/clip/scale"]              = &loopier::MessageMapper::scaleClip;
-    messageMap["/loopier/clip/clip/xscale"]             = &loopier::MessageMapper::setClipWidth;
-    messageMap["/loopier/clip/clip/yscale"]             = &loopier::MessageMapper::setClipHeight;
-    messageMap["/loopier/clip/clip/resetscale"]         = &loopier::MessageMapper::resetClipScale;
-    messageMap["/loopier/clip/clip/fullscreen"]         = &loopier::MessageMapper::toggleFullscreenClip;
+    messageMap["/loopier/clip/clip/scaleup"]            = &MessageMapper::scaleUpClip;
+    messageMap["/loopier/clip/clip/scaledown"]          = &MessageMapper::scaleDownClip;
+    messageMap["/loopier/clip/clip/scale"]              = &MessageMapper::scaleClip;
+    messageMap["/loopier/clip/clip/xscale"]             = &MessageMapper::setClipWidth;
+    messageMap["/loopier/clip/clip/yscale"]             = &MessageMapper::setClipHeight;
+    messageMap["/loopier/clip/clip/resetscale"]         = &MessageMapper::resetClipScale;
+    messageMap["/loopier/clip/clip/fullscreen"]         = &MessageMapper::toggleFullscreenClip;
     // Orientation
-    messageMap["/loopier/clip/clip/vflip"]              = &loopier::MessageMapper::setClipVFlip;
-    messageMap["/loopier/clip/clip/hflip"]              = &loopier::MessageMapper::setClipHFlip;
+    messageMap["/loopier/clip/clip/vflip"]              = &MessageMapper::setClipVFlip;
+    messageMap["/loopier/clip/clip/hflip"]              = &MessageMapper::setClipHFlip;
     // Visibility
-    messageMap["/loopier/clip/clip/togglevisibility"]   = &loopier::MessageMapper::toggleClipVisibility;
-    messageMap["/loopier/clip/clip/show"]               = &loopier::MessageMapper::showClip;
-    messageMap["/loopier/clip/clip/hide"]               = &loopier::MessageMapper::hideClip;
+    messageMap["/loopier/clip/clip/togglevisibility"]   = &MessageMapper::toggleClipVisibility;
+    messageMap["/loopier/clip/clip/show"]               = &MessageMapper::showClip;
+    messageMap["/loopier/clip/clip/hide"]               = &MessageMapper::hideClip;
     // FX
-    messageMap["/loopier/clip/clip/mask"]               = &loopier::MessageMapper::setClipMask;
-    messageMap["/loopier/clip/clip/maskon"]             = &loopier::MessageMapper::enableClipMask;
-    messageMap["/loopier/clip/clip/maskoff"]            = &loopier::MessageMapper::disableClipMask;
+    messageMap["/loopier/clip/clip/mask"]               = &MessageMapper::setClipMask;
+    messageMap["/loopier/clip/clip/maskon"]             = &MessageMapper::enableClipMask;
+    messageMap["/loopier/clip/clip/maskoff"]            = &MessageMapper::disableClipMask;
     // play
-    messageMap["/loopier/clip/clip/play"]           = &loopier::MessageMapper::playClip;
-    messageMap["/loopier/clip/clip/stop"]           = &loopier::MessageMapper::stopClip;
-    messageMap["/loopier/clip/clip/pause"]          = &loopier::MessageMapper::pauseClip;
-    messageMap["/loopier/clip/clip/loop"]           = &loopier::MessageMapper::setClipLoopState;
-    messageMap["/loopier/clip/clip/playdirection"]  = &loopier::MessageMapper::setClipPlayDirection;
-    messageMap["/loopier/clip/clip/speed"]          = &loopier::MessageMapper::setClipSpeed;
+    messageMap["/loopier/clip/clip/play"]           = &MessageMapper::playClip;
+    messageMap["/loopier/clip/clip/stop"]           = &MessageMapper::stopClip;
+    messageMap["/loopier/clip/clip/pause"]          = &MessageMapper::pauseClip;
+    messageMap["/loopier/clip/clip/loop"]           = &MessageMapper::setClipLoopState;
+    messageMap["/loopier/clip/clip/playdirection"]  = &MessageMapper::setClipPlayDirection;
+    messageMap["/loopier/clip/clip/speed"]          = &MessageMapper::setClipSpeed;
     // edit
-    messageMap["/loopier/clip/clip/addframe"]           = &loopier::MessageMapper::addFrame;
-    messageMap["/loopier/clip/clip/insertframe"]        = &loopier::MessageMapper::insertFrame;
-    messageMap["/loopier/clip/clip/removeframe"]        = &loopier::MessageMapper::removeFrame;
-    messageMap["/loopier/clip/clip/clearframes"]        = &loopier::MessageMapper::clearFrames;
-    messageMap["/loopier/clip/clip/saveframes"]         = &loopier::MessageMapper::saveFrames;
-    messageMap["/loopier/clip/clip/loadframes"]         = &loopier::MessageMapper::loadFrames;
-    messageMap["/loopier/clip/clip/firstframe"]         = &loopier::MessageMapper::firstFrame;
-    messageMap["/loopier/clip/clip/nextframe"]          = &loopier::MessageMapper::nextFrame;
-    messageMap["/loopier/clip/clip/previousframe"]      = &loopier::MessageMapper::previousFrame;
-    messageMap["/loopier/clip/clip/lastframe"]          = &loopier::MessageMapper::lastFrame;
-    messageMap["/loopier/clip/clip/gotoframe"]          = &loopier::MessageMapper::goToFrame;
-    messageMap["/loopier/clip/clip/save"]               = &loopier::MessageMapper::saveClip;
+    messageMap["/loopier/clip/clip/addframe"]           = &MessageMapper::addFrame;
+    messageMap["/loopier/clip/clip/insertframe"]        = &MessageMapper::insertFrame;
+    messageMap["/loopier/clip/clip/removeframe"]        = &MessageMapper::removeFrame;
+    messageMap["/loopier/clip/clip/clearframes"]        = &MessageMapper::clearFrames;
+    messageMap["/loopier/clip/clip/saveframes"]         = &MessageMapper::saveFrames;
+    messageMap["/loopier/clip/clip/loadframes"]         = &MessageMapper::loadFrames;
+    messageMap["/loopier/clip/clip/firstframe"]         = &MessageMapper::firstFrame;
+    messageMap["/loopier/clip/clip/nextframe"]          = &MessageMapper::nextFrame;
+    messageMap["/loopier/clip/clip/previousframe"]      = &MessageMapper::previousFrame;
+    messageMap["/loopier/clip/clip/lastframe"]          = &MessageMapper::lastFrame;
+    messageMap["/loopier/clip/clip/gotoframe"]          = &MessageMapper::goToFrame;
+    messageMap["/loopier/clip/clip/save"]               = &MessageMapper::saveClip;
     // move
-    messageMap["/loopier/clip/clip/moveto"] = &loopier::MessageMapper::moveClipTo;
-    messageMap["/loopier/clip/clip/center"] = &loopier::MessageMapper::centerClip;
+    messageMap["/loopier/clip/clip/moveto"] = &MessageMapper::moveClipTo;
+    messageMap["/loopier/clip/clip/center"] = &MessageMapper::centerClip;
     // color
-    messageMap["/loopier/clip/clip/color"]  = &loopier::MessageMapper::setClipColor;
-    messageMap["/loopier/clip/clip/alpha"]  = &loopier::MessageMapper::setClipAlpha;
+    messageMap["/loopier/clip/clip/color"]  = &MessageMapper::setClipColor;
+    messageMap["/loopier/clip/clip/alpha"]  = &MessageMapper::setClipAlpha;
 }
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setupClipCollectionCommandsMap()
+void MessageMapper::setupClipCollectionCommandsMap()
 {
 
     // Clip collection commands
-    messageMap["/loopier/clip/clips/clearall"]      = &loopier::MessageMapper::clearClips;
-    messageMap["/loopier/clip/clips/listnames"]     = &loopier::MessageMapper::listClipNames;
-    messageMap["/loopier/clip/clips/listresources"] = &loopier::MessageMapper::listResourceNames;
-    messageMap["/loopier/clip/clips/togglenames"]   = &loopier::MessageMapper::toggleClipNames;
-    messageMap["/loopier/clip/clips/shownames"]     = &loopier::MessageMapper::showClipNames;
-    messageMap["/loopier/clip/clips/hidenames"]     = &loopier::MessageMapper::hideClipNames;
+    messageMap["/loopier/clip/clips/clearall"]      = &MessageMapper::clearClips;
+    messageMap["/loopier/clip/clips/listnames"]     = &MessageMapper::listClipNames;
+    messageMap["/loopier/clip/clips/listresources"] = &MessageMapper::listResourceNames;
+    messageMap["/loopier/clip/clips/togglenames"]   = &MessageMapper::toggleClipNames;
+    messageMap["/loopier/clip/clips/shownames"]     = &MessageMapper::showClipNames;
+    messageMap["/loopier/clip/clips/hidenames"]     = &MessageMapper::hideClipNames;
     
 }
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setupSyphonCommandsMap()
+void MessageMapper::setupSyphonCommandsMap()
 {
     // Syphon
-    messageMap["/loopier/clip/syphon/servername"]   = &loopier::MessageMapper::setSyphonServerName;
+    messageMap["/loopier/clip/syphon/servername"]   = &MessageMapper::setSyphonServerName;
 }
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setupCvCommandsMap()
+void MessageMapper::setupCvCommandsMap()
 {
     // CV commands
-    messageMap["/loopier/clip/cv/setinput"]         = &loopier::MessageMapper::setCvInputClip;
-    messageMap["/loopier/clip/cv/color"]            = &loopier::MessageMapper::setCvColor;
-    messageMap["/loopier/clip/cv/threshold"]        = &loopier::MessageMapper::setCvThreshold;
-    messageMap["/loopier/clip/cv/minArea"]          = &loopier::MessageMapper::setCvMinArea;
-    messageMap["/loopier/clip/cv/maxArea"]          = &loopier::MessageMapper::setCvMaxArea;
-    messageMap["/loopier/clip/cv/holes"]            = &loopier::MessageMapper::setCvHoles;
-    messageMap["/loopier/clip/cv/toggle"]           = &loopier::MessageMapper::toggleCvVisibility;
-    messageMap["/loopier/clip/cv/show"]             = &loopier::MessageMapper::showCv;
-    messageMap["/loopier/clip/cv/hide"]             = &loopier::MessageMapper::hideCv;
-    messageMap["/loopier/clip/cv/detectionarea"]    = &::loopier::MessageMapper::setCvDetectionArea;
-    messageMap["/loopier/clip/cv/maxblobs"]         = &loopier::MessageMapper::setCvMaxBlobs;
-    messageMap["/loopier/clip/cv/select"]           = &loopier::MessageMapper::selectBlob;
-    messageMap["/loopier/clip/cv/deselect"]         = &loopier::MessageMapper::deselectBlob;
-    messageMap["/loopier/clip/cv/selectall"]        = &loopier::MessageMapper::selectAllBlobs;
-    messageMap["/loopier/clip/cv/deselectall"]      = &loopier::MessageMapper::deselectAllBlobs;
-    messageMap["/loopier/clip/cv/first"]            = &loopier::MessageMapper::firstBlob;
-    messageMap["/loopier/clip/cv/next"]             = &loopier::MessageMapper::nextBlob;
-    messageMap["/loopier/clip/cv/previous"]         = &loopier::MessageMapper::previousBlob;
-    messageMap["/loopier/clip/cv/last"]             = &loopier::MessageMapper::lastBlob;
+    messageMap["/loopier/clip/cv/setinput"]         = &MessageMapper::setCvInputClip;
+    messageMap["/loopier/clip/cv/color"]            = &MessageMapper::setCvColor;
+    messageMap["/loopier/clip/cv/threshold"]        = &MessageMapper::setCvThreshold;
+    messageMap["/loopier/clip/cv/minArea"]          = &MessageMapper::setCvMinArea;
+    messageMap["/loopier/clip/cv/maxArea"]          = &MessageMapper::setCvMaxArea;
+    messageMap["/loopier/clip/cv/holes"]            = &MessageMapper::setCvHoles;
+    messageMap["/loopier/clip/cv/toggle"]           = &MessageMapper::toggleCvVisibility;
+    messageMap["/loopier/clip/cv/show"]             = &MessageMapper::showCv;
+    messageMap["/loopier/clip/cv/hide"]             = &MessageMapper::hideCv;
+    messageMap["/loopier/clip/cv/detectionarea"]    = &MessageMapper::setCvDetectionArea;
+    messageMap["/loopier/clip/cv/maxblobs"]         = &MessageMapper::setCvMaxBlobs;
+    messageMap["/loopier/clip/cv/select"]           = &MessageMapper::selectBlob;
+    messageMap["/loopier/clip/cv/deselect"]         = &MessageMapper::deselectBlob;
+    messageMap["/loopier/clip/cv/selectall"]        = &MessageMapper::selectAllBlobs;
+    messageMap["/loopier/clip/cv/deselectall"]      = &MessageMapper::deselectAllBlobs;
+    messageMap["/loopier/clip/cv/first"]            = &MessageMapper::firstBlob;
+    messageMap["/loopier/clip/cv/next"]             = &MessageMapper::nextBlob;
+    messageMap["/loopier/clip/cv/previous"]         = &MessageMapper::previousBlob;
+    messageMap["/loopier/clip/cv/last"]             = &MessageMapper::lastBlob;
 }
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setupConsoleCommandsMap()
+void MessageMapper::setupConsoleCommandsMap()
 {
     // Console commands
-    messageMap["/loopier/clip/console/color"]       = &loopier::MessageMapper::setConsoleColor;
-    messageMap["/loopier/clip/console/alpha"]       = &loopier::MessageMapper::setConsoleAlpha;
-    messageMap["/loopier/clip/console/prompt"]      = &loopier::MessageMapper::setConsolePrompt;
-    messageMap["/loopier/clip/console/print"]       = &loopier::MessageMapper::printToConsole;
-    messageMap["/loopier/clip/console/lines"]       = &loopier::MessageMapper::setConsoleLinesNum;
-    messageMap["/loopier/clip/console/toggle"]      = &loopier::MessageMapper::toggleConsole;
-    messageMap["/loopier/clip/console/show"]        = &loopier::MessageMapper::showConsole;
-    messageMap["/loopier/clip/console/hide"]        = &loopier::MessageMapper::hideConsole;
-    messageMap["/loopier/clip/console/moveto"]      = &loopier::MessageMapper::moveConsole;
-    messageMap["/loopier/clip/console/font"]        = &loopier::MessageMapper::setConsoleFont;
-    messageMap["/loopier/clip/console/fontsize"]    = &loopier::MessageMapper::setConsoleFontSize;
+    messageMap["/loopier/clip/console/color"]       = &MessageMapper::setConsoleColor;
+    messageMap["/loopier/clip/console/alpha"]       = &MessageMapper::setConsoleAlpha;
+    messageMap["/loopier/clip/console/prompt"]      = &MessageMapper::setConsolePrompt;
+    messageMap["/loopier/clip/console/print"]       = &MessageMapper::printToConsole;
+    messageMap["/loopier/clip/console/lines"]       = &MessageMapper::setConsoleLinesNum;
+    messageMap["/loopier/clip/console/toggle"]      = &MessageMapper::toggleConsole;
+    messageMap["/loopier/clip/console/show"]        = &MessageMapper::showConsole;
+    messageMap["/loopier/clip/console/hide"]        = &MessageMapper::hideConsole;
+    messageMap["/loopier/clip/console/moveto"]      = &MessageMapper::moveConsole;
+    messageMap["/loopier/clip/console/font"]        = &MessageMapper::setConsoleFont;
+    messageMap["/loopier/clip/console/fontsize"]    = &MessageMapper::setConsoleFontSize;
 }
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setupUvcCommandsMap()
+void MessageMapper::setupUvcCommandsMap()
 {
-    messageMap["/loopier/uvc/add"]          = &loopier::MessageMapper::addUvcCamera;
-    messageMap["/loopier/uvc/use"]          = &loopier::MessageMapper::useUvcCamera;
-    messageMap["/loopier/uvc/autoexposure"] = &loopier::MessageMapper::setUvcAutoExposure;
-    messageMap["/loopier/uvc/exposure"]     = &loopier::MessageMapper::setUvcExposure;
-    messageMap["/loopier/uvc/autofocus"]    = &loopier::MessageMapper::setUvcAutoFocus;
-    messageMap["/loopier/uvc/focus"]        = &loopier::MessageMapper::setUvcFocus;
-    messageMap["/loopier/uvc/autowhitebalance"] = &loopier::MessageMapper::setUvcAutoWhiteBalance;
-    messageMap["/loopier/uvc/whitebalance"] = &loopier::MessageMapper::setUvcWhiteBalance;
-    messageMap["/loopier/uvc/gain"]         = &loopier::MessageMapper::setUvcGain;
-    messageMap["/loopier/uvc/brightness"]   = &loopier::MessageMapper::setUvcBrightness;
-    messageMap["/loopier/uvc/contrast"]     = &loopier::MessageMapper::setUvcContrast;
-    messageMap["/loopier/uvc/saturation"]   = &loopier::MessageMapper::setUvcSaturation;
-    messageMap["/loopier/uvc/sharpness"]    = &loopier::MessageMapper::setUvcSharpness;
+    messageMap["/loopier/uvc/add"]          = &MessageMapper::addUvcCamera;
+    messageMap["/loopier/uvc/use"]          = &MessageMapper::useUvcCamera;
+    messageMap["/loopier/uvc/autoexposure"] = &MessageMapper::setUvcAutoExposure;
+    messageMap["/loopier/uvc/exposure"]     = &MessageMapper::setUvcExposure;
+    messageMap["/loopier/uvc/autofocus"]    = &MessageMapper::setUvcAutoFocus;
+    messageMap["/loopier/uvc/focus"]        = &MessageMapper::setUvcFocus;
+    messageMap["/loopier/uvc/autowhitebalance"] = &MessageMapper::setUvcAutoWhiteBalance;
+    messageMap["/loopier/uvc/whitebalance"] = &MessageMapper::setUvcWhiteBalance;
+    messageMap["/loopier/uvc/gain"]         = &MessageMapper::setUvcGain;
+    messageMap["/loopier/uvc/brightness"]   = &MessageMapper::setUvcBrightness;
+    messageMap["/loopier/uvc/contrast"]     = &MessageMapper::setUvcContrast;
+    messageMap["/loopier/uvc/saturation"]   = &MessageMapper::setUvcSaturation;
+    messageMap["/loopier/uvc/sharpness"]    = &MessageMapper::setUvcSharpness;
 }
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::printMessage(Message & msg)
+void MessageMapper::printMessage(Message & msg)
 {
     osc::printMessage(msg, "OSC:");
-    loopier::ConsoleUI::print(osc::getSimplifiedMessage(msg));
+    ConsoleUI::print(osc::getSimplifiedMessage(msg));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::mapMessageToFunc(Message & msg)
+void MessageMapper::mapMessageToFunc(Message & msg)
 {
     // Look up the processor for this message address
     map<string, mappedFunc>::iterator iter = messageMap.find(msg.getAddress());
@@ -250,9 +240,9 @@ void loopier::MessageMapper::mapMessageToFunc(Message & msg)
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::test(const Message & msg)
+void MessageMapper::test(const Message & msg)
 {
-    loopier::ClipPtr clip = loopier::clip::getClip(msg.getArgAsString(0));
+    ClipPtr clip = clip::getClip(msg.getArgAsString(0));
     
 }
 
@@ -270,19 +260,19 @@ void loopier::MessageMapper::test(const Message & msg)
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::quit(const Message & msg)
+void MessageMapper::quit(const Message & msg)
 {
     ofExit();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::fullscreen(const Message & msg)
+void MessageMapper::fullscreen(const Message & msg)
 {
     ofToggleFullscreen();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::move(const Message & msg)
+void MessageMapper::move(const Message & msg)
 {
     ofSetFullscreen(false);
     float x = msg.getArgAsFloat(1) * ofGetScreenWidth();
@@ -305,360 +295,360 @@ void loopier::MessageMapper::move(const Message & msg)
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::newClip(const Message & msg)
+void MessageMapper::newClip(const Message & msg)
 {
     int n = msg.getNumArgs();
-    if      (n == 1)    loopier::clip::newClip(msg.getArgAsString(0));
-    else if (n == 2)    loopier::clip::newClip(msg.getArgAsString(0), msg.getArgAsString(1));
+    if      (n == 1)    clip::newClip(msg.getArgAsString(0));
+    else if (n == 2)    clip::newClip(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::newClipFromBlob(const Message & msg)
+void MessageMapper::newClipFromBlob(const Message & msg)
 {
     int n = msg.getNumArgs();
-    if      (n == 1)    loopier::clip::newClipFromBlob(msg.getArgAsString(0));
-    else if (n == 2)    loopier::clip::newClipFromBlob(msg.getArgAsString(0), msg.getArgAsString(1));
+    if      (n == 1)    clip::newClipFromBlob(msg.getArgAsString(0));
+    else if (n == 2)    clip::newClipFromBlob(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::removeClip(const Message & msg)
+void MessageMapper::removeClip(const Message & msg)
 {
-    loopier::clip::removeClip(msg.getArgAsString(0));
+    clip::removeClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::resetClip(const Message & msg)
+void MessageMapper::resetClip(const Message & msg)
 {
-    loopier::clip::resetClip(msg.getArgAsString(0));
+    clip::resetClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::selectClip(const Message & msg)
+void MessageMapper::selectClip(const Message & msg)
 {
-    loopier::clip::selectClip(msg.getArgAsString(0));
+    clip::selectClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::deselectClip(const Message & msg)
+void MessageMapper::deselectClip(const Message & msg)
 {
-    loopier::clip::deselectClip(msg.getArgAsString(0));
+    clip::deselectClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setParent(const Message & msg)
+void MessageMapper::setParent(const Message & msg)
 {
-    loopier::clip::setParentClip(msg.getArgAsString(0), msg.getArgAsString(1));
+    clip::setParentClip(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::removeParent(const Message & msg)
+void MessageMapper::removeParent(const Message & msg)
 {
-    loopier::clip::removeParentClip(msg.getArgAsString(0));
+    clip::removeParentClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setOffset(const Message & msg)
+void MessageMapper::setOffset(const Message & msg)
 {
-    loopier::clip::setOffsetToParentClip(msg.getArgAsString(0), msg.getArgAsFloat(1), msg.getArgAsFloat(2));
+    clip::setOffsetToParentClip(msg.getArgAsString(0), msg.getArgAsFloat(1), msg.getArgAsFloat(2));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setClipDrawOrder(const Message & msg)
+void MessageMapper::setClipDrawOrder(const Message & msg)
 {
-    loopier::clip::setClipDrawOrder(msg.getArgAsString(0), msg.getArgAsInt(1));
+    clip::setClipDrawOrder(msg.getArgAsString(0), msg.getArgAsInt(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::bringClipToFront(const Message & msg)
+void MessageMapper::bringClipToFront(const Message & msg)
 {
-    loopier::clip::bringClipToFront(msg.getArgAsString(0));
+    clip::bringClipToFront(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::bringClipForward(const Message & msg)
+void MessageMapper::bringClipForward(const Message & msg)
 {
-    loopier::clip::bringClipForward(msg.getArgAsString(0));
+    clip::bringClipForward(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::sendClipBackward(const Message & msg)
+void MessageMapper::sendClipBackward(const Message & msg)
 {
-    loopier::clip::sendClipBackward(msg.getArgAsString(0));
+    clip::sendClipBackward(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::sendClipToBack(const Message & msg)
+void MessageMapper::sendClipToBack(const Message & msg)
 {
-    loopier::clip::sendClipToBack(msg.getArgAsString(0));
+    clip::sendClipToBack(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setBackgroundClip(const Message & msg)
+void MessageMapper::setBackgroundClip(const Message & msg)
 {
-    loopier::clip::setBackgroundClip(msg.getArgAsString(0));
+    clip::setBackgroundClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setPublicClip(const Message & msg)
+void MessageMapper::setPublicClip(const Message & msg)
 {
-    loopier::clip::setPublicClip(msg.getArgAsString(0));
+    clip::setPublicClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setPrivateClip(const Message & msg)
+void MessageMapper::setPrivateClip(const Message & msg)
 {
-    loopier::clip::setPrivateClip(msg.getArgAsString(0));
+    clip::setPrivateClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::listLayers(const Message & msg)
+void MessageMapper::listLayers(const Message & msg)
 {
-    loopier::clip::listLayers();
+    clip::listLayers();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::scaleUpClip(const Message & msg)
+void MessageMapper::scaleUpClip(const Message & msg)
 {
-    loopier::clip::scaleUpClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::scaleUpClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::scaleDownClip(const Message & msg)
+void MessageMapper::scaleDownClip(const Message & msg)
 {
-    loopier::clip::scaleDownClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::scaleDownClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::scaleClip(const Message & msg)
+void MessageMapper::scaleClip(const Message & msg)
 {
-    loopier::clip::scaleClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::scaleClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setClipWidth(const Message & msg)
+void MessageMapper::setClipWidth(const Message & msg)
 {
-    loopier::clip::setClipWidth(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::setClipWidth(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setClipHeight(const Message & msg)
+void MessageMapper::setClipHeight(const Message & msg)
 {
-    loopier::clip::setClipHeight(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::setClipHeight(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::resetClipScale(const Message & msg)
+void MessageMapper::resetClipScale(const Message & msg)
 {
-    loopier::clip::resetClipScale(msg.getArgAsString(0));
+    clip::resetClipScale(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setClipVFlip(const Message & msg)
+void MessageMapper::setClipVFlip(const Message & msg)
 {
-    loopier::clip::setClipVFlip(msg.getArgAsString(0));
+    clip::setClipVFlip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setClipHFlip(const Message & msg)
+void MessageMapper::setClipHFlip(const Message & msg)
 {
-    loopier::clip::setClipHFlip(msg.getArgAsString(0));
+    clip::setClipHFlip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::toggleFullscreenClip(const Message & msg)
+void MessageMapper::toggleFullscreenClip(const Message & msg)
 {
-    loopier::clip::toggleFullscreenClip(msg.getArgAsString(0));
+    clip::toggleFullscreenClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::toggleClipVisibility(const Message & msg)
+void MessageMapper::toggleClipVisibility(const Message & msg)
 {
-    loopier::clip::toggleClipVisibility(msg.getArgAsString(0));
+    clip::toggleClipVisibility(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::showClip(const Message & msg)
+void MessageMapper::showClip(const Message & msg)
 {
-    loopier::clip::showClip(msg.getArgAsString(0));
+    clip::showClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::hideClip(const Message & msg)
+void MessageMapper::hideClip(const Message & msg)
 {
-    loopier::clip::hideClip(msg.getArgAsString(0));
+    clip::hideClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setClipMask(const Message & msg)
+void MessageMapper::setClipMask(const Message & msg)
 {
-    loopier::clip::setClipMask(msg.getArgAsString(0), msg.getArgAsString(1));
+    clip::setClipMask(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::enableClipMask(const Message & msg)
+void MessageMapper::enableClipMask(const Message & msg)
 {
-    loopier::clip::enableClipMask(msg.getArgAsString(0));
+    clip::enableClipMask(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::disableClipMask(const Message & msg)
+void MessageMapper::disableClipMask(const Message & msg)
 {
-    loopier::clip::disableClipMask(msg.getArgAsString(0));
+    clip::disableClipMask(msg.getArgAsString(0));
 }
 
 
 // PLAY
 //---------------------------------------------------------
-void loopier::MessageMapper::playClip(const Message & msg)
+void MessageMapper::playClip(const Message & msg)
 {
-    loopier::clip::playClip(msg.getArgAsString(0));
+    clip::playClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::stopClip(const Message & msg)
+void MessageMapper::stopClip(const Message & msg)
 {
-    loopier::clip::stopClip(msg.getArgAsString(0));
+    clip::stopClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::pauseClip(const Message & msg)
+void MessageMapper::pauseClip(const Message & msg)
 {
-    loopier::clip::pauseClip(msg.getArgAsString(0));
+    clip::pauseClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setClipLoopState(const Message & msg)
+void MessageMapper::setClipLoopState(const Message & msg)
 {
     string arg = msg.getArgAsString(1);
-    loopier::LoopType looptype = loopier::LoopType::normal;
+    LoopType looptype = LoopType::normal;
     
-    if      (arg == "palindrome")   looptype = loopier::LoopType::palindrome;
-    else if (arg == "none" )        looptype = loopier::LoopType::none;
-    else if (arg == "once" )        looptype = loopier::LoopType::once;
+    if      (arg == "palindrome")   looptype = LoopType::palindrome;
+    else if (arg == "none" )        looptype = LoopType::none;
+    else if (arg == "once" )        looptype = LoopType::once;
     
-    loopier::clip::setClipLoopState(msg.getArgAsString(0), looptype);
+    clip::setClipLoopState(msg.getArgAsString(0), looptype);
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setClipPlayDirection(const Message & msg)
+void MessageMapper::setClipPlayDirection(const Message & msg)
 {
     string arg = msg.getArgAsString(1);
-    loopier::PlayDirection direction = loopier::PlayDirection::normal;
+    PlayDirection direction = PlayDirection::normal;
     
-    if (arg == "reverse")   direction = loopier::PlayDirection::reverse;
+    if (arg == "reverse")   direction = PlayDirection::reverse;
     
-    loopier::clip::setClipPlayDirection(msg.getArgAsString(0), direction);
+    clip::setClipPlayDirection(msg.getArgAsString(0), direction);
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setClipSpeed(const Message & msg)
+void MessageMapper::setClipSpeed(const Message & msg)
 {
-    loopier::clip::setClipSpeed(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::setClipSpeed(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 // EDIT
 
 //---------------------------------------------------------
-void loopier::MessageMapper::addFrame(const Message & msg)
+void MessageMapper::addFrame(const Message & msg)
 {
-    loopier::clip::addFrame(msg.getArgAsString(0), msg.getArgAsString(1));
+    clip::addFrame(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::insertFrame(const Message & msg)
+void MessageMapper::insertFrame(const Message & msg)
 {
-    loopier::clip::insertFrame(msg.getArgAsString(0), msg.getArgAsString(1));
+    clip::insertFrame(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::removeFrame(const Message & msg)
+void MessageMapper::removeFrame(const Message & msg)
 {
-    loopier::clip::removeFrame(msg.getArgAsString(0));
+    clip::removeFrame(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::clearFrames(const Message & msg)
+void MessageMapper::clearFrames(const Message & msg)
 {
-    loopier::clip::clearFrames(msg.getArgAsString(0));
+    clip::clearFrames(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::saveFrames(const Message & msg)
+void MessageMapper::saveFrames(const Message & msg)
 {
-    loopier::clip::saveFrames(msg.getArgAsString(0));
+    clip::saveFrames(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::loadFrames(const Message & msg)
+void MessageMapper::loadFrames(const Message & msg)
 {
-    loopier::clip::loadFrames(msg.getArgAsString(0), msg.getArgAsString(1));
+    clip::loadFrames(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::firstFrame(const Message & msg)
+void MessageMapper::firstFrame(const Message & msg)
 {
-    loopier::clip::firstFrame(msg.getArgAsString(0));
+    clip::firstFrame(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::nextFrame(const Message & msg)
+void MessageMapper::nextFrame(const Message & msg)
 {
-    loopier::clip::nextFrame(msg.getArgAsString(0));
+    clip::nextFrame(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::previousFrame(const Message & msg)
+void MessageMapper::previousFrame(const Message & msg)
 {
-    loopier::clip::previousFrame(msg.getArgAsString(0));
+    clip::previousFrame(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::lastFrame(const Message & msg)
+void MessageMapper::lastFrame(const Message & msg)
 {
-    loopier::clip::lastFrame(msg.getArgAsString(0));
+    clip::lastFrame(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::goToFrame(const Message & msg)
+void MessageMapper::goToFrame(const Message & msg)
 {
-    loopier::clip::goToFrame(msg.getArgAsString(0), msg.getArgAsInt(1));
+    clip::goToFrame(msg.getArgAsString(0), msg.getArgAsInt(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::saveClip(const Message & msg)
+void MessageMapper::saveClip(const Message & msg)
 {
-    loopier::clip::saveClip(msg.getArgAsString(0));
+    clip::saveClip(msg.getArgAsString(0));
 }
 
 // MOVE
 //---------------------------------------------------------
-void loopier::MessageMapper::moveClipTo(const Message & msg)
+void MessageMapper::moveClipTo(const Message & msg)
 {
-    loopier::clip::moveClipTo(msg.getArgAsString(0), msg.getArgAsFloat(1), msg.getArgAsFloat(2));
+    clip::moveClipTo(msg.getArgAsString(0), msg.getArgAsFloat(1), msg.getArgAsFloat(2));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::centerClip(const Message & msg)
+void MessageMapper::centerClip(const Message & msg)
 {
-    loopier::clip::centerClip(msg.getArgAsString(0));
+    clip::centerClip(msg.getArgAsString(0));
 }
 
 
 // COLOR
 //---------------------------------------------------------
-void loopier::MessageMapper::setClipColor(const Message & msg)
+void MessageMapper::setClipColor(const Message & msg)
 {
-//    ofColor color = loopier::MessageMapper::getColorFromMessage(msg);
-//    loopier::clip::setClipColor(msg.getArgAsString(0), color);
-    if (msg.getNumArgs() == 2) loopier::clip::setClipColor(msg.getArgAsString(0), msg.getArgAsFloat(1));
-    if (msg.getNumArgs() == 3) loopier::clip::setClipColor(msg.getArgAsString(0),
+//    ofColor color = MessageMapper::getColorFromMessage(msg);
+//    clip::setClipColor(msg.getArgAsString(0), color);
+    if (msg.getNumArgs() == 2) clip::setClipColor(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    if (msg.getNumArgs() == 3) clip::setClipColor(msg.getArgAsString(0),
                                                            msg.getArgAsFloat(1),
                                                            msg.getArgAsFloat(2));
-    if (msg.getNumArgs() == 4) loopier::clip::setClipColor(msg.getArgAsString(0),
+    if (msg.getNumArgs() == 4) clip::setClipColor(msg.getArgAsString(0),
                                                            msg.getArgAsFloat(1),
                                                            msg.getArgAsFloat(2),
                                                            msg.getArgAsFloat(3));
-    if (msg.getNumArgs() == 5) loopier::clip::setClipColor(msg.getArgAsString(0),
+    if (msg.getNumArgs() == 5) clip::setClipColor(msg.getArgAsString(0),
                                                            msg.getArgAsFloat(1),
                                                            msg.getArgAsFloat(2),
                                                            msg.getArgAsFloat(3),
@@ -666,9 +656,9 @@ void loopier::MessageMapper::setClipColor(const Message & msg)
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setClipAlpha(const Message & msg)
+void MessageMapper::setClipAlpha(const Message & msg)
 {
-    loopier::clip::setClipAlpha(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::setClipAlpha(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 
@@ -685,40 +675,40 @@ void loopier::MessageMapper::setClipAlpha(const Message & msg)
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::clearClips(const Message & msg)
+void MessageMapper::clearClips(const Message & msg)
 {
-    loopier::clip::clearAll();
+    clip::clearAll();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::listClipNames(const Message & msg)
+void MessageMapper::listClipNames(const Message & msg)
 {
-    loopier::clip::listAll();
+    clip::listAll();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::listResourceNames(const Message & msg)
+void MessageMapper::listResourceNames(const Message & msg)
 {
-//    loopier::listResourceNames();
-    loopier::resource::listAll();
+//    listResourceNames();
+    resource::listAll();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::toggleClipNames(const Message & msg)
+void MessageMapper::toggleClipNames(const Message & msg)
 {
-    loopier::clip::toggleNames();
+    clip::toggleNames();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::showClipNames(const Message & msg)
+void MessageMapper::showClipNames(const Message & msg)
 {
-    loopier::clip::showNames();
+    clip::showNames();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::hideClipNames(const Message & msg)
+void MessageMapper::hideClipNames(const Message & msg)
 {
-    loopier::clip::hideNames();
+    clip::hideNames();
 }
 
 
@@ -734,9 +724,9 @@ void loopier::MessageMapper::hideClipNames(const Message & msg)
 //---------------------------------------------------------
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setSyphonServerName(const Message & msg)
+void MessageMapper::setSyphonServerName(const Message & msg)
 {
-    loopier::resource::setSyphonServerName(msg.getArgAsString(0),
+    resource::setSyphonServerName(msg.getArgAsString(0),
                                            msg.getArgAsString(1),
                                            msg.getArgAsString(2));
 }
@@ -754,7 +744,7 @@ void loopier::MessageMapper::setSyphonServerName(const Message & msg)
 //---------------------------------------------------------
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setCvColor(const Message & msg)
+void MessageMapper::setCvColor(const Message & msg)
 {
     // change the color of the clip named "cv"
     Message newmsg;
@@ -767,119 +757,119 @@ void loopier::MessageMapper::setCvColor(const Message & msg)
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setCvThreshold(const Message & msg)
+void MessageMapper::setCvThreshold(const Message & msg)
 {
-    loopier::cv::setThreshold(msg.getArgAsFloat(0));
+    cv::setThreshold(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setCvMinArea(const Message & msg)
+void MessageMapper::setCvMinArea(const Message & msg)
 {
-    loopier::cv::setMinArea(msg.getArgAsFloat(0));
+    cv::setMinArea(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setCvMaxArea(const Message & msg)
+void MessageMapper::setCvMaxArea(const Message & msg)
 {
-    loopier::cv::setMaxArea(msg.getArgAsFloat(0));
+    cv::setMaxArea(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setCvHoles(const Message & msg)
+void MessageMapper::setCvHoles(const Message & msg)
 {
-    loopier::cv::setFindHoles(msg.getArgAsBool(0));
+    cv::setFindHoles(msg.getArgAsBool(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setCvMaxBlobs(const Message & msg)
+void MessageMapper::setCvMaxBlobs(const Message & msg)
 {
-    loopier::cv::setMaxBlobs(msg.getArgAsInt(0));
+    cv::setMaxBlobs(msg.getArgAsInt(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setCvInputClip(const Message & msg)
+void MessageMapper::setCvInputClip(const Message & msg)
 {
-    loopier::cv::setInputClip(msg.getArgAsString(0));
+    cv::setInputClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setCvDeviceId(const Message & msg)
+void MessageMapper::setCvDeviceId(const Message & msg)
 {
-    loopier::cv::setDeviceId(msg.getArgAsInt(0));
+    cv::setDeviceId(msg.getArgAsInt(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::toggleCvVisibility(const Message & msg)
+void MessageMapper::toggleCvVisibility(const Message & msg)
 {
-    loopier::cv::toggleVisibility();
+    cv::toggleVisibility();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::showCv(const Message & msg)
+void MessageMapper::showCv(const Message & msg)
 {
-    loopier::cv::show();
+    cv::show();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::hideCv(const Message & msg)
+void MessageMapper::hideCv(const Message & msg)
 {
-    loopier::cv::hide();
+    cv::hide();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setCvDetectionArea(const Message & msg)
+void MessageMapper::setCvDetectionArea(const Message & msg)
 {
     ofRectangle rect(msg.getArgAsFloat(0), msg.getArgAsFloat(1),
                      msg.getArgAsFloat(2), msg.getArgAsFloat(3));
-    loopier::cv::setDetectionArea(rect);
+    cv::setDetectionArea(rect);
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::selectBlob(const Message & msg)
+void MessageMapper::selectBlob(const Message & msg)
 {
-    loopier::cv::selectBlob();
+    cv::selectBlob();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::deselectBlob(const Message & msg)
+void MessageMapper::deselectBlob(const Message & msg)
 {
-    loopier::cv::deselectBlob();
+    cv::deselectBlob();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::selectAllBlobs(const Message & msg)
+void MessageMapper::selectAllBlobs(const Message & msg)
 {
-    loopier::cv::selectAllBlobs();
+    cv::selectAllBlobs();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::deselectAllBlobs(const Message & msg)
+void MessageMapper::deselectAllBlobs(const Message & msg)
 {
-    loopier::cv::deselectAllBlobs();
+    cv::deselectAllBlobs();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::firstBlob(const Message & msg)
+void MessageMapper::firstBlob(const Message & msg)
 {
-    loopier::cv::firstBlob();
+    cv::firstBlob();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::nextBlob(const Message & msg)
+void MessageMapper::nextBlob(const Message & msg)
 {
-    loopier::cv::nextBlob();
+    cv::nextBlob();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::previousBlob(const Message & msg)
+void MessageMapper::previousBlob(const Message & msg)
 {
-    loopier::cv::previousBlob();
+    cv::previousBlob();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::lastBlob(const Message & msg)
+void MessageMapper::lastBlob(const Message & msg)
 {
-    loopier::cv::lastBlob();
+    cv::lastBlob();
 }
 
 
@@ -895,69 +885,69 @@ void loopier::MessageMapper::lastBlob(const Message & msg)
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setConsoleColor(const Message & msg)
+void MessageMapper::setConsoleColor(const Message & msg)
 {
-    loopier::ConsoleUI::setColor(loopier::MessageMapper::getColorFromMessage(msg));
+    ConsoleUI::setColor(MessageMapper::getColorFromMessage(msg));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setConsoleAlpha(const Message & msg)
+void MessageMapper::setConsoleAlpha(const Message & msg)
 {
-    loopier::ConsoleUI::setAlpha(msg.getArgAsFloat(0));
+    ConsoleUI::setAlpha(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setConsolePrompt(const Message & msg)
+void MessageMapper::setConsolePrompt(const Message & msg)
 {
-    loopier::ConsoleUI::setPrompt(msg.getArgAsString(0));
+    ConsoleUI::setPrompt(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::printToConsole(const Message & msg)
+void MessageMapper::printToConsole(const Message & msg)
 {
-    loopier::ConsoleUI::print(msg.getArgAsString(0));
+    ConsoleUI::print(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setConsoleLinesNum(const Message & msg)
+void MessageMapper::setConsoleLinesNum(const Message & msg)
 {
-    loopier::ConsoleUI::setMaxLines(msg.getArgAsInt(0));
+    ConsoleUI::setMaxLines(msg.getArgAsInt(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::toggleConsole(const Message & msg)
+void MessageMapper::toggleConsole(const Message & msg)
 {
-    loopier::ConsoleUI::toggle();
+    ConsoleUI::toggle();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::showConsole(const Message & msg)
+void MessageMapper::showConsole(const Message & msg)
 {
-    loopier::ConsoleUI::show();
+    ConsoleUI::show();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::hideConsole(const Message & msg)
+void MessageMapper::hideConsole(const Message & msg)
 {
-    loopier::ConsoleUI::hide();
+    ConsoleUI::hide();
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::moveConsole(const Message & msg)
+void MessageMapper::moveConsole(const Message & msg)
 {
-    loopier::ConsoleUI::setPosition(msg.getArgAsFloat(0), msg.getArgAsFloat(1));
+    ConsoleUI::setPosition(msg.getArgAsFloat(0), msg.getArgAsFloat(1));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setConsoleFont(const Message & msg)
+void MessageMapper::setConsoleFont(const Message & msg)
 {
-    loopier::ConsoleUI::setFont(msg.getArgAsString(0));
+    ConsoleUI::setFont(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setConsoleFontSize(const Message & msg)
+void MessageMapper::setConsoleFontSize(const Message & msg)
 {
-    loopier::ConsoleUI::setFontSize(msg.getArgAsInt(0));
+    ConsoleUI::setFontSize(msg.getArgAsInt(0));
 }
 
 
@@ -974,87 +964,87 @@ void loopier::MessageMapper::setConsoleFontSize(const Message & msg)
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::addUvcCamera(const Message & msg)
+void MessageMapper::addUvcCamera(const Message & msg)
 {
     int     vendorId        = msg.getArgAsInt(0);
     int     productId       = msg.getArgAsInt(1);
     int     interfaceNum    = msg.getArgAsInt(2);
     string  name            = msg.getArgAsString(3);
-    loopier::uvc::addCamera(vendorId, productId, interfaceNum, name);
+    uvc::addCamera(vendorId, productId, interfaceNum, name);
 }
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::useUvcCamera(const Message & msg)
+void MessageMapper::useUvcCamera(const Message & msg)
 {
-    loopier::uvc::useCamera(msg.getArgAsString(0)); // camera name
+    uvc::useCamera(msg.getArgAsString(0)); // camera name
 }
 
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setUvcAutoExposure(const Message & msg)
+void MessageMapper::setUvcAutoExposure(const Message & msg)
 {
-    loopier::uvc::setAutoExposure(msg.getArgAsBool(0));
+    uvc::setAutoExposure(msg.getArgAsBool(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setUvcExposure(const Message & msg)
+void MessageMapper::setUvcExposure(const Message & msg)
 {
-    loopier::uvc::setExposure(msg.getArgAsFloat(0));
+    uvc::setExposure(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setUvcAutoFocus(const Message & msg)
+void MessageMapper::setUvcAutoFocus(const Message & msg)
 {
-    loopier::uvc::setAutoFocus(msg.getArgAsBool(0));
+    uvc::setAutoFocus(msg.getArgAsBool(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setUvcFocus(const Message & msg)
+void MessageMapper::setUvcFocus(const Message & msg)
 {
-    loopier::uvc::setFocus(msg.getArgAsFloat(0));
+    uvc::setFocus(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setUvcAutoWhiteBalance(const Message & msg)
+void MessageMapper::setUvcAutoWhiteBalance(const Message & msg)
 {
-    loopier::uvc::setAutoWhiteBalance(msg.getArgAsBool(0));
+    uvc::setAutoWhiteBalance(msg.getArgAsBool(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setUvcWhiteBalance(const Message & msg)
+void MessageMapper::setUvcWhiteBalance(const Message & msg)
 {
-    loopier::uvc::setWhiteBalance(msg.getArgAsFloat(0));
+    uvc::setWhiteBalance(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setUvcGain(const Message & msg)
+void MessageMapper::setUvcGain(const Message & msg)
 {
-    loopier::uvc::setGain(msg.getArgAsFloat(0));
+    uvc::setGain(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setUvcBrightness(const Message & msg)
+void MessageMapper::setUvcBrightness(const Message & msg)
 {
-    loopier::uvc::setBrightness(msg.getArgAsFloat(0));
+    uvc::setBrightness(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setUvcContrast(const Message & msg)
+void MessageMapper::setUvcContrast(const Message & msg)
 {
-    loopier::uvc::setContrast(msg.getArgAsFloat(0));
+    uvc::setContrast(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setUvcSaturation(const Message & msg)
+void MessageMapper::setUvcSaturation(const Message & msg)
 {
-    loopier::uvc::setSaturation(msg.getArgAsFloat(0));
+    uvc::setSaturation(msg.getArgAsFloat(0));
 }
 
 //---------------------------------------------------------
-void loopier::MessageMapper::setUvcSharpness(const Message & msg)
+void MessageMapper::setUvcSharpness(const Message & msg)
 {
-    loopier::uvc::setSharpness(msg.getArgAsFloat(0));
+    uvc::setSharpness(msg.getArgAsFloat(0));
 }
 
 
@@ -1070,7 +1060,7 @@ void loopier::MessageMapper::setUvcSharpness(const Message & msg)
 
 
 //---------------------------------------------------------
-ofColor loopier::MessageMapper::getColorFromMessage(const Message & msg)
+ofColor MessageMapper::getColorFromMessage(const Message & msg)
 {
     ofColor color;
     int numArgs = msg.getNumArgs();
@@ -1086,3 +1076,5 @@ ofColor loopier::MessageMapper::getColorFromMessage(const Message & msg)
                                             msg.getArgAsFloat(4) * 255);
     return color;
 }
+} // namespace osc
+} // namespace loopier

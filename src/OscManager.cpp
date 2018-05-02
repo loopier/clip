@@ -131,4 +131,3 @@ string loopier::osc::getSimplifiedMessage(const ofxOscMessage& m)
     
     return msg;
 }
-

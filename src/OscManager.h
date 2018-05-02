@@ -55,6 +55,8 @@ namespace loopier {
     string getPrintableMessage(const ofxOscMessage& m);
     string getSimplifiedMessage(const ofxOscMessage& m);
     } // namespace osc
+    
+    void sendMessage(const string address, vector<string> & args);
 } // namespace loopier
 
 #endif /* OscManager_hpp */

@@ -32,7 +32,7 @@ public:
     
 private:
     ConsoleUI       console;
-    MessageMapper   msgMapper;
+    loopier::osc::MessageMapper   msgMapper;
     
     string  applicationSupportPath; ///< Path to the directory with resources and config files
     
