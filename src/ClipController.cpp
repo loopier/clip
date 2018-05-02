@@ -1096,6 +1096,7 @@ namespace loopier {
                     string  resourcename    = clip["resource"].asString();
                     bool    play            = clip["play"].asBool();
                     string  loop            = clip["loop"].asString();
+                    float   speed           = clip["speed"].asFloat();
                     float   x               = clip["position"]["x"].asFloat() * ofGetWidth();
                     float   y               = clip["position"]["y"].asFloat() * ofGetHeight();
                     float   width           = clip["width"].asFloat();
@@ -1105,7 +1106,7 @@ namespace loopier {
                     float   g               = clip["color"]["g"].asFloat() * 255;
                     float   b               = clip["color"]["b"].asFloat() * 255;
                     float   a               = clip["color"]["a"].asFloat() * 255;
-                    ofColor color(r, g, b);
+                    ofColor color(r, g, b, a);
                     int     depth           = clip["depth"].asInt();
                     bool    visible         = clip["visible"].asBool();
                     string  mask            = clip["mask"].asString();
@@ -1117,22 +1118,22 @@ namespace loopier {
                     float   offsetY         = clip["offset"]["y"].asFloat();
                     
                     ClipPtr newclip = newClip(clipname, resourcename);
-                    if (!play) newclip->stop();
+                    if (clip["depth"] != ofxJSONElement::null && !play) newclip->stop();
                     if (loop == "palindrome")   newclip->setLoopState(LoopType::palindrome);
                     else if (loop == "once")    newclip->setLoopState(LoopType::once);
-                    newclip->setPosition(x, y);
-                    if (width)  newclip->setWidth(width);
-                    if (height) newclip->setHeight(height);
-                    if (scale)  newclip->setScale(scale);
-                    newclip->setColor(color);
-                    if (a > 0)  newclip->setAlpha(a);
-                    newclip->setDepth(depth);
-                    if (!visible) newclip->hide();
-//                    newclip->setMask(should be clipPtr not playerPtr);
+                    if (clip["speed"] != ofxJSONElement::null)   newclip->setSpeed(speed);
+                    if (clip["position"] != ofxJSONElement::null)   newclip->setPosition(x, y);
+                    if (clip["width"] != ofxJSONElement::null)      newclip->setWidth(width);
+                    if (clip["height"] != ofxJSONElement::null)     newclip->setHeight(height);
+                    if (clip["scale"] != ofxJSONElement::null)  newclip->setScale(scale);
+                    if (clip["color"] != ofxJSONElement::null)  newclip->setColor(color);
+                    if (clip["depth"] != ofxJSONElement::null)  newclip->setDepth(depth);
+                    if (clip["depth"] != ofxJSONElement::null && !visible) newclip->hide();
+//                   if (clip["parent"] != ofxJSONElement::null) newclip->setMask(should be clipPtr not playerPtr);
                     if (fullscreen) newclip->toggleFullscreen();
                     if (flipv) newclip->flipV();
                     if (fliph) newclip->flipH();
-                    if (parent != "")   newclip->setParent(getClip(parent));
+                    if (clip["parent"] != ofxJSONElement::null)   newclip->setParent(getClip(parent));
                 }
             }
         }
