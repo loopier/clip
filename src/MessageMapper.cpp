@@ -1069,7 +1069,10 @@ namespace loopier {
             
             msg.setAddress("/loopier/clip/clips/clipnames");
             
-            for (const auto &item : names) {  msg.addStringArg(item); };
+            for (const auto &item : names) {
+                if (item == "cv" || item == "syphon") continue; // skip cv and syphon clips
+                msg.addStringArg(item);
+            };
             
             osc.sendMessage(msg);
         }
