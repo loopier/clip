@@ -33,10 +33,4 @@ public:
 private:
     ConsoleUI       console;
     loopier::osc::MessageMapper   msgMapper;
-    
-    string  applicationSupportPath; ///< Path to the directory with resources and config files
-    
-    /// \brief  Creates a folder in ~/Library/Application Support/Clip/
-    ///     for all the resources and config files.
-    void init();
 };

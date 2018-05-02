@@ -13,6 +13,7 @@ namespace {
     // * * * VARIABLES LOCAL TO THIS FILE   * * * * * * * * * * * * * * * * * * * * * * * *
     
     // app settings
+    string  applicationSupportPath = "";
     string  resourceFilesPath  = "";
     
     // clips
@@ -225,10 +226,15 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void init()
         {
-            ofDirectory dir(ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/");
+            applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/";
+            
+            ofDirectory dir(applicationSupportPath);
             if (!dir.exists()) {
-                
+                ofSystemAlertDialog(applicationSupportPath + " doesn't exist.");
+                ofExit();
             }
+            
+            resource::setPath(applicationSupportPath);
             
             // local helpers declared above in unnamed namespace
             loadFrameLists();
@@ -308,6 +314,7 @@ namespace loopier {
         {
             detectionAreaRectangle.set(0,0, ofGetWidth(), ofGetHeight());
         }
+        
     }   // namespace app
     
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -316,7 +323,13 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void setPath(const string path)
         {
-            resourceFilesPath = path;
+            resourceFilesPath = path + "resources/";
+            
+            ofDirectory dir(resourceFilesPath);
+            if (!dir.exists()) {
+                ofSystemAlertDialog(dir.getAbsolutePath() + " doesn't exist.");
+                ofExit();
+            }
             ofLogVerbose() << "Resource files path: " << resourceFilesPath;
         }
         

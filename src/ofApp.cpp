@@ -10,17 +10,8 @@ void ofApp::setup(){
 //    ofSetFullscreen(true);
     ofBackground(0,0,0);
     ofSetVerticalSync(true);
-
-//    loopier::ConsoleUI::setup();
-    applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/";
     
-    ofDirectory dir(applicationSupportPath);
-    if (!dir.exists()) {
-        ofSystemAlertDialog(applicationSupportPath + " doesn't exist.");
-        ofExit();
-    }
-    
-    loopier::resource::setPath(applicationSupportPath + "resources/");
+//    loopier::resource::setPath(applicationSupportPath + "resources/");
     loopier::app::init();
     loopier::uvc::init();
     
@@ -96,31 +87,6 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){
 
-}
-
-void ofApp::init()
-{
-    // check if ~/Library/Application Support/Clip exists
-    ofDirectory dir(applicationSupportPath);
-    ofLogVerbose()  <<  __FUNCTION__
-                    << ":\tLooking for " << dir.getAbsolutePath();
-    if (dir.exists()) {
-        ofLogVerbose() <<  __FUNCTION__ <<  ":\tDirectory found.";
-    } else {
-        string msg = "ERROR!!!\n\n";
-        msg += dir.getAbsolutePath() + " doesn't exist.\n\n";
-        msg += "Please create it and put the resources and config files in there.\n\n";
-        msg += "You can find default directory structure and files in the README file.\n\n";
-        msg += "Quitting application.";
-
-        ofLogError()  << msg;
-        loopier::ConsoleUI::printError(msg);
-        ofSystemAlertDialog(msg);
-        ofExit();
-    }
-
-    // create folder if it doesn't exist
-    // load config/settings
 }
 
 
