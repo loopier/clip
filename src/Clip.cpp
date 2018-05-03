@@ -193,6 +193,12 @@ void loopier::Clip::pause(bool bPause)
 }
 
 //---------------------------------------------------------------------------
+bool loopier::Clip::isPlaying()
+{
+    return player->isPlaying();
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::setLoopState(const loopier::LoopType state)
 {
     loopState = state;
@@ -214,6 +220,12 @@ void loopier::Clip::setPlayDirection(const loopier::PlayDirection direction)
 }
 
 //---------------------------------------------------------------------------
+loopier::PlayDirection & loopier::Clip::getPlayDirection()
+{
+    player->getPlayDirection();
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::changePlayDirection()
 {
     player->changePlayDirection();
@@ -224,6 +236,12 @@ void loopier::Clip::changePlayDirection()
 void loopier::Clip::setSpeed(const float newSpeed)
 {
     player->setSpeed(newSpeed);
+}
+
+//---------------------------------------------------------------------------
+float loopier::Clip::getSpeed()
+{
+    return player->getSpeed();
 }
 
 //---------------------------------------------------------------------------
@@ -311,7 +329,9 @@ void loopier::Clip::setPosition(const ofPoint& newPosition)
 //---------------------------------------------------------------------------
 ofPoint loopier::Clip::getPosition() const
 {
-    return position + anchor;
+    float x = (position.x + anchor.x) / width;
+    float y = (position.y + anchor.y) / height;
+    return ofPoint(x,y);
 }
 
 //---------------------------------------------------------------------------
@@ -423,6 +443,12 @@ void loopier::Clip::setAlpha(const float newAlpha)
 }
 
 //---------------------------------------------------------------------------
+float loopier::Clip::getAlpha()
+{
+    return color.a;
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::setMask(loopier::PlayerPtr mask)
 {
     maskPlayer = mask;
@@ -470,9 +496,21 @@ void loopier::Clip::flipV()
 }
 
 //---------------------------------------------------------------------------
+bool loopier::Clip::isFlippedV()
+{
+    return bFlipV;
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::flipH()
 {
     setScaleX(scaleX * ofSign(scaleX) * (-1));
+}
+
+//---------------------------------------------------------------------------
+bool loopier::Clip::isFlippedH()
+{
+    return bFlipH;
 }
 
 

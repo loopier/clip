@@ -53,6 +53,7 @@ namespace loopier {
             messageMap["/loopier/clip/clip/reset"]              = &MessageMapper::resetClip;
             messageMap["/loopier/clip/clip/select"]             = &MessageMapper::selectClip;
             messageMap["/loopier/clip/clip/deselect"]           = &MessageMapper::deselectClip;
+            messageMap["/loopier/clip/clip/listinfo"]           = &MessageMapper::listClipInfo;
             // parent
             messageMap["/loopier/clip/clip/parent"]         = &MessageMapper::setParent;
             messageMap["/loopier/clip/clip/removeparent"]   = &MessageMapper::removeParent;
@@ -1119,6 +1120,54 @@ namespace loopier {
             for (const auto &item : names) {
                 msg.addStringArg(item);
             };
+            
+            osc.sendMessage(msg);
+        }
+        
+        
+        //---------------------------------------------------------
+        void MessageMapper::listClipInfo(const Message &msg)
+        {
+            sendClipInfo(msg.getArgAsString(0));
+        }
+        
+        
+        //---------------------------------------------------------
+        void MessageMapper::sendClipInfo(const string clipname)
+        {
+            if (!clip::exists(clipname)) return;
+            ClipPtr clip = clip::getClip(clipname);
+            Message msg;
+            
+            msg.setAddress("/loopier/clip/clip/info");
+            msg.addStringArg(clip->getName());
+            msg.addStringArg(clip->getResourceName());
+            msg.addBoolArg(clip->isPlaying());
+            float speed = clip->getSpeed();
+            if (clip->getPlayDirection() == PlayDirection::reverse) speed *= -1;
+            msg.addFloatArg(clip->getSpeed());
+            if      (clip->getLoopState() == LoopType::normal)      msg.addStringArg("normal");
+            else if (clip->getLoopState() == LoopType::palindrome)  msg.addStringArg("palindrome");
+            else if (clip->getLoopState() == LoopType::once)        msg.addStringArg("once");
+            msg.addFloatArg(clip->getPosition().x);
+            msg.addFloatArg(clip->getPosition().y);
+            msg.addFloatArg(clip->getWidth());
+            msg.addFloatArg(clip->getHeight());
+            msg.addFloatArg(clip->getScale());
+            msg.addFloatArg(clip->getColor().r / 255.0);
+            msg.addFloatArg(clip->getColor().g / 255.0);
+            msg.addFloatArg(clip->getColor().b / 255.0);
+            float alpha = clip->getColor().a / 255.0;
+            msg.addFloatArg(clip->getColor().a / 255.0);
+            msg.addInt32Arg(clip->getDepth());
+            msg.addBoolArg(clip->isVisible());
+            //            msg.addStringArg(clip->getNask()); // TODO
+            msg.addBoolArg(clip->isFullscreen());
+            msg.addBoolArg(clip->isFlippedV());
+            msg.addBoolArg(clip->isFlippedH());
+            msg.addStringArg(clip->getParentName());
+            msg.addFloatArg(clip->getOffset().x);
+            msg.addFloatArg(clip->getOffset().y);
             
             osc.sendMessage(msg);
         }

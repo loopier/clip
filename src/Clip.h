@@ -46,11 +46,14 @@ namespace loopier {
         void        play();
         void        stop();
         void        pause(bool bPause=true);
+        bool        isPlaying();
         void        setLoopState(const LoopType state);
         LoopType &  getLoopState();
         void        setPlayDirection(const PlayDirection direction);
+        PlayDirection & getPlayDirection();
         void        changePlayDirection();
         void        setSpeed(const float newSpeed);
+        float       getSpeed();
         
         void setScale(const float newScale);
         void setScaleX(const float newScale);
@@ -91,6 +94,7 @@ namespace loopier {
         void        setColor(const ofColor& newColor);
         ofColor &   getColor();
         void        setAlpha(const float newAlpha);
+        float       getAlpha();
         
         void setMask(PlayerPtr aPlayer);
         void maskOn();
@@ -103,7 +107,9 @@ namespace loopier {
         //------------------------------------------------------------------------------------------
         //  Transforms
         void flipV();
+        bool isFlippedV();
         void flipH();
+        bool isFlippedH();
         
         void        setPlayer(PlayerPtr aPlayer);
         PlayerPtr   getPlayer() const;
