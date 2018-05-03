@@ -78,8 +78,8 @@ namespace loopier {
             messageMap["/loopier/clip/clip/resetscale"]         = &MessageMapper::resetClipScale;
             messageMap["/loopier/clip/clip/fullscreen"]         = &MessageMapper::toggleFullscreenClip;
             // Orientation
-            messageMap["/loopier/clip/clip/vflip"]              = &MessageMapper::setClipVFlip;
-            messageMap["/loopier/clip/clip/hflip"]              = &MessageMapper::setClipHFlip;
+            messageMap["/loopier/clip/clip/flipv"]              = &MessageMapper::setClipVFlip;
+            messageMap["/loopier/clip/clip/fliph"]              = &MessageMapper::setClipHFlip;
             // Visibility
             messageMap["/loopier/clip/clip/togglevisibility"]   = &MessageMapper::toggleClipVisibility;
             messageMap["/loopier/clip/clip/show"]               = &MessageMapper::showClip;
