@@ -90,10 +90,6 @@
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 0.63147, 0.071659, 0.11434, 1.0 ],
-					"bgoncolor" : [ 0.0, 0.501961, 0.0, 1.0 ],
-					"bgovercolor" : [ 0.986411, 0.091864, 0.164976, 1.0 ],
-					"bgoveroncolor" : [ 0.219737, 0.354385, 0.222286, 1.0 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-25",
@@ -107,9 +103,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 306.0, 210.0, 45.0, 20.0 ],
 					"text" : "OFF",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"texton" : "ON",
-					"textovercolor" : [ 0.901961, 0.901961, 0.901961, 1.0 ]
+					"texton" : "ON"
 				}
 
 			}
@@ -282,7 +276,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 1.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-16",
-					"items" : [ "clipDebug", ",", "clipDebug" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -310,9 +304,8 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"framecolor" : [ 1.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-11",
-					"items" : [ "Public Screen", ",", "Private Screen" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -987,6 +980,7 @@
 				"box" : 				{
 					"id" : "obj-3",
 					"maxclass" : "jit.pwindow",
+					"name" : "clientcontext",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
