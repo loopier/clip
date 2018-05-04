@@ -7,5 +7,5 @@
 - `[NEW]` Load clips
 - `[NEW]` Fade away -- in frame clips add alpha to previous frames
 - `[NEW]` Save output
-- `[CHANGE]` Set camera by ID number, not/or name
 - `[NEW]` Save clips to libraries - Create new libraries
+- `[NEW]` Load OSC commands from file
