@@ -254,6 +254,10 @@ namespace loopier {
         ofImage getMaskedImage(ofImage & img, ofTexture & mask);
         //// \brief  Uses mask to set transparent pixels to the texture
         ofTexture   getMaskedTexture(ofTexture & texture, ofTexture & mask);
+        
+        /// \brief  Saves object to YAML file
+        void    saveYaml(const string filename, ofxYAML & yaml);
+        string    yamlToString(YAML::Node & yaml, const int tabulations = 0);
     }
 }
 

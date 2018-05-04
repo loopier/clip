@@ -945,19 +945,16 @@ namespace loopier {
             // creates a unique YAML file for storing frame information
             void saveFrameInfo(const string name, const ofRectangle & rect) {
                 string filename = resourceFilesPath+"frames/"+name+"/resource.yml";
-                ofFile file(filename, ofFile::WriteOnly);
-                string tab = "  ";
-                file << "name: " << name << endl;
-                file << "type: frame" << endl;
-                file << "# The following rectangle represents the bounging box of the" << endl;
-                file << "# largest blob in the first frame.  It is used to replace other" << endl;
-                file << "# camera blobs, or other clips." << endl;
-                file << "rect: " << endl;
-                file << tab << "x: " << rect.x << endl;
-                file << tab << "y: " << rect.y << endl;
-                file << tab << "width: " << ofToString(rect.width) << endl;
-                file << tab << "height: " << ofToString(rect.height) << endl;
-                file.close();
+                ofxYAML yaml;
+                yaml["name"] = name;
+                yaml["type"] = "frame";
+                yaml["comment"] =  "The following rectangle represents the bounging box of the largest blob in the first frame.  It is used to replace other camera blobs, or other clips.";
+                yaml["rect"]["x"] = rect.x;
+                yaml["rect"]["y"] = rect.y;
+                yaml["rect"]["width"] = ofToString(rect.width);
+                yaml["rect"]["height"] = ofToString(rect.height);
+                
+                loopier::utils::saveYaml(filename, yaml);
             }
         }
         
@@ -1040,38 +1037,32 @@ namespace loopier {
             
             string filename = resourceFilesPath+"clips/"+clipname+".yml";
             ofLogVerbose() << clipname << ": Saving clip to " << filename;
-            ofFile file(filename, ofFile::WriteOnly);
-            // populate yaml object with clip's info
-            string tab = "  	";
-            ClipPtr clip = clips[clipname];
-            file << "clip:" << endl;
-            file << tab << "name: " << clip->getName() << endl;
-            file << tab << "resource: " << clip->getResourceName() << endl;
-            file << tab << "position:" << endl;
-            file << tab << tab << "x: " << clip->getPosition().x << endl;
-            file << tab << tab << "y: " << clip->getPosition().y << endl;
-            file << tab << "offset:" << endl;
-            file << tab << tab << "x: " << clip->getOffset().x << endl;
-            file << tab << tab << "y: " << clip->getOffset().y << endl;
-//            file << tab << "width: " << clip->getWidth() << endl;
-//            file << tab << "height: " << clip->getHeight() << endl;
-            file << tab << "scale: " /*<< clip->getScale()*/ << endl;
-            file << tab << tab << "x: " << clip->getScaleX() << endl;
-            file << tab << tab << "y: " << clip->getScaleY() << endl;
-            file << tab << "color: " << endl;
-            file << tab << tab << "r: " << clip->getColor().r << endl;
-            file << tab << tab << "g: " << clip->getColor().g << endl;
-            file << tab << tab << "b: " << clip->getColor().b << endl;
-            file << tab << tab << "a: " << clip->getColor().a << endl;
-            file << tab << "depth: " << clip->getDepth() << endl;
-            file << tab << "fullscreen: " << clip->isFullscreen() << endl;
-            file << tab << "visible: " << clip->isVisible() << endl;
-//            file << tab << "flipV:" << clip->isFlippedVertically() << endl;
-//            file << tab << "flipH:" << clip->isFlippedHorizontally() << endl;
-            file << tab << "loop: " << static_cast<int>(clip->getLoopState()) << endl;
-            file << tab << "parent: " << clip->getParentName() << endl;
             
-            file.close();
+            ClipPtr clip = clips[clipname];
+            
+            ofxYAML yaml;
+            yaml["clip"]["name"] = clip->getName();
+            yaml["clip"]["resource"] = clip->getResourceName();
+            yaml["clip"]["position"]["x"] = clip->getPosition().x;
+            yaml["clip"]["position"]["y"] = clip->getPosition().y;
+            yaml["clip"]["width"] = clip->getWidth();
+            yaml["clip"]["height"] = clip->getHeight();
+            yaml["clip"]["scale"] = clip->getScale();
+            yaml["clip"]["color"]["r"] = clip->getColor().r;
+            yaml["clip"]["color"]["g"] = clip->getColor().g;
+            yaml["clip"]["color"]["b"] = clip->getColor().b;
+            yaml["clip"]["color"]["a"] = clip->getColor().a;
+            yaml["clip"]["depth"] = clip->getDepth();
+            yaml["clip"]["fullscreen"] = clip->isFullscreen();
+            yaml["clip"]["visible"] = clip->isVisible();
+            yaml["clip"]["flipV"] = clip->isFlippedV();
+            yaml["clip"]["flipH"] = clip->isFlippedH();
+            yaml["clip"]["loop"] = static_cast<int>(clip->getLoopState());
+            yaml["clip"]["parent"] = clip->getParentName();
+            yaml["clip"]["offset"]["x"] = clip->getOffset().x;
+            yaml["clip"]["offset"]["y"] = clip->getOffset().y;
+            
+            loopier::utils::saveYaml(filename, yaml);
         }
         
         //---------------------------------------------------------------------------
@@ -1571,5 +1562,44 @@ namespace loopier {
             fbo.end();
             return fbo.getTexture();
         }
+        
+        //---------------------------------------------------------------------------
+        void saveYaml(const string filename, ofxYAML & yaml)
+        {
+            string name = "Manolos";
+            ofRectangle rect(10,20,100,200);
+            ofFile file(filename, ofFile::WriteOnly);
+            
+            string yamlstr = yamlToString(yaml);
+            ofLog() << "\n" << yamlstr;
+    
+            file << yamlstr;
+            file.close();
+        }
+        
+        string yamlToString(YAML::Node & yaml, const int tabulations)
+        {
+            string str = "";
+            
+            ofxYAML::iterator it = yaml.begin();
+            for (it; it != yaml.end(); ++it) {
+                if (it->second.size() > 0){
+                    str += ofToString(it->first) + ":\n";
+                    str += yamlToString(it->second, tabulations+1);
+                } else {
+                    // add tabulation if necessary
+                    for (int i = 0; i < tabulations; i++) { str += "  "; };
+                    if ((ofToString(it->first) == "comment")) {
+                        str += ofToString("# ") + ofToString(it->second) + "\n";
+                    } else {
+                        str += ofToString(it->first) + ": " + ofToString(it->second) + "\n";
+                    }
+                }
+            }
+            
+            return str;
+        }
+        
+        
     } // namespace utils
 }
