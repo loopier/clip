@@ -222,6 +222,7 @@ namespace {
 
 namespace loopier {
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    // !!!: app namescape
     namespace app {
         
         //---------------------------------------------------------------------------
@@ -320,6 +321,7 @@ namespace loopier {
     }   // namespace app
     
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    // !!!: resource namescape
     namespace resource {
         
         //---------------------------------------------------------------------------
@@ -381,6 +383,7 @@ namespace loopier {
     }  // namesapce resource
     
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    // !!!: clip namescape
     namespace clip {
         
         //---------------------------------------------------------------------------
@@ -1337,7 +1340,8 @@ namespace loopier {
             clips[clipname]->setAlpha(alpha * 255);
         }
     } // namespace clip
-      // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    // !!!: cv namescape
     namespace cv {
         
         //---------------------------------------------------------------------------
@@ -1540,7 +1544,8 @@ namespace loopier {
         
         
     }   // namespace cv
-    
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    // !!!: utils namescape
     namespace utils {
         ofImage getMaskedImage(ofImage & img, ofTexture & mask){
             // if not using fbo, '.setAlphaMask(...)' is not permanent
