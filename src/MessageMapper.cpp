@@ -127,6 +127,7 @@ namespace loopier {
             messageMap["/loopier/clip/clips/listnames"]     = &MessageMapper::listClipNames;
             messageMap["/loopier/clip/clips/listresources"] = &MessageMapper::listResourceNames;
             messageMap["/loopier/clip/clips/listlibraries"] = &MessageMapper::listClipLibraryNames;
+            messageMap["/loopier/clip/clips/listcameras"]   = &MessageMapper::listCameraNames;
             messageMap["/loopier/clip/clips/togglenames"]   = &MessageMapper::toggleClipNames;
             messageMap["/loopier/clip/clips/shownames"]     = &MessageMapper::showClipNames;
             messageMap["/loopier/clip/clips/hidenames"]     = &MessageMapper::hideClipNames;
@@ -706,6 +707,12 @@ namespace loopier {
         }
         
         //---------------------------------------------------------
+        void MessageMapper::listCameraNames(const Message & msg)
+        {
+            sendCameraNames();
+        }
+        
+        //---------------------------------------------------------
         void MessageMapper::listClipLibraryNames(const Message & msg)
         {
             clip::listClipLibraryNames();
@@ -1102,6 +1109,20 @@ namespace loopier {
             Message msg;
             
             msg.setAddress("/loopier/clip/clips/resourcenames");
+            
+            for (const auto &item : names) {  msg.addStringArg(item); };
+            
+            osc.sendMessage(msg);
+        }
+        
+        
+        //---------------------------------------------------------
+        void MessageMapper::sendCameraNames()
+        {
+            vector<string> names = loopier::resource::getCameraNames();
+            Message msg;
+            
+            msg.setAddress("/loopier/clip/clips/cameranames");
             
             for (const auto &item : names) {  msg.addStringArg(item); };
             

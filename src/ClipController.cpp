@@ -365,6 +365,14 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        vector<string> getCameraNames()
+        {
+            vector<string> names;
+            for (const auto &item : cameraplayers) {   names.push_back(item.first); }
+            return names;
+        }
+        
+        //---------------------------------------------------------------------------
         bool exists(string resourcename)
         {
             if (frames.count(resourcename) ||

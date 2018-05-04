@@ -37,6 +37,8 @@ namespace loopier {
         void    listAll();
         /// \brief  Returns a list of the names of all resources
         vector<string> getNamesList();
+        /// \brief  Returns a list of the names of all cameras
+        vector<string> getCameraNames();
         /// \brief   Checks if a resource exists
         bool    exists(string resourcename);
         /// \brief   Sets the syphon player of the given clip to listen to the given syphon server

@@ -132,6 +132,7 @@ namespace loopier {
             void clearClips         (const Message & msg);
             void listClipNames      (const Message & msg);
             void listResourceNames  (const Message & msg);
+            void listCameraNames    (const Message & msg);
             void listClipLibraryNames   (const Message & msg);
             void toggleClipNames    (const Message & msg);
             void showClipNames      (const Message & msg);
@@ -196,6 +197,7 @@ namespace loopier {
             
             void sendClipNames();
             void sendResourceNames();
+            void sendCameraNames();
             void sendLibraryNames();
             void sendClipInfo(const string clipname);
             
