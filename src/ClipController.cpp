@@ -1587,6 +1587,22 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        vector<string> getCommandLibraryNames()
+        {
+            ofDirectory dir(commandLibraryPath);
+            vector<ofFile> files = dir.getFiles();
+            vector<string> names;
+            string list = "Command libraries: ";
+            for (const auto &file : files) {
+                names.push_back(file.getBaseName());
+                list += file.getBaseName() + " ";
+            }
+            
+            ofLogVerbose() << list;
+            return names;
+        }
+        
+        //---------------------------------------------------------------------------
         void sendCommand(const string & command)
         {
             vector<string> items = ofSplitString(command, ",");

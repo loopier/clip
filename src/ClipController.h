@@ -259,6 +259,8 @@ namespace loopier {
         void    loadCommandFile(const string & filenameorpath);
         void    setCommandLibraryPath(const string & path);
         string  getCommandLibraryPath();
+        /// \brief  Returns the list of filenames in commands/ folder.
+        vector<string>  getCommandLibraryNames();
         /// \biref  Send the given string as an OSC message.
         /// \descritpion    The format is /address/with/leading/slash, arg1, arg2, ...
         void    sendCommand(const string & message);

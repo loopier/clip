@@ -38,7 +38,9 @@ namespace loopier {
             messageMap["/loopier/clip/app/quit"]        = &MessageMapper::quit;
             messageMap["/loopier/clip/app/fullscreen"]  = &MessageMapper::fullscreen;
             messageMap["/loopier/clip/app/move"]        = &MessageMapper::move;
-            messageMap["/loopier/clip/app/loadcommands"]        = &MessageMapper::loadCommandFile;
+            
+            messageMap["/loopier/clip/command/loadlibrary"]     = &MessageMapper::loadCommandFile;
+            messageMap["/loopier/clip/command/listlibraries"]   = &MessageMapper::listCommandLibraryNames;
         }
         
         
@@ -288,6 +290,12 @@ namespace loopier {
         void MessageMapper::loadCommandFile(const Message & msg)
         {
             command::loadCommandFile(msg.getArgAsString(0));
+        }
+        
+        void MessageMapper::listCommandLibraryNames(const Message & msg)
+        {
+//            command::getCommandLibraryNames(msg.getArgAsString(0));
+            sendCommandLibraryNames();
         }
         
         
@@ -1200,6 +1208,22 @@ namespace loopier {
         }
         
         
+        
+        
+        //---------------------------------------------------------
+        void MessageMapper::sendCommandLibraryNames()
+        {
+            vector<string> names = loopier::command::getCommandLibraryNames();
+            Message msg;
+            
+            msg.setAddress("/loopier/clip/command/librarynames");
+            
+            for (const auto &item : names) {
+                msg.addStringArg(item);
+            };
+            
+            osc.sendMessage(msg);
+        }
         
         
         
