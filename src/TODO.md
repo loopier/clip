@@ -1,11 +1,8 @@
 - `[NEW]` Convert Console to TextPlayer
 - `[NEW]`  Add ShapePlayer to draw shapes
-- `[OPT]`  Use OSC messages as setup and config files.
-  - Make the app load the file and send messages to itself?
-  - Could be CSV, JSON, plain text, ...
-- `[NEW]` Make layers -- Fbo's that render clips and can be stacked in any order
-- `[NEW]` Load clips
+- `[NEW]` Make layers
 - `[NEW]` Fade away -- in frame clips add alpha to previous frames
 - `[NEW]` Save output
 - `[NEW]` Save clips to libraries - Create new libraries
 - `[NEW]` Make a vector of commands and a method to execute them, so they can be loaded into memory and executed later
+- `[CHANGE]` Clip library from YAML to OSC (like command libraries)
