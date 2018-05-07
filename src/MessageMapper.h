@@ -218,10 +218,10 @@ namespace loopier {
     namespace command {
         /// \brief   Loads commands from file and stores them to be sent
         void loadCommands(const string filename);
+        /// \brief  Returns the given string as an OSC message
+        ofxOscMessage stringToMessage(const string & s);
         /// \brief  Returns YAML object as a list of OSC messages
-        vector<ofxOscMessage> yamlToOsc(YAML::Node & yaml);
-        /// \brief  Returns true if the given string is an OSC address (starts with '/')
-        bool isOscAddress(const string s);
+        vector<ofxOscMessage> parseCommands(string & path);
         /// \brief  Returns given string as OSC message
         ofxOscMessage toOscMessage(const string & command);
         /// \brief  Executes the chain of loaded commands

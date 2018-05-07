@@ -1227,78 +1227,62 @@ namespace loopier {
     namespace command {        
         void loadCommands(const string filename)
         {
-            string path = app::getPath() + "commands/";
-            ofxYAML yaml;
-            yaml.load(path + filename + ".yml");
-//            ofLog() << yaml;
-            vector<ofxOscMessage> messages = yamlToOsc(yaml);
-            ofLog() << "# commands: " << messages.size();
+            string path = app::getPath() + "commands/" + filename + ".clc";
+            ofLogVerbose() << __PRETTY_FUNCTION__ << path;
+            vector<ofxOscMessage> messages = parseCommands(path);
             executeCommands(messages);
         }
         
+        ofxOscMessage stringToMessage(const string & s)
+        {
+            vector<string> items = ofSplitString(s, ",");
+            ofxOscMessage msg;
+            msg.setAddress("/loopier/clip"+items.front());
+            items.erase(items.begin());
+            for (auto item : items) {
+                item = ofTrim(item);
+                if (isInt(item)) {
+                    msg.addInt32Arg(ofToInt(item));
+                    continue;
+                } else if (isFloat(item)) {
+                    msg.addFloatArg(ofToFloat(item));
+                    continue;
+                } else {
+                    ofStringReplace(item, "\"", "");
+                    msg.addStringArg(item);
+                }
+            }
+            return msg;
+        }
         
-        vector<ofxOscMessage> yamlToOsc(YAML::Node & yaml)
+        vector<ofxOscMessage> parseCommands(string & path)
         {
             vector<ofxOscMessage> messages;
             
-//        Example YAML file:
-//        mamma:
-//            - /clip/new mamma1 mamma
-//            - /clip/new mamma2 mamma
-//            - /clip/moveto mamma2 0.25 0.5
-//            - /clip/scale mamma2 0.5
-//        man:
-//            - /clip/new manflyround
-//        bootcv:
-//            - /clip/new cam "HD Pro Webcam C920"
-//            - wait 2
-//            - /cv/setinput cam
-//            - /clip/background cam"
-//            - /clip/alpha cam 0.5
-//            - /clip/color cv 1.0 0.1 0.0
-//            - /cv/maxblobs 100
-//            - /clip/private cv
-
+//            Example file:
+//            
+//            /clip/new, mamma1, mamma
+//            /clip/new, mamma2, mamma
+//            /clip/moveto, mamma2, 0.25, 0.5
+//            /clip/scale, mamma2, 0.5
+//            /clip/new, manflyround
+//            /clip/new, cam, "HD Pro Webcam C920"
+//            wait, 2
+//            /cv/setinput, cam
+//            /clip/background, cam"
+//            /clip/alpha, cam, 0.5
+//            /clip/color, cv, 1.0, 0.1, 0.0
+//            /cv/maxblobs, 100
+//            /clip/private, cv
             
-            ofxYAML::iterator it = yaml.begin();
-            for (it; it != yaml.end(); ++it) {
-                for (int i = 0; i < it->second.size(); i++) {
-                    vector<string> msgitems = ofSplitString(it->second[i].as<string>(), ",");
-                    for (int x = 0; x < msgitems.size(); x++) {
-                        ofxOscMessage msg;
-                        string item = ofTrim(msgitems[x]);
-                        ofLog() << x << ": " << item;
-                        continue;
-                        if (x == 0) {
-                            ofLog() << "cmd: " << item;
-                            if (ofIsStringInString(item, "/")) msg.setAddress(item);
-                            continue;
-                        } else if (isInt(item)) {
-                            ofLog() << "i: " << ofToInt(item);
-                            msg.addInt32Arg(ofToInt(item));
-                            continue;
-                        } else if (isFloat(item)) {
-                            ofLog() << "f: " << ofToFloat(item);
-                            msg.addFloatArg(ofToFloat(item));
-                            continue;
-                        } else {
-                            ofLog() << "s: " << item;
-                            msg.addStringArg(item);
-                        }
-                        
-                        messages.push_back(msg);
-                    }
-                }
-                
+            vector < string > linesOfTheFile;
+            ofBuffer buffer = ofBufferFromFile(path);
+            for (auto line : buffer.getLines()){
+                messages.push_back(stringToMessage(line));
             }
             
             ofLog() << "Messages: " << messages.size();
             return messages;
-        }
-        
-        bool isOscAddress(const string s)
-        {
-            return strcmp(&s.at(0), "/");
         }
         
         ofxOscMessage toOscMessage(const string & command)
