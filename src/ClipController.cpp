@@ -318,6 +318,14 @@ namespace loopier {
             detectionAreaRectangle.set(0,0, ofGetWidth(), ofGetHeight());
         }
         
+        
+        //---------------------------------------------------------------------------
+        string getPath()
+        {
+            return applicationSupportPath;
+        }
+        
+        
     }   // namespace app
     
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

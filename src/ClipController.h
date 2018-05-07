@@ -28,6 +28,9 @@ namespace loopier {
         void    mouseDragged(int x, int y, int button);
         /// \breif   Sets mouse rectangle to fullscreen
         void    resetDetectionAreaRectangle();
+        /// \brief  Returns the absolute path to the Application Support folder
+        string  getPath();
+        
     } // namesapce app
     
     namespace resource {
