@@ -16,6 +16,8 @@ void ofApp::setup(){
     loopier::uvc::init();
     
     msgMapper.setup();
+    
+    loopier::command::loadCommands("commands-example");
 }
 
 //--------------------------------------------------------------

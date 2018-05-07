@@ -1223,4 +1223,142 @@ namespace loopier {
             return color;
         }
     } // namespace osc
+    
+    namespace command {        
+        void loadCommands(const string filename)
+        {
+            string path = app::getPath() + "commands/";
+            ofxYAML yaml;
+            yaml.load(path + filename + ".yml");
+//            ofLog() << yaml;
+            vector<ofxOscMessage> messages = yamlToOsc(yaml);
+            ofLog() << "# commands: " << messages.size();
+            executeCommands(messages);
+        }
+        
+        
+        vector<ofxOscMessage> yamlToOsc(YAML::Node & yaml)
+        {
+            vector<ofxOscMessage> messages;
+            
+//        Example YAML file:
+//        mamma:
+//            - /clip/new mamma1 mamma
+//            - /clip/new mamma2 mamma
+//            - /clip/moveto mamma2 0.25 0.5
+//            - /clip/scale mamma2 0.5
+//        man:
+//            - /clip/new manflyround
+//        bootcv:
+//            - /clip/new cam "HD Pro Webcam C920"
+//            - wait 2
+//            - /cv/setinput cam
+//            - /clip/background cam"
+//            - /clip/alpha cam 0.5
+//            - /clip/color cv 1.0 0.1 0.0
+//            - /cv/maxblobs 100
+//            - /clip/private cv
+
+            
+            ofxYAML::iterator it = yaml.begin();
+            for (it; it != yaml.end(); ++it) {
+                for (int i = 0; i < it->second.size(); i++) {
+                    vector<string> msgitems = ofSplitString(it->second[i].as<string>(), ",");
+                    for (int x = 0; x < msgitems.size(); x++) {
+                        ofxOscMessage msg;
+                        string item = ofTrim(msgitems[x]);
+                        ofLog() << x << ": " << item;
+                        continue;
+                        if (x == 0) {
+                            ofLog() << "cmd: " << item;
+                            if (ofIsStringInString(item, "/")) msg.setAddress(item);
+                            continue;
+                        } else if (isInt(item)) {
+                            ofLog() << "i: " << ofToInt(item);
+                            msg.addInt32Arg(ofToInt(item));
+                            continue;
+                        } else if (isFloat(item)) {
+                            ofLog() << "f: " << ofToFloat(item);
+                            msg.addFloatArg(ofToFloat(item));
+                            continue;
+                        } else {
+                            ofLog() << "s: " << item;
+                            msg.addStringArg(item);
+                        }
+                        
+                        messages.push_back(msg);
+                    }
+                }
+                
+            }
+            
+            ofLog() << "Messages: " << messages.size();
+            return messages;
+        }
+        
+        bool isOscAddress(const string s)
+        {
+            return strcmp(&s.at(0), "/");
+        }
+        
+        ofxOscMessage toOscMessage(const string & command)
+        {
+            vector<string> split = ofSplitString(command, " ");
+            string address = split[0];
+            ofLog() << "address: " << address;
+        }
+        
+        void executeCommands(vector<ofxOscMessage> & commands)
+        {
+            ofxOscSender osc;
+            osc.setup("localhost", 12345);
+            
+            float lasttime = ofGetElapsedTimef();
+            float nexttime = 0;
+            float waittime = 5;
+            for (int i = 0; i < commands.size(); i++) {
+                if (lasttime + waittime < ofGetElapsedTimef()) {
+                    i--;
+                    continue;
+                }
+                
+                ofLog() << "sending: " << commands[i].getAddress();
+                osc.sendMessage(commands[i]);
+                osc::printMessage(commands[i]);
+//
+//                if (waittime + lasttime < ofGetElapsedTimef()) {
+//                    i--;
+//                    continue;
+//                }
+//                ofxOscMessage cmd = commands[i];
+//                if (ofIsStringInString(cmd.getAddress(), "/") {
+//                    osc.sendMessage(msg);
+//                    continue;
+//                } else if (cmd == "wait") {
+//                    
+//                }
+            }
+        }
+        
+        bool isFloat(const string & s)
+        {
+            // from https://stackoverflow.com/questions/447206/c-isfloat-function
+            std::istringstream iss(s);
+            float f;
+            iss >> noskipws >> f; // noskipws considers leading whitespace invalid
+                                  // Check the entire string was consumed and if either failbit or badbit is set
+            return iss.eof() && !iss.fail();
+        }
+        
+        bool isInt(const string & s)
+        {
+            // from https://stackoverflow.com/questions/2844817/how-do-i-check-if-a-c-string-is-an-int
+            if(s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false ;
+            
+            char * p ;
+            strtol(s.c_str(), &p, 10) ;
+            
+            return (*p == 0) ;
+        }
+    } // namespace command
 } // namespace loopier

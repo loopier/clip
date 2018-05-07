@@ -201,6 +201,9 @@ namespace loopier {
             void sendLibraryNames();
             void sendClipInfo(const string clipname);
             
+            //------------------------------------------------------------------------------------------
+            // COMMANDS FROM FILES
+            
             // Helpers
             /// \brief  Translates a message with variable arguments to a color object
             static ofColor getColorFromMessage(const Message & msg);
@@ -211,6 +214,21 @@ namespace loopier {
             ConsoleUI   console;
         };
     } // namespace osc
+    
+    namespace command {
+        /// \brief   Loads commands from file and stores them to be sent
+        void loadCommands(const string filename);
+        /// \brief  Returns YAML object as a list of OSC messages
+        vector<ofxOscMessage> yamlToOsc(YAML::Node & yaml);
+        /// \brief  Returns true if the given string is an OSC address (starts with '/')
+        bool isOscAddress(const string s);
+        /// \brief  Returns given string as OSC message
+        ofxOscMessage toOscMessage(const string & command);
+        /// \brief  Executes the chain of loaded commands
+        void executeCommands(vector<ofxOscMessage> & commands);
+        bool isFloat(const string & s);
+        bool isInt(const string & s);
+    } // namespace command
     
 } // namespace loopeir
 
