@@ -15,6 +15,7 @@
 #include "Clip.h"
 #include "ofxYAML.h"
 #include "ofxJSON.h"
+#include "ofxOscSender.h"
 
 namespace loopier {
     namespace app {
@@ -253,6 +254,16 @@ namespace loopier {
         void lastBlob();
     } // namespace cv
     
+    namespace command {
+        /// \brief  Loads a command file
+        void    loadCommandFile(const string & filenameorpath);
+        void    setCommandLibraryPath(const string & path);
+        string  getCommandLibraryPath();
+        /// \biref  Send the given string as an OSC message.
+        /// \descritpion    The format is /address/with/leading/slash, arg1, arg2, ...
+        void    sendCommand(const string & message);
+    }
+    
     namespace utils {
         
         //// \brief  Uses mask to set transparent pixels to the image
@@ -263,6 +274,9 @@ namespace loopier {
         /// \brief  Saves object to YAML file
         void    saveYaml(const string filename, ofxYAML & yaml);
         string    yamlToString(YAML::Node & yaml, const int tabulations = 0);
+        
+        bool    isFloat(const string &);
+        bool    isInt(const string &);
     }
 }
 

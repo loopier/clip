@@ -38,6 +38,7 @@ namespace loopier {
             messageMap["/loopier/clip/app/quit"]        = &MessageMapper::quit;
             messageMap["/loopier/clip/app/fullscreen"]  = &MessageMapper::fullscreen;
             messageMap["/loopier/clip/app/move"]        = &MessageMapper::move;
+            messageMap["/loopier/clip/app/loadcommands"]        = &MessageMapper::loadCommandFile;
         }
         
         
@@ -282,6 +283,11 @@ namespace loopier {
             float x = msg.getArgAsFloat(1) * ofGetScreenWidth();
             float y = msg.getArgAsFloat(2) * ofGetScreenHeight();
             ofSetWindowPosition(x, y);
+        }
+        
+        void MessageMapper::loadCommandFile(const Message & msg)
+        {
+            command::loadCommandFile(msg.getArgAsString(0));
         }
         
         
@@ -1223,126 +1229,4 @@ namespace loopier {
             return color;
         }
     } // namespace osc
-    
-    namespace command {        
-        void loadCommands(const string filename)
-        {
-            string path = app::getPath() + "commands/" + filename + ".clc";
-            ofLogVerbose() << __PRETTY_FUNCTION__ << path;
-            vector<ofxOscMessage> messages = parseCommands(path);
-            executeCommands(messages);
-        }
-        
-        ofxOscMessage stringToMessage(const string & s)
-        {
-            vector<string> items = ofSplitString(s, ",");
-            ofxOscMessage msg;
-            msg.setAddress("/loopier/clip"+items.front());
-            items.erase(items.begin());
-            for (auto item : items) {
-                item = ofTrim(item);
-                if (isInt(item)) {
-                    msg.addInt32Arg(ofToInt(item));
-                    continue;
-                } else if (isFloat(item)) {
-                    msg.addFloatArg(ofToFloat(item));
-                    continue;
-                } else {
-                    ofStringReplace(item, "\"", "");
-                    msg.addStringArg(item);
-                }
-            }
-            return msg;
-        }
-        
-        vector<ofxOscMessage> parseCommands(string & path)
-        {
-            vector<ofxOscMessage> messages;
-            
-//            Example file:
-//            
-//            /clip/new, mamma1, mamma
-//            /clip/new, mamma2, mamma
-//            /clip/moveto, mamma2, 0.25, 0.5
-//            /clip/scale, mamma2, 0.5
-//            /clip/new, manflyround
-//            /clip/new, cam, "HD Pro Webcam C920"
-//            wait, 2
-//            /cv/setinput, cam
-//            /clip/background, cam"
-//            /clip/alpha, cam, 0.5
-//            /clip/color, cv, 1.0, 0.1, 0.0
-//            /cv/maxblobs, 100
-//            /clip/private, cv
-            
-            vector < string > linesOfTheFile;
-            ofBuffer buffer = ofBufferFromFile(path);
-            for (auto line : buffer.getLines()){
-                messages.push_back(stringToMessage(line));
-            }
-            
-            ofLog() << "Messages: " << messages.size();
-            return messages;
-        }
-        
-        ofxOscMessage toOscMessage(const string & command)
-        {
-            vector<string> split = ofSplitString(command, " ");
-            string address = split[0];
-            ofLog() << "address: " << address;
-        }
-        
-        void executeCommands(vector<ofxOscMessage> & commands)
-        {
-            ofxOscSender osc;
-            osc.setup("localhost", 12345);
-            
-            float lasttime = ofGetElapsedTimef();
-            float nexttime = 0;
-            float waittime = 5;
-            for (int i = 0; i < commands.size(); i++) {
-                if (lasttime + waittime < ofGetElapsedTimef()) {
-                    i--;
-                    continue;
-                }
-                
-                ofLog() << "sending: " << commands[i].getAddress();
-                osc.sendMessage(commands[i]);
-                osc::printMessage(commands[i]);
-//
-//                if (waittime + lasttime < ofGetElapsedTimef()) {
-//                    i--;
-//                    continue;
-//                }
-//                ofxOscMessage cmd = commands[i];
-//                if (ofIsStringInString(cmd.getAddress(), "/") {
-//                    osc.sendMessage(msg);
-//                    continue;
-//                } else if (cmd == "wait") {
-//                    
-//                }
-            }
-        }
-        
-        bool isFloat(const string & s)
-        {
-            // from https://stackoverflow.com/questions/447206/c-isfloat-function
-            std::istringstream iss(s);
-            float f;
-            iss >> noskipws >> f; // noskipws considers leading whitespace invalid
-                                  // Check the entire string was consumed and if either failbit or badbit is set
-            return iss.eof() && !iss.fail();
-        }
-        
-        bool isInt(const string & s)
-        {
-            // from https://stackoverflow.com/questions/2844817/how-do-i-check-if-a-c-string-is-an-int
-            if(s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false ;
-            
-            char * p ;
-            strtol(s.c_str(), &p, 10) ;
-            
-            return (*p == 0) ;
-        }
-    } // namespace command
 } // namespace loopier

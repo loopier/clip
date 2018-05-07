@@ -58,6 +58,7 @@ namespace loopier {
             void quit       (const Message & msg);
             void fullscreen (const Message & msg);
             void move       (const Message & msg);
+            void loadCommandFile       (const Message & msg);
             
             // One Clip commands
             void newClip              (const Message & msg);
@@ -214,21 +215,6 @@ namespace loopier {
             ConsoleUI   console;
         };
     } // namespace osc
-    
-    namespace command {
-        /// \brief   Loads commands from file and stores them to be sent
-        void loadCommands(const string filename);
-        /// \brief  Returns the given string as an OSC message
-        ofxOscMessage stringToMessage(const string & s);
-        /// \brief  Returns YAML object as a list of OSC messages
-        vector<ofxOscMessage> parseCommands(string & path);
-        /// \brief  Returns given string as OSC message
-        ofxOscMessage toOscMessage(const string & command);
-        /// \brief  Executes the chain of loaded commands
-        void executeCommands(vector<ofxOscMessage> & commands);
-        bool isFloat(const string & s);
-        bool isInt(const string & s);
-    } // namespace command
     
 } // namespace loopeir
 

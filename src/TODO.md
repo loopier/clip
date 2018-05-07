@@ -8,4 +8,4 @@
 - `[NEW]` Fade away -- in frame clips add alpha to previous frames
 - `[NEW]` Save output
 - `[NEW]` Save clips to libraries - Create new libraries
-- `[NEW]` Load OSC commands from file
+- `[NEW]` Make a vector of commands and a method to execute them, so they can be loaded into memory and executed later

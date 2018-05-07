@@ -16,6 +16,7 @@ namespace {
     string  applicationSupportPath = "";
     string  resourceFilesPath  = "";
     string  clipLibraryPath = "";
+    string  commandLibraryPath = "";
     
     // clips
     loopier::ClipMap            clips;      // all clips that have been created
@@ -237,7 +238,8 @@ namespace loopier {
             }
             
             resource::setPath(applicationSupportPath);
-            clip::setClipLibraryPath(applicationSupportPath);
+            clip::setClipLibraryPath(applicationSupportPath+"clips/");
+            command::setCommandLibraryPath(applicationSupportPath+"commands/");
             
             // local helpers declared above in unnamed namespace
             loadFrameLists();
@@ -1151,7 +1153,7 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void setClipLibraryPath(const string path)
         {
-            clipLibraryPath = path + "clips/";
+            clipLibraryPath = path;
             ofLogVerbose() << "Clip Library path: " << clipLibraryPath;
         }
         
@@ -1552,6 +1554,66 @@ namespace loopier {
         
     }   // namespace cv
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    // !!!: osc namescape
+    namespace command {
+        //---------------------------------------------------------------------------
+        void loadCommandFile(const string & filenameorpath)
+        {
+            string path = filenameorpath;
+            if (!ofFile(path).exists()) {
+                path = commandLibraryPath + filenameorpath + ".clc";
+            }
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " " << path;
+            // TODO
+            vector < string > linesOfTheFile;
+            ofBuffer buffer = ofBufferFromFile(path);
+            for (auto line : buffer.getLines()){
+                command::sendCommand(line);
+            }
+            
+        }
+        
+        //---------------------------------------------------------------------------
+        void setCommandLibraryPath(const string & path)
+        {
+            commandLibraryPath = path;
+            ofLogVerbose() << "Command Library path: " << commandLibraryPath;
+        }
+        
+        //---------------------------------------------------------------------------
+        string getCommandLibraryPath()
+        {
+            return commandLibraryPath;
+        }
+        
+        //---------------------------------------------------------------------------
+        void sendCommand(const string & command)
+        {
+            vector<string> items = ofSplitString(command, ",");
+            ofxOscMessage msg;
+            msg.setAddress("/loopier/clip"+items.front());
+            items.erase(items.begin());
+            for (auto item : items) {
+                item = ofTrim(item);
+                if (utils::isInt(item)) {
+                    msg.addInt32Arg(ofToInt(item));
+                    continue;
+                } else if (utils::isFloat(item)) {
+                    msg.addFloatArg(ofToFloat(item));
+                    continue;
+                } else {
+                    ofStringReplace(item, "\"", "");
+                    msg.addStringArg(item);
+                }
+            }
+            
+            ofxOscSender sender;
+            sender.setup("localhost", 12345);
+            sender.sendMessage(msg);
+        }
+        
+    } // namespace osc
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     // !!!: utils namescape
     namespace utils {
         ofImage getMaskedImage(ofImage & img, ofTexture & mask){
@@ -1616,6 +1678,26 @@ namespace loopier {
             return str;
         }
         
+        bool isFloat(const string & s)
+        {
+            // from https://stackoverflow.com/questions/447206/c-isfloat-function
+            std::istringstream iss(s);
+            float f;
+            iss >> noskipws >> f; // noskipws considers leading whitespace invalid
+                                  // Check the entire string was consumed and if either failbit or badbit is set
+            return iss.eof() && !iss.fail();
+        }
+        
+        bool isInt(const string & s)
+        {
+            // from https://stackoverflow.com/questions/2844817/how-do-i-check-if-a-c-string-is-an-int
+            if(s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false ;
+            
+            char * p ;
+            strtol(s.c_str(), &p, 10) ;
+            
+            return (*p == 0) ;
+        }
         
     } // namespace utils
 }
