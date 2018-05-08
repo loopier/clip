@@ -50,6 +50,7 @@ namespace loopier {
             
             // One Clip commands
             messageMap["/loopier/clip/clip/new"]                = &MessageMapper::newClip;
+            // TODO: should replace clip, not resource
             messageMap["/loopier/clip/clip/replace"]            = &MessageMapper::newClip;
             messageMap["/loopier/clip/clip/replaceblob"]        = &MessageMapper::newClipFromBlob;
             messageMap["/loopier/clip/clip/remove"]             = &MessageMapper::removeClip;

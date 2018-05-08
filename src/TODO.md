@@ -6,3 +6,4 @@
 - `[NEW]` Save clips to libraries - Create new libraries
 - `[NEW]` Make a vector of commands and a method to execute them, so they can be loaded into memory and executed later
 - `[CHANGE]` Clip library from YAML to OSC (like command libraries)
+- `[CHANGE]` `/clip/replace` should replace one clip with another, not the resource. **REMBEMBER TO CHANGE DOCS**
