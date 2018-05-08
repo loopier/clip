@@ -221,6 +221,8 @@ ofRectangle loopier::CvPlayer::getBoundingRect()
         boundingRect.growToInclude(getBlobBoundingRect(selectedBlobs[i]));
     }
     
+    if (boundingRect.getArea() <= 0) boundingRect = getBlobBoundingRect(currentBlob);
+    
     return boundingRect;
 }
 
