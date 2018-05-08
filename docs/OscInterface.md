@@ -54,7 +54,7 @@ Get a list of the command library filenames in the `commands/` folder.
 /loopier/clip/command/listlibraries
 ```
 
-**Response** `/loopier/clip/command/librarynames <arg1:STRING> <arg2:STRING> ...`
+**Response** `/loopier/clip/command/librarynames <library1:STRING> <library2:STRING> ...`
 
 
 ## Clip commands
@@ -142,6 +142,7 @@ Logs and returns the clip parameters.
 
 - **Response** `/loopier/clip/clip/info <clipname:STRING> <resourcename:STRING> <isPlaying:BOOL> <speed:FLOAT> <loopType:STRING> <xCoordinate:FLOAT> <yCoordinate:FLOAT> <width:FLOAT> <height:FLOAT> <scale:FLOAT> <red:FLOAT> <green:FLOAT> <blue:FLOAT> <alpha:FLOAT> <depth:FLOAT> <visibility:BOOL> <fullscreen:BOOL> <flipV:BOOL> <flipH:BOOL> <parentName:STRING> <xOffset:FLOAT> <yOffset:FLOAT>`
 
+
 ## Clip's parent commands
 
 ### Parent clip
@@ -212,7 +213,7 @@ Sends clip to the lowest position in the drawing order.  Will be drawn below eve
 
 ### Background clip
 
-Set clip as the backround image.  It will be drawn below all other clips.
+Set clip as the backround image.  It will be drawn below all other clips.  There can be only one backround clip.
 
 ```
 /loopier/clip/clip/background <clipname:STRING>
@@ -235,6 +236,7 @@ Draw this clip in the private screen ONLY.
 ```
 
 ### TODO: Move to ../app/.. or ../clips/..
+
 ```
 /loopier/clip/clip/layers
 ```
@@ -294,19 +296,19 @@ Scale only the Y axis.
 
 ### Fullscreen
 
-Resizes clip to ocuppy the whole screen.
+Resizes clip to occupy the whole screen.
 
 ```
 /loopier/clip/clip/fullscreen <clipname:STRING>
 ```
 
-## Flip clip vertically
+### Flip clip vertically
 
 ```
 /loopier/clip/clip/flipv  <clipname:STRING>
 ```
 
-## Flip clip horizontally
+### Flip clip horizontally
 
 ```
 /loopier/clip/clip/fliph  <clipname:STRING>
@@ -329,176 +331,310 @@ Resizes clip to ocuppy the whole screen.
 ```
 
 ## FX
-### mask
+
+### Mask
+
+Set one clip as the mask of another clip.
+
 ```
-/loopier/clip/clip/mask  <clipname:STRING>
+/loopier/clip/clip/mask  <clipname:STRING> <maskname:STRING>
 ```
 
-### maskon
+### Mask on
+
+Truns mask on.
+
 ```
 /loopier/clip/clip/maskon  <clipname:STRING>
 ```
 
-### maskoff
+### Mask off
+
+Turns mask off, but keeps it.
+
 ```
 /loopier/clip/clip/maskoff  <clipname:STRING>
 ```
 
-## play
+### Play clip
+
+Tells a clip to do it's thing.
 
 ```
-/loopier/clip/clip/play
+/loopier/clip/clip/play  <clipname:STRING>
 ```
 
+## Stop clip
+
+Stops clip and goes back to the first frame.
 
 ```
-/loopier/clip/clip/stop
+/loopier/clip/clip/stop  <clipname:STRING>
 ```
 
+## Pause clip
+
+Pauses clip at the current frame.
 
 ```
-/loopier/clip/clip/pause
+/loopier/clip/clip/pause  <clipname:STRING>
 ```
 
+## Loop type
+
+Set clip's loop type.
 
 ```
-/loopier/clip/clip/loop
+/loopier/clip/clip/loop  <clipname:STRING> <looptype:STRING>
 ```
 
+- **normal:** When it reaches the last frame, play again from first frame.
+- **palindrome:** When it reaches the last frame, play backwards.  Play forward again when reaching first frame.
+- **once:** Stop when reaching last frame.
+
+## Play direction
+
+Play forwards or backwards.
 
 ```
-/loopier/clip/clip/playdirection
+/loopier/clip/clip/playdirection  <clipname:STRING> <direction:STRING>
 ```
 
+- **normal:** Play clip forwards.
+- **reverse:** Play clip backwards.
+
+## Speed
+
+Set the playing speed of the clip.  `1.0` is normal speed.  `2.0` for double speed. `0.5` for half speed.
 
 ```
-/loopier/clip/clip/speed
+/loopier/clip/clip/speed  <clipname:STRING> <speed:FLOAT>
 ```
 
-## edit
+## Edit clip frames
+
+This might only work with `frame` clips.
+
+### Add frame
+
+Add frame to the end.
 
 ```
-/loopier/clip/clip/addframe
+/loopier/clip/clip/addframe  <clipname:STRING> <sourceclipname:STRING>
 ```
 
+- **clipname:** Name of the clip.
+- **sourceclipname:** Name of the clip that provides the frames (usually a camera clip).
+
+### Insert frame
+
+Add a frame at the current position.
 
 ```
-/loopier/clip/clip/insertframe
+/loopier/clip/clip/insertframe  <clipname:STRING> <sourceclipname:STRING>
 ```
+See `Add frame` for parameters.
 
+### Remove frame
 
-```
-/loopier/clip/clip/removeframe
-```
-
-
-```
-/loopier/clip/clip/clearframes
-```
-
+Remove current frame.
 
 ```
-/loopier/clip/clip/saveframes
+/loopier/clip/clip/removeframe  <clipname:STRING>
 ```
 
+### Clear frames
+
+Delete all frames.  Empty clip.
 
 ```
-/loopier/clip/clip/loadframes
+/loopier/clip/clip/clearframes  <clipname:STRING>
 ```
 
+### Save frames
+
+Save clip frames to disk.  Should create a new folder with the clip's name under `resources/frames/`.
 
 ```
-/loopier/clip/clip/firstframe
+/loopier/clip/clip/saveframes  <clipname:STRING>
 ```
 
+### Load frames
+
+Load frames to clip.
 
 ```
-/loopier/clip/clip/nextframe
+/loopier/clip/clip/loadframes  <clipname:STRING> <resourcename:STRING>
 ```
 
+### First frame
+
+Go to first frame of the clip.
 
 ```
-/loopier/clip/clip/previousframe
+/loopier/clip/clip/firstframe  <clipname:STRING>
 ```
 
+### Next frame
+
+Advance one frame only.
 
 ```
-/loopier/clip/clip/lastframe
+/loopier/clip/clip/nextframe  <clipname:STRING>
 ```
 
+### Previous frame
+
+Move one frame backwards.
 
 ```
-/loopier/clip/clip/gotoframe
+/loopier/clip/clip/previousframe  <clipname:STRING>
 ```
 
+### Last frame
+
+Go to last frame of the clip.
 
 ```
-/loopier/clip/clip/save
+/loopier/clip/clip/lastframe  <clipname:STRING>
 ```
 
-## move
+### Go to frame #
+
+Go to a specific frame of the clip.
 
 ```
-/loopier/clip/clip/moveto
+/loopier/clip/clip/gotoframe  <clipname:STRING> <frameNumber:INT>
 ```
 
+### Save
+
+Save clip to disk.
 
 ```
-/loopier/clip/clip/center
+/loopier/clip/clip/save  <clipname:STRING>
 ```
 
-## color
+## Move clip
+
+Move clip to a position.  Use normalized `[0.0-1.0]` coordinates, where `x:0.0 y:0.0` is top left corner of the screen and `x:1.0 y:1.0` is the bottom right.
 
 ```
-/loopier/clip/clip/color
+/loopier/clip/clip/moveto  <clipname:STRING> <x:FLOAT> <y:FLOAT>
 ```
 
+### Center clip
+
+Put clip in the center of the screen.
 
 ```
-/loopier/clip/clip/alpha
+/loopier/clip/clip/center  <clipname:STRING>
+```
+
+### Clip color
+
+Set the color of the clip.  Tint it.
+
+```
+/loopier/clip/clip/color  <clipname:STRING> <grayscale:FLOAT>
+```
+
+```
+/loopier/clip/clip/color  <clipname:STRING> <grayscale:FLOAT> <alpha:FLOAT>
+```
+
+```
+/loopier/clip/clip/color  <clipname:STRING> <red:FLOAT> <green:FLOAT> <blue:FLOAT>
+```
+
+```
+/loopier/clip/clip/color  <clipname:STRING> <red:FLOAT> <green:FLOAT> <blue:FLOAT> <alpha:FLOAT>
+```
+
+### Alpha
+
+Set the transparency of the clip.  Use normalized values `[0.0-1.0]` where `0.0` is absolute transparency and `1.0`
+is absolute opacity.
+
+```
+/loopier/clip/clip/alpha  <clipname:STRING>  <alpha:FLOAT>
 ```
 
 
 ## Clip collection commands
 
+
+### Load library
+
+Load many clips all at once.
+
 ```
-/loopier/clip/clips/loadlibrary
+/loopier/clip/clips/loadlibrary  <libraryname:STRING>
 ```
 
+### Clear all
+
+Delete all clips at once.
 
 ```
 /loopier/clip/clips/clearall
 ```
 
+### List clip names
+
+Get (and log) the list of available clip.
 
 ```
 /loopier/clip/clips/listnames
 ```
 
+**Response** `/loopier/clip/clips/clipnames <clipname1:STRING> <clipname2:STRING> ...`
+
+### listresources
+
+Get (and log) the list of available resources.
 
 ```
 /loopier/clip/clips/listresources
 ```
+
+**Response** `/loopier/clip/clips/resourcenames <resourcename1:STRING> <resourcename2:STRING> ...`
+
+
+### listlibraries
+
 
 
 ```
 /loopier/clip/clips/listlibraries
 ```
 
+### listcameras
+
+
 
 ```
 /loopier/clip/clips/listcameras
 ```
+
+### togglenames
+
 
 
 ```
 /loopier/clip/clips/togglenames
 ```
 
+### shownames
+
+
 
 ```
 /loopier/clip/clips/shownames
 ```
+
+### hidenames
+
 
 
 ```
