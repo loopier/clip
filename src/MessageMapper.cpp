@@ -194,19 +194,19 @@ namespace loopier {
         //---------------------------------------------------------
         void MessageMapper::setupUvcCommandsMap()
         {
-            messageMap["/loopier/uvc/add"]          = &MessageMapper::addUvcCamera;
-            messageMap["/loopier/uvc/use"]          = &MessageMapper::useUvcCamera;
-            messageMap["/loopier/uvc/autoexposure"] = &MessageMapper::setUvcAutoExposure;
-            messageMap["/loopier/uvc/exposure"]     = &MessageMapper::setUvcExposure;
-            messageMap["/loopier/uvc/autofocus"]    = &MessageMapper::setUvcAutoFocus;
-            messageMap["/loopier/uvc/focus"]        = &MessageMapper::setUvcFocus;
-            messageMap["/loopier/uvc/autowhitebalance"] = &MessageMapper::setUvcAutoWhiteBalance;
-            messageMap["/loopier/uvc/whitebalance"] = &MessageMapper::setUvcWhiteBalance;
-            messageMap["/loopier/uvc/gain"]         = &MessageMapper::setUvcGain;
-            messageMap["/loopier/uvc/brightness"]   = &MessageMapper::setUvcBrightness;
-            messageMap["/loopier/uvc/contrast"]     = &MessageMapper::setUvcContrast;
-            messageMap["/loopier/uvc/saturation"]   = &MessageMapper::setUvcSaturation;
-            messageMap["/loopier/uvc/sharpness"]    = &MessageMapper::setUvcSharpness;
+            messageMap["/loopier/clip/uvc/add"]          = &MessageMapper::addUvcCamera;
+            messageMap["/loopier/clip/uvc/use"]          = &MessageMapper::useUvcCamera;
+            messageMap["/loopier/clip/uvc/autoexposure"] = &MessageMapper::setUvcAutoExposure;
+            messageMap["/loopier/clip/uvc/exposure"]     = &MessageMapper::setUvcExposure;
+            messageMap["/loopier/clip/uvc/autofocus"]    = &MessageMapper::setUvcAutoFocus;
+            messageMap["/loopier/clip/uvc/focus"]        = &MessageMapper::setUvcFocus;
+            messageMap["/loopier/clip/uvc/autowhitebalance"] = &MessageMapper::setUvcAutoWhiteBalance;
+            messageMap["/loopier/clip/uvc/whitebalance"] = &MessageMapper::setUvcWhiteBalance;
+            messageMap["/loopier/clip/uvc/gain"]         = &MessageMapper::setUvcGain;
+            messageMap["/loopier/clip/uvc/brightness"]   = &MessageMapper::setUvcBrightness;
+            messageMap["/loopier/clip/uvc/contrast"]     = &MessageMapper::setUvcContrast;
+            messageMap["/loopier/clip/uvc/saturation"]   = &MessageMapper::setUvcSaturation;
+            messageMap["/loopier/clip/uvc/sharpness"]    = &MessageMapper::setUvcSharpness;
         }
         
         
