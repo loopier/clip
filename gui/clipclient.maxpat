@@ -365,7 +365,7 @@
 									"patching_rect" : [ 130.0, 207.0, 150.0, 20.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 15.0, 29.5, 155.0, 20.0 ],
-									"text" : "florero"
+									"text" : "cam"
 								}
 
 							}
@@ -656,7 +656,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : [ "commands-example-punch", ",", "commands-example" ],
+									"items" : "<empty>",
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -964,13 +964,12 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-9",
-									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 31.0 ],
-									"text" : "commands-example"
+									"text" : "cv-c525"
 								}
 
 							}
@@ -1047,7 +1046,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 303.0, 324.0, 143.0, 31.0 ],
-									"text" : "/command/loadlibrary commands-example"
+									"text" : "/command/loadlibrary cv-c525"
 								}
 
 							}
@@ -1158,7 +1157,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-177",
-					"items" : [ "commands-example-punch", ",", "commands-example" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1277,7 +1276,7 @@
 					"patching_rect" : [ 14.5, 293.0, 398.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 14.5, 1008.0, 344.0, 20.0 ],
-					"text" : "/clip/new cv"
+					"text" : "/clip/fliph cv"
 				}
 
 			}
@@ -1467,7 +1466,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -1865,7 +1864,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : [ "cam", ",", "mamma1", ",", "mamma2", ",", "manflyround" ],
+									"items" : "cam",
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -2004,7 +2003,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-108",
-					"items" : [ "cam", ",", "mamma1", ",", "mamma2", ",", "manflyround" ],
+					"items" : "cam",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -2048,7 +2047,7 @@
 							"architecture" : "x86"
 						}
 ,
-						"rect" : [ 2353.0, 369.0, 640.0, 454.0 ],
+						"rect" : [ 1280.0, 369.0, 640.0, 454.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -2091,7 +2090,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 50.0, 193.0, 183.0, 18.0 ],
-									"text" : "/clip/flipv bigmama"
+									"text" : "/clip/fliph cam"
 								}
 
 							}
@@ -2104,8 +2103,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 254.0, 156.0, 104.0, 20.0 ],
-									"text" : "prepend /clip/flipv"
+									"patching_rect" : [ 254.0, 156.0, 105.0, 20.0 ],
+									"text" : "prepend /clip/fliph"
 								}
 
 							}
@@ -2119,7 +2118,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -2195,7 +2194,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 303.0, 324.0, 143.0, 18.0 ],
-									"text" : "/clip/flipv bigmama"
+									"text" : "/clip/fliph cam"
 								}
 
 							}
@@ -2293,7 +2292,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 1055.0, 827.5, 75.0, 20.0 ],
+					"patching_rect" : [ 1055.0, 827.5, 76.0, 20.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
@@ -2307,7 +2306,7 @@
 						"tags" : ""
 					}
 ,
-					"text" : "patcher flipv"
+					"text" : "patcher fliph"
 				}
 
 			}
@@ -2404,7 +2403,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 50.0, 193.0, 183.0, 18.0 ],
-									"text" : "/clip/flipv bigmama"
+									"text" : "/clip/flipv cam"
 								}
 
 							}
@@ -2432,7 +2431,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -2508,7 +2507,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 303.0, 324.0, 143.0, 18.0 ],
-									"text" : "/clip/flipv bigmama"
+									"text" : "/clip/flipv cam"
 								}
 
 							}
@@ -3570,7 +3569,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 36.0, 95.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -4102,7 +4101,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 15.0, 1088.0, 344.0, 20.0 ],
 					"readonly" : 1,
-					"text" : "/loopier/clip/command/listlibraries aladsa mamma",
+					"text" : "/loopier/clip/cv/threshold 76.5",
 					"textcolor" : [ 0.8, 0.8, 0.8, 1.0 ]
 				}
 
@@ -4114,7 +4113,6 @@
 					"fontsize" : 12.0,
 					"frgb" : 0.0,
 					"id" : "obj-18",
-					"linecount" : 2,
 					"maxclass" : "textedit",
 					"numinlets" : 1,
 					"numoutlets" : 4,
@@ -4122,10 +4120,9 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 25.5, 1045.0, 344.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_linecount" : 2,
 					"presentation_rect" : [ 14.5, 1048.0, 344.0, 20.0 ],
 					"readonly" : 1,
-					"text" : "/loopier/clip/command/librarynames commands-example-punch commands-example",
+					"text" : "/loopier/clip/clips/clipnames cam",
 					"textcolor" : [ 0.8, 0.8, 0.8, 1.0 ]
 				}
 
@@ -4231,7 +4228,25 @@
 						"description" : "",
 						"digest" : "",
 						"tags" : "",
+						"visible" : 1,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-226",
+									"maxclass" : "textbutton",
+									"numinlets" : 1,
+									"numoutlets" : 3,
+									"outlettype" : [ "", "", "int" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 888.5, 114.0, 100.0, 20.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 273.0, 33.200012, 20.0, 20.0 ],
+									"text" : "↺"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
@@ -4518,7 +4533,7 @@
 													"fontname" : "Arial",
 													"fontsize" : 12.0,
 													"id" : "obj-2",
-													"items" : "<empty>",
+													"items" : [ "Built-in iSight", ",", "HD Webcam C525" ],
 													"maxclass" : "umenu",
 													"numinlets" : 1,
 													"numoutlets" : 3,
@@ -4657,7 +4672,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-38",
-									"items" : "<empty>",
+									"items" : [ "Built-in iSight", ",", "HD Webcam C525" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -4665,7 +4680,7 @@
 									"parameter_enable" : 0,
 									"patching_rect" : [ 692.5, 85.5, 171.0, 20.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 97.0, 33.200012, 196.0, 20.0 ]
+									"presentation_rect" : [ 97.0, 33.200012, 167.0, 20.0 ]
 								}
 
 							}
@@ -5609,7 +5624,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 46.0, 240.0, 269.0, 18.0 ],
-													"text" : "/clip/new cam \"HD Pro Webcam C920\""
+													"text" : "/clip/new cam \"HD Webcam C525\""
 												}
 
 											}
@@ -5632,13 +5647,12 @@
 													"fontname" : "Arial",
 													"fontsize" : 12.0,
 													"id" : "obj-36",
-													"linecount" : 2,
 													"maxclass" : "message",
 													"numinlets" : 2,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 90.0, 171.0, 132.0, 31.0 ],
-													"text" : "\"HD Pro Webcam C920\""
+													"text" : "\"HD Webcam C525\""
 												}
 
 											}
@@ -6484,6 +6498,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-29", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-226", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-7", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
@@ -7099,7 +7122,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : [ "anotherexamplelibrary", ",", "cliplibraryexample" ],
+									"items" : "<empty>",
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -7600,7 +7623,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-26",
-					"items" : [ "anotherexamplelibrary", ",", "cliplibraryexample" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -7917,7 +7940,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : [ "+new", ",", "black", ",", "example", ",", "mamma", ",", "manfetus", ",", "manflyround", ",", "manpunch", ",", "red", ",", "transparent", ",", "white", ",", "countdown", ",", "crashtest", ",", "default", ",", "mammamovie", ",", "stress", ",", "Built-in iSight", ",", "HD Pro Webcam C920" ],
+									"items" : [ "+new", ",", "black", ",", "example", ",", "mamma", ",", "manfetus", ",", "manflyround", ",", "manpunch", ",", "red", ",", "transparent", ",", "white", ",", "countdown", ",", "crashtest", ",", "default", ",", "mammamovie", ",", "stress", ",", "Built-in iSight", ",", "HD Webcam C525" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -8056,7 +8079,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-37",
-					"items" : [ "+new", ",", "black", ",", "example", ",", "mamma", ",", "manfetus", ",", "manflyround", ",", "manpunch", ",", "red", ",", "transparent", ",", "white", ",", "countdown", ",", "crashtest", ",", "default", ",", "mammamovie", ",", "stress", ",", "Built-in iSight", ",", "HD Pro Webcam C920" ],
+					"items" : [ "+new", ",", "black", ",", "example", ",", "mamma", ",", "manfetus", ",", "manflyround", ",", "manpunch", ",", "red", ",", "transparent", ",", "white", ",", "countdown", ",", "crashtest", ",", "default", ",", "mammamovie", ",", "stress", ",", "Built-in iSight", ",", "HD Webcam C525" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -8250,7 +8273,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : [ "cam", ",", "mamma1", ",", "mamma2", ",", "manflyround" ],
+									"items" : "cam",
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -8389,7 +8412,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-9",
-					"items" : [ "cam", ",", "mamma1", ",", "mamma2", ",", "manflyround" ],
+					"items" : "cam",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -8496,13 +8519,12 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-11",
-									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 196.0, 22.0, 442.0, 45.0 ],
-									"text" : "/loopier/clip/command/librarynames commands-example-punch commands-example"
+									"text" : "/loopier/clip/clips/clipnames cam"
 								}
 
 							}
@@ -9314,7 +9336,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.0, 131.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -9782,7 +9804,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -10195,7 +10217,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -10482,8 +10504,9 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 887.5, 833.0, 150.0, 20.0 ],
 					"presentation" : 1,
+					"presentation_linecount" : 2,
 					"presentation_rect" : [ 134.0, 681.0, 100.0, 20.0 ],
-					"text" : "manflyround"
+					"text" : "\"HD Webcam C525\""
 				}
 
 			}
@@ -10562,7 +10585,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -10782,7 +10805,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 157.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -11104,7 +11127,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 239.0, 101.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -11432,7 +11455,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -11680,7 +11703,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -11928,7 +11951,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -12263,7 +12286,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 224.0, 190.0, 109.0, 18.0 ],
-									"text" : "/clip/speed aladsa"
+									"text" : "/clip/speed cam"
 								}
 
 							}
@@ -12291,7 +12314,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.0, 131.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -12393,7 +12416,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 318.0, 339.0, 143.0, 18.0 ],
-									"text" : "/clip/speed aladsa 1."
+									"text" : "/clip/speed cam 1."
 								}
 
 							}
@@ -12633,7 +12656,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -12908,7 +12931,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -13257,7 +13280,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 224.0, 190.0, 109.0, 18.0 ],
-									"text" : "/clip/scale aladsa"
+									"text" : "/clip/scale cam"
 								}
 
 							}
@@ -13299,7 +13322,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.0, 131.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -13401,7 +13424,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 318.0, 339.0, 143.0, 31.0 ],
-									"text" : "/clip/scale aladsa 1. 1."
+									"text" : "/clip/scale cam 1. 1."
 								}
 
 							}
@@ -13739,7 +13762,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -14040,7 +14063,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 157.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -14349,7 +14372,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.0, 131.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -14669,13 +14692,13 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-93",
-									"linecount" : 2,
+									"linecount" : 4,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 507.0, 243.0, 50.0, 31.0 ],
-									"text" : "manflyround"
+									"text" : "\"HD Webcam C525\""
 								}
 
 							}
@@ -14787,7 +14810,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -15145,7 +15168,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 239.0, 142.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -15496,7 +15519,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 273.0, 114.0, 50.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -16024,7 +16047,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 239.0, 101.0, 105.0, 18.0 ],
-									"text" : "aladsa"
+									"text" : "cam"
 								}
 
 							}
@@ -16366,7 +16389,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 377.0, 216.0, 303.0, 18.0 ],
-									"text" : "/command/listlibraries"
+									"text" : "/cv/threshold 76.5"
 								}
 
 							}
@@ -16430,7 +16453,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 164.0, 325.0, 180.0, 18.0 ],
-									"text" : "aladsa mamma"
+									"text" : "76.5"
 								}
 
 							}
