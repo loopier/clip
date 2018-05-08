@@ -145,6 +145,8 @@ namespace loopier {
         void clearFrames(const string clipname);
         void saveFrames(const string clipname);
         void loadFrames(const string clipname, const string resourcename);
+        /// \brief  Returns a rectangle representing the info stored in the resource's info file
+        ofRectangle getResourceOriginalRectangle(const string resourcename);
         /// \brief  Goes to the first frame of the player
         void firstFrame(const string clipname);
         /// \brief  Plays one frame

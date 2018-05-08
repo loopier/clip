@@ -519,14 +519,14 @@ namespace loopier {
             CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
             ofRectangle blob = cv->getBoundingRect();
             // get info from the original resource
-            ofRectangle resource = clip->getPlayer()->getBoundingBox();
+            ofRectangle resource = getResourceOriginalRectangle(resourcename);
             
             float   scaleratio = blob.getHeight() / resource.getHeight();
-            
+                        
             ofPoint finalposition;
-            finalposition.x = blob.x + clip->getPlayerRelativePosition().x;
-            finalposition.y = blob.y + clip->getPlayerRelativePosition().y;
-            
+            finalposition.x = blob.x;// - resource.x;
+            finalposition.y = blob.y;// - resource.y;
+                        
             clip->setPosition(finalposition);
             clip->setScale(scaleratio);
             
@@ -1008,9 +1008,21 @@ namespace loopier {
         // load the info of the frames into the clip
         void loadFrames(const string clipname, const string resourcename)
         {
-            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
             if(!exists(clipname)) return;
             newClip(clipname, resourcename);
+        }
+        
+        //---------------------------------------------------------------------------
+        ofRectangle getResourceOriginalRectangle(const string resourcename)
+        {
+            string filename = resourceFilesPath + "frames/" + resourcename + "/resource.yml";
+            if(!ofFile(filename).exists()) return ofRectangle(0,0,ofGetWidth(), ofGetHeight());
+            ofxYAML yaml;
+            yaml.load(filename);
+            return ofRectangle(yaml["rect"]["x"].as<float>(),
+                             yaml["rect"]["y"].as<float>(),
+                             yaml["rect"]["width"].as<float>(),
+                             yaml["rect"]["height"].as<float>());
         }
         
         //---------------------------------------------------------------------------
