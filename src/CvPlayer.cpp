@@ -212,7 +212,7 @@ ofPoint loopier::CvPlayer::getBlobCentroid(const int blobindex)
 //---------------------------------------------------------
 ofRectangle loopier::CvPlayer::getBoundingRect()
 {
-    if(selectedBlobs.size() < 1) return ofRectangle();
+    if(selectedBlobs.size() < 1) return getBlobBoundingRect(currentBlob);
     
     ofRectangle boundingRect(getBlobBoundingRect(selectedBlobs[0]));
     for (int i=0; i < selectedBlobs.size(); i++) {
@@ -221,15 +221,13 @@ ofRectangle loopier::CvPlayer::getBoundingRect()
         boundingRect.growToInclude(getBlobBoundingRect(selectedBlobs[i]));
     }
     
-    if (boundingRect.getArea() <= 0) boundingRect = getBlobBoundingRect(currentBlob);
-    
     return boundingRect;
 }
 
 //---------------------------------------------------------
 ofRectangle loopier::CvPlayer::getBlobBoundingRect(int blobindex)
 {
-    if(blobs.size() < 1) return;
+    if(blobs.size() < 1) return ofRectangle(0,0,100,100);
     return blobs.at(blobindex).getBoundingBox();
 }
 
