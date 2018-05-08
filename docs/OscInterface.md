@@ -1,4 +1,4 @@
-## Application commands
+# Application commands
 
 ### Quit
 
@@ -143,7 +143,7 @@ Logs and returns the clip parameters.
 - **Response** `/loopier/clip/clip/info <clipname:STRING> <resourcename:STRING> <isPlaying:BOOL> <speed:FLOAT> <loopType:STRING> <xCoordinate:FLOAT> <yCoordinate:FLOAT> <width:FLOAT> <height:FLOAT> <scale:FLOAT> <red:FLOAT> <green:FLOAT> <blue:FLOAT> <alpha:FLOAT> <depth:FLOAT> <visibility:BOOL> <fullscreen:BOOL> <flipV:BOOL> <flipH:BOOL> <parentName:STRING> <xOffset:FLOAT> <yOffset:FLOAT>`
 
 
-## Clip's parent commands
+# Clip's parent commands
 
 ### Parent clip
 
@@ -169,7 +169,7 @@ Set's an offset relative to parent's position.  Used normalized floats `[0.0-1.0
 /loopier/clip/clip/offset <x:FLOAT> <y:FLOAT>
 ```
 
-## Arrange clips
+# Arrange clips
 
 ### Depth
 
@@ -235,13 +235,13 @@ Draw this clip in the private screen ONLY.
 /loopier/clip/clip/private <clipname:STRING>
 ```
 
-### TODO: Move to ../app/.. or ../clips/..
+## TODO: Move to ../app/.. or ../clips/..
 
 ```
 /loopier/clip/clip/layers
 ```
 
-## Clip Transformations
+# Clip Transformations
 
 ### Scale clip up
 
@@ -314,7 +314,7 @@ Resizes clip to occupy the whole screen.
 /loopier/clip/clip/fliph  <clipname:STRING>
 ```
 
-### Toggle visibility
+## Toggle visibility
 
 ```
 /loopier/clip/clip/togglevisibility  <clipname:STRING>
@@ -330,7 +330,7 @@ Resizes clip to occupy the whole screen.
 /loopier/clip/clip/hide  <clipname:STRING>
 ```
 
-## FX
+# FX
 
 ### Mask
 
@@ -356,7 +356,7 @@ Turns mask off, but keeps it.
 /loopier/clip/clip/maskoff  <clipname:STRING>
 ```
 
-### Play clip
+## Play clip
 
 Tells a clip to do it's thing.
 
@@ -411,7 +411,7 @@ Set the playing speed of the clip.  `1.0` is normal speed.  `2.0` for double spe
 /loopier/clip/clip/speed  <clipname:STRING> <speed:FLOAT>
 ```
 
-## Edit clip frames
+# Edit clip frames
 
 This might only work with `frame` clips.
 
@@ -515,7 +515,7 @@ Save clip to disk.
 /loopier/clip/clip/save  <clipname:STRING>
 ```
 
-## Move clip
+# Move clip
 
 Move clip to a position.  Use normalized `[0.0-1.0]` coordinates, where `x:0.0 y:0.0` is top left corner of the screen and `x:1.0 y:1.0` is the bottom right.
 
@@ -561,7 +561,7 @@ is absolute opacity.
 ```
 
 
-## Clip collection commands
+# Clip collection commands
 
 
 ### Load library
@@ -646,7 +646,7 @@ Hide clip names on private screen.
 ```
 
 
-## Syphon
+# Syphon
 
 You may create a clip that renders syphon input.  Use this command to set the name of the server sending the image.
 
@@ -655,7 +655,7 @@ You may create a clip that renders syphon input.  Use this command to set the na
 ```
 
 
-## CV commands
+# CV commands
 
 
 ### Set CV input
@@ -815,7 +815,7 @@ Set last (smallest) blob in line as active.
 ```
 
 
-## Console commands
+# Console commands
 
 This might change in the future, so not documenting it yet.
 
