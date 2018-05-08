@@ -590,7 +590,7 @@ Get (and log) the list of available clip.
 
 **Response** `/loopier/clip/clips/clipnames <clipname1:STRING> <clipname2:STRING> ...`
 
-### listresources
+### List resources
 
 Get (and log) the list of available resources.
 
@@ -601,25 +601,29 @@ Get (and log) the list of available resources.
 **Response** `/loopier/clip/clips/resourcenames <resourcename1:STRING> <resourcename2:STRING> ...`
 
 
-### listlibraries
+### List clip libraries
 
-
+Get (and log) the list of available clip clibraries.
 
 ```
 /loopier/clip/clips/listlibraries
 ```
 
-### listcameras
+**Response** `/loopier/clip/clips/librarynames <libraryname1:STRING> <libraryname2:STRING> ...`
 
+### List cameras
 
+Get (and log) the list of available cameras.
 
 ```
 /loopier/clip/clips/listcameras
 ```
 
-### togglenames
+**Response** `/loopier/clip/clips/cameranames <cameraname1:STRING> <cameraname2:STRING> ...`
 
+### Toggle clip names
 
+Toggle clip names on private screen.
 
 ```
 /loopier/clip/clips/togglenames
@@ -627,15 +631,15 @@ Get (and log) the list of available resources.
 
 ### shownames
 
-
+Show clip names on private screen.
 
 ```
 /loopier/clip/clips/shownames
 ```
 
-### hidenames
+### Hide clip names
 
-
+Hide clip names on private screen.
 
 ```
 /loopier/clip/clips/hidenames
@@ -644,102 +648,167 @@ Get (and log) the list of available resources.
 
 ## Syphon
 
+You may create a clip that renders syphon input.  Use this command to set the name of the server sending the image.
+
 ```
-/loopier/clip/syphon/servername
+/loopier/clip/syphon/servername <syphonServerName:STRING>
 ```
 
 
 ## CV commands
 
-```
-/loopier/clip/cv/setinput
-```
 
+### Set CV input
 
-```
-/loopier/clip/cv/color
-```
-
+Set a clip as input to the CV engine.
 
 ```
-/loopier/clip/cv/threshold
+/loopier/clip/cv/setinput <clipname:STRING>
 ```
 
+### CV color
+
+Set color of the blobs' borders.
 
 ```
-/loopier/clip/cv/minArea
+/loopier/clip/cv/color <grayscale:FLOAT>
 ```
 
-
 ```
-/loopier/clip/cv/maxArea
-```
-
-
-```
-/loopier/clip/cv/holes
+/loopier/clip/cv/color <grayscale:FLOAT> <alpha:FLOAT>
 ```
 
+```
+/loopier/clip/cv/color <red:FLOAT> <green:FLOAT> <blue:FLOAT>
+```
+
+```
+/loopier/clip/cv/color <red:FLOAT> <green:FLOAT> <blue:FLOAT> <alpha:FLOAT>
+```
+
+### CV threshold
+
+Set threshold of the contour finder between `[0-255]`.
+
+```
+/loopier/clip/cv/threshold <value:FLOAT>
+```
+
+### CV minimun area
+
+Set smallest desired blob size to be detected between `[0-255]`.
+
+```
+/loopier/clip/cv/minArea <value:FLOAT>
+```
+
+### CV maximum area
+
+Set largest desired blob size to be detected between `[0-255]`.
+
+```
+/loopier/clip/cv/maxArea <value:FLOAT>
+```
+
+### Detect holes
+
+Whether to detect blobs inside blobs or not.
+
+```
+/loopier/clip/cv/holes <value:BOOL>
+```
+
+### Toggle CV visibility
 
 ```
 /loopier/clip/cv/toggle
 ```
 
+### Show CV contours
 
 ```
 /loopier/clip/cv/show
 ```
 
+### Hide CV contours
 
 ```
 /loopier/clip/cv/hide
 ```
 
+### Detection area
+
+Set position and dimensions of a rectangle determining which area of the view will be processed.  Will only detect blobs that are *INSIDE* the rectangle.  When no rectangle is set, the whole view is processed.
 
 ```
-/loopier/clip/cv/detectionarea
+/loopier/clip/cv/detectionarea <x:FLOAT> <y:FLOAT> <width:FLOAT> <height:FLOAT>
 ```
 
+### Maximum number of blobs
+
+Set maximum number of blobs to be detected.  Blobs are ordered by area size, so only the given number of the largest blobs will be detected.
 
 ```
-/loopier/clip/cv/maxblobs
+/loopier/clip/cv/maxblobs <numberOfBlobs:INT>
 ```
 
+### Select blob
+
+Select current blob.
 
 ```
 /loopier/clip/cv/select
 ```
 
+### Deselect blob
+
+Deselect current blob.
 
 ```
 /loopier/clip/cv/deselect
 ```
 
+### Select all blobs
+
+Select all blobs in the detection area, or just all of them if no detection area is set.
 
 ```
 /loopier/clip/cv/selectall
 ```
 
+### Deselect all blobs
 
 ```
 /loopier/clip/cv/deselectall
 ```
 
+### First blob
+
+Set first (largest) blob as active.
 
 ```
 /loopier/clip/cv/first
 ```
 
+### Next blob
+
+Set next blob in line as active.
 
 ```
 /loopier/clip/cv/next
 ```
 
+### Previous blob
+
+Set previous blob in ine as active.
 
 ```
 /loopier/clip/cv/previous
 ```
 
+### Last blob
+
+Set last (smallest) blob in line as active.
 
 ```
 /loopier/clip/cv/last
@@ -747,6 +816,8 @@ Get (and log) the list of available resources.
 
 
 ## Console commands
+
+This might change in the future, so not documenting it yet.
 
 ```
 /loopier/clip/console/color
