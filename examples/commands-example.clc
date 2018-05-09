@@ -1,0 +1,14 @@
+/clip/new, mamma1, mamma
+/clip/new, mamma2, mamma
+/clip/moveto, mamma2, 0.25, 0.5
+/clip/color, mamma2, 1.0, 0.1, 0.0
+/clip/scale, mamma2, 0.5
+/clip/new, manflyround
+/clip/new, cam, "HD Pro Webcam C920"
+/wait, 2
+/cv/setinput, cam
+/clip/background, cam"
+/clip/alpha, cam, 0.5
+/clip/color, cv, 1.0, 0.1, 0.0
+/cv/maxblobs, 100
+/clip/private, cv
