@@ -127,7 +127,7 @@ void loopier::CvPlayer::drawBlobs()
     }
     
     ofSetColor(255,255,0);
-    ofDrawRectangle(getBoundingRect());
+    if (blobs.size() > 0) ofDrawRectangle(getBoundingRect());
     shapeFbo.end();
 }
 
@@ -227,7 +227,7 @@ ofRectangle loopier::CvPlayer::getBoundingRect()
 //---------------------------------------------------------
 ofRectangle loopier::CvPlayer::getBlobBoundingRect(int blobindex)
 {
-    if(blobs.size() < 1) return ofRectangle(0,0,100,100);
+    if(blobs.size() < 1 || blobindex >= blobs.size()) return ofRectangle(0,0,100,100);
     return blobs.at(blobindex).getBoundingBox();
 }
 
