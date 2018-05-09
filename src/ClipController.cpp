@@ -456,6 +456,7 @@ namespace loopier {
                 loopier::CvPlayerPtr cvplayer(new loopier::CvPlayer());
                 clip->setup(cvplayer);
                 setPrivateClip(clipname);
+                clip->setAnchorPercent(0, 0);
                 cliptype = "cv";
             }
             // camera
@@ -495,6 +496,7 @@ namespace loopier {
             clips[clipname] = clip;
             clip->show();
             clip->getPlayer()->setName(resourcename);
+            centerClip(clipname);
             if (!isPrivate(clipname)) setPublicClip(clipname);
             bringClipToFront(clipname);
             ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << clip->getResourceName() << "'";
@@ -1379,6 +1381,9 @@ namespace loopier {
             if (!clip::exists(clipname)) return;
             if (!clip::exists("cv")) return;
             clips["cv"]->setInputClip(clip::getClip(clipname));
+            clips["cv"]->setAnchorPercent(clips[clipname]->getAnchor());
+            clips["cv"]->setPosition(clips[clipname]->getPosition());
+            clips["cv"]->setScale(clips[clipname]->getScale());
         }
         
         //---------------------------------------------------------------------------
