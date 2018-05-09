@@ -511,23 +511,24 @@ namespace loopier {
             
             ClipPtr clip;
             if (exists(clipname)) {
-                clip = getClip(clipname);
-            } else {
-                if (resourcename.length() == 0) resourcename = clipname;
-                clip = newClip(clipname, resourcename);
+                removeClip(clipname);
             }
+            
+            if (resourcename.length() == 0) resourcename = clipname;
+            clip = newClip(clipname, resourcename);
+            
             
             // get info from the blob (size and position)
             CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
-            ofRectangle blob = cv->getBoundingRect();
+            ofRectangle blobRect = cv->getBoundingRect();
             // get info from the original resource
-            ofRectangle resource = getResourceOriginalRectangle(resourcename);
+            ofRectangle clipRect = clip->getPlayer()->getBoundingBox();
             
-            float   scaleratio = blob.getHeight() / resource.getHeight();
-                        
+            float   scaleratio = blobRect.getHeight() / clipRect.getHeight();
+            
             ofPoint finalposition;
-            finalposition.x = blob.x * ofGetWidth();// - resource.x;
-            finalposition.y = blob.y * ofGetHeight();// - resource.y;
+            finalposition.x = blobRect.x + (((clip->getAnchor().x * clip->getWidth()) - clipRect.x) * scaleratio);
+            finalposition.y = blobRect.y + (((clip->getAnchor().y * clip->getHeight()) - clipRect.y) * scaleratio);
                         
             clip->setPosition(finalposition);
             clip->setScale(scaleratio);

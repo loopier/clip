@@ -319,9 +319,13 @@ void loopier::Clip::setPosition(const ofPoint& newPosition)
 //---------------------------------------------------------------------------
 ofPoint loopier::Clip::getPosition() const
 {
-    float x = position.x;
-    float y = position.y;
-    return ofPoint(x,y);
+    return position;
+}
+
+//---------------------------------------------------------------------------
+ofPoint loopier::Clip::getAbsolutePosition() const
+{
+    return absolutePosition;
 }
 
 //---------------------------------------------------------------------------
