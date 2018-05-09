@@ -21,6 +21,7 @@ loopier::Clip::Clip(string& clipname, string& resourcename)
 , name(clipname)
 , resourceName(resourcename)
 , position(0,0)
+, absolutePosition(0,0)
 , offset(0,0)
 , width(ofGetWidth())
 , height(ofGetHeight())
@@ -59,7 +60,7 @@ void loopier::Clip::setup(PlayerPtr aplayer)
     setPlayer(aplayer);
     setAnchorPercent(0.5, 0.5);
     outputFbo.clear();
-    outputFbo.allocate(ofGetWidth(), ofGetHeight());
+    outputFbo.allocate(player->getWidth(), player->getHeight());
     outputFbo.setAnchorPercent(0.5, 0.5);
 }
 
@@ -67,18 +68,10 @@ void loopier::Clip::setup(PlayerPtr aplayer)
 void loopier::Clip::update()
 {
     updateParent();
+    absolutePosition.x = position.x - (anchor.x * getWidth());
+    absolutePosition.y = position.y - (anchor.y * getHeight());
     
     player->update();
-    
-    outputFbo.begin();
-    ofClear(255,255,255,0);
-    ofPushMatrix();
-    ofTranslate(outputFbo.getWidth()/2 - (player->getWidth()/2 * scaleX),
-                outputFbo.getHeight()/2 - (player->getHeight()/2 * scaleY));
-    ofScale(scaleX, scaleY);
-    player->draw();
-    ofPopMatrix();
-    outputFbo.end();
     
     if (bMask)  {
         outputFbo.getTexture().setAlphaMask(maskPlayer->getTexture());
@@ -104,15 +97,13 @@ void loopier::Clip::draw()
         
         outputFbo.draw(fx, fy, fw, fh);
     } else {
-        float x = position.x + anchor.x;
-        float y = position.y + anchor.y;
-        outputFbo.draw(x, y);
+        ofPushMatrix();
+        ofTranslate(absolutePosition);
+        ofScale(scaleX, scaleY);
+        player->draw();
+        ofPopMatrix();
         ofSetColor(0, 255, 255);
-        if (bDrawName)  ofDrawBitmapString(name, x, y);
-//        ofNoFill();
-//        ofDrawCircle(anchor.x, anchor.y, 10);
-//        ofDrawRectangle(x, y, width, height);
-//        ofDrawBitmapString(name+" "+ofToString(x)+" "+ofToString(y), x+15, y+5);
+        if (bDrawName)  ofDrawBitmapString(name, anchor.x, anchor.y);
     }
     ofPopStyle();
 }
@@ -291,8 +282,7 @@ float loopier::Clip::getScaleY() const
 //---------------------------------------------------------------------------
 void loopier::Clip::setAnchorPercent(const float anchorX, const float anchorY)
 {
-    anchor.x = anchorX * width;
-    anchor.y = anchorY * height;
+    setAnchor(ofPoint(anchorX, anchorY));
 }
 
 //---------------------------------------------------------------------------
@@ -316,8 +306,8 @@ ofPoint & loopier::Clip::getAnchor()
 //---------------------------------------------------------------------------
 void loopier::Clip::setPosition(const float x, const float y)
 {
-    position.x = x - (anchorPercentX * width);
-    position.y = y - (anchorPercentY * height);
+    position.x = x;
+    position.y = y;
 }
 
 //---------------------------------------------------------------------------
@@ -329,8 +319,8 @@ void loopier::Clip::setPosition(const ofPoint& newPosition)
 //---------------------------------------------------------------------------
 ofPoint loopier::Clip::getPosition() const
 {
-    float x = (position.x + anchor.x) / width;
-    float y = (position.y + anchor.y) / height;
+    float x = position.x;
+    float y = position.y;
     return ofPoint(x,y);
 }
 
@@ -362,20 +352,20 @@ void loopier::Clip::setHeight(const float h)
 //---------------------------------------------------------------------------
 float loopier::Clip::getWidth() const
 {
-    return width;
+    return player->getWidth() * scaleX;
 }
 
 //---------------------------------------------------------------------------
 float loopier::Clip::getHeight() const
 {
-    return height;
+    return player->getHeight() * scaleY;
 }
 
 //---------------------------------------------------------------------------
 ofRectangle loopier::Clip::getBoundingBox() const
 {
-    return ofRectangle(getPosition().x - (getWidth() / 2),
-                       getPosition().y - (getHeight() / 2),
+    return ofRectangle(absolutePosition.x,
+                       absolutePosition.y,
                        getWidth(),
                        getHeight());
 }

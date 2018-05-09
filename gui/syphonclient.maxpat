@@ -8,7 +8,7 @@
 			"architecture" : "x86"
 		}
 ,
-		"rect" : [ 219.0, 191.0, 1255.0, 816.0 ],
+		"rect" : [ 407.0, 168.0, 1255.0, 816.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -28,6 +28,27 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"bgcolor" : [ 1.0, 0.999974, 0.999991, 0.0 ],
+					"displayknob" : 1,
+					"id" : "obj-76",
+					"knobcolor" : [ 1.0, 0.2, 0.2, 1.0 ],
+					"maxclass" : "nodes",
+					"nodecolor" : [ 0.847083, 0.847058, 0.847072, 0.4 ],
+					"nsize" : [ 0.0 ],
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 15.0, 15.0, 320.0, 180.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 31.0, 20.0, 320.0, 180.0 ],
+					"xplace" : [ 0.0 ],
+					"yplace" : [ 0.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"comment" : "",
 					"id" : "obj-13",
@@ -116,27 +137,6 @@
 					"presentation_rect" : [ 306.0, 210.0, 45.0, 20.0 ],
 					"text" : "OFF",
 					"texton" : "ON"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"bgcolor" : [ 1.0, 0.999974, 0.999991, 0.0 ],
-					"displayknob" : 1,
-					"id" : "obj-76",
-					"knobcolor" : [ 1.0, 0.2, 0.2, 1.0 ],
-					"maxclass" : "nodes",
-					"nodecolor" : [ 0.847083, 0.847058, 0.847072, 0.4 ],
-					"nsize" : [ 0.0 ],
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 15.0, 15.0, 320.0, 180.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 31.0, 20.0, 320.0, 180.0 ],
-					"xplace" : [ 0.0 ],
-					"yplace" : [ 0.0 ]
 				}
 
 			}
@@ -601,7 +601,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 266.0, 305.0, 286.833374, 18.0 ],
-									"text" : "/clip/moveto mamma 0.5 0.516667"
+									"text" : "/clip/moveto mamma 0.9 0.75"
 								}
 
 							}

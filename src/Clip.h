@@ -143,6 +143,7 @@ namespace loopier {
         string  name;
         string  resourceName;
         ofPoint position;
+        ofPoint absolutePosition;
         ofPoint offset; // offset to parent position
         float   width, height;
         float   scale, scaleX, scaleY;

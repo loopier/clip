@@ -38,7 +38,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 911.5, 192.0, 66.0, 20.0 ],
-					"presentation_rect" : [ 986.0, 197.0, 0.0, 0.0 ],
 					"text" : "r clipname"
 				}
 
@@ -130,7 +129,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -323,7 +322,6 @@
 					}
 ,
 					"patching_rect" : [ 880.5, 227.0, 103.0, 20.0 ],
-					"presentation_rect" : [ 877.0, 224.0, 0.0, 0.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
@@ -397,7 +395,6 @@
 						"description" : "",
 						"digest" : "",
 						"tags" : "",
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Arial",
@@ -549,7 +546,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -922,7 +919,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 129.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -2008,7 +2005,7 @@
 													"fontname" : "Arial",
 													"fontsize" : 12.0,
 													"id" : "obj-2",
-													"items" : [ "Built-in iSight", ",", "HD Pro Webcam C920" ],
+													"items" : "<empty>",
 													"maxclass" : "umenu",
 													"numinlets" : 1,
 													"numoutlets" : 3,
@@ -2147,7 +2144,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-38",
-									"items" : [ "Built-in iSight", ",", "HD Pro Webcam C920" ],
+									"items" : "<empty>",
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -3324,7 +3321,7 @@
 									"patching_rect" : [ 130.0, 207.0, 150.0, 20.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 15.0, 29.5, 155.0, 20.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -3615,7 +3612,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : [ "commands-example-punch", ",", "commands-example", ",", "cv-c525", ",", "cv-c920", ",", "cv-iSight" ],
+									"items" : [ "0-DEBUG", ",", "1-DEBUG", ",", "cv-c525", ",", "cv-c920", ",", "cv-iSight" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -3928,7 +3925,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 31.0 ],
-									"text" : "cv-c525"
+									"text" : "0-DEBUG"
 								}
 
 							}
@@ -4005,7 +4002,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 303.0, 324.0, 143.0, 31.0 ],
-									"text" : "/command/loadlibrary cv-c525"
+									"text" : "/command/loadlibrary 0-DEBUG"
 								}
 
 							}
@@ -4116,7 +4113,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-177",
-					"items" : [ "commands-example-punch", ",", "commands-example", ",", "cv-c525", ",", "cv-c920", ",", "cv-iSight" ],
+					"items" : [ "0-DEBUG", ",", "1-DEBUG", ",", "cv-c525", ",", "cv-c920", ",", "cv-iSight" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -4425,7 +4422,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -4823,7 +4820,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : "<empty>",
+									"items" : [ "0-debug", ",", "1-debug" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -4962,7 +4959,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-108",
-					"items" : "<empty>",
+					"items" : [ "0-debug", ",", "1-debug" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -5077,7 +5074,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -5390,7 +5387,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -5779,13 +5776,13 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-24",
-									"linecount" : 5,
+									"linecount" : 3,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 51.0, 380.5, 141.0, 18.0 ],
-									"text" : "florero mamma 1 1. normal 2.110953 1.763819 378.975708 213.173828 0.370093 1. 1. 1. 1. 0 1 0 1 0 0. 0."
+									"text" : "1-debug 1-debug 1 1. normal 0. 0. 512. 288. 1. 1. 1. 1. 1. 0 1 0 0 0  0. 0."
 								}
 
 							}
@@ -5884,7 +5881,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 450.0, 41.0, 674.0, 18.0 ],
-									"text" : "florero mamma 1 1. normal 2.110953 1.763819 378.975708 213.173828 0.370093 1. 1. 1. 1. 0 1 0 1 0 0. 0."
+									"text" : "1-debug 1-debug 1 1. normal 0. 0. 512. 288. 1. 1. 1. 1. 1. 0 1 0 0 0  0. 0."
 								}
 
 							}
@@ -6347,7 +6344,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 815.0, 315.5, 50.0, 18.0 ],
-									"text" : "1"
+									"text" : "0"
 								}
 
 							}
@@ -6412,13 +6409,12 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-27",
-									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 530.0, 169.0, 50.0, 18.0 ],
-									"text" : "213.173828"
+									"text" : "288."
 								}
 
 							}
@@ -6427,13 +6423,12 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-22",
-									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 530.0, 131.0, 50.0, 18.0 ],
-									"text" : "378.975708"
+									"text" : "512."
 								}
 
 							}
@@ -6470,12 +6465,13 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-12",
+									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 288.0, 131.0, 50.0, 31.0 ],
-									"text" : "florero"
+									"text" : "1-debug"
 								}
 
 							}
@@ -6531,7 +6527,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 36.0, 95.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -7063,7 +7059,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 15.0, 1088.0, 344.0, 20.0 ],
 					"readonly" : 1,
-					"text" : "/loopier/clip/app/quit mamma",
+					"text" : "/loopier/clip/clip/moveto 1-debug 0.775 0.811111",
 					"textcolor" : [ 0.8, 0.8, 0.8, 1.0 ]
 				}
 
@@ -7075,7 +7071,6 @@
 					"fontsize" : 12.0,
 					"frgb" : 0.0,
 					"id" : "obj-18",
-					"linecount" : 2,
 					"maxclass" : "textedit",
 					"numinlets" : 1,
 					"numoutlets" : 4,
@@ -7083,10 +7078,9 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 25.5, 1045.0, 344.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_linecount" : 2,
 					"presentation_rect" : [ 14.5, 1048.0, 344.0, 20.0 ],
 					"readonly" : 1,
-					"text" : "/loopier/clip/clips/cameranames \"Built-in iSight\" \"HD Pro Webcam C920\"",
+					"text" : "/loopier/clip/clips/clipnames 0-debug 1-debug",
 					"textcolor" : [ 0.8, 0.8, 0.8, 1.0 ]
 				}
 
@@ -7192,7 +7186,6 @@
 						"description" : "",
 						"digest" : "",
 						"tags" : "",
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Arial",
@@ -7497,7 +7490,7 @@
 													"fontname" : "Arial",
 													"fontsize" : 12.0,
 													"id" : "obj-2",
-													"items" : [ "Built-in iSight", ",", "HD Pro Webcam C920" ],
+													"items" : "<empty>",
 													"maxclass" : "umenu",
 													"numinlets" : 1,
 													"numoutlets" : 3,
@@ -7636,7 +7629,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-38",
-									"items" : [ "Built-in iSight", ",", "HD Pro Webcam C920" ],
+									"items" : "<empty>",
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -10087,7 +10080,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : [ "anotherexamplelibrary", ",", "cliplibraryexample" ],
+									"items" : "<empty>",
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -10588,7 +10581,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-26",
-					"items" : [ "anotherexamplelibrary", ",", "cliplibraryexample" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -10905,7 +10898,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : [ "+new", ",", "black", ",", "example", ",", "mamma", ",", "manfetus", ",", "manflyround", ",", "manpunch", ",", "red", ",", "transparent", ",", "white", ",", "countdown", ",", "crashtest", ",", "default", ",", "mammamovie", ",", "stress", ",", "Built-in iSight", ",", "HD Webcam C525" ],
+									"items" : [ "0-debug", ",", "1-debug", ",", "mamma", ",", "manflyround", ",", "manpunch", ",", "transparent", ",", "countdown", ",", "crashtest", ",", "default", ",", "mammamovie", ",", "stress", ",", "Built-in iSight", ",", "HD Pro Webcam C920" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -11044,7 +11037,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-37",
-					"items" : [ "+new", ",", "black", ",", "example", ",", "mamma", ",", "manfetus", ",", "manflyround", ",", "manpunch", ",", "red", ",", "transparent", ",", "white", ",", "countdown", ",", "crashtest", ",", "default", ",", "mammamovie", ",", "stress", ",", "Built-in iSight", ",", "HD Webcam C525" ],
+					"items" : [ "0-debug", ",", "1-debug", ",", "mamma", ",", "manflyround", ",", "manpunch", ",", "transparent", ",", "countdown", ",", "crashtest", ",", "default", ",", "mammamovie", ",", "stress", ",", "Built-in iSight", ",", "HD Pro Webcam C920" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -11238,7 +11231,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : "<empty>",
+									"items" : [ "0-debug", ",", "1-debug" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -11377,7 +11370,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-9",
-					"items" : "mamma",
+					"items" : [ "0-debug", ",", "1-debug" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -11489,7 +11482,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 196.0, 22.0, 442.0, 45.0 ],
-									"text" : "/loopier/clip/clips/cameranames \"Built-in iSight\" \"HD Pro Webcam C920\""
+									"text" : "/loopier/clip/clips/clipnames 0-debug 1-debug"
 								}
 
 							}
@@ -12301,7 +12294,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.0, 131.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -12769,7 +12762,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -13182,7 +13175,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -13549,7 +13542,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -13769,7 +13762,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 157.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -14091,7 +14084,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 239.0, 101.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -14419,7 +14412,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -14667,7 +14660,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -14916,7 +14909,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -15246,12 +15239,13 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-15",
+									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 224.0, 190.0, 109.0, 18.0 ],
-									"text" : "/clip/speed florero"
+									"text" : "/clip/speed mamma"
 								}
 
 							}
@@ -15279,7 +15273,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.0, 131.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -15381,7 +15375,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 318.0, 339.0, 143.0, 18.0 ],
-									"text" : "/clip/speed florero 1."
+									"text" : "/clip/speed mamma 1."
 								}
 
 							}
@@ -15621,7 +15615,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -15895,7 +15889,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -16244,7 +16238,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 224.0, 190.0, 109.0, 18.0 ],
-									"text" : "/clip/scale florero"
+									"text" : "/clip/scale mamma"
 								}
 
 							}
@@ -16286,7 +16280,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.0, 131.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -16388,7 +16382,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 318.0, 339.0, 143.0, 31.0 ],
-									"text" : "/clip/scale florero 1. 1."
+									"text" : "/clip/scale mamma 1. 1."
 								}
 
 							}
@@ -16672,7 +16666,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 157.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -16981,7 +16975,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.0, 131.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -17419,7 +17413,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -17777,7 +17771,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 239.0, 142.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -18100,7 +18094,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 142.0, 200.0, 168.0, 18.0 ],
-									"text" : "set /clip/color florero"
+									"text" : "set /clip/color mamma"
 								}
 
 							}
@@ -18129,7 +18123,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 273.0, 114.0, 50.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -18168,7 +18162,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 213.5, 286.0, 311.0, 18.0 ],
-									"text" : "/clip/color florero 1. 1. 1. 1."
+									"text" : "/clip/color mamma 1. 1. 1. 1."
 								}
 
 							}
@@ -18657,7 +18651,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 239.0, 101.0, 105.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug"
 								}
 
 							}
@@ -19000,7 +18994,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 377.0, 216.0, 303.0, 18.0 ],
-									"text" : "/app/quit"
+									"text" : "/clip/moveto 1-debug 0.775 0.811111"
 								}
 
 							}
@@ -19064,7 +19058,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 164.0, 325.0, 180.0, 18.0 ],
-									"text" : "mamma"
+									"text" : "1-debug 0.775 0.811111"
 								}
 
 							}

@@ -524,8 +524,8 @@ namespace loopier {
             float   scaleratio = blob.getHeight() / resource.getHeight();
                         
             ofPoint finalposition;
-            finalposition.x = blob.x;// - resource.x;
-            finalposition.y = blob.y;// - resource.y;
+            finalposition.x = blob.x * ofGetWidth();// - resource.x;
+            finalposition.y = blob.y * ofGetHeight();// - resource.y;
                         
             clip->setPosition(finalposition);
             clip->setScale(scaleratio);
@@ -1073,8 +1073,8 @@ namespace loopier {
             ofxYAML yaml;
             yaml["clip"]["name"] = clip->getName();
             yaml["clip"]["resource"] = clip->getResourceName();
-            yaml["clip"]["position"]["x"] = clip->getPosition().x;
-            yaml["clip"]["position"]["y"] = clip->getPosition().y;
+            yaml["clip"]["position"]["x"] = clip->getPosition().x * ofGetWidth();
+            yaml["clip"]["position"]["y"] = clip->getPosition().y * ofGetHeight();
             yaml["clip"]["width"] = clip->getWidth();
             yaml["clip"]["height"] = clip->getHeight();
             yaml["clip"]["scale"] = clip->getScale();
