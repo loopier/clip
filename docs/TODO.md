@@ -7,4 +7,5 @@
 - `[NEW]` Make a vector of commands and a method to execute them, so they can be loaded into memory and executed later
 - `[CHANGE]` Clip library from YAML to OSC (like command libraries)
 - `[CHANGE]` `/clip/replace` should replace one clip with another, not the resource. **REMBEMBER TO CHANGE DOCS**
-- `[FIX]` Clip's position and dimensions is really caothic.  Needs serious refurbishing.
+- `[CHANGE]` GUI: Add `New clip` button, to create a new clip replacing blob and adding it to the list, named after `resourcename + index`.  `Add clip` should add clip to stage at the given position.
+- `[CHANGE]` Add many clips when there are many blobs
