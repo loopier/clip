@@ -8,3 +8,4 @@
 - `[CHANGE]` Add many clips when there are many blobs
 - `[NEW]` Make groups.  When adding a clip, automatically add it to a group with other clips using the same resource.
 - `[FIX]` Mask
+- `[NEW]` Load scripts into message bundles and run them by name
