@@ -9,3 +9,5 @@
 - `[NEW]` Make groups.  When adding a clip, automatically add it to a group with other clips using the same resource.
 - `[FIX]` Mask
 - `[NEW]` Load scripts into message bundles and run them by name
+- `[NEW]` Script editor
+- `[NEW]` Select and move clips no app window.  Selection area with ALT + mouseclick
