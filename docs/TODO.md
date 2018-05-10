@@ -9,3 +9,4 @@
 - `[CHANGE]` `/clip/replace` should replace one clip with another, not the resource. **REMBEMBER TO CHANGE DOCS**
 - `[CHANGE]` GUI: Add `New clip` button, to create a new clip replacing blob and adding it to the list, named after `resourcename + index`.  `Add clip` should add clip to stage at the given position.
 - `[CHANGE]` Add many clips when there are many blobs
+- `[NEW]` Make groups.  When adding a clip, automatically add it to a group with other clips using the same resource.
