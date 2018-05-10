@@ -692,7 +692,7 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void setParentClip(const string childclip, const string parentclip)
         {
-            if (!exists(childclip) || !exists(parentclip)) return;
+            if (!exists(childclip) || !exists(parentclip) || childclip == parentclip) return;
             getClip(childclip)->setParent(getClip(parentclip));
             
         }

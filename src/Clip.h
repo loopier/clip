@@ -74,6 +74,8 @@ namespace loopier {
         /// \brief  Returns the topleft corner of the clip
         ofPoint getAbsolutePosition() const;
         /// \brief  Sets the offset in relation to parent's position
+        void        setOffset(const ofPoint & point);
+        /// \brief  Sets the offset in relation to parent's position
         void        setOffset(const float x, const float y);
         /// \brief  Returns the offset in relation to parent's position
         ofPoint &   getOffset();

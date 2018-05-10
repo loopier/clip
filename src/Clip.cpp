@@ -329,6 +329,12 @@ ofPoint loopier::Clip::getAbsolutePosition() const
 }
 
 //---------------------------------------------------------------------------
+void loopier::Clip::setOffset(const ofPoint & point)
+{
+    setOffset(point.x, point.y);
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::setOffset(const float x, const float y)
 {
     offset.x = x;
@@ -575,6 +581,7 @@ int loopier::Clip::getDepth() const
 void loopier::Clip::setParent(const shared_ptr<Clip> clip)
 {
     parent = clip;
+    setOffset(getPosition() - parent->getPosition());
 }
 
 //---------------------------------------------------------------------------
@@ -589,11 +596,15 @@ string loopier::Clip::getParentName()
 void loopier::Clip::updateParent()
 {
     if (!parent) return;
+    if (parent->getName() == "") return;
     setPosition(parent->getPosition()+offset);
 }
 
 //---------------------------------------------------------------------------
 void loopier::Clip::removeParent()
 {
+    if (!parent) return;
+    if (parent->getName() == "") return;
+    setPosition(parent->getPosition() + getOffset());
     parent = shared_ptr<Clip>(new Clip);
 }
