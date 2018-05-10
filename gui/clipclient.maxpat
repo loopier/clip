@@ -135,7 +135,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 69.0, 198.0, 50.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -276,13 +276,12 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-110",
-									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 304.0, 401.0, 143.0, 31.0 ],
-									"text" : "/clip/removeparent parent"
+									"patching_rect" : [ 304.0, 401.0, 143.0, 18.0 ],
+									"text" : "/clip/maskoff cam"
 								}
 
 							}
@@ -646,7 +645,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : [ " ", ",", "child1", ",", "parent" ],
+									"items" : [ " ", ",", "cam" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -795,7 +794,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-192",
-					"items" : [ " ", ",", "child1", ",", "parent" ],
+					"items" : [ " ", ",", "cam" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1060,7 +1059,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 64.0, 129.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -1664,7 +1663,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.0, 131.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -2016,7 +2015,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -2092,7 +2091,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 303.0, 324.0, 143.0, 18.0 ],
-									"text" : "/clip/select child"
+									"text" : "/clip/select mamama"
 								}
 
 							}
@@ -2320,7 +2319,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 507.0, 243.0, 50.0, 32.0 ],
-									"text" : "1-debug"
+									"text" : "mamma"
 								}
 
 							}
@@ -2433,7 +2432,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -2772,7 +2771,6 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"id" : "obj-4",
-									"int" : 1,
 									"maxclass" : "gswitch2",
 									"numinlets" : 2,
 									"numoutlets" : 2,
@@ -2806,7 +2804,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 129.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -2896,7 +2894,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 303.5, 298.0, 143.0, 18.0 ],
-									"text" : "/clip/show florero"
+									"text" : "/clip/hide cam"
 								}
 
 							}
@@ -5122,13 +5120,12 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-10",
-									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 163.0, 218.0, 67.0, 32.0 ],
-									"text" : "append parent"
+									"text" : "append cv"
 								}
 
 							}
@@ -5224,7 +5221,7 @@
 									"patching_rect" : [ 125.0, 104.0, 150.0, 20.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 15.0, 29.5, 155.0, 20.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -5411,7 +5408,7 @@
 							"architecture" : "x86"
 						}
 ,
-						"rect" : [ 139.0, 275.0, 803.0, 733.0 ],
+						"rect" : [ 263.0, 222.0, 803.0, 733.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -5491,7 +5488,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 419.5, 435.0, 160.0, 148.0 ],
+									"patching_rect" : [ 419.5, 435.0, 160.0, 145.0 ],
 									"text" : "this straps the word \"append\" on to the beginning of each message coming through. If you revisit the help file for umenu you'll see this mentioned as \"add items to the end\", which is what you're looking for."
 								}
 
@@ -5508,7 +5505,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 153.0, 345.5, 154.0, 52.0 ],
+									"patching_rect" : [ 153.0, 345.5, 154.0, 51.0 ],
 									"text" : "iterates through the list, outputting them one at a time."
 								}
 
@@ -5591,8 +5588,8 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 312.5, 185.0, 139.0, 20.0 ],
-									"text" : "r commandlibrarynames"
+									"patching_rect" : [ 312.5, 185.0, 83.0, 20.0 ],
+									"text" : "r scriptnames"
 								}
 
 							}
@@ -5618,8 +5615,8 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 207.0, 74.0, 115.0, 20.0 ],
-									"text" : "r updatecliplibraries"
+									"patching_rect" : [ 207.0, 74.0, 89.0, 20.0 ],
+									"text" : "r updatescripts"
 								}
 
 							}
@@ -5632,8 +5629,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 131.0, 109.0, 127.0, 18.0 ],
-									"text" : "/command/listlibraries"
+									"patching_rect" : [ 131.0, 109.0, 97.0, 18.0 ],
+									"text" : "/script/listnames"
 								}
 
 							}
@@ -5781,7 +5778,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 1449.5, 358.0, 171.0, 20.0 ],
+					"patching_rect" : [ 1449.5, 358.0, 141.0, 20.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
@@ -5795,7 +5792,7 @@
 						"tags" : ""
 					}
 ,
-					"text" : "patcher loadcommandlibraries"
+					"text" : "patcher loadscriptnames"
 				}
 
 			}
@@ -5858,8 +5855,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 254.0, 144.0, 173.0, 20.0 ],
-									"text" : "prepend /command/loadlibrary"
+									"patching_rect" : [ 254.0, 144.0, 116.0, 20.0 ],
+									"text" : "prepend /script/load"
 								}
 
 							}
@@ -5944,13 +5941,12 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-110",
-									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 303.0, 324.0, 143.0, 32.0 ],
-									"text" : "/command/loadlibrary 0-DEBUG"
+									"patching_rect" : [ 303.0, 324.0, 143.0, 18.0 ],
+									"text" : "/script/load 0-DEBUG"
 								}
 
 							}
@@ -6021,7 +6017,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 1400.0, 450.5, 135.0, 20.0 ],
+					"patching_rect" : [ 1400.0, 450.5, 111.0, 20.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
@@ -6035,7 +6031,7 @@
 						"tags" : ""
 					}
 ,
-					"text" : "patcher loadcommands"
+					"text" : "patcher loadscripts"
 				}
 
 			}
@@ -6180,7 +6176,7 @@
 					"patching_rect" : [ 14.5, 293.0, 398.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 14.5, 1008.0, 344.0, 20.0 ],
-					"text" : "/clip/select florero"
+					"text" : "/clip/mask cam cv"
 				}
 
 			}
@@ -6298,7 +6294,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 69.0, 198.0, 50.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -6807,7 +6803,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : [ " ", ",", "child1", ",", "parent" ],
+									"items" : [ " ", ",", "cam" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -6955,7 +6951,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-108",
-					"items" : [ " ", ",", "child1", ",", "parent" ],
+					"items" : [ " ", ",", "cam" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -7070,7 +7066,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -7383,7 +7379,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -8522,7 +8518,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 36.0, 95.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -9054,7 +9050,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 15.0, 1088.0, 344.0, 20.0 ],
 					"readonly" : 1,
-					"text" : "/loopier/clip/clip/moveto child1 0.628125 0.533333",
+					"text" : "/loopier/clip/script/load 0-DEBUG",
 					"textcolor" : [ 0.8, 0.8, 0.8, 1.0 ]
 				}
 
@@ -9077,7 +9073,7 @@
 					"presentation_linecount" : 2,
 					"presentation_rect" : [ 14.5, 1048.0, 344.0, 20.0 ],
 					"readonly" : 1,
-					"text" : "/loopier/clip/clip/info parent 1-debug 1 1. normal 512. 288. 512. 288. 1. 1. 1. 1. 1. 0 1 0 1 1  0. 0.",
+					"text" : "/loopier/clip/script/names 0-DEBUG 1-DEBUG cv-c525 cv-c920 cv-iSight",
 					"textcolor" : [ 0.8, 0.8, 0.8, 1.0 ]
 				}
 
@@ -12071,7 +12067,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : "<empty>",
+									"items" : [ "anotherexamplelibrary", ",", "cliplibraryexample" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -12572,7 +12568,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-26",
-					"items" : "<empty>",
+					"items" : [ "anotherexamplelibrary", ",", "cliplibraryexample" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -13212,7 +13208,7 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-2",
-									"items" : [ " ", ",", "child1", ",", "parent" ],
+									"items" : [ " ", ",", "cam" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -13360,7 +13356,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-9",
-					"items" : [ " ", ",", "child1", ",", "parent" ],
+					"items" : [ " ", ",", "cam", ",", "man", ",", "mamama", ",", "cv" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -13416,8 +13412,8 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 49.0, 455.0, 141.0, 20.0 ],
-									"text" : "s commandlibrarynames"
+									"patching_rect" : [ 49.0, 455.0, 85.0, 20.0 ],
+									"text" : "s scriptnames"
 								}
 
 							}
@@ -13430,8 +13426,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 49.0, 425.0, 230.0, 20.0 ],
-									"text" : "route /loopier/clip/command/librarynames"
+									"patching_rect" : [ 49.0, 425.0, 173.0, 20.0 ],
+									"text" : "route /loopier/clip/script/names"
 								}
 
 							}
@@ -13467,13 +13463,12 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-11",
-									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 196.0, 22.0, 442.0, 18.0 ],
-									"text" : "/loopier/clip/clip/info parent 1-debug 1 1. normal 512. 288. 512. 288. 1. 1. 1. 1. 1. 0 1 0 1 1  0. 0."
+									"text" : "/loopier/clip/script/names 0-DEBUG 1-DEBUG cv-c525 cv-c920 cv-iSight"
 								}
 
 							}
@@ -13594,7 +13589,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 28.0, 22.0, 150.0, 34.0 ],
+									"patching_rect" : [ 28.0, 22.0, 150.0, 33.0 ],
 									"text" : "Receives and maps incoming OSC messages"
 								}
 
@@ -14285,7 +14280,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.0, 131.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -14753,7 +14748,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -15166,7 +15161,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -15453,7 +15448,7 @@
 					"patching_rect" : [ 887.5, 833.0, 150.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 134.0, 681.0, 100.0, 20.0 ],
-					"text" : "1-debug"
+					"text" : "mamma"
 				}
 
 			}
@@ -15532,7 +15527,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -15752,7 +15747,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 157.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -16074,7 +16069,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 239.0, 101.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -16402,7 +16397,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -16650,7 +16645,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -16899,7 +16894,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -17262,7 +17257,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.0, 131.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -17604,7 +17599,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -17878,7 +17873,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 116.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -18269,7 +18264,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.0, 131.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -18656,7 +18651,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.0, 157.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -18965,7 +18960,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.0, 131.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -19315,7 +19310,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 362.0, 241.0, 121.0, 18.0 ],
-									"text" : "1-debug"
+									"text" : "mamma"
 								}
 
 							}
@@ -19371,7 +19366,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 199.0, 329.0, 109.0, 18.0 ],
-									"text" : "/clip/new parent"
+									"text" : "/clip/new mamama"
 								}
 
 							}
@@ -19427,7 +19422,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 244.0, 270.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -19524,13 +19519,13 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-110",
-									"linecount" : 2,
+									"linecount" : 3,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 293.0, 478.0, 101.0, 31.0 ],
-									"text" : "/clip/new parent 1-debug"
+									"text" : "/clip/new mamama mamma"
 								}
 
 							}
@@ -19821,7 +19816,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 239.0, 142.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -20144,7 +20139,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 142.0, 200.0, 168.0, 18.0 ],
-									"text" : "set /clip/color parent"
+									"text" : "set /clip/color cv"
 								}
 
 							}
@@ -20172,7 +20167,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 273.0, 114.0, 50.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -20211,7 +20206,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 213.5, 286.0, 311.0, 18.0 ],
-									"text" : "/clip/color parent 1. 1. 1. 1."
+									"text" : "/clip/color cv 0.541667 0.541667 0.541667 1."
 								}
 
 							}
@@ -20220,12 +20215,13 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-4",
+									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 459.0, 164.0, 151.0, 18.0 ],
-									"text" : "1. 1. 1. 1."
+									"text" : "0.541667 0.541667 0.541667 1."
 								}
 
 							}
@@ -20699,7 +20695,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 239.0, 101.0, 105.0, 18.0 ],
-									"text" : "child1"
+									"text" : "cam"
 								}
 
 							}
@@ -21042,7 +21038,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 377.0, 216.0, 303.0, 18.0 ],
-									"text" : "/clip/moveto child1 0.628125 0.533333"
+									"text" : "/script/load 0-DEBUG"
 								}
 
 							}
@@ -21106,7 +21102,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 164.0, 325.0, 180.0, 18.0 ],
-									"text" : "child1 0.628125 0.533333"
+									"text" : "0-DEBUG"
 								}
 
 							}

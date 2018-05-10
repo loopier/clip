@@ -58,8 +58,8 @@ namespace loopier {
             void quit       (const Message & msg);
             void fullscreen (const Message & msg);
             void move       (const Message & msg);
-            void loadCommandFile       (const Message & msg);
-            void listCommandLibraryNames       (const Message & msg);
+            void loadScriptFile       (const Message & msg);
+            void listScriptNames       (const Message & msg);
             
             // One Clip commands
             void newClip              (const Message & msg);
@@ -202,7 +202,7 @@ namespace loopier {
             void sendCameraNames();
             void sendLibraryNames();
             void sendClipInfo(const string clipname);
-            void sendCommandLibraryNames();
+            void sendScriptNames();
             
             //------------------------------------------------------------------------------------------
             // COMMANDS FROM FILES

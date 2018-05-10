@@ -39,8 +39,8 @@ namespace loopier {
             messageMap["/loopier/clip/app/fullscreen"]  = &MessageMapper::fullscreen;
             messageMap["/loopier/clip/app/move"]        = &MessageMapper::move;
             
-            messageMap["/loopier/clip/command/loadlibrary"]     = &MessageMapper::loadCommandFile;
-            messageMap["/loopier/clip/command/listlibraries"]   = &MessageMapper::listCommandLibraryNames;
+            messageMap["/loopier/clip/script/load"]     = &MessageMapper::loadScriptFile;
+            messageMap["/loopier/clip/script/listnames"]   = &MessageMapper::listScriptNames;
         }
         
         
@@ -288,15 +288,15 @@ namespace loopier {
             ofSetWindowPosition(x, y);
         }
         
-        void MessageMapper::loadCommandFile(const Message & msg)
+        void MessageMapper::loadScriptFile(const Message & msg)
         {
-            command::loadCommandFile(msg.getArgAsString(0));
+            script::loadScriptFile(msg.getArgAsString(0));
         }
         
-        void MessageMapper::listCommandLibraryNames(const Message & msg)
+        void MessageMapper::listScriptNames(const Message & msg)
         {
 //            command::getCommandLibraryNames(msg.getArgAsString(0));
-            sendCommandLibraryNames();
+            sendScriptNames();
         }
         
         
@@ -1212,12 +1212,12 @@ namespace loopier {
         
         
         //---------------------------------------------------------
-        void MessageMapper::sendCommandLibraryNames()
+        void MessageMapper::sendScriptNames()
         {
-            vector<string> names = loopier::command::getCommandLibraryNames();
+            vector<string> names = loopier::script::getScriptNames();
             Message msg;
             
-            msg.setAddress("/loopier/clip/command/librarynames");
+            msg.setAddress("/loopier/clip/script/names");
             
             for (const auto &item : names) {
                 msg.addStringArg(item);

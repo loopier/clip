@@ -256,13 +256,13 @@ namespace loopier {
         void lastBlob();
     } // namespace cv
     
-    namespace command {
+    namespace script {
         /// \brief  Loads a command file
-        void    loadCommandFile(const string & filenameorpath);
-        void    setCommandLibraryPath(const string & path);
-        string  getCommandLibraryPath();
+        void    loadScriptFile(const string & filenameorpath);
+        void    setScriptPath(const string & path);
+        string  getScriptPath();
         /// \brief  Returns the list of filenames in commands/ folder.
-        vector<string>  getCommandLibraryNames();
+        vector<string>  getScriptNames();
         /// \biref  Send the given string as an OSC message.
         /// \descritpion    The format is /address/with/leading/slash, arg1, arg2, ...
         void    sendCommand(const string & message);

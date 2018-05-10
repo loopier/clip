@@ -16,7 +16,7 @@ namespace {
     string  applicationSupportPath = "";
     string  resourceFilesPath  = "";
     string  clipLibraryPath = "";
-    string  commandLibraryPath = "";
+    string  scriptsPath = "";
     
     // clips
     loopier::ClipMap            clips;      // all clips that have been created
@@ -239,7 +239,7 @@ namespace loopier {
             
             resource::setPath(applicationSupportPath);
             clip::setClipLibraryPath(applicationSupportPath+"clips/");
-            command::setCommandLibraryPath(applicationSupportPath+"commands/");
+            script::setScriptPath(applicationSupportPath+"scripts/");
             
             // local helpers declared above in unnamed namespace
             loadFrameLists();
@@ -1572,45 +1572,45 @@ namespace loopier {
         
     }   // namespace cv
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    // !!!: osc namescape
-    namespace command {
+    // !!!: script namescape
+    namespace script {
         //---------------------------------------------------------------------------
-        void loadCommandFile(const string & filenameorpath)
+        void loadScriptFile(const string & filenameorpath)
         {
             string path = filenameorpath;
             if (!ofFile(path).exists()) {
-                path = commandLibraryPath + filenameorpath + ".clc";
+                path = scriptsPath + filenameorpath + ".csl";
             }
             ofLogVerbose() << __PRETTY_FUNCTION__ << " " << path;
             // TODO
             vector < string > linesOfTheFile;
             ofBuffer buffer = ofBufferFromFile(path);
             for (auto line : buffer.getLines()){
-                command::sendCommand(line);
+                sendCommand(line);
             }
             
         }
         
         //---------------------------------------------------------------------------
-        void setCommandLibraryPath(const string & path)
+        void setScriptPath(const string & path)
         {
-            commandLibraryPath = path;
-            ofLogVerbose() << "Command Library path: " << commandLibraryPath;
+            scriptsPath = path;
+            ofLogVerbose() << "Script folder path: " << scriptsPath;
         }
         
         //---------------------------------------------------------------------------
-        string getCommandLibraryPath()
+        string getScriptPath()
         {
-            return commandLibraryPath;
+            return scriptsPath;
         }
         
         //---------------------------------------------------------------------------
-        vector<string> getCommandLibraryNames()
+        vector<string> getScriptNames()
         {
-            ofDirectory dir(commandLibraryPath);
+            ofDirectory dir(scriptsPath);
             vector<ofFile> files = dir.getFiles();
             vector<string> names;
-            string list = "Command libraries: ";
+            string list = "Scripts: ";
             for (const auto &file : files) {
                 names.push_back(file.getBaseName());
                 list += file.getBaseName() + " ";
