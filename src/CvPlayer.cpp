@@ -91,15 +91,7 @@ void loopier::CvPlayer::draw(float x, float y, float w, float h)
 //---------------------------------------------------------
 void loopier::CvPlayer::draw()
 {
-//    ofPushStyle();
-//    ofSetColor(255,200);
-//    maskFbo.draw(0,0);
-//    ofPopStyle();
-//    contourFinder.draw();
-//    if (inputPlayer) inputPlayer->draw();
-//    ofSetColor(255,0,0);
     shapeFbo.draw(0,0, pixels.getWidth(), pixels.getHeight());
-    ofDrawCircle(getCentroid().x, getCentroid().y, 10);
 }
 
 //
