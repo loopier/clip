@@ -374,10 +374,11 @@ float loopier::Clip::getHeight() const
 //---------------------------------------------------------------------------
 ofRectangle loopier::Clip::getBoundingBox() const
 {
-    return ofRectangle(absolutePosition.x,
-                       absolutePosition.y,
-                       getWidth(),
-                       getHeight());
+    ofRectangle box = player->getBoundingBox();
+    box.setPosition(box.getPosition() + getAbsolutePosition());
+    box.setWidth(box.getWidth() * getScaleX());
+    box.setHeight(box.getHeight() * getScaleY());
+    return box;
 }
 
 //---------------------------------------------------------------------------
