@@ -109,6 +109,11 @@ namespace loopier {
         /// \brief   Checks if a clip exists
         bool    exists(string clipname);
         ClipPtr getClip(string clipname);
+        /// \brief  Gets the clip at the given position.
+        /// \returns    Return the clip whose origin contains this point.
+        ClipPtr getClipAt(const float x, const float y);
+        /// \returns    Return the names of all clips that enclose this point
+        vector<string> getClipsAt(const float x, const float y);
         
         // ----- SHOW CLIP NAMES----
         

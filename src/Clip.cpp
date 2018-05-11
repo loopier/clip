@@ -36,6 +36,7 @@ loopier::Clip::Clip(string& clipname, string& resourcename)
 , bFullscreen(false)
 , bVisible(true)
 , bDrawName(false)
+, bSelected(false)
 , loopState(LoopType::normal)
 {
 //    setResource(resourcename);
@@ -104,12 +105,17 @@ void loopier::Clip::draw()
         ofPopMatrix();
         
         ofPushStyle();
-        ofSetColor(0, 255, 255);
+        ofSetColor(255, 255, 0);
         ofNoFill();
-        if (bDrawName)  {
-            ofDrawBitmapString(name, getOriginRectangle().x, getOriginRectangle().y);
-            ofDrawCircle(getOriginRectangle().x, getOriginRectangle().y, 20);
+        if (bDrawName || bSelected)  {
+            ofDrawBitmapString(name, getOriginRectangle().getCenter().x + 10, getOriginRectangle().getCenter().y + 10);
+            ofDrawCircle(getOriginRectangle().getCenter().x + 10, getOriginRectangle().getCenter().y + 10, 20);
         }
+        
+        if (bSelected) {
+            ofDrawRectangle(getBoundingBox());
+        }
+        
         ofPopStyle();
     }
     ofPopStyle();
@@ -503,6 +509,24 @@ void loopier::Clip::showName()
 void loopier::Clip::hideName()
 {
     bDrawName = false;
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::select(bool b)
+{
+    bSelected = b;
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::deselect()
+{
+    select(false);
+}
+
+//---------------------------------------------------------------------------
+bool loopier::Clip::isSelected()
+{
+    return bSelected;
 }
 
 //---------------------------------------------------------------------------

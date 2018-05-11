@@ -110,6 +110,10 @@ namespace loopier {
         void showName();
         void hideName();
         
+        void select(bool b = true);
+        void deselect();
+        bool isSelected();
+        
         //------------------------------------------------------------------------------------------
         //  Transforms
         void flipV();
@@ -162,6 +166,7 @@ namespace loopier {
         
         bool    bFullscreen;
         bool    bDrawName;
+        bool    bSelected;
         bool    bVisible;
         
         // transforms

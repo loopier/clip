@@ -193,31 +193,6 @@ namespace {
     {
         return dynamic_pointer_cast<loopier::SyphonPlayer> (clips[clipname]->getPlayer());
     }
-    
-    // Draws the bounding boxes, centers, names, coords, ... of the selected clips
-    void drawClipsSelection()
-    {
-        for (const auto &clipname : selectedclips) {
-            if (!loopier::clip::exists(clipname)) continue;
-            
-            loopier::ClipPtr clip = clips[clipname];
-            
-            ofRectangle clipbox     = clip->getBoundingBox();
-            ofPoint     clipcenter  = clipbox.getCenter();
-            
-            ofPushStyle();
-            ofSetColor(255, 255, 0);
-            ofNoFill();
-            // clip's margins
-            ofDrawRectangle(clipbox);
-            // center of clip
-            ofDrawCircle(clipcenter, 10);
-            ofDrawBitmapString(clipname, clipcenter.x+15, clipcenter.y-7);
-            ofDrawBitmapString(ofToString(clipcenter.x)+" "+ofToString(clipcenter.y), clipcenter.x+15, clipcenter.y+7);
-            //
-            ofPopStyle();
-        }
-    }
 } // namesapce
 
 
@@ -278,8 +253,6 @@ namespace loopier {
                 clips.at(clipname)->draw();
             };
             
-            drawClipsSelection();
-            
             ofPushStyle();
             ofSetColor(127, 127, 0);
             ofNoFill();
@@ -291,14 +264,15 @@ namespace loopier {
         }
         
         //--------------------------------------------------------------
-        void keyPressed(int key){
+        void keyPressed(int key)
+        {
             
         }
         
         //--------------------------------------------------------------
-        void keyReleased(int key){
-            
-            
+        void keyReleased(int key)
+        {
+            if (key == int(' ')) script::loadScriptFile("0-DEBUG");
         }
         
         //---------------------------------------------------------------------------
@@ -307,7 +281,12 @@ namespace loopier {
             if (ofGetKeyPressed(OF_KEY_ALT)) {
                 detectionAreaRectangle.setX(x);
                 detectionAreaRectangle.setY(y);
+                return;
             }
+            
+            loopier::ClipPtr clip = clip::getClipAt(x,y);
+            if (clip) loopier::clip::selectClip(clip->getName());
+            
             
         }
         
@@ -323,16 +302,27 @@ namespace loopier {
                     resetDetectionAreaRectangle();
                 }
                 loopier::cv::setDetectionArea(detectionAreaRectangle);
+                return;
             }
         }
         
         //---------------------------------------------------------------------------
         void mouseDragged(int x, int y, int button)
         {
+            // set detection area
             if (ofGetKeyPressed(OF_KEY_ALT)) {
                 detectionAreaRectangle.setWidth(x - detectionAreaRectangle.x);
                 detectionAreaRectangle.setHeight(y - detectionAreaRectangle.y);
                 loopier::cv::setDetectionArea(detectionAreaRectangle);
+                return;
+            }
+            
+            // move clips
+            for (auto &clipname : selectedclips) {
+                ofPoint clippos = clips[clipname]->getPosition();
+                int newX = x - ofGetPreviousMouseX() + clippos.x;
+                int newY = y - ofGetPreviousMouseY() + clippos.y;
+                clips[clipname]->setPosition(newX, newY);
             }
         }
         
@@ -591,6 +581,7 @@ namespace loopier {
                 ofLogError() << "You are trying to select a clip that's already selected";
             } else {
                 selectedclips.push_back(clipname);
+                clips[clipname]->select();
                 ofLogVerbose() << __PRETTY_FUNCTION__ << " " << clipname;
             }
         }
@@ -598,8 +589,13 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void deselectClip(string clipname)
         {
-            if (!exists(clipname)) return;            vector<string>::iterator it = std::find(selectedclips.begin(), selectedclips.end(), clipname);
-            if (it != selectedclips.end()) selectedclips.erase(it);
+            if (!exists(clipname)) return;
+            
+            vector<string>::iterator it = std::find(selectedclips.begin(), selectedclips.end(), clipname);
+            if (it != selectedclips.end()) {
+                selectedclips.erase(it);
+                clips[clipname]->deselect();
+            }
         }
         
         
@@ -794,6 +790,35 @@ namespace loopier {
         loopier::ClipPtr getClip(string clipname)
         {
             return clips.find(clipname)->second;
+        }
+        
+        //---------------------------------------------------------------------------
+        loopier::ClipPtr getClipAt(const float x, const float y)
+        {
+            loopier::ClipPtr clip;
+            
+            loopier::ClipMap::iterator it;
+            for (it = clips.begin(); it != clips.end(); ++it) {
+                ofRectangle boundingBox = (*it->second).getOriginRectangle();
+                if (boundingBox.inside(x,y)) {
+                    clip = it->second;
+                }
+            }
+            return clip;
+        }
+        
+        //---------------------------------------------------------------------------
+        vector<string> getClipsAt(const float x, const float y)
+        {
+            vector<string> clipnames;
+            loopier::ClipMap::iterator it;
+            for (it = clips.begin(); it != clips.end(); ++it) {
+                ofRectangle boundingBox = (*it->second).getBoundingBox();
+                if (boundingBox.inside(x,y)) {
+                    clipnames.push_back(it->first);
+                }
+            }
+            return clipnames;
         }
         
         //---------------------------------------------------------------------------
