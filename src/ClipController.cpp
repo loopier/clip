@@ -290,29 +290,50 @@ namespace loopier {
             privateSyphonServer.publishScreen();
         }
         
+        //--------------------------------------------------------------
+        void keyPressed(int key){
+            
+        }
+        
+        //--------------------------------------------------------------
+        void keyReleased(int key){
+            
+            
+        }
+        
         //---------------------------------------------------------------------------
         void mousePressed(int x, int y, int button)
         {
-            detectionAreaRectangle.setX(x);
-            detectionAreaRectangle.setY(y);
+            if (ofGetKeyPressed(OF_KEY_ALT)) {
+                detectionAreaRectangle.setX(x);
+                detectionAreaRectangle.setY(y);
+            }
+            
         }
         
         //---------------------------------------------------------------------------
         void mouseReleased(int x, int y, int button)
         {
-            detectionAreaRectangle.setWidth(x - detectionAreaRectangle.x);
-            detectionAreaRectangle.setHeight(y - detectionAreaRectangle.y);
             
-            if (x == detectionAreaRectangle.x ||  y == detectionAreaRectangle.y) {
-                resetDetectionAreaRectangle();
+            if (ofGetKeyPressed(OF_KEY_ALT)) {
+                detectionAreaRectangle.setWidth(x - detectionAreaRectangle.x);
+                detectionAreaRectangle.setHeight(y - detectionAreaRectangle.y);
+                
+                if (x == detectionAreaRectangle.x ||  y == detectionAreaRectangle.y) {
+                    resetDetectionAreaRectangle();
+                }
+                loopier::cv::setDetectionArea(detectionAreaRectangle);
             }
-            loopier::cv::setDetectionArea(detectionAreaRectangle);
         }
         
         //---------------------------------------------------------------------------
         void mouseDragged(int x, int y, int button)
         {
-            mouseReleased(x, y, button);
+            if (ofGetKeyPressed(OF_KEY_ALT)) {
+                detectionAreaRectangle.setWidth(x - detectionAreaRectangle.x);
+                detectionAreaRectangle.setHeight(y - detectionAreaRectangle.y);
+                loopier::cv::setDetectionArea(detectionAreaRectangle);
+            }
         }
         
         void resetDetectionAreaRectangle()

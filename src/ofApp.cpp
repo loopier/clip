@@ -36,11 +36,12 @@ void ofApp::exit()
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    loopier::app::keyPressed(key);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+    loopier::app::keyReleased(key);
 }
 
 //--------------------------------------------------------------
