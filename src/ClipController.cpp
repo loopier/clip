@@ -284,10 +284,6 @@ namespace loopier {
                 return;
             }
             
-            loopier::ClipPtr clip = clip::getClipAt(x,y);
-            if (clip) loopier::clip::selectClip(clip->getName());
-            
-            
         }
         
         //---------------------------------------------------------------------------
@@ -304,6 +300,9 @@ namespace loopier {
                 loopier::cv::setDetectionArea(detectionAreaRectangle);
                 return;
             }
+            
+            loopier::ClipPtr clip = clip::getClipAt(x,y);
+            if (clip) loopier::clip::toggleClipSelection(clip->getName());
         }
         
         //---------------------------------------------------------------------------
@@ -598,6 +597,15 @@ namespace loopier {
             }
         }
         
+        //---------------------------------------------------------------------------
+        void toggleClipSelection(string clipname)
+        {
+            if (!exists(clipname)) return;
+            
+            if (clips[clipname]->isSelected())  deselectClip(clipname);
+            else                                selectClip(clipname);
+        }
+        
         
         //---------------------------------------------------------------------------
         void setClipDrawOrder(string clipname, int position)
@@ -800,6 +808,8 @@ namespace loopier {
             loopier::ClipMap::iterator it;
             for (it = clips.begin(); it != clips.end(); ++it) {
                 ofRectangle boundingBox = (*it->second).getOriginRectangle();
+                
+                bool b = boundingBox.inside(x,y);
                 if (boundingBox.inside(x,y)) {
                     clip = it->second;
                 }
