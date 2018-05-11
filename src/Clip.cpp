@@ -102,8 +102,15 @@ void loopier::Clip::draw()
         ofScale(scaleX, scaleY);
         player->draw();
         ofPopMatrix();
+        
+        ofPushStyle();
         ofSetColor(0, 255, 255);
-        if (bDrawName)  ofDrawBitmapString(name, anchor.x, anchor.y);
+        ofNoFill();
+        if (bDrawName)  {
+            ofDrawBitmapString(name, getOriginRectangle().x, getOriginRectangle().y);
+            ofDrawCircle(getOriginRectangle().x, getOriginRectangle().y, 20);
+        }
+        ofPopStyle();
     }
     ofPopStyle();
 }
@@ -382,6 +389,16 @@ ofRectangle loopier::Clip::getBoundingBox() const
 }
 
 //---------------------------------------------------------------------------
+ofRectangle loopier::Clip::getOriginRectangle() const
+{
+    int size = 20;
+    return ofRectangle(getBoundingBox().getCenter().x - size,
+                       getBoundingBox().getCenter().y - size,
+                       size,
+                       size);
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::toggleFullscreen()
 {
     bFullscreen = !bFullscreen;
@@ -479,7 +496,7 @@ void loopier::Clip::toggleName()
 //---------------------------------------------------------------------------
 void loopier::Clip::showName()
 {
-    bDrawName = false;
+    bDrawName = true;
 }
 
 //---------------------------------------------------------------------------

@@ -87,6 +87,8 @@ namespace loopier {
         float       getHeight() const;
         /// \brief  Returns a rectangle representing the clip's bounding box
         ofRectangle getBoundingBox() const;
+        /// \brief  Returns a rectangle representing the origin (anchor) of the clip
+        ofRectangle getOriginRectangle() const;
         
         void toggleFullscreen();
         bool isFullscreen();
