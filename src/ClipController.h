@@ -68,6 +68,9 @@ namespace loopier {
         /// \brief   Removes the clip From the selected clips vector
         void    deselectClip(string clipname);
         void    toggleClipSelection(string clipname);
+        /// \brief
+        void    selectAllClips();
+        void    deselectAllClips();
         /// \brief   Sets the order in which the clip will be drawn -- 0 is top; big numbers are at the bottom
         void    setClipDrawOrder(string clipname, int position);
         /// \brief   Sets clip to the front of all other clips

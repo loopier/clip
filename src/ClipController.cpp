@@ -284,6 +284,14 @@ namespace loopier {
                 return;
             }
             
+            loopier::ClipPtr clip = clip::getClipAt(x,y);
+            if (clip && x == ofGetPreviousMouseX() && y == ofGetPreviousMouseY()) {
+                bool selected = clip->isSelected();
+                if (!ofGetKeyPressed(OF_KEY_SHIFT)) loopier::clip::deselectAllClips();
+                if (selected)   clip::deselectClip(clip->getName());
+                else            clip::selectClip(clip->getName());
+            }
+            
         }
         
         //---------------------------------------------------------------------------
@@ -300,9 +308,6 @@ namespace loopier {
                 loopier::cv::setDetectionArea(detectionAreaRectangle);
                 return;
             }
-            
-            loopier::ClipPtr clip = clip::getClipAt(x,y);
-            if (clip) loopier::clip::toggleClipSelection(clip->getName());
         }
         
         //---------------------------------------------------------------------------
@@ -604,6 +609,25 @@ namespace loopier {
             
             if (clips[clipname]->isSelected())  deselectClip(clipname);
             else                                selectClip(clipname);
+        }
+        
+        //---------------------------------------------------------------------------
+        void selectAllClips()
+        {
+            loopier::ClipMap::iterator it = clips.begin();
+            for (it; it != clips.end(); ++it) {
+                selectClip(it->first);
+            }
+        }
+        
+        //---------------------------------------------------------------------------
+        void deselectAllClips()
+        {
+            for (auto &clipname : selectedclips) {
+                clips[clipname]->deselect();
+            }
+            
+            selectedclips.clear();
         }
         
         

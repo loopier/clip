@@ -57,6 +57,8 @@ namespace loopier {
             messageMap["/loopier/clip/clip/reset"]              = &MessageMapper::resetClip;
             messageMap["/loopier/clip/clip/select"]             = &MessageMapper::selectClip;
             messageMap["/loopier/clip/clip/deselect"]           = &MessageMapper::deselectClip;
+            messageMap["/loopier/clip/clip/selectall"]          = &MessageMapper::selectAllClips;
+            messageMap["/loopier/clip/clip/deselectall"]        = &MessageMapper::deselectAllClips;
             messageMap["/loopier/clip/clip/listinfo"]           = &MessageMapper::listClipInfo;
             // parent
             messageMap["/loopier/clip/clip/parent"]         = &MessageMapper::setParent;
@@ -351,6 +353,18 @@ namespace loopier {
         void MessageMapper::deselectClip(const Message & msg)
         {
             clip::deselectClip(msg.getArgAsString(0));
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::selectAllClips(const Message & msg)
+        {
+            clip::selectAllClips();
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::deselectAllClips(const Message & msg)
+        {
+            clip::deselectAllClips();
         }
         
         //---------------------------------------------------------
