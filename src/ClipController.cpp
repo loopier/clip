@@ -44,64 +44,6 @@ namespace {
     // * * * HELPER FUNCTIONS LOCAL TO THIS FILE * * * * * * * * * * * * * * * * * * * * *
     
     //---------------------------------------------------------------------------
-    void loadFrameLists()
-    {
-        ofLogVerbose() << "Loading frame image files from: " << resourceFilesPath;
-        
-        ofDirectory dir(resourceFilesPath+"frames/");
-        
-        vector<ofFile> subdirs = dir.getFiles();
-        
-        for (int x = 0; x < subdirs.size(); x++) {
-            ofDirectory subdir = ofDirectory(subdirs[x]);
-            if (!subdir.isDirectory()) continue;
-            subdir.allowExt("png");
-            subdir.allowExt("jpg");
-            subdir.allowExt("gif");
-            
-            string name = subdirs[x].getBaseName(); // folder name used in map
-            vector<ofFile> files = subdir.getFiles(); // images in folder
-            
-            // skip empty folders
-            if (files.size() <= 0) {
-                ofLogWarning() << "'" << name << "' folder is empty.  Skipping";
-                continue;
-            }
-            
-            loopier::FrameListPtr framelist(new loopier::FrameList);     // actual list of frames
-            
-            for (int i = 0; i < files.size(); i++) {
-                ofImage img;
-                img.load(files[i].getAbsolutePath());
-                framelist->push_back(img);
-            }
-            ofLogVerbose() << "Loaded " << framelist->size() << " frames from " << name;
-            frames[name] = framelist;
-        }
-        
-        ofLogVerbose() << "Loaded " << frames.size() << " frame lists";
-        //        ofExit();
-    }
-    
-    //---------------------------------------------------------------------------
-    void loadMovies()
-    {
-        ofLogVerbose() << "Loading movie files from: " << resourceFilesPath;
-        
-        ofDirectory dir(resourceFilesPath+"movies/");
-        dir.allowExt("mov");
-        vector<ofFile> files = dir.getFiles();
-        
-        for (int i = 0; i < files.size(); i++) {
-            loopier::MoviePtr movie(new loopier::Movie);
-            movie->load(files[i].getAbsolutePath());
-            movies[files[i].getBaseName()] = movie;
-        }
-        
-        ofLogVerbose() << "Loaded " << movies.size() << " movie files";
-    }
-    
-    //---------------------------------------------------------------------------
     void initializeCameras()
     {
         ofVideoGrabber vidGrabber;
@@ -216,9 +158,7 @@ namespace loopier {
             clip::setClipLibraryPath(applicationSupportPath+"clips/");
             script::setScriptPath(applicationSupportPath+"scripts/");
             
-            // local helpers declared above in unnamed namespace
-            loadFrameLists();
-            loadMovies();
+            resource::load();
             initializeCameras(); // FIX: find a way to have them all on.
             
             clip::newClip("syphon");
@@ -366,6 +306,102 @@ namespace loopier {
         string & getPath()
         {
             return resourceFilesPath;
+        }
+        
+        //---------------------------------------------------------------------------
+        void load(const string & resourcename)
+        {
+            if (ofDirectory(resourceFilesPath+"frames/"+resourcename).exists()) {
+                loadFrameList(resourcename);
+            } else if (ofFile(resourceFilesPath+"movies/"+resourcename+".mov").exists()) {
+                loadMovie(resourcename);
+            }
+        }
+        
+        //---------------------------------------------------------------------------
+        void load(const vector<string> resourcenames)
+        {
+            // load all if nothing is specified
+            
+            if (resourcenames.size() <= 0) {
+                loadAll();
+                return;
+            }
+            
+            for (auto &name: resourcenames) {
+                load(name);
+            }
+        }
+        
+        //---------------------------------------------------------------------------
+        void loadAll()
+        {
+            // load frame lists
+            ofDirectory dir(resourceFilesPath+"frames/");
+            vector<ofFile> files = dir.getFiles();
+            for (auto &file : files) {
+                loadFrameList(file.getBaseName());
+            }
+            
+            // load movies
+            dir.open(resourceFilesPath+"movies/");
+            files = dir.getFiles();
+            for (auto &file : files) {
+                loadMovie(file.getBaseName());
+            }
+        }
+        
+        //---------------------------------------------------------------------------
+        void clearAll()
+        {
+            frames.clear();
+            movies.clear();
+        }
+        
+        //---------------------------------------------------------------------------
+        void loadFrameList(const string & name)
+        {
+            ofDirectory dir(resourceFilesPath+"frames/"+name);
+            dir.allowExt("png");
+            dir.allowExt("jpg");
+            dir.allowExt("gif");
+            
+            vector<ofFile> files = dir.getFiles();
+            
+            // skip empty folders
+            if (files.size() <= 0) {
+                ofLogWarning() << "'" << name << "' folder is empty.  Skipping";
+                return;
+            }
+            
+            loopier::FrameListPtr framelist(new loopier::FrameList);     // actual list of frames
+            
+            for (int i = 0; i < files.size(); i++) {
+                ofImage img;
+                img.load(files[i].getAbsolutePath());
+                framelist->push_back(img);
+            }
+            
+            frames[name] = framelist;
+            
+            ofLogVerbose() << "Loaded " << framelist->size() << " frames from " << name;
+        }
+        
+        //---------------------------------------------------------------------------
+        void loadMovie(const string & name)
+        {
+            ofLogVerbose() << "Loading movie files from: " << resourceFilesPath;
+            
+            ofFile file(resourceFilesPath+"movies/"+name+".mov");
+            if(!file.exists()) {
+                ofLogWarning() << "File not found: " << file.getBaseName();
+                return;
+            }
+            
+            loopier::MoviePtr movie(new loopier::Movie);
+            movie->load(file.getAbsolutePath());
+            movies[file.getBaseName()] = movie;
+            ofLogVerbose() << "Loaded " << file.getAbsolutePath();
         }
         
         //---------------------------------------------------------------------------

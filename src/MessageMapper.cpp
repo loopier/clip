@@ -39,6 +39,10 @@ namespace loopier {
             messageMap["/loopier/clip/app/fullscreen"]  = &MessageMapper::fullscreen;
             messageMap["/loopier/clip/app/move"]        = &MessageMapper::move;
             
+            messageMap["/loopier/clip/app/loadresource"]        = &MessageMapper::loadResources;
+            messageMap["/loopier/clip/app/loadresources"]        = &MessageMapper::loadResources;
+            messageMap["/loopier/clip/app/clearresources"]       = &MessageMapper::clearResources;
+            
             messageMap["/loopier/clip/script/load"]     = &MessageMapper::loadScriptFile;
             messageMap["/loopier/clip/script/listnames"]   = &MessageMapper::listScriptNames;
         }
@@ -292,6 +296,23 @@ namespace loopier {
             float x = msg.getArgAsFloat(1) * ofGetScreenWidth();
             float y = msg.getArgAsFloat(2) * ofGetScreenHeight();
             ofSetWindowPosition(x, y);
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::loadResources(const Message & msg)
+        {
+            vector<string> resourcenames;
+            for (int i = 0; i < msg.getNumArgs(); i++) {
+                resourcenames.push_back(msg.getArgAsString(i));
+            }
+            
+            resource::load(resourcenames);
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::clearResources(const Message & msg)
+        {
+            resource::clearAll();
         }
         
         void MessageMapper::loadScriptFile(const Message & msg)

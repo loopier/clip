@@ -41,6 +41,15 @@ namespace loopier {
         void    setPath(string path);
         string& getPath();
         void    listAll();
+        /// \brief  Load a resource
+        void    load(const string & namresourcename);
+        /// \brief  Load a list of resources.  Load all if no list is provided
+        void    load(const vector<string> resourcenames = vector<string>());
+        void    loadAll();
+        /// \brief Delete all resources
+        void    clearAll();
+        void    loadFrameList(const string & name);
+        void    loadMovie(const string & name);
         /// \brief  Returns a list of the names of all resources
         vector<string> getNamesList();
         /// \brief  Returns a list of the names of all cameras

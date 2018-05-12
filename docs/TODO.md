@@ -7,7 +7,6 @@
 - `[CHANGE]` `/clip/replace` should replace one clip with another, not the resource. **REMBEMBER TO CHANGE DOCS**
 - `[CHANGE]` Add many clips when there are many blobs
 - `[NEW]` Make groups.  When adding a clip, automatically add it to a group with other clips using the same resource.
-- `[FIX]` Mask
 - `[NEW]` Load scripts into message bundles and run them by name
 - `[NEW]` Script editor
-- `[CHANGE]` Load sources from a list.  May be a file with names that can be edited and saved via OSC
+- `[CHANGE]` Clip's parent for vector of children.  Should be more efficient.

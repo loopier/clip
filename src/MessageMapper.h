@@ -58,8 +58,10 @@ namespace loopier {
             void quit       (const Message & msg);
             void fullscreen (const Message & msg);
             void move       (const Message & msg);
+            void loadResources        (const Message & msg);
+            void clearResources        (const Message & msg);
             void loadScriptFile       (const Message & msg);
-            void listScriptNames       (const Message & msg);
+            void listScriptNames      (const Message & msg);
             
             // One Clip commands
             void newClip              (const Message & msg);
