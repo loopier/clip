@@ -319,6 +319,8 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void loadKeymap(const string & keymapname)
         {
+            keymap.clear();
+            
             string path = keymapsPath + keymapname + ".yml";
             
             ofLogVerbose() << "Load keymap: " << path;
