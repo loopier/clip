@@ -10,4 +10,4 @@
 - `[FIX]` Mask
 - `[NEW]` Load scripts into message bundles and run them by name
 - `[NEW]` Script editor
-- `[NEW]` Select and move clips no app window.  Selection area with ALT + mouseclick
+- `[CHANGE]` Load sources from a list.  May be a file with names that can be edited and saved via OSC
