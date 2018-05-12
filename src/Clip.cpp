@@ -108,12 +108,13 @@ void loopier::Clip::draw()
         ofSetColor(255, 255, 0);
         ofNoFill();
         if (bDrawName || bSelected)  {
-            ofDrawBitmapString(name, getOriginRectangle().getCenter().x + 10, getOriginRectangle().getCenter().y + 10);
-            ofDrawCircle(getOriginRectangle().getCenter().x + 10, getOriginRectangle().getCenter().y + 10, 20);
-        }
-        
-        if (bSelected) {
-            ofDrawRectangle(getBoundingBox());
+            ofDrawBitmapString(name, getOriginRectangle().getCenter().x + 10, getOriginRectangle().getCenter().y - 10);
+            if (bSelected) {
+                ofFill();
+                ofSetColor(255, 255, 0, 100);
+            }
+            if (getOriginRectangle().inside(ofGetMouseX(), ofGetMouseY())) ofSetColor(255, 255, 0, 127);
+            ofDrawCircle(getOriginRectangle().getCenter().x, getOriginRectangle().getCenter().y, 20);
         }
         
         ofPopStyle();
@@ -398,8 +399,8 @@ ofRectangle loopier::Clip::getBoundingBox() const
 ofRectangle loopier::Clip::getOriginRectangle() const
 {
     int size = 20;
-    return ofRectangle(getBoundingBox().getCenter().x - size,
-                       getBoundingBox().getCenter().y - size,
+    return ofRectangle(getBoundingBox().getCenter().x - (size / 2),
+                       getBoundingBox().getCenter().y - (size / 2),
                        size,
                        size);
 }
