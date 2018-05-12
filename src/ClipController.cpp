@@ -185,14 +185,25 @@ namespace loopier {
         {
             for (const auto &clipname : publicLayers) {
                 if (!clip::exists(clipname)) continue;
-                clips.at(clipname)->draw();
+                clips[clipname]->draw();
             };
             
             publicSyphonServer.publishScreen();
             
             for (const auto &clipname : privateLayers) {
                 if (!clip::exists(clipname)) continue;
-                clips.at(clipname)->draw();
+                clips[clipname]->draw();
+            };
+            
+            // draw names only in private output, even clips ar public
+            for (const auto &clipname : publicLayers) {
+                if (!clip::exists(clipname)) continue;
+                clips[clipname]->drawName();
+            };
+            
+            for (const auto &clipname : privateLayers) {
+                if (!clip::exists(clipname)) continue;
+                clips[clipname]->drawName();
             };
             
             ofPushStyle();

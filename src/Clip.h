@@ -34,6 +34,8 @@ namespace loopier {
         void exit();
         void update(ofEventArgs& e); // automatic update
         void draw(ofEventArgs& e);  // automatic draw
+        void drawOrigin(const ofColor & c = ofColor(255,255,0, 100));  // draws the anchor of the clip
+        void drawName(const ofColor & c = ofColor(255,255,0, 100));  //
         
         /// \brief  Resets clip to the default state
         void reset();

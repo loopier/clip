@@ -103,21 +103,6 @@ void loopier::Clip::draw()
         outputFbo.draw(fx, fy, fw, fh);
     } else {
         outputFbo.draw(absolutePosition, outputFbo.getWidth() * scaleX, outputFbo.getHeight() * scaleY);
-        
-        ofPushStyle();
-        ofSetColor(255, 255, 0);
-        ofNoFill();
-        if (bDrawName || bSelected)  {
-            ofDrawBitmapString(name, getOriginRectangle().getCenter().x + 10, getOriginRectangle().getCenter().y - 10);
-            if (bSelected) {
-                ofFill();
-                ofSetColor(255, 255, 0, 100);
-            }
-            if (getOriginRectangle().inside(ofGetMouseX(), ofGetMouseY())) ofSetColor(255, 255, 0, 127);
-            ofDrawCircle(getOriginRectangle().getCenter().x, getOriginRectangle().getCenter().y, 20);
-        }
-        
-        ofPopStyle();
     }
     ofPopStyle();
 }
@@ -132,6 +117,34 @@ void loopier::Clip::update(ofEventArgs& e)
 void loopier::Clip::draw(ofEventArgs& e)
 {
     draw();
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::drawOrigin(const ofColor & c)
+{
+    ofPushStyle();
+    ofSetColor(c);
+    ofSetLineWidth(3);
+    ofNoFill();
+    ofDrawCircle(getOriginRectangle().getCenter().x, getOriginRectangle().getCenter().y, 20);
+    if (bSelected) {
+        ofFill();
+        ofSetColor(c.r, c.g, c.b, 100);
+    }
+    if (getOriginRectangle().inside(ofGetMouseX(), ofGetMouseY())) ofSetColor(255);
+    ofDrawCircle(getOriginRectangle().getCenter().x, getOriginRectangle().getCenter().y, 20);
+    ofPopStyle();
+}
+
+//---------------------------------------------------------------------------
+void loopier::Clip::drawName(const ofColor & c)
+{
+    if (!bDrawName) return;
+    drawOrigin(c);
+    ofPushStyle();
+    ofSetColor(c);
+    ofDrawBitmapString(name, getOriginRectangle().getCenter().x + 10, getOriginRectangle().getCenter().y - 10);
+    ofPopStyle();
 }
 
 //---------------------------------------------------------------------------
