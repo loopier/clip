@@ -257,8 +257,6 @@ void loopier::Clip::setScale(const float newScale)
     
     setScaleX(newScale);
     setScaleY(newScale);
-    
-    ofLogVerbose() << name << " scale: " << scale;
 }
 
 //---------------------------------------------------------------------------
@@ -641,6 +639,7 @@ void loopier::Clip::updateParent()
     if (!parent) return;
     if (parent->getName() == "") return;
     setPosition(parent->getPosition()+offset);
+    setScale(parent->getScale());
 }
 
 //---------------------------------------------------------------------------

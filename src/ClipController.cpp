@@ -1487,6 +1487,7 @@ namespace loopier {
             clips["cv"]->setAnchorPercent(clips[clipname]->getAnchor());
             clips["cv"]->setPosition(clips[clipname]->getPosition());
             clips["cv"]->setScale(clips[clipname]->getScale());
+            clips["cv"]->setParent(clips[clipname]);
         }
         
         //---------------------------------------------------------------------------
