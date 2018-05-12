@@ -283,6 +283,8 @@ namespace loopier {
     
     namespace script {
         /// \brief  Load a list of scripts.  Load all if no list is provided
+        void    loadScript(const string & scriptname);
+        /// \brief  Load a list of scripts.  Load all if no list is provided
         void    loadScripts(const vector<string> & scriptnames = vector<string>());
         void    loadAllScripts();
         /// \brief Delete all resources

@@ -11,11 +11,11 @@ void ofApp::setup(){
     ofBackground(0,0,0);
     ofSetVerticalSync(true);
     
+    msgMapper.setup();
+    
 //    loopier::resource::setPath(applicationSupportPath + "resources/");
     loopier::app::init();
     loopier::uvc::init();
-    
-    msgMapper.setup();
 }
 
 //--------------------------------------------------------------

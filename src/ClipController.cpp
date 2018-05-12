@@ -163,15 +163,13 @@ namespace loopier {
             
             resource::loadResources();
             initializeCameras(); // FIX: find a way to have them all on.
-            script::loadScripts();
-            
-            clip::newClip("syphon");
-            clip::hideClip("syphon");
-            clip::newClip("cv");
             loopier::resource::listAllResources();
             
             publicSyphonServer.setName("Public Screen");
             privateSyphonServer.setName("Private Screen");
+            
+            script::loadScript("startup");
+            script::runScript("startup");
         }
         
         //---------------------------------------------------------------------------
@@ -1719,6 +1717,12 @@ namespace loopier {
     namespace script {
         
         //---------------------------------------------------------------------------
+        void loadScript(const string & scriptname)
+        {
+            loadScriptFile(scriptname);
+        }
+        
+        //---------------------------------------------------------------------------
         void loadScripts(const vector<string> & scriptlist)
         {
             if (scriptlist.size() <= 0) {
@@ -1756,8 +1760,6 @@ namespace loopier {
             }
             string basename = ofFile(path).getBaseName();
             
-            ofLogVerbose() << __PRETTY_FUNCTION__ << " " << path;
-            
             vector < string > linesOfTheFile;
             ofBuffer buffer = ofBufferFromFile(path);
             for (auto line : buffer.getLines()){
@@ -1768,6 +1770,8 @@ namespace loopier {
                 scripts[basename].push_back(line);
             }
             
+            
+            ofLogVerbose() << "Load script: " << path;
         }
         
         //---------------------------------------------------------------------------
@@ -1819,6 +1823,8 @@ namespace loopier {
             for (auto &command : commands) {
                 sendCommand(command);
             }
+            
+            ofLogVerbose() << "Run script: " << scriptname;
         }
         
         //---------------------------------------------------------------------------
