@@ -856,6 +856,27 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        void toggleName(const string clipname)
+        {
+            if(!exists(clipname)) return;
+            clips[clipname]->toggleName();
+        }
+        
+        //---------------------------------------------------------------------------
+        void showName(const string clipname)
+        {
+            if(!exists(clipname)) return;
+            clips[clipname]->showName();
+        }
+        
+        //---------------------------------------------------------------------------
+        void hideName(const string clipname)
+        {
+            if(!exists(clipname)) return;
+            clips[clipname]->hideName();
+        }
+        
+        //---------------------------------------------------------------------------
         void toggleNames()
         {
             loopier::ClipMap::iterator it;

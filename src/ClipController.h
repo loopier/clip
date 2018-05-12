@@ -122,6 +122,11 @@ namespace loopier {
         // ----- SHOW CLIP NAMES----
         
         //// \brief  Shows names of clips
+        void toggleName(const string clipname);
+        void showName(const string clipname);
+        void hideName(const string clipname);
+        
+        //// \brief  Shows names of clips
         void toggleNames();
         void showNames();
         void hideNames();

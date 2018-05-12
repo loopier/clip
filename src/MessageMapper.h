@@ -100,6 +100,10 @@ namespace loopier {
             void toggleClipVisibility (const Message & msg);
             void showClip             (const Message & msg);
             void hideClip             (const Message & msg);
+            // name
+            void toggleClipName (const Message & msg);
+            void showClipName   (const Message & msg);
+            void hideClipName   (const Message & msg);
             // fx
             void setClipMask          (const Message & msg);
             void enableClipMask       (const Message & msg);

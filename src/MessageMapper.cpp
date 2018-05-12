@@ -90,6 +90,10 @@ namespace loopier {
             messageMap["/loopier/clip/clip/togglevisibility"]   = &MessageMapper::toggleClipVisibility;
             messageMap["/loopier/clip/clip/show"]               = &MessageMapper::showClip;
             messageMap["/loopier/clip/clip/hide"]               = &MessageMapper::hideClip;
+            // Visibility
+            messageMap["/loopier/clip/clip/togglename"]   = &MessageMapper::toggleClipName;
+            messageMap["/loopier/clip/clip/showname"]               = &MessageMapper::showClipName;
+            messageMap["/loopier/clip/clip/hidename"]               = &MessageMapper::hideClipName;
             // FX
             messageMap["/loopier/clip/clip/mask"]               = &MessageMapper::setClipMask;
             messageMap["/loopier/clip/clip/maskon"]             = &MessageMapper::enableClipMask;
@@ -509,6 +513,24 @@ namespace loopier {
         void MessageMapper::hideClip(const Message & msg)
         {
             clip::hideClip(msg.getArgAsString(0));
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::toggleClipName(const Message & msg)
+        {
+            clip::toggleName(msg.getArgAsString(0));
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::showClipName(const Message & msg)
+        {
+            clip::showName(msg.getArgAsString(0));
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::hideClipName(const Message & msg)
+        {
+            clip::hideName(msg.getArgAsString(0));
         }
         
         //---------------------------------------------------------
