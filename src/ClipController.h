@@ -288,6 +288,7 @@ namespace loopier {
         string  getScriptPath();
         /// \brief  Returns the list of filenames in commands/ folder.
         vector<string>  getScriptNames();
+        void  runScript(const string & scriptname);
         /// \biref  Send the given string as an OSC message.
         /// \descritpion    The format is /address/with/leading/slash, arg1, arg2, ...
         void    sendCommand(const string & message);

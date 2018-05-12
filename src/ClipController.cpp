@@ -23,6 +23,9 @@ namespace {
     vector<string>              selectedclips; // all clips that are selected
     loopier::PlayerMap          players;    // all players
     
+    map<string, vector<string> > scripts; // map<nameofscript, vectorofcommands>
+                                          // second argument must be in script format -- see scripts
+    
     // files
     loopier::MovieMap           movies;     // movies in resources folder
     loopier::FrameListMap       frames;     // frame sequences in resources folder
@@ -1720,8 +1723,10 @@ namespace loopier {
             if (!ofFile(path).exists()) {
                 path = scriptsPath + filenameorpath + ".csl";
             }
+            string basename = ofFile(path).getBaseName();
+            
             ofLogVerbose() << __PRETTY_FUNCTION__ << " " << path;
-            // TODO
+            
             vector < string > linesOfTheFile;
             ofBuffer buffer = ofBufferFromFile(path);
             for (auto line : buffer.getLines()){
@@ -1729,7 +1734,7 @@ namespace loopier {
                 vector<string> split = ofSplitString(line, " ");
                 if (line.size() <= 0 || split.size() <= 0 || split[0] == "#")  continue;
                 
-                sendCommand(line);
+                scripts[basename].push_back(line);
             }
             
         }
@@ -1761,6 +1766,17 @@ namespace loopier {
             
             ofLogVerbose() << list;
             return names;
+        }
+        
+        //---------------------------------------------------------------------------
+        void runScript(const string & scriptname)
+        {
+            // scripts[scriptname] is just one script, a vector of commands, because
+            // 'scripts' is a map<nameofscript, vectorofcommands>
+            vector<string> commands = scripts[scriptname];
+            for (auto &command : commands) {
+                sendCommand(command);
+            }
         }
         
         //---------------------------------------------------------------------------
