@@ -9,3 +9,4 @@
 - `[NEW]` Make groups.  When adding a clip, automatically add it to a group with other clips using the same resource.
 - `[NEW]` Script editor
 - `[CHANGE]` Clip's parent for vector of children.  Should be more efficient.
+- `[NEW]` Map keys to scripts or commands
