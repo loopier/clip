@@ -890,6 +890,7 @@ namespace loopier {
         {
             loopier::ClipMap::iterator it;
             for (it = clips.begin(); it != clips.end(); ++it) {
+                if (it->first == "cv") continue;  // hide CV's name by default
                 (*it->second).showName();
             }
         }
