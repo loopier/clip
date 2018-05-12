@@ -44,6 +44,8 @@ namespace loopier {
             messageMap["/loopier/clip/app/clearresources"]       = &MessageMapper::clearResources;
             
             messageMap["/loopier/clip/script/load"]     = &MessageMapper::loadScriptFile;
+            messageMap["/loopier/clip/script/loadall"]  = &MessageMapper::loadAllScripts;
+            messageMap["/loopier/clip/script/clearall"] = &MessageMapper::clearScriptList;
             messageMap["/loopier/clip/script/run"]      = &MessageMapper::runScript;
             messageMap["/loopier/clip/script/loadnrun"] = &MessageMapper::loadAndRunScript;
             messageMap["/loopier/clip/script/listnames"]   = &MessageMapper::listScriptNames;
@@ -321,6 +323,18 @@ namespace loopier {
         void MessageMapper::loadScriptFile(const Message & msg)
         {
             script::loadScriptFile(msg.getArgAsString(0));
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::loadAllScripts(const Message & msg)
+        {
+            script::loadScripts();
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::clearScriptList(const Message & msg)
+        {
+            script::clearScriptList();
         }
         
         //---------------------------------------------------------

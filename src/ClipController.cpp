@@ -163,6 +163,7 @@ namespace loopier {
             
             resource::load();
             initializeCameras(); // FIX: find a way to have them all on.
+            script::loadScripts();
             
             clip::newClip("syphon");
             clip::hideClip("syphon");
@@ -1716,6 +1717,36 @@ namespace loopier {
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     // !!!: script namescape
     namespace script {
+        
+        //---------------------------------------------------------------------------
+        void loadScripts(const vector<string> & scriptlist)
+        {
+            if (scriptlist.size() <= 0) {
+                loadAllScripts();
+                return;
+            }
+            
+            for (auto &scriptname : scriptlist) {
+                loadScriptFile(scriptname);
+            }
+        }
+        
+        //---------------------------------------------------------------------------
+        void loadAllScripts()
+        {
+            ofDirectory dir(scriptsPath);
+            vector<ofFile> files = dir.getFiles();
+            for (auto &file : files) {
+                loadScriptFile(file.getBaseName());
+            }
+        }
+        
+        //---------------------------------------------------------------------------
+        void clearScriptList()
+        {
+            scripts.clear();
+        }
+        
         //---------------------------------------------------------------------------
         void loadScriptFile(const string & filenameorpath)
         {
@@ -1754,6 +1785,17 @@ namespace loopier {
         
         //---------------------------------------------------------------------------
         vector<string> getScriptNames()
+        {
+            vector<string> names;
+            map<string, vector<string> >::iterator it = scripts.begin();
+            for (it; it != scripts.end(); ++it) {
+                names.push_back(it->first);
+            }
+            return names;
+        }
+        
+        //---------------------------------------------------------------------------
+        vector<string> getScriptFileNames()
         {
             ofDirectory dir(scriptsPath);
             vector<ofFile> files = dir.getFiles();

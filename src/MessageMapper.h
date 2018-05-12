@@ -61,6 +61,8 @@ namespace loopier {
             void loadResources      (const Message & msg);
             void clearResources     (const Message & msg);
             void loadScriptFile     (const Message & msg);
+            void loadAllScripts     (const Message & msg);
+            void clearScriptList    (const Message & msg);
             void runScript          (const Message & msg);
             void loadAndRunScript   (const Message & msg);
             void listScriptNames    (const Message & msg);

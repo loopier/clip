@@ -282,12 +282,19 @@ namespace loopier {
     } // namespace cv
     
     namespace script {
+        /// \brief  Load a list of scripts.  Load all if no list is provided
+        void    loadScripts(const vector<string> & scriptnames = vector<string>());
+        void    loadAllScripts();
+        /// \brief Delete all resources
+        void    clearScriptList();
         /// \brief  Loads a command file
         void    loadScriptFile(const string & filenameorpath);
         void    setScriptPath(const string & path);
         string  getScriptPath();
-        /// \brief  Returns the list of filenames in commands/ folder.
+        /// \brief  Returns the list of loaded scripts
         vector<string>  getScriptNames();
+        /// \brief  Returns the list of filenames in scripts/ folder.
+        vector<string>  getScriptFileNames();
         void  runScript(const string & scriptname);
         /// \biref  Send the given string as an OSC message.
         /// \descritpion    The format is /address/with/leading/slash, arg1, arg2, ...
