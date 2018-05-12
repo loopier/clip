@@ -853,10 +853,6 @@ namespace loopier {
             while (clips.size() > 0) {
                 removeClip(clips.begin()->first);
             }
-            
-            clip::newClip("syphon");
-            clip::hideClip("syphon");
-            clip::newClip("cv");
         }
         
         //---------------------------------------------------------------------------
