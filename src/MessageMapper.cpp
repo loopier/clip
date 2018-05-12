@@ -310,13 +310,13 @@ namespace loopier {
                 resourcenames.push_back(msg.getArgAsString(i));
             }
             
-            resource::load(resourcenames);
+            resource::loadResources(resourcenames);
         }
         
         //---------------------------------------------------------
         void MessageMapper::clearResources(const Message & msg)
         {
-            resource::clearAll();
+            resource::clearResourceList();
         }
         
         //---------------------------------------------------------
@@ -805,7 +805,7 @@ namespace loopier {
         void MessageMapper::listResourceNames(const Message & msg)
         {
             //    listResourceNames();
-            resource::listAll();
+            resource::listAllResources();
             sendResourceNames();
         }
         
@@ -1208,7 +1208,7 @@ namespace loopier {
         //---------------------------------------------------------
         void MessageMapper::sendResourceNames()
         {
-            vector<string> names = loopier::resource::getNamesList();
+            vector<string> names = loopier::resource::getResourceNames();
             Message msg;
             
             msg.setAddress("/loopier/clip/clips/resourcenames");

@@ -157,18 +157,18 @@ namespace loopier {
                 ofExit();
             }
             
-            resource::setPath(applicationSupportPath);
+            resource::setResourcePath(applicationSupportPath);
             clip::setClipLibraryPath(applicationSupportPath+"clips/");
             script::setScriptPath(applicationSupportPath+"scripts/");
             
-            resource::load();
+            resource::loadResources();
             initializeCameras(); // FIX: find a way to have them all on.
             script::loadScripts();
             
             clip::newClip("syphon");
             clip::hideClip("syphon");
             clip::newClip("cv");
-            loopier::resource::listAll();
+            loopier::resource::listAllResources();
             
             publicSyphonServer.setName("Public Screen");
             privateSyphonServer.setName("Private Screen");
@@ -294,7 +294,7 @@ namespace loopier {
     namespace resource {
         
         //---------------------------------------------------------------------------
-        void setPath(const string path)
+        void setResourcePath(const string path)
         {
             resourceFilesPath = path + "resources/";
             
@@ -307,13 +307,13 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
-        string & getPath()
+        string & getResourcePath()
         {
             return resourceFilesPath;
         }
         
         //---------------------------------------------------------------------------
-        void load(const string & resourcename)
+        void loadResource(const string & resourcename)
         {
             if (ofDirectory(resourceFilesPath+"frames/"+resourcename).exists()) {
                 loadFrameList(resourcename);
@@ -323,22 +323,22 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
-        void load(const vector<string> resourcenames)
+        void loadResources(const vector<string> resourcenames)
         {
             // load all if nothing is specified
             
             if (resourcenames.size() <= 0) {
-                loadAll();
+                loadAllResources();
                 return;
             }
             
             for (auto &name: resourcenames) {
-                load(name);
+                loadResource(name);
             }
         }
         
         //---------------------------------------------------------------------------
-        void loadAll()
+        void loadAllResources()
         {
             // load frame lists
             ofDirectory dir(resourceFilesPath+"frames/");
@@ -356,7 +356,7 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
-        void clearAll()
+        void clearResourceList()
         {
             frames.clear();
             movies.clear();
@@ -409,7 +409,7 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
-        void listAll()
+        void listAllResources()
         {
             ofLogNotice() << "Number of frame lists loaded: " << frames.size();
             for (const auto &item : frames) {   ofLogNotice() << "\t" << item.first; }
@@ -420,7 +420,7 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
-        vector<string> getNamesList()
+        vector<string> getResourceNames()
         {
             vector<string> names;
             for (const auto &item : frames) {   names.push_back(item.first); }

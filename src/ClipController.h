@@ -38,20 +38,20 @@ namespace loopier {
     
     namespace resource {
         /// \brief   Lists all available resources
-        void    setPath(string path);
-        string& getPath();
-        void    listAll();
+        void    setResourcePath(string path);
+        string& getResourcePath();
+        void    listAllResources();
         /// \brief  Load a resource
-        void    load(const string & namresourcename);
+        void    loadResource(const string & namresourcename);
         /// \brief  Load a list of resources.  Load all if no list is provided
-        void    load(const vector<string> resourcenames = vector<string>());
-        void    loadAll();
+        void    loadResources(const vector<string> resourcenames = vector<string>());
+        void    loadAllResources();
         /// \brief Delete all resources
-        void    clearAll();
+        void    clearResourceList();
         void    loadFrameList(const string & name);
         void    loadMovie(const string & name);
         /// \brief  Returns a list of the names of all resources
-        vector<string> getNamesList();
+        vector<string> getResourceNames();
         /// \brief  Returns a list of the names of all cameras
         vector<string> getCameraNames();
         /// \brief   Checks if a resource exists
