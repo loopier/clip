@@ -1688,6 +1688,10 @@ namespace loopier {
             vector < string > linesOfTheFile;
             ofBuffer buffer = ofBufferFromFile(path);
             for (auto line : buffer.getLines()){
+                // discard comments (starting with #) and blank lines
+                vector<string> split = ofSplitString(line, " ");
+                if (line.size() <= 0 || split.size() <= 0 || split[0] == "#")  continue;
+                
                 sendCommand(line);
             }
             
