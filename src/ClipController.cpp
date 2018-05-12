@@ -17,6 +17,7 @@ namespace {
     string  resourceFilesPath  = "";
     string  clipLibraryPath = "";
     string  scriptsPath = "";
+    string  keymapsPath = "";
     
     // clips
     loopier::ClipMap            clips;      // all clips that have been created
@@ -25,6 +26,7 @@ namespace {
     
     map<string, vector<string> > scripts; // map<nameofscript, vectorofcommands>
                                           // second argument must be in script format -- see scripts
+    map<char, string>   keymap;
     
     // files
     loopier::MovieMap           movies;     // movies in resources folder
@@ -160,6 +162,7 @@ namespace loopier {
             resource::setResourcePath(applicationSupportPath);
             clip::setClipLibraryPath(applicationSupportPath+"clips/");
             script::setScriptPath(applicationSupportPath+"scripts/");
+            app::setKeymapPath(applicationSupportPath+"keymaps/");
             
             resource::loadResources();
             initializeCameras(); // FIX: find a way to have them all on.
@@ -219,6 +222,12 @@ namespace loopier {
         //--------------------------------------------------------------
         void keyPressed(int key)
         {
+            if (ofIsStringInString(keymap[key], "/")) {
+                script::sendCommand(keymap[key]);
+            } else {
+                if (!scripts.count(keymap[key]))    script::loadScriptFile(keymap[key]);
+                script::runScript(keymap[key]);
+            }
             
         }
         
@@ -288,13 +297,46 @@ namespace loopier {
             detectionAreaRectangle.set(0,0, ofGetWidth(), ofGetHeight());
         }
         
-        
         //---------------------------------------------------------------------------
         string getPath()
         {
             return applicationSupportPath;
         }
         
+        //---------------------------------------------------------------------------
+        void setKeymapPath(const string & path)
+        {
+            keymapsPath = path;
+            ofLogVerbose() << "Keymaps files path: " << keymapsPath;
+        }
+        
+        //---------------------------------------------------------------------------
+        string getKeymapPath()
+        {
+            return keymapsPath;
+        }
+        
+        //---------------------------------------------------------------------------
+        void loadKeymap(const string & keymapname)
+        {
+            string path = keymapsPath + keymapname + ".yml";
+            
+            ofLogVerbose() << "Load keymap: " << path;
+            
+            ofxYAML yaml;
+            yaml.load(path);
+            ofxYAML::iterator it = yaml.begin();
+            for (it; it != yaml.end(); ++it) {
+                mapKey(it->first.as<char>(), it->second.as<string>());
+            }
+        }
+        
+        //---------------------------------------------------------------------------
+        void mapKey(const char key, const string & commandOrScriptName)
+        {
+            keymap[key] = commandOrScriptName;
+            ofLog() << "Map key '" << key << "' : " << commandOrScriptName;
+        }
         
     }   // namespace app
     
@@ -1765,6 +1807,14 @@ namespace loopier {
             if (!ofFile(path).exists()) {
                 path = scriptsPath + filenameorpath + ".csl";
             }
+            
+            ofLogVerbose() << "Load script: " << path;
+            
+            if (!ofFile(path).exists()) {
+                ofLogWarning() << "File not found: " << path;
+                return;
+            }
+            
             string basename = ofFile(path).getBaseName();
             
             vector < string > linesOfTheFile;
@@ -1777,8 +1827,6 @@ namespace loopier {
                 scripts[basename].push_back(line);
             }
             
-            
-            ofLogVerbose() << "Load script: " << path;
         }
         
         //---------------------------------------------------------------------------
@@ -1824,14 +1872,19 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void runScript(const string & scriptname)
         {
+            ofLogVerbose() << "Run script: " << scriptname;
+            
+            if (scripts.count(scriptname) == 0) {
+                ofLogWarning() << "Script not loaded: " << scriptname;
+                return;
+            }
+            
             // scripts[scriptname] is just one script, a vector of commands, because
             // 'scripts' is a map<nameofscript, vectorofcommands>
             vector<string> commands = scripts[scriptname];
             for (auto &command : commands) {
                 sendCommand(command);
             }
-            
-            ofLogVerbose() << "Run script: " << scriptname;
         }
         
         //---------------------------------------------------------------------------

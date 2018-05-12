@@ -43,6 +43,8 @@ namespace loopier {
             messageMap["/loopier/clip/app/loadresources"]        = &MessageMapper::loadResources;
             messageMap["/loopier/clip/app/clearresources"]       = &MessageMapper::clearResources;
             
+            messageMap["/loopier/clip/app/loadkeymap"]       = &MessageMapper::loadKeymap;
+            
             messageMap["/loopier/clip/script/load"]     = &MessageMapper::loadScriptFile;
             messageMap["/loopier/clip/script/loadall"]  = &MessageMapper::loadAllScripts;
             messageMap["/loopier/clip/script/clearall"] = &MessageMapper::clearScriptList;
@@ -317,6 +319,12 @@ namespace loopier {
         void MessageMapper::clearResources(const Message & msg)
         {
             resource::clearResourceList();
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::loadKeymap(const Message & msg)
+        {
+            app::loadKeymap(msg.getArgAsString(0));
         }
         
         //---------------------------------------------------------

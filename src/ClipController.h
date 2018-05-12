@@ -34,6 +34,11 @@ namespace loopier {
         /// \brief  Returns the absolute path to the Application Support folder
         string  getPath();
         
+        void setKeymapPath(const string & path);
+        string setKeymapPath();
+        void loadKeymap(const string & keymapname);
+        void mapKey(const char key, const string & commandOrScriptName);
+        
     } // namesapce app
     
     namespace resource {

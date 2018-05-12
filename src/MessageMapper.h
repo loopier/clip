@@ -60,6 +60,7 @@ namespace loopier {
             void move       (const Message & msg);
             void loadResources      (const Message & msg);
             void clearResources     (const Message & msg);
+            void loadKeymap         (const Message & msg);
             void loadScriptFile     (const Message & msg);
             void loadAllScripts     (const Message & msg);
             void clearScriptList    (const Message & msg);

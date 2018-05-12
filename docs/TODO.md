@@ -7,6 +7,5 @@
 - `[CHANGE]` `/clip/replace` should replace one clip with another, not the resource. **REMBEMBER TO CHANGE DOCS**
 - `[CHANGE]` Add many clips when there are many blobs
 - `[NEW]` Make groups.  When adding a clip, automatically add it to a group with other clips using the same resource.
-- `[NEW]` Script editor
+- `[NEW]` Script GUI editor
 - `[CHANGE]` Clip's parent for vector of children.  Should be more efficient.
-- `[NEW]` Map keys to scripts or commands
