@@ -62,7 +62,6 @@ void loopier::Clip::setup(PlayerPtr aplayer)
     setAnchorPercent(0.5, 0.5);
     outputFbo.clear();
     outputFbo.allocate(player->getWidth(), player->getHeight());
-    outputFbo.setAnchorPercent(0.5, 0.5);
 }
 
 //---------------------------------------------------------------------------
@@ -73,6 +72,11 @@ void loopier::Clip::update()
     absolutePosition.y = position.y - (anchor.y * getHeight());
     
     player->update();
+    
+    outputFbo.begin();
+    ofClear(255,255,255,0);
+    player->draw();
+    outputFbo.end();
     
     if (bMask)  {
         outputFbo.getTexture().setAlphaMask(maskPlayer->getTexture());
@@ -98,11 +102,7 @@ void loopier::Clip::draw()
         
         outputFbo.draw(fx, fy, fw, fh);
     } else {
-        ofPushMatrix();
-        ofTranslate(absolutePosition);
-        ofScale(scaleX, scaleY);
-        player->draw();
-        ofPopMatrix();
+        outputFbo.draw(absolutePosition, outputFbo.getWidth() * scaleX, outputFbo.getHeight() * scaleY);
         
         ofPushStyle();
         ofSetColor(255, 255, 0);
