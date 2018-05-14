@@ -11,3 +11,4 @@
 - `[CHANGE]` Clip's parent for vector of children.  Should be more efficient.
 - `[UPDATE]` Update OSC interface documentation
 - `[NEW]` allow messages without clipname, which would modify selected clips
+- `[NEW]` mask holes
