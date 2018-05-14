@@ -26,7 +26,7 @@ namespace {
     
     map<string, vector<string> > scripts; // map<nameofscript, vectorofcommands>
                                           // second argument must be in script format -- see scripts
-    map<char, string>   keymap;
+    map<string, string>   keymap;
     
     // files
     loopier::MovieMap           movies;     // movies in resources folder
@@ -222,11 +222,18 @@ namespace loopier {
         //--------------------------------------------------------------
         void keyPressed(int key)
         {
-            if (ofIsStringInString(keymap[key], "/")) {
-                script::sendCommand(keymap[key]);
+            string keyvalue;
+            // if the value is not stored as a char, it is stored as an ascii code number
+            if (keymap.count(ofToString(char(key))))    keyvalue = ofToString(char(key));
+            else                                        keyvalue = ofToString(key);
+            
+            ofLogVerbose() << key << " : " << char(key) << " -> " << ofToString(char(key)) << ":" << ofToString(key);
+            
+            if (ofIsStringInString(keymap[keyvalue], "/")) {
+                script::sendCommand(keymap[keyvalue]);
             } else {
-                if (!scripts.count(keymap[key]))    script::loadScriptFile(keymap[key]);
-                script::runScript(keymap[key]);
+                if (!scripts.count(keymap[keyvalue]))    script::loadScriptFile(keymap[keyvalue]);
+                script::runScript(keymap[keyvalue]);
             }
             
         }
@@ -329,15 +336,15 @@ namespace loopier {
             yaml.load(path);
             ofxYAML::iterator it = yaml.begin();
             for (it; it != yaml.end(); ++it) {
-                mapKey(it->first.as<char>(), it->second.as<string>());
+                mapKey(it->first.as<string>(), it->second.as<string>());
             }
         }
         
         //---------------------------------------------------------------------------
-        void mapKey(const char key, const string & commandOrScriptName)
+        void mapKey(const string key, const string & commandOrScriptName)
         {
             keymap[key] = commandOrScriptName;
-            ofLog() << "Map key '" << key << "' : " << commandOrScriptName;
+            ofLog() << "Map '" << key << "' : " << commandOrScriptName;
         }
         
     }   // namespace app
