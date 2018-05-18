@@ -68,6 +68,9 @@ namespace loopier {
         void    removeFrame();
         void    clear();
     private:
+        /// \brief  Add an empty frame. The player must have at least one frame.
+        void    addEmptyFrame();
+        
         FrameListPtr    frames;
         float           lastFrameTime;
     };

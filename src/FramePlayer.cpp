@@ -47,6 +47,7 @@ void loopier::FramePlayer::update()
     if (!bPlay)                 return;
     if (frames->size() <= 0)    return;
     if (currentFrame > frames->size()) currentFrame = frames->size() - 1;
+    if (currentFrame < 0) currentFrame = 0;
     
     float rateRatio = (60 / getFrameRate()) / ofGetFrameRate();
     
@@ -270,6 +271,7 @@ void loopier::FramePlayer::removeFrame()
 {
     if (frames->size() <= 0) return;
     frames->erase(frames->begin() + currentFrame);
+    if (frames->size() == 0) addEmptyFrame();
     previousFrame();
 }
 
@@ -277,5 +279,14 @@ void loopier::FramePlayer::removeFrame()
 void loopier::FramePlayer::clear()
 {
     frames->clear();
+    addEmptyFrame();
     firstFrame();
+}
+
+//---------------------------------------------------------
+void loopier::FramePlayer::addEmptyFrame()
+{
+    ofImage img;
+    img.load("images/transparent.png");
+    frames->push_back(img);
 }
