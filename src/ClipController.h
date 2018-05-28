@@ -81,6 +81,8 @@ namespace loopier {
         void    selectClip(string clipname);
         /// \brief   Removes the clip From the selected clips vector
         void    deselectClip(string clipname);
+        /// \brief  Selects the next available clip
+        void    selectNextClip();
         void    toggleClipSelection(string clipname);
         /// \brief
         void    selectAllClips();

@@ -204,10 +204,10 @@ namespace loopier {
                 clips[clipname]->drawName();
             };
             
-            for (const auto &clipname : privateLayers) {
-                if (!clip::exists(clipname)) continue;
-                clips[clipname]->drawName();
-            };
+//            for (const auto &clipname : privateLayers) {
+//                if (!clip::exists(clipname)) continue;
+//                clips[clipname]->drawOrigin();
+//            };
             
             ofPushStyle();
             ofSetColor(127, 127, 0);
@@ -700,6 +700,23 @@ namespace loopier {
                 selectedclips.erase(it);
                 clips[clipname]->deselect();
             }
+        }
+        
+        //---------------------------------------------------------------------------
+        void selectNextClip()
+        {
+            string nextClipName = "";
+            if (selectedclips.size() <= 0) {
+                nextClipName = clips.begin()->first;
+            } else {
+                // get last selected clip
+                ClipMap::iterator currentClip = clips.find(selectedclips.back());
+                ClipMap::iterator nextClip = next(currentClip, 1);
+                if (nextClip == clips.end())    nextClip = clips.begin();
+                nextClipName = nextClip->first;
+            }
+            deselectAllClips();
+            selectClip(nextClipName);
         }
         
         //---------------------------------------------------------------------------

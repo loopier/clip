@@ -75,6 +75,7 @@ namespace loopier {
             void resetClip            (const Message & msg);
             void selectClip           (const Message & msg);
             void deselectClip         (const Message & msg);
+            void selectNextClip       (const Message & msg);
             void selectAllClips     (const Message & msg);
             void deselectAllClips   (const Message & msg);
             void listClipInfo       (const Message & msg);

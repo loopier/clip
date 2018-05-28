@@ -66,6 +66,7 @@ namespace loopier {
             messageMap["/loopier/clip/clip/remove"]             = &MessageMapper::removeClip;
             messageMap["/loopier/clip/clip/reset"]              = &MessageMapper::resetClip;
             messageMap["/loopier/clip/clip/select"]             = &MessageMapper::selectClip;
+            messageMap["/loopier/clip/clip/next"]               = &MessageMapper::selectNextClip;
             messageMap["/loopier/clip/clip/deselect"]           = &MessageMapper::deselectClip;
             messageMap["/loopier/clip/clip/selectall"]          = &MessageMapper::selectAllClips;
             messageMap["/loopier/clip/clip/deselectall"]        = &MessageMapper::deselectAllClips;
@@ -417,6 +418,12 @@ namespace loopier {
         void MessageMapper::deselectClip(const Message & msg)
         {
             clip::deselectClip(msg.getArgAsString(0));
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::selectNextClip(const Message & msg)
+        {
+            clip::selectNextClip();
         }
         
         //---------------------------------------------------------
