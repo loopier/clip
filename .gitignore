@@ -2,3 +2,14 @@
 *.app
 clip.xcodeproj/project.xcworkspace/xcuserdata/roger.xcuserdatad/UserInterfaceState.xcuserstate
 .gitignore~
+.atom-gdb.json
+obj/osx/Release/.compiler_flags
+obj/osx/Release/src/BasePlayer.d
+obj/osx/Release/src/CameraPlayer.d
+obj/osx/Release/src/Clip.d
+obj/osx/Release/src/ClipController.d
+obj/osx/Release/src/ConsoleUI.d
+obj/osx/Release/src/CvPlayer.d
+obj/osx/Release/src/FramePlayer.d
+obj/osx/Release/src/main.d
+src/.stdafx.c++.pch
