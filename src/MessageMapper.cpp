@@ -153,6 +153,7 @@ namespace loopier {
             messageMap["/loopier/clip/clips/shownames"]     = &MessageMapper::showClipNames;
             messageMap["/loopier/clip/clips/hidenames"]     = &MessageMapper::hideClipNames;
             
+            messageMap["/loopier/clip/selection"] = &MessageMapper::listClipNames;
         }
         
         
@@ -242,9 +243,43 @@ namespace loopier {
             if (iter != messageMap.end()) {
                 (this->*(iter->second))(msg); // call the processor method for this message
                 printMessage(msg);
-            }
-            else {
+            } else if (ofIsStringInString(msg.getAddress(), "selection")){
+                fromSelectionToClip(msg);
+            } else {
                 ofLogWarning() << "Unhandled OSC message: " << msg.getAddress();
+            }
+        }
+        
+        
+        //---------------------------------------------------------
+        void MessageMapper::fromSelectionToClip(Message & msg)
+        {
+            // replace 'selection' by 'clip'
+            string address = msg.getAddress();
+            ofStringReplace(address, "selection", "clip");
+            Message newMsg;
+            // get names of selected clips
+            vector<string> clipnames = loopier::clip::getSelectedClipnames();
+            // iterate clipnames
+            for (auto &clipname: clipnames) {
+                newMsg.clear();
+                newMsg.setAddress(address);
+                // add clipname as first message argument
+                newMsg.addStringArg(clipname);
+                // add rest of original arguments
+                for (int i = 0; i < msg.getNumArgs(); i++) {
+                    if (msg.getArgType(i) == OFXOSC_TYPE_INT32) {
+                        newMsg.addIntArg(msg.getArgAsInt(i));
+                    } else if (msg.getArgType(i) == OFXOSC_TYPE_FLOAT) {
+                        newMsg.addFloatArg(msg.getArgAsFloat(i));
+                    } else if (msg.getArgType(i) == OFXOSC_TYPE_TRUE || msg.getArgType(i) == OFXOSC_TYPE_FALSE ) {
+                        newMsg.addBoolArg(msg.getArgAsBool(i));
+                    } else if (msg.getArgType(i) == OFXOSC_TYPE_STRING) {
+                        newMsg.addStringArg(msg.getArgAsString(i));
+                    }
+                }
+                // map message again
+                mapMessageToFunc(newMsg);
             }
         }
         

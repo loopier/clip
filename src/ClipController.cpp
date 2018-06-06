@@ -747,6 +747,12 @@ namespace loopier {
             selectedclips.clear();
         }
         
+        //---------------------------------------------------------------------------
+        vector<string> getSelectedClipnames()
+        {
+            return selectedclips;
+        }
+        
         
         //---------------------------------------------------------------------------
         void setClipDrawOrder(string clipname, int position)

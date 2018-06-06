@@ -46,6 +46,10 @@ namespace loopier {
         private:
             void printMessage(Message & msg);
             void mapMessageToFunc(Message & msg);
+            /// \brief  Replaces any message address with '.../selection...' to '.../clip...'
+            /// \description    This way all messages mapped to '/clip clipname' can be
+            ///                 reused without haveing to retype them.
+            void fromSelectionToClip(Message & msg);
             
             typedef void (MessageMapper::* mappedFunc)(const Message&);
             
