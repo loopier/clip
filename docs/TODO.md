@@ -2,8 +2,6 @@
 - `[NEW]` Add ShapePlayer to draw shapes
 - `[NEW]` Fade away -- in frame clips add alpha to previous frames
 - `[NEW]` Save output
-- `[NEW]` Make a vector of commands and a method to execute them, so they can be loaded into memory and executed later
-- `[CHANGE]` Clip library from YAML to OSC (like command libraries)
 - `[CHANGE]` `/clip/replace` should replace one clip with another, not the resource. **REMBEMBER TO CHANGE DOCS**
 - `[CHANGE]` Add many clips when there are many blobs
 - `[NEW]` Make groups.  When adding a clip, automatically add it to a group with other clips using the same resource.
