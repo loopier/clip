@@ -2,7 +2,7 @@
 # Application commands
 
 
-### Quit
+#### Quit
 
 Quit the server application.
 
@@ -10,7 +10,7 @@ Quit the server application.
 /loopier/clip/app/quit
 ```
 
-### Toggle fullscreen
+#### Toggle fullscreen
 
 Toggle between FULLSCREEN and WINDOW modes.
 
@@ -18,7 +18,7 @@ Toggle between FULLSCREEN and WINDOW modes.
 /loopier/clip/app/fullscreen
 ```
 
-### Move window
+#### Move window
 
 Move window to a new position
 
@@ -29,39 +29,85 @@ Move window to a new position
 - **x** X coordinate in pixels
 - **y** Y coordinate in pixels
 
+#### Load resources
 
-### Load command library
-
-Load a clip command file.
-
-```
-/loopier/clip/command/loadlibrary <libraryname|path:STRING>
-```
-
-- **name | path**   Name of the library.  You can also load a custom file, providing the full **path** to a library file.
-
-The file must be a collection of osc messages in the following format:
-  `/address/with/leading/slash[, arg1, arg2, ...]`
-
-Make sure the address has a leading forward slash `/` and that is followed by a comma `,`.
-Arguments must be separated by commas `,`.
-
-See any library file as an example.
-
-### List command libraries
-
-Get a list of the command library filenames in the `commands/` folder.
+Loads into memory all resources in the resources folder.
 
 ```
-/loopier/clip/command/listlibraries
+/loopier/clip/app/loadresource
+/loopier/clip/app/loadresources
 ```
 
-**Response** `/loopier/clip/command/librarynames <library1:STRING> <library2:STRING> ...`
+#### Clear all resources
 
+Unloads the resources from memory.  
+**WARNING:** This may crash the app if you are using any of the resources.
+
+```
+/loopier/clip/app/clearresources
+```
+
+#### Load keymaps
+
+Loads a keymap by name.  Should be a valid YAML file in the keymaps folder.
+
+```
+/loopier/clip/app/loadkeymap <keymapname:STRING>
+```
+
+## Script commands
+
+Commands to manage scripts.
+
+#### Load scripts
+
+Load a specific script.
+
+```
+/loopier/clip/script/load <scriptname:STRING>
+```
+
+Load all available scripts.
+
+```
+/loopier/clip/script/loadall
+```
+
+#### Clear scripts
+
+```
+/loopier/clip/script/clearall
+```
+
+#### Run a script
+
+In order to run, a script must be loaded.  Use `loadnrun` to do both things at once.
+
+```
+/loopier/clip/script/run  <scriptname:STRING>
+```
+
+#### Load and run a script
+
+```
+/loopier/clip/script/loadnrun  <scriptname:STRING>
+```
+
+#### List available scripts
+
+Returns a list of all scripts loaded into memory.
+
+```
+/loopier/clip/script/listnames
+```
+
+- **Response** `/loopier/clip/script/names [<scriptname_0:STRING>, ..., <scriptname_N:STRING>]`
 
 ## Clip commands
 
-### New clip
+All commands in this section may be also used without the `<clipname:STRING>` argument replacing the address `/loopier/clip/clip/...` by `/loopier/clip/selection/...`.
+
+#### New clip
 
 Create a new clip
 
@@ -72,7 +118,7 @@ Create a new clip
 - **clipname** Name of the new clip
 - **resourcename** Name of the resource the clip will be using.  If nothing a new emtpy frame clip will be created.
 
-### Replace
+#### Replace
 
 *WARNING: Better not use yet.  It will change soon.*
 
@@ -86,7 +132,7 @@ Replace on clip with another clip.
 - **resourcename** Name of the resource the clip will be using
 
 
-### Replace blob
+#### Replace blob
 
 Places a clip wherever there's a selected blob, resizing the clip to the blobs dimensions.
 
@@ -98,7 +144,7 @@ Places a clip wherever there's a selected blob, resizing the clip to the blobs d
 - **resourcename** Name of the resource the clip will be using.
 
 
-### Remove clip
+#### Remove clip
 
 Deletes a clip.
 
@@ -107,7 +153,7 @@ Deletes a clip.
 ```
 
 
-### Reset clip
+#### Reset clip
 
 Restores clip's default parameters.
 
@@ -116,7 +162,7 @@ Restores clip's default parameters.
 ```
 
 
-### Select clip
+#### Select clip
 
 Select a clip by name.
 
@@ -125,7 +171,7 @@ Select a clip by name.
 ```
 
 
-### Deselect clip
+#### Deselect clip
 
 Deselects the clip.
 
@@ -134,7 +180,7 @@ Deselects the clip.
 ```
 
 
-### List clip info
+#### List clip info
 
 Logs and returns the clip parameters.
 
@@ -149,7 +195,7 @@ Logs and returns the clip parameters.
 # Clip's parent commands
 
 
-### Parent clip
+#### Parent clip
 
 Sets the parent clip.  It will copy parent's position.
 
@@ -158,14 +204,14 @@ Sets the parent clip.  It will copy parent's position.
 ```
 
 
-### Remove parent clip
+#### Remove parent clip
 
 ```
 /loopier/clip/clip/removeparent <clipname:STRING>
 ```
 
 
-### Offset
+#### Offset
 
 Set's an offset relative to parent's position.  Used normalized floats `[0.0-1.0]`.
 
@@ -177,7 +223,7 @@ Set's an offset relative to parent's position.  Used normalized floats `[0.0-1.0
 # Arrange clips
 
 
-### Depth
+#### Depth
 
 Sets the drawing order of the clip.  `0` will be drawn at the top.  Set larger numbers for clips you want to be drawn below other clips.
 
@@ -185,7 +231,7 @@ Sets the drawing order of the clip.  `0` will be drawn at the top.  Set larger n
 /loopier/clip/clip/depth <clipname:STRING> <depth:INT>
 ```
 
-### Bring clip to front
+#### Bring clip to front
 
 Brings clip to frontmost position.  It will be drawn on top of everything else.
 
@@ -193,7 +239,7 @@ Brings clip to frontmost position.  It will be drawn on top of everything else.
 /loopier/clip/clip/front <clipname:STRING>
 ```
 
-### Bring clip forward
+#### Bring clip forward
 
 Rises clip one level in the drawing order.
 
@@ -201,7 +247,7 @@ Rises clip one level in the drawing order.
 /loopier/clip/clip/forward <clipname:STRING>
 ```
 
-### Send clip backward
+#### Send clip backward
 
 Lowers clip one level in the drawing order.
 
@@ -209,7 +255,7 @@ Lowers clip one level in the drawing order.
 /loopier/clip/clip/backward <clipname:STRING>
 ```
 
-### Send clip to back
+#### Send clip to back
 
 Sends clip to the lowest position in the drawing order.  Will be drawn below everything else -- except the background clip.
 
@@ -217,7 +263,7 @@ Sends clip to the lowest position in the drawing order.  Will be drawn below eve
 /loopier/clip/clip/back <clipname:STRING>
 ```
 
-### Background clip
+#### Background clip
 
 Set clip as the backround image.  It will be drawn below all other clips.  There can be only one backround clip.
 
@@ -225,7 +271,7 @@ Set clip as the backround image.  It will be drawn below all other clips.  There
 /loopier/clip/clip/background <clipname:STRING>
 ```
 
-### Draw in public screen
+#### Draw in public screen
 
 Show this clip on the public output.  *NOTE: Clips on the public screen will be also seen on the private screen.  Everything that is on public screen will also be on private screen.*
 
@@ -233,7 +279,7 @@ Show this clip on the public output.  *NOTE: Clips on the public screen will be 
 /loopier/clip/clip/public <clipname:STRING>
 ```
 
-### Draw in private screen
+#### Draw in private screen
 
 Draw this clip in the private screen ONLY.
 
@@ -253,7 +299,7 @@ Draw this clip in the private screen ONLY.
 # Clip Transformations
 
 
-### Scale clip up
+#### Scale clip up
 
 Make clip larger by a certain amount.  `1.0` will not change anything.  `0.5` is 50%.  `2.0` is 200%.
 
@@ -262,7 +308,7 @@ Make clip larger by a certain amount.  `1.0` will not change anything.  `0.5` is
 ```
 
 
-### Scale clip down
+#### Scale clip down
 
 Make clip smaller by a certain amount.  `1.0` will not change anything.  `0.5` is 50%.  `2.0` is 200%.
 
@@ -271,7 +317,7 @@ Make clip smaller by a certain amount.  `1.0` will not change anything.  `0.5` i
 ```
 
 
-### Scale clip (Resize)
+#### Scale clip (Resize)
 
 Change clip's size.  `1.0` will not change anything.  `0.5` will make it 50% smaller.  `2.0` will make it 200% larger.
 
@@ -280,7 +326,7 @@ Change clip's size.  `1.0` will not change anything.  `0.5` will make it 50% sma
 ```
 
 
-### Scale X
+#### Scale X
 
 Scale only the X axis.
 
@@ -289,7 +335,7 @@ Scale only the X axis.
 ```
 
 
-### Scale y
+#### Scale y
 
 Scale only the Y axis.
 
@@ -298,13 +344,13 @@ Scale only the Y axis.
 ```
 
 
-### Reset clip's scale
+#### Reset clip's scale
 ```
 /loopier/clip/clip/resetscale <clipname:STRING>
 ```
 
 
-### Fullscreen
+#### Fullscreen
 
 Resizes clip to occupy the whole screen.
 
@@ -312,13 +358,13 @@ Resizes clip to occupy the whole screen.
 /loopier/clip/clip/fullscreen <clipname:STRING>
 ```
 
-### Flip clip vertically
+#### Flip clip vertically
 
 ```
 /loopier/clip/clip/flipv  <clipname:STRING>
 ```
 
-### Flip clip horizontally
+#### Flip clip horizontally
 
 ```
 /loopier/clip/clip/fliph  <clipname:STRING>
@@ -332,12 +378,12 @@ Resizes clip to occupy the whole screen.
 /loopier/clip/clip/togglevisibility  <clipname:STRING>
 ```
 
-### Show clip
+#### Show clip
 ```
 /loopier/clip/clip/show  <clipname:STRING>
 ```
 
-### Hide clip
+#### Hide clip
 ```
 /loopier/clip/clip/hide  <clipname:STRING>
 ```
@@ -346,7 +392,7 @@ Resizes clip to occupy the whole screen.
 # FX
 
 
-### Mask
+#### Mask
 
 Set one clip as the mask of another clip.
 
@@ -354,7 +400,7 @@ Set one clip as the mask of another clip.
 /loopier/clip/clip/mask  <clipname:STRING> <maskname:STRING>
 ```
 
-### Mask on
+#### Mask on
 
 Truns mask on.
 
@@ -362,7 +408,7 @@ Truns mask on.
 /loopier/clip/clip/maskon  <clipname:STRING>
 ```
 
-### Mask off
+#### Mask off
 
 Turns mask off, but keeps it.
 
@@ -433,7 +479,7 @@ Set the playing speed of the clip.  `1.0` is normal speed.  `2.0` for double spe
 
 This might only work with `frame` clips.
 
-### Add frame
+#### Add frame
 
 Add frame to the end.
 
@@ -444,7 +490,7 @@ Add frame to the end.
 - **clipname:** Name of the clip.
 - **sourceclipname:** Name of the clip that provides the frames (usually a camera clip).
 
-### Insert frame
+#### Insert frame
 
 Add a frame at the current position.
 
@@ -453,7 +499,7 @@ Add a frame at the current position.
 ```
 See `Add frame` for parameters.
 
-### Remove frame
+#### Remove frame
 
 Remove current frame.
 
@@ -461,7 +507,7 @@ Remove current frame.
 /loopier/clip/clip/removeframe  <clipname:STRING>
 ```
 
-### Clear frames
+#### Clear frames
 
 Delete all frames.  Empty clip.
 
@@ -469,7 +515,7 @@ Delete all frames.  Empty clip.
 /loopier/clip/clip/clearframes  <clipname:STRING>
 ```
 
-### Save frames
+#### Save frames
 
 Save clip frames to disk.  Should create a new folder with the clip's name under `resources/frames/`.
 
@@ -477,7 +523,7 @@ Save clip frames to disk.  Should create a new folder with the clip's name under
 /loopier/clip/clip/saveframes  <clipname:STRING>
 ```
 
-### Load frames
+#### Load frames
 
 Load frames to clip.
 
@@ -485,7 +531,7 @@ Load frames to clip.
 /loopier/clip/clip/loadframes  <clipname:STRING> <resourcename:STRING>
 ```
 
-### First frame
+#### First frame
 
 Go to first frame of the clip.
 
@@ -493,7 +539,7 @@ Go to first frame of the clip.
 /loopier/clip/clip/firstframe  <clipname:STRING>
 ```
 
-### Next frame
+#### Next frame
 
 Advance one frame only.
 
@@ -501,7 +547,7 @@ Advance one frame only.
 /loopier/clip/clip/nextframe  <clipname:STRING>
 ```
 
-### Previous frame
+#### Previous frame
 
 Move one frame backwards.
 
@@ -509,7 +555,7 @@ Move one frame backwards.
 /loopier/clip/clip/previousframe  <clipname:STRING>
 ```
 
-### Last frame
+#### Last frame
 
 Go to last frame of the clip.
 
@@ -517,7 +563,7 @@ Go to last frame of the clip.
 /loopier/clip/clip/lastframe  <clipname:STRING>
 ```
 
-### Go to frame #
+#### Go to frame #
 
 Go to a specific frame of the clip.
 
@@ -525,7 +571,7 @@ Go to a specific frame of the clip.
 /loopier/clip/clip/gotoframe  <clipname:STRING> <frameNumber:INT>
 ```
 
-### Save
+#### Save
 
 Save clip to disk.
 
@@ -543,7 +589,7 @@ Move clip to a position.  Use normalized `[0.0-1.0]` coordinates, where `x:0.0 y
 /loopier/clip/clip/moveto  <clipname:STRING> <x:FLOAT> <y:FLOAT>
 ```
 
-### Center clip
+#### Center clip
 
 Put clip in the center of the screen.
 
@@ -551,7 +597,7 @@ Put clip in the center of the screen.
 /loopier/clip/clip/center  <clipname:STRING>
 ```
 
-### Clip color
+#### Clip color
 
 Set the color of the clip.  Tint it.
 
@@ -571,7 +617,7 @@ Set the color of the clip.  Tint it.
 /loopier/clip/clip/color  <clipname:STRING> <red:FLOAT> <green:FLOAT> <blue:FLOAT> <alpha:FLOAT>
 ```
 
-### Alpha
+#### Alpha
 
 Set the transparency of the clip.  Use normalized values `[0.0-1.0]` where `0.0` is absolute transparency and `1.0`
 is absolute opacity.
@@ -586,7 +632,7 @@ is absolute opacity.
 
 
 
-### Load library
+#### Load library
 
 Load many clips all at once.
 
@@ -594,7 +640,7 @@ Load many clips all at once.
 /loopier/clip/clips/loadlibrary  <libraryname:STRING>
 ```
 
-### Clear all
+#### Clear all
 
 Delete all clips at once.
 
@@ -602,7 +648,7 @@ Delete all clips at once.
 /loopier/clip/clips/clearall
 ```
 
-### List clip names
+#### List clip names
 
 Get (and log) the list of available clip.
 
@@ -612,7 +658,7 @@ Get (and log) the list of available clip.
 
 **Response** `/loopier/clip/clips/clipnames <clipname1:STRING> <clipname2:STRING> ...`
 
-### List resources
+#### List resources
 
 Get (and log) the list of available resources.
 
@@ -623,7 +669,7 @@ Get (and log) the list of available resources.
 **Response** `/loopier/clip/clips/resourcenames <resourcename1:STRING> <resourcename2:STRING> ...`
 
 
-### List clip libraries
+#### List clip libraries
 
 Get (and log) the list of available clip clibraries.
 
@@ -633,7 +679,7 @@ Get (and log) the list of available clip clibraries.
 
 **Response** `/loopier/clip/clips/librarynames <libraryname1:STRING> <libraryname2:STRING> ...`
 
-### List cameras
+#### List cameras
 
 Get (and log) the list of available cameras.
 
@@ -643,7 +689,7 @@ Get (and log) the list of available cameras.
 
 **Response** `/loopier/clip/clips/cameranames <cameraname1:STRING> <cameraname2:STRING> ...`
 
-### Toggle clip names
+#### Toggle clip names
 
 Toggle clip names on private screen.
 
@@ -651,7 +697,7 @@ Toggle clip names on private screen.
 /loopier/clip/clips/togglenames
 ```
 
-### shownames
+#### shownames
 
 Show clip names on private screen.
 
@@ -659,7 +705,7 @@ Show clip names on private screen.
 /loopier/clip/clips/shownames
 ```
 
-### Hide clip names
+#### Hide clip names
 
 Hide clip names on private screen.
 
@@ -684,7 +730,7 @@ You may create a clip that renders syphon input.  Use this command to set the na
 
 
 
-### Set CV input
+#### Set CV input
 
 Set a clip as input to the CV engine.
 
@@ -692,7 +738,7 @@ Set a clip as input to the CV engine.
 /loopier/clip/cv/setinput <clipname:STRING>
 ```
 
-### CV color
+#### CV color
 
 Set color of the blobs' borders.
 
@@ -712,7 +758,7 @@ Set color of the blobs' borders.
 /loopier/clip/cv/color <red:FLOAT> <green:FLOAT> <blue:FLOAT> <alpha:FLOAT>
 ```
 
-### CV threshold
+#### CV threshold
 
 Set threshold of the contour finder between `[0-255]`.
 
@@ -720,7 +766,7 @@ Set threshold of the contour finder between `[0-255]`.
 /loopier/clip/cv/threshold <value:FLOAT>
 ```
 
-### CV minimun area
+#### CV minimun area
 
 Set smallest desired blob size to be detected between `[0-255]`.
 
@@ -728,7 +774,7 @@ Set smallest desired blob size to be detected between `[0-255]`.
 /loopier/clip/cv/minArea <value:FLOAT>
 ```
 
-### CV maximum area
+#### CV maximum area
 
 Set largest desired blob size to be detected between `[0-255]`.
 
@@ -736,7 +782,7 @@ Set largest desired blob size to be detected between `[0-255]`.
 /loopier/clip/cv/maxArea <value:FLOAT>
 ```
 
-### Detect holes
+#### Detect holes
 
 Whether to detect blobs inside blobs or not.
 
@@ -744,25 +790,25 @@ Whether to detect blobs inside blobs or not.
 /loopier/clip/cv/holes <value:BOOL>
 ```
 
-### Toggle CV visibility
+#### Toggle CV visibility
 
 ```
 /loopier/clip/cv/toggle
 ```
 
-### Show CV contours
+#### Show CV contours
 
 ```
 /loopier/clip/cv/show
 ```
 
-### Hide CV contours
+#### Hide CV contours
 
 ```
 /loopier/clip/cv/hide
 ```
 
-### Detection area
+#### Detection area
 
 Set position and dimensions of a rectangle determining which area of the view will be processed.  Will only detect blobs that are *INSIDE* the rectangle.  When no rectangle is set, the whole view is processed.
 
@@ -770,7 +816,7 @@ Set position and dimensions of a rectangle determining which area of the view wi
 /loopier/clip/cv/detectionarea <x:FLOAT> <y:FLOAT> <width:FLOAT> <height:FLOAT>
 ```
 
-### Maximum number of blobs
+#### Maximum number of blobs
 
 Set maximum number of blobs to be detected.  Blobs are ordered by area size, so only the given number of the largest blobs will be detected.
 
@@ -778,7 +824,7 @@ Set maximum number of blobs to be detected.  Blobs are ordered by area size, so 
 /loopier/clip/cv/maxblobs <numberOfBlobs:INT>
 ```
 
-### Select blob
+#### Select blob
 
 Select current blob.
 
@@ -786,7 +832,7 @@ Select current blob.
 /loopier/clip/cv/select
 ```
 
-### Deselect blob
+#### Deselect blob
 
 Deselect current blob.
 
@@ -794,7 +840,7 @@ Deselect current blob.
 /loopier/clip/cv/deselect
 ```
 
-### Select all blobs
+#### Select all blobs
 
 Select all blobs in the detection area, or just all of them if no detection area is set.
 
@@ -802,13 +848,13 @@ Select all blobs in the detection area, or just all of them if no detection area
 /loopier/clip/cv/selectall
 ```
 
-### Deselect all blobs
+#### Deselect all blobs
 
 ```
 /loopier/clip/cv/deselectall
 ```
 
-### First blob
+#### First blob
 
 Set first (largest) blob as active.
 
@@ -816,7 +862,7 @@ Set first (largest) blob as active.
 /loopier/clip/cv/first
 ```
 
-### Next blob
+#### Next blob
 
 Set next blob in line as active.
 
@@ -824,7 +870,7 @@ Set next blob in line as active.
 /loopier/clip/cv/next
 ```
 
-### Previous blob
+#### Previous blob
 
 Set previous blob in ine as active.
 
@@ -832,7 +878,7 @@ Set previous blob in ine as active.
 /loopier/clip/cv/previous
 ```
 
-### Last blob
+#### Last blob
 
 Set last (smallest) blob in line as active.
 
