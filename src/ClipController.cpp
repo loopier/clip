@@ -556,55 +556,35 @@ namespace loopier {
             
             // movie
             if ( movies.count(resourcename) > 0) {
-                loopier::MoviePlayerPtr movieplayer(new MoviePlayer(movies[resourcename]));
-                clip->setup(movieplayer);
+                clip = newMovieClip(clipname, resourcename);
                 cliptype = "movie";
             }
             // syphon
             else if (resourcename == "syphon") {
-                loopier::SyphonPlayerPtr syphonplayer(new loopier::SyphonPlayer());
-                clip->setup(syphonplayer);
+                clip = newSyphonClip(clipname, resourcename);
                 cliptype = "syphon";
             }
             // cv
             else if (resourcename == "cv") {
-                loopier::CvPlayerPtr cvplayer(new loopier::CvPlayer());
-                clip->setup(cvplayer);
-                setPrivateClip(clipname);
-                clip->setAnchorPercent(0, 0);
+                clip = newCvClip(clipname, resourcename);
                 cliptype = "cv";
             }
             // camera
             else if ( cameraplayers.count(resourcename) > 0) {
-                clip->setup(cameraplayers[resourcename]);
-                clip->setWidth(ofGetWidth());
-                clip->setHeight(ofGetHeight());
+                clip = newCameraClip(clipname, resourcename);
                 cliptype = "camera";
             }
             
             // frame list
             else if (frames.count(resourcename) > 0) {
-                loopier::FramePlayerPtr frameplayer(new FramePlayer(frames[resourcename]));
-                clip->setup(frameplayer);
-                frameclipslist.push_back(clipname);
-                // load YAML info from the file
-                string filename = resourceFilesPath+"frames/"+resourcename+"/resource.yml";
-                ofxYAML yaml;
-                yaml.load(filename);
-                frameplayer->setName(yaml["name"].as<string>());
-                frameplayer->setPosition(yaml["rect"]["x"].as<float>(), yaml["rect"]["y"].as<float>());
-                frameplayer->setWidth(yaml["rect"]["width"].as<float>());
-                frameplayer->setHeight(yaml["rect"]["height"].as<float>());
+                clip = newFrameClip(clipname, resourcename);
                 cliptype = "frame";
             }
             
             // doesn't exist -- create a frame clip with a single transparent frame -- aka frame recorder
-            else {                
-                loopier::FramePlayerPtr frameplayer(new FramePlayer(frames["transparent"]));
-                clip->setup(frameplayer);
-                frameclipslist.push_back(clipname);
+            else {
+                clip = newEmptyFrameClip(clipname, resourcename);
                 cliptype = "frame";
-                frameplayer->clear();
             }
             
             
@@ -648,6 +628,75 @@ namespace loopier {
             clip->setPosition(finalposition);
             clip->setScale(scaleratio);
             
+            return clip;
+        }
+        
+        //---------------------------------------------------------------------------
+        ClipPtr newMovieClip(string clipname, string resourcename)
+        {
+            ClipPtr clip = getClip(clipname);
+            loopier::MoviePlayerPtr movieplayer(new MoviePlayer(movies[resourcename]));
+            clip->setup(movieplayer);
+            return clip;
+        }
+        
+        //---------------------------------------------------------------------------
+        ClipPtr newSyphonClip(string clipname, string resourcename)
+        {
+            ClipPtr clip = getClip(clipname);
+            loopier::SyphonPlayerPtr syphonplayer(new loopier::SyphonPlayer());
+            clip->setup(syphonplayer);
+            return clip;
+        }
+        
+        //---------------------------------------------------------------------------
+        ClipPtr newCvClip(string clipname, string resourcename)
+        {
+            ClipPtr clip = getClip(clipname);
+            loopier::CvPlayerPtr cvplayer(new loopier::CvPlayer());
+            clip->setup(cvplayer);
+            setPrivateClip(clipname);
+            clip->setAnchorPercent(0, 0);
+            return clip;
+        }
+        
+        //---------------------------------------------------------------------------
+        ClipPtr newCameraClip(string clipname, string resourcename)
+        {
+            ClipPtr clip = getClip(clipname);
+            clip->setup(cameraplayers[resourcename]);
+            clip->setWidth(ofGetWidth());
+            clip->setHeight(ofGetHeight());
+            return clip;
+        }
+        
+        //---------------------------------------------------------------------------
+        ClipPtr newFrameClip(string clipname, string resourcename)
+        {
+            ClipPtr clip = getClip(clipname);
+            loopier::FramePlayerPtr frameplayer(new FramePlayer(frames[resourcename]));
+            clip->setup(frameplayer);
+            frameclipslist.push_back(clipname);
+            // load YAML info from the file
+            string filename = resourceFilesPath+"frames/"+resourcename+"/resource.yml";
+            ofxYAML yaml;
+            yaml.load(filename);
+            frameplayer->setName(yaml["name"].as<string>());
+            frameplayer->setPosition(yaml["rect"]["x"].as<float>(), yaml["rect"]["y"].as<float>());
+            frameplayer->setWidth(yaml["rect"]["width"].as<float>());
+            frameplayer->setHeight(yaml["rect"]["height"].as<float>());
+            
+            return clip;
+        }
+        
+        //---------------------------------------------------------------------------
+        ClipPtr newEmptyFrameClip(string clipname, string resourcename)
+        {
+            ClipPtr clip = getClip(clipname);
+            loopier::FramePlayerPtr frameplayer(new FramePlayer(frames["transparent"]));
+            clip->setup(frameplayer);
+            frameclipslist.push_back(clipname);
+            frameplayer->clear();
             return clip;
         }
         
@@ -940,7 +989,13 @@ namespace loopier {
         //---------------------------------------------------------------------------
         loopier::ClipPtr getClip(string clipname)
         {
-            return clips.find(clipname)->second;
+            ClipPtr clip;
+            if (exists(clipname)) {
+                clip = clips.find(clipname)->second;
+            } else {
+                clip = make_shared<loopier::Clip>(clipname, clipname);
+            }
+            return clip;
         }
         
         //---------------------------------------------------------------------------

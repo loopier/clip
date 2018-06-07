@@ -75,6 +75,20 @@ namespace loopier {
         ClipPtr newClip(string clipname, string resourcename);
         /// \brief   Creates a clip with the given resource at the position of the biggest CV blob
         ClipPtr newClipFromBlob(string clipname, string resourcename="");
+        
+        /// \brief  Creates a movie clip
+        ClipPtr newMovieClip(string clipname, string resourcename);
+        /// \brief  Creates a syphon clip
+        ClipPtr newSyphonClip(string clipname, string resourcename);
+        /// \brief  Creates a computer vision clip
+        ClipPtr newCvClip(string clipname, string resourcename);
+        /// \brief  Creates a camera clip
+        ClipPtr newCameraClip(string clipname, string resourcename);
+        /// \brief  Creates a frame clip
+        ClipPtr newFrameClip(string clipname, string resourcename);
+        /// \brief  Creates an empty frame clip
+        ClipPtr newEmptyFrameClip(string clipname, string resourcename);
+        
         void    removeClip(string clipname);
         
         /// \brief   Adds the clip to the selected clips vector
@@ -130,6 +144,7 @@ namespace loopier {
         void    clearAll();
         /// \brief   Checks if a clip exists
         bool    exists(string clipname);
+        /// \brief  Returns the clip with the given name, or a new clip if it doesn't exist.
         ClipPtr getClip(string clipname);
         /// \brief  Gets the clip at the given position.
         /// \returns    Return the clip whose origin contains this point.
