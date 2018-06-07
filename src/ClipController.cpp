@@ -1222,7 +1222,7 @@ namespace loopier {
                 ofLogVerbose() << "Saving image as: " << filename;
             }
             
-            saveFrameInfo(frameplayer->getName(), frameplayer->getBoundingBox());
+            saveFrameInfo(clipname, frameplayer->getBoundingBox());
         }
         
         //---------------------------------------------------------------------------
