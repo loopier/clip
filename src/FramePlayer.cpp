@@ -271,16 +271,16 @@ void loopier::FramePlayer::removeFrame()
 {
     if (frames->size() <= 0) return;
     frames->erase(frames->begin() + currentFrame);
-    if (frames->size() == 0) addEmptyFrame();
-    previousFrame();
+//    if (frames->size() == 0) addEmptyFrame();
+//    previousFrame();
 }
 
 //---------------------------------------------------------
 void loopier::FramePlayer::clear()
 {
     frames->clear();
-    addEmptyFrame();
-    firstFrame();
+//    addEmptyFrame();
+//    firstFrame();
 }
 
 //---------------------------------------------------------
