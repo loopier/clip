@@ -271,6 +271,8 @@ void loopier::FramePlayer::removeFrame()
 {
     if (frames->size() <= 0) return;
     frames->erase(frames->begin() + currentFrame);
+    // The following code was used to avoid an EXEC_BAD_ACCESS error when
+    // there were no frames in the collection.
 //    if (frames->size() == 0) addEmptyFrame();
 //    previousFrame();
 }
@@ -279,6 +281,8 @@ void loopier::FramePlayer::removeFrame()
 void loopier::FramePlayer::clear()
 {
     frames->clear();
+    // The following code was used to avoid an EXEC_BAD_ACCESS error when
+    // there were no frames in the collection.
 //    addEmptyFrame();
 //    firstFrame();
 }
