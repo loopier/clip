@@ -8,3 +8,4 @@
 - `[NEW]` Script GUI editor
 - `[CHANGE]` Clip's parent for vector of children.  Should be more efficient.
 - `[NEW]` mask holes
+- `[FIX]` When creating stop-motions, each clip must have it's own buffer.
