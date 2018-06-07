@@ -1126,9 +1126,6 @@ namespace loopier {
             imgFbo.readToPixels(pixels);
             img.setFromPixels(pixels);
             
-//            clips[recorderclip]->setWidth(img.getWidth());
-//            clips[recorderclip]->setHeight(img.getHeight());
-//            clips[recorderclip]->setPosition(clips[sourceclip]->getPosition());
             recplayer->addFrame( img );
             
             // set first frame's blob rectangle as original reference
