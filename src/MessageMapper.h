@@ -120,6 +120,7 @@ namespace loopier {
             void setClipMask          (const Message & msg);
             void enableClipMask       (const Message & msg);
             void disableClipMask      (const Message & msg);
+            void setClipHolesMask     (const Message & msg);
             // play
             void playClip               (const Message & msg);
             void stopClip               (const Message & msg);

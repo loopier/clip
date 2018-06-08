@@ -40,6 +40,8 @@ namespace loopier {
             ofPixels  & getPixels();
             ofImage &   getImage();
             vector<ofPolyline> getPolylines();
+            /// \brief  Returns a B & W image of the hole blobs
+            ofTexture & getHolesTexture();
             /// \brief  Returns the average center of the selected blobs
             ofPoint getCentroid();
             /// \brief  Returns the center of the bounding box of the given blob
@@ -60,6 +62,7 @@ namespace loopier {
             void setMaxArea(float newArea);
             void setThreshold(float newThreshold);
             void setFindHoles(bool findHoles);
+            void setHolesMask(bool holesMask);
             /// \brief  Sets the maximum number of blobs to be detected
             void setMaxBlobs(int numBlobs);
             /// \brief  Removes blobs that are outside the detection area
@@ -109,7 +112,9 @@ namespace loopier {
             float   threshold;
             float   minArea;
             float   maxArea;
-            float   bHoles;
+            bool    bHoles;
+            bool    bHolesMask; // TRUE: the output texture will be of the blob holes
+                                // FALSE: the output texture will be of regular blobs
             int     maxBlobs;
             
             int currentBlob; ///< index of the blob that is selected

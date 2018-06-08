@@ -109,6 +109,7 @@ namespace loopier {
             messageMap["/loopier/clip/clip/mask"]               = &MessageMapper::setClipMask;
             messageMap["/loopier/clip/clip/maskon"]             = &MessageMapper::enableClipMask;
             messageMap["/loopier/clip/clip/maskoff"]            = &MessageMapper::disableClipMask;
+            messageMap["/loopier/clip/clip/holesmask"]          = &MessageMapper::setClipHolesMask;
             // play
             messageMap["/loopier/clip/clip/play"]           = &MessageMapper::playClip;
             messageMap["/loopier/clip/clip/stop"]           = &MessageMapper::stopClip;
@@ -651,6 +652,12 @@ namespace loopier {
         void MessageMapper::disableClipMask(const Message & msg)
         {
             clip::disableClipMask(msg.getArgAsString(0));
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::setClipHolesMask(const Message & msg)
+        {
+            clip::setClipHolesMask(msg.getArgAsString(0));
         }
         
         

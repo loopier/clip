@@ -16,6 +16,7 @@ loopier::CvPlayer::CvPlayer()
 , minArea(10.0)
 , maxArea(200)
 , bHoles(true)
+, bHolesMask(false)
 , maxBlobs(2)
 , currentBlob(0)
 {
@@ -29,6 +30,7 @@ loopier::CvPlayer::CvPlayer(PlayerPtr input)
 , minArea(10.0)
 , maxArea(200)
 , bHoles(true)
+, bHolesMask(false)
 , maxBlobs(2)
 , currentBlob(0)
 {
@@ -92,6 +94,9 @@ void loopier::CvPlayer::draw(float x, float y, float w, float h)
 void loopier::CvPlayer::draw()
 {
     shapeFbo.draw(0,0, pixels.getWidth(), pixels.getHeight());
+    
+    ofSetColor(255,200);
+    getHolesTexture().draw(0,0);
 }
 
 //
@@ -143,6 +148,8 @@ float loopier::CvPlayer::getHeight() const
 //---------------------------------------------------------
 ofTexture & loopier::CvPlayer::getTexture()
 {
+    if (bHolesMask) return getHolesTexture();
+    
     // Create a mask with the blobs
     shapeFbo.begin();
     ofClear(255,255,255,0);
@@ -183,6 +190,40 @@ ofImage & loopier::CvPlayer::getImage()
 vector<ofPolyline> loopier::CvPlayer::getPolylines()
 {
     return contourFinder.getPolylines();
+}
+
+//---------------------------------------------------------
+ofTexture & loopier::CvPlayer::getHolesTexture()
+{
+    // Create a mask with the blobs
+    shapeFbo.begin();
+    ofClear(255,255,255,0);
+    ofFill();
+    ofSetColor(255);
+    for (int i = 0; i < maxBlobs && i < blobs.size(); i++) {
+        ofRectangle rect = blobs.at(i).getBoundingBox();
+        // check if this poly is inside any of the other polys
+        for (int h = 0; h < maxBlobs && h < blobs.size(); h++) {
+            if (h == i) continue;
+            ofPolyline poly = blobs.at(h);
+            ofRectangle otherrect = poly.getBoundingBox();
+            
+            if (!rect.inside(otherrect)) continue;
+            
+            ofBeginShape();
+            for( int i = 0; i < poly.getVertices().size(); i++) {
+                ofVertex(poly.getVertices().at(i).x, poly.getVertices().at(i).y);
+            }
+            ofEndShape();
+        }
+    }
+    shapeFbo.end();
+    
+    maskFbo.begin();
+    ofClear(255,255,255,0);
+    shapeFbo.draw(0,0);
+    maskFbo.end();
+    return maskFbo.getTexture();
 }
 
 //---------------------------------------------------------
@@ -271,6 +312,12 @@ void loopier::CvPlayer::setThreshold(float newThreshold)
 void loopier::CvPlayer::setFindHoles(bool findHoles)
 {
     bHoles = findHoles;
+}
+
+//---------------------------------------------------------
+void loopier::CvPlayer::setHolesMask(bool holesMask)
+{
+    bHolesMask = holesMask;
 }
 
 //---------------------------------------------------------

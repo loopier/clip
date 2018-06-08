@@ -184,6 +184,8 @@ namespace loopier {
         void setClipMask(const string clipname, const string maskclipname);
         void enableClipMask(const string clipname);
         void disableClipMask(const string clipname);
+        //// \brief  Mask one clip with CV holes
+        void setClipHolesMask(const string clipname);
         
         // ----- EDIT CLIP CONTENTS -----        //// \brief  Appends sourceclip's current image -masked with cv blobs- to cliprecorder frames
         /// TODO: make some kind of abstraction with the masking part
@@ -271,6 +273,8 @@ namespace loopier {
         ofTexture & getMask();
         ofTexture & getMaskTexture();
         ofPixels & getMaskPixels();
+        //// \brief  Returns a B&W texture of the hole blobs
+        ofTexture & getHolesMask();
         //// \brief  Sets the minimum size for blobs to be detected
         void setMinArea(float newArea);
         //// \brief  Sets the maximum size for blobs to be detected
@@ -279,6 +283,8 @@ namespace loopier {
         void setThreshold(float newThreshold);
         //// \brief  Detect blobs indside blobs
         void setFindHoles(bool findHoles);
+        //// \brief  Mask with holes
+        void setHolesMask(bool holesMask);
         //// \brief  Sets the maximum number of blobs detected
         void setMaxBlobs(int numBlobs);
         //// \brief  Sets an area of detection

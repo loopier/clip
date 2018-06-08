@@ -73,7 +73,6 @@
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
 		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
-		E5ED2EA8F8B833AFE8C1D76A /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = AD84BD2B882FE856C6A0ECDE /* TODO.md */; };
 		EBCDE831EFAE08274E799C97 /* Calibration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 402C8F4015542356D362AC88 /* Calibration.cpp */; };
 		F285EB3169F1566CA3D93C20 /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E112B3AEBEA2C091BF2B40AE /* ofxPanel.cpp */; };
 		F76B4A79BD8DE4854141CB47 /* fdog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D8249D46647E3C51769CDE /* fdog.cpp */; };
@@ -339,7 +338,6 @@
 		A9C85208C7E45FB9D1926789 /* wimage.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = wimage.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/wimage.hpp; sourceTree = SOURCE_ROOT; };
 		AB2AE477F82ACF17D0121166 /* mat.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = mat.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/mat.hpp; sourceTree = SOURCE_ROOT; };
 		AB2B6AE7E1ADE93D4CF5BDB5 /* ConsoleUI.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ConsoleUI.h; path = src/ConsoleUI.h; sourceTree = SOURCE_ROOT; };
-		AD84BD2B882FE856C6A0ECDE /* TODO.md */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = TODO.md; path = src/TODO.md; sourceTree = SOURCE_ROOT; };
 		ADD194746185E2DA11468377 /* IpEndpointName.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = IpEndpointName.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/ip/IpEndpointName.cpp; sourceTree = SOURCE_ROOT; };
 		AE335EB4709BFD4671EEAC84 /* MessageMappingOscPacketListener.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = MessageMappingOscPacketListener.h; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/MessageMappingOscPacketListener.h; sourceTree = SOURCE_ROOT; };
 		AE433383D6CA170C418C8A9E /* highgui_c.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = highgui_c.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/highgui/highgui_c.h; sourceTree = SOURCE_ROOT; };
@@ -1418,7 +1416,6 @@
 				AF88BB373614A34D41C818DD /* README.md */,
 				D5A58D5647154315F1559042 /* SyphonPlayer.cpp */,
 				1E5C98DC21510EBF026C49FE /* SyphonPlayer.h */,
-				AD84BD2B882FE856C6A0ECDE /* TODO.md */,
 				C95104DA008B2AAA73832624 /* Types.h */,
 				7C39EAC4AD92BF1D4365B8BC /* utils.h */,
 				4E3E9D5C0EE4B6185EF138F8 /* Uvc.cpp */,
@@ -1614,7 +1611,6 @@
 				CCAF7622973DABAB7ACE8634 /* OscManager.cpp in Sources */,
 				C8F696B7CCC0377E3422140C /* README.md in Sources */,
 				B712BEDC0274D5BBCA71F671 /* SyphonPlayer.cpp in Sources */,
-				E5ED2EA8F8B833AFE8C1D76A /* TODO.md in Sources */,
 				9D79E3C09958A68B67117885 /* Uvc.cpp in Sources */,
 				B6840996567E78436F7ECFAB /* ETF.cpp in Sources */,
 				F76B4A79BD8DE4854141CB47 /* fdog.cpp in Sources */,

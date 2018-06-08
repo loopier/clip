@@ -1152,6 +1152,15 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        void setClipHolesMask(const string clipname)
+        {
+            if(!exists(clipname))       return;
+            if(!exists("cv"))           return;
+            cv::setHolesMask(true);
+            setClipMask(clipname, "cv");
+        }
+        
+        //---------------------------------------------------------------------------
         //  EDIT
         //---------------------------------------------------------------------------
         
@@ -1711,6 +1720,13 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        ofTexture & getHolesMask()
+        {
+            if (!clip::exists("cv")) return;
+            return getPlayerAsCvPlayer("cv")->getHolesTexture();
+        }
+        
+        //---------------------------------------------------------------------------
         void setMinArea(float newArea)
         {
             ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
@@ -1741,6 +1757,15 @@ namespace loopier {
             if (!clip::exists("cv")) return;
             getPlayerAsCvPlayer("cv")->setFindHoles(findHoles);
         }
+        
+        //---------------------------------------------------------------------------
+        void setHolesMask(bool holesMask)
+        {
+            ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+            if (!clip::exists("cv")) return;
+            getPlayerAsCvPlayer("cv")->setHolesMask(holesMask);
+        }
+        
         
         //---------------------------------------------------------------------------
         void setMaxBlobs(int numBlobs)
