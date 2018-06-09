@@ -1135,7 +1135,7 @@ namespace loopier {
             if(!exists(clipname))       return;
             if(!exists(maskclipname))   return;
             clips[clipname]->setMask( clips[maskclipname] );
-            clips[clipname]->setPosition( clips[maskclipname]->getAbsolutePosition() );
+            clips[maskclipname]->hide();
         }
         
         //---------------------------------------------------------------------------
@@ -1143,6 +1143,7 @@ namespace loopier {
         {
             if(!exists(clipname)) return;
             clips[clipname]->maskOn();
+            clips[clipname]->getMaskClip()->hide();
         }
         
         //---------------------------------------------------------------------------
@@ -1150,6 +1151,12 @@ namespace loopier {
         {
             if(!exists(clipname)) return;
             clips[clipname]->maskOff();
+            if (clips[clipname]->getMaskClip()) clips[clipname]->getMaskClip()->show();
+            // Disable holes mask if needed
+            if(!exists("cv") || !clips[clipname]->getMaskClip()) return;
+            if (clips[clipname]->getMaskClip()->getName() == "cv") {
+                cv::setHolesMask(false);
+            }
         }
         
         //---------------------------------------------------------------------------
