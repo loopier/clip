@@ -20,6 +20,12 @@
 
 namespace loopier {
     
+    class Clip;
+    
+    typedef shared_ptr<Clip>        ClipPtr;
+    typedef vector<ClipPtr>         ClipList;
+    typedef map<string, ClipPtr>    ClipMap;
+    
     class Clip{
         
     public:
@@ -104,6 +110,7 @@ namespace loopier {
         void        setAlpha(const float newAlpha);
         float       getAlpha();
         
+        void setMask(ClipPtr aPlayer);
         void setMask(PlayerPtr aPlayer);
         void maskOn();
         void maskOff();
@@ -129,7 +136,7 @@ namespace loopier {
         ///         clip containing it
         ofPoint     getPlayerRelativePosition() const;
         
-        void        setInputClip(shared_ptr<Clip> aClip);
+        void        setInputClip(ClipPtr aClip);
         
         ofTexture & getTexture() ;
         ofPixels &   getPixels();
@@ -140,13 +147,14 @@ namespace loopier {
         int         getDepth() const;
         
         /// \brief  Sets given clip as parent of this clip.  It will copy attributes from parent
-        void    setParent(const shared_ptr<Clip> clip);
+        void    setParent(const ClipPtr clip);
         string  getParentName();
         void    updateParent();
         void    removeParent();
         
     private:
         PlayerPtr   player;     // TODO: Should be a vector of players
+        ClipPtr     maskClip;
         PlayerPtr   maskPlayer; // a player used as a mask
         ofFbo       outputFbo; // final image to be drawn
         ofPixels    outputPixels;
@@ -180,17 +188,13 @@ namespace loopier {
         int         sequenceIndex; ///< Used to keep track of the sequence order.
         vector<int> sequenceOrder; ///< Each element is a movie index.  They'll be played in order.
         
-        shared_ptr<Clip> parent;
+        ClipPtr parent;
         
         Clip(); // Disable default constructor.  All clips must have a name
         
         /// \brief
         
     };
-    
-    typedef shared_ptr<Clip>        ClipPtr;
-    typedef vector<ClipPtr>         ClipList;
-    typedef map<string, ClipPtr>    ClipMap;    
     
 }
 

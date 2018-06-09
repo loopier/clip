@@ -94,9 +94,6 @@ void loopier::CvPlayer::draw(float x, float y, float w, float h)
 void loopier::CvPlayer::draw()
 {
     shapeFbo.draw(0,0, pixels.getWidth(), pixels.getHeight());
-    
-    ofSetColor(255,200);
-    getHolesTexture().draw(0,0);
 }
 
 //

@@ -176,6 +176,7 @@ namespace loopier {
             messageMap["/loopier/clip/cv/minArea"]          = &MessageMapper::setCvMinArea;
             messageMap["/loopier/clip/cv/maxArea"]          = &MessageMapper::setCvMaxArea;
             messageMap["/loopier/clip/cv/holes"]            = &MessageMapper::setCvHoles;
+            messageMap["/loopier/clip/cv/holesmask"]        = &MessageMapper::setCvHolesMask;
             messageMap["/loopier/clip/cv/toggle"]           = &MessageMapper::toggleCvVisibility;
             messageMap["/loopier/clip/cv/show"]             = &MessageMapper::showCv;
             messageMap["/loopier/clip/cv/hide"]             = &MessageMapper::hideCv;
@@ -964,6 +965,12 @@ namespace loopier {
         void MessageMapper::setCvHoles(const Message & msg)
         {
             cv::setFindHoles(msg.getArgAsBool(0));
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::setCvHolesMask(const Message & msg)
+        {
+            cv::setHolesMask(msg.getArgAsBool(0));
         }
         
         //---------------------------------------------------------

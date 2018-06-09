@@ -1134,7 +1134,8 @@ namespace loopier {
         {
             if(!exists(clipname))       return;
             if(!exists(maskclipname))   return;
-            clips[clipname]->setMask( clips[maskclipname]->getPlayer() );
+            clips[clipname]->setMask( clips[maskclipname] );
+            clips[clipname]->setPosition( clips[maskclipname]->getAbsolutePosition() );
         }
         
         //---------------------------------------------------------------------------

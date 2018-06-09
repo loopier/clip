@@ -81,7 +81,8 @@ void loopier::Clip::update()
     
     if (bMask)  {
         outputFbo.getTexture().setAlphaMask(maskPlayer->getTexture());
-        
+        absolutePosition = maskClip->getAbsolutePosition();
+        setScale(maskClip->getScale());
     } else {
         outputFbo.getTexture().disableAlphaMask();
     }
@@ -486,6 +487,14 @@ float loopier::Clip::getAlpha()
 }
 
 //---------------------------------------------------------------------------
+void loopier::Clip::setMask(loopier::ClipPtr mask)
+{
+    maskClip = mask;
+    setMask(mask->getPlayer());
+    maskOn();
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::setMask(loopier::PlayerPtr mask)
 {
     maskPlayer = mask;
@@ -592,7 +601,7 @@ ofPoint loopier::Clip::getPlayerRelativePosition() const
 
 
 //---------------------------------------------------------------------------
-void loopier::Clip::setInputClip(shared_ptr<Clip> aClip)
+void loopier::Clip::setInputClip(ClipPtr aClip)
 {
     player->setInputPlayer(aClip->getPlayer());
 }
@@ -633,7 +642,7 @@ int loopier::Clip::getDepth() const
 }
 
 //---------------------------------------------------------------------------
-void loopier::Clip::setParent(const shared_ptr<Clip> clip)
+void loopier::Clip::setParent(const ClipPtr clip)
 {
     parent = clip;
     setOffset(getPosition() - parent->getPosition());
@@ -662,5 +671,5 @@ void loopier::Clip::removeParent()
     if (!parent) return;
     if (parent->getName() == "") return;
     setPosition(parent->getPosition() + getOffset());
-    parent = shared_ptr<Clip>(new Clip);
+    parent = ClipPtr(new Clip);
 }
