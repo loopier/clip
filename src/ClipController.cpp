@@ -812,13 +812,16 @@ namespace loopier {
             vector<string>::iterator it = find(publicLayers.begin(), publicLayers.end(), clipname);
             // if it's not there get current position in private list
             if (it == publicLayers.end()) {
-                it = find(publicLayers.begin(), publicLayers.end(), clipname);
+                it = find(privateLayers.begin(), privateLayers.end(), clipname);
                 layers = privateLayers;
             }
-            //
-            if (it == privateLayers.end()) return;  // it's not there at all -- quit
+            // it's not there at all -- quit
+            if (it == privateLayers.end()) {
+                ofLogWarning() << "Trying to arrange a clip that doesn't exist: " << clipname;
+                return;
+            }
             
-            if (position >= publicLayers.size()) position = publicLayers.size()-1;
+            if (position >= layers.size()) position = layers.size()-1;
             if (position < 0 ) position = 0;
             
             getClip(clipname)->setDepth(position);
