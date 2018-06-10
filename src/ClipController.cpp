@@ -1907,6 +1907,7 @@ namespace loopier {
         //---------------------------------------------------------------------------
         void loadAllScripts()
         {
+            clearScriptList();
             ofDirectory dir(scriptsPath);
             vector<ofFile> files = dir.getFiles();
             for (auto &file : files) {
