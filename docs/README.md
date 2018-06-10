@@ -2,7 +2,15 @@
 
 CLIP is a live-animation application.  
 
-Its purpose is to provide animators with a means to perform and improvise on stage, along other performing artists such as musicians or actors.
+It's a tool that provides some means to perform and improvise with animations and videos on stage.  Some of its features are:
+- Create animations on the spot and reproduce them in realtime.
+- Launch videos.
+- Modify playing speed, animation or movie size, color, position, ...
+- Use clips to mask other clips.
+- Load and save animations.
+- Communicate with the app via OSC.
+- Define custom keymaps for controlling the app from your keyboard.
+- Bundle behaviours in script files.
 
 ## Installation
 
