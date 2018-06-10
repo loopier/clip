@@ -76,13 +76,25 @@ void loopier::Clip::update()
     
     outputFbo.begin();
     ofClear(255,255,255,0);
+    float fx = absolutePosition.x;
+    float fy = absolutePosition.y;
+    int fscalex = scaleX;
+    int fscaley = scaleY;
+    if (bMask) {
+        fscalex = maskClip->getPlayer()->getWidth() / player->getWidth();
+        fscaley = maskClip->getPlayer()->getHeight() / player->getHeight();
+    }
+    ofSetColor(255);
+    ofDrawRectangle(fx, fy, fscalex, fscaley);
+    ofPushMatrix();
+    ofTranslate(fx, fy);
+    ofScale(fscalex, fscaley);
     player->draw();
+    ofPopMatrix();
     outputFbo.end();
     
     if (bMask)  {
         outputFbo.getTexture().setAlphaMask(maskPlayer->getTexture());
-        absolutePosition = maskClip->getAbsolutePosition();
-        setScale(maskClip->getScale());
     } else {
         outputFbo.getTexture().disableAlphaMask();
     }
@@ -104,7 +116,8 @@ void loopier::Clip::draw()
         
         outputFbo.draw(fx, fy, fw, fh);
     } else {
-        outputFbo.draw(absolutePosition, outputFbo.getWidth() * scaleX, outputFbo.getHeight() * scaleY);
+        
+        outputFbo.draw(0,0);
     }
     ofPopStyle();
 }
@@ -126,15 +139,18 @@ void loopier::Clip::drawOrigin(const ofColor & c)
 {
     ofPushStyle();
     ofSetColor(c);
-    ofSetLineWidth(3);
+    ofSetLineWidth(2);
     ofNoFill();
-    ofDrawCircle(getOriginRectangle().getCenter().x, getOriginRectangle().getCenter().y, 20);
+    ofEnableSmoothing();
+    ofDrawCircle(getOriginRectangle().getCenter().x, getOriginRectangle().getCenter().y,
+                 getOriginRectangle().width / 2, getOriginRectangle().height / 2);
     if (bSelected) {
         ofFill();
         ofSetColor(c.r, c.g, c.b, 100);
     }
     if (getOriginRectangle().inside(ofGetMouseX(), ofGetMouseY())) ofSetColor(255);
-    ofDrawCircle(getOriginRectangle().getCenter().x, getOriginRectangle().getCenter().y, 20);
+    ofDrawCircle(getOriginRectangle().getCenter().x, getOriginRectangle().getCenter().y,
+                 getOriginRectangle().width / 2, getOriginRectangle().height / 2);
     ofPopStyle();
 }
 
@@ -145,7 +161,8 @@ void loopier::Clip::drawName(const ofColor & c)
     drawOrigin(c);
     ofPushStyle();
     ofSetColor(c);
-    ofDrawBitmapString(name, getOriginRectangle().getCenter().x + 10, getOriginRectangle().getCenter().y - 10);
+    ofDrawBitmapString(name, getOriginRectangle().getCenter().x + getOriginRectangle().width/2,
+                       getOriginRectangle().getCenter().y -  + getOriginRectangle().height/2);
     ofPopStyle();
 }
 
@@ -405,6 +422,12 @@ ofRectangle loopier::Clip::getBoundingBox() const
     box.setPosition(box.getPosition() + getAbsolutePosition());
     box.setWidth(box.getWidth() * getScaleX());
     box.setHeight(box.getHeight() * getScaleY());
+//    ofRectangle box = player->getBoundingBox();
+//    float x = position.x - (anchor.x * player->getWidth());
+//    float y = position.y - (anchor.y * player->getHeight());
+//    box.setPosition(box.getPosition() + ofPoint(x,y));
+//    box.setWidth(box.getWidth());
+//    box.setHeight(box.getHeight());
     return box;
 }
 
@@ -505,12 +528,21 @@ void loopier::Clip::setMask(loopier::PlayerPtr mask)
 void loopier::Clip::maskOn()
 {
     bMask = true;
+    setPosition(maskClip->getBoundingBox().getPosition());
+    setParent(maskClip);
 }
 
 //---------------------------------------------------------------------------
 void loopier::Clip::maskOff()
 {
     bMask = false;
+    removeParent();
+}
+
+//---------------------------------------------------------------------------
+loopier::ClipPtr loopier::Clip::getMaskClip()
+{
+    return maskClip;
 }
 
 

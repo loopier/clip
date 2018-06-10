@@ -198,7 +198,7 @@ namespace loopier {
                 clips[clipname]->draw();
             };
             
-            // draw names only in private output, even clips ar public
+            // draw names only in private output, even if clips ar public
             for (const auto &clipname : publicLayers) {
                 if (!clip::exists(clipname)) continue;
                 clips[clipname]->drawName();

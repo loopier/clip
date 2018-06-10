@@ -114,6 +114,8 @@ namespace loopier {
         void setMask(PlayerPtr aPlayer);
         void maskOn();
         void maskOff();
+        /// \brief  Returns a pointer to the clipping mask
+        ClipPtr getMaskClip();
         
         void toggleName();
         void showName();
