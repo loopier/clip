@@ -7,7 +7,7 @@
 Quit the server application.
 
 ```
-/loopier/clip/app/quit
+/loopier/clip/quit
 ```
 
 #### Toggle fullscreen
@@ -15,7 +15,7 @@ Quit the server application.
 Toggle between FULLSCREEN and WINDOW modes.
 
 ```
-/loopier/clip/app/fullscreen
+/loopier/clip/fullscreen
 ```
 
 #### Move window
@@ -23,7 +23,7 @@ Toggle between FULLSCREEN and WINDOW modes.
 Move window to a new position
 
 ```
-/loopier/clip/app/move <x:FLOAT> <y:FLOAT>
+/loopier/clip/move <x:FLOAT> <y:FLOAT>
 ```
 
 - **x** X coordinate in pixels
@@ -34,8 +34,8 @@ Move window to a new position
 Loads into memory all resources in the resources folder.
 
 ```
-/loopier/clip/app/loadresource
-/loopier/clip/app/loadresources
+/loopier/clip/loadresource
+/loopier/clip/loadresources
 ```
 
 #### Clear all resources
@@ -44,7 +44,7 @@ Unloads the resources from memory.
 **WARNING:** This may crash the app if you are using any of the resources.
 
 ```
-/loopier/clip/app/clearresources
+/loopier/clip/clearresources
 ```
 
 #### Load keymaps
@@ -52,7 +52,14 @@ Unloads the resources from memory.
 Loads a keymap by name.  Should be a valid YAML file in the keymaps folder.
 
 ```
-/loopier/clip/app/loadkeymap <keymapname:STRING>
+/loopier/clip/loadkeymap <keymapname:STRING>
+```
+
+
+#### Get layer names
+
+```
+/loopier/clip/layers
 ```
 
 ## Script commands
@@ -285,14 +292,6 @@ Draw this clip in the private screen ONLY.
 
 ```
 /loopier/clip/clip/private <clipname:STRING>
-```
-
-#
-# TODO: Move to ../app/.. or ../clips/..
-
-
-```
-/loopier/clip/clip/layers
 ```
 
 
@@ -634,6 +633,8 @@ is absolute opacity.
 
 #### Load library
 
+**DEPRECATED**
+
 Load many clips all at once.
 
 ```
@@ -645,7 +646,7 @@ Load many clips all at once.
 Delete all clips at once.
 
 ```
-/loopier/clip/clips/clearall
+/loopier/clip/clearallclips
 ```
 
 #### List clip names
@@ -653,23 +654,25 @@ Delete all clips at once.
 Get (and log) the list of available clip.
 
 ```
-/loopier/clip/clips/listnames
+/loopier/clip/listclips
 ```
 
-**Response** `/loopier/clip/clips/clipnames <clipname1:STRING> <clipname2:STRING> ...`
+**Response** `/loopier/clip/clipnames <clipname1:STRING> <clipname2:STRING> ...`
 
 #### List resources
 
 Get (and log) the list of available resources.
 
 ```
-/loopier/clip/clips/listresources
+/loopier/clip/listresources
 ```
 
-**Response** `/loopier/clip/clips/resourcenames <resourcename1:STRING> <resourcename2:STRING> ...`
+**Response** `/loopier/clip/resourcenames <resourcename1:STRING> <resourcename2:STRING> ...`
 
 
 #### List clip libraries
+
+**DEPRECATED**
 
 Get (and log) the list of available clip clibraries.
 
@@ -684,17 +687,17 @@ Get (and log) the list of available clip clibraries.
 Get (and log) the list of available cameras.
 
 ```
-/loopier/clip/clips/listcameras
+/loopier/clip/listcameras
 ```
 
-**Response** `/loopier/clip/clips/cameranames <cameraname1:STRING> <cameraname2:STRING> ...`
+**Response** `/loopier/clip/cameranames <cameraname1:STRING> <cameraname2:STRING> ...`
 
 #### Toggle clip names
 
 Toggle clip names on private screen.
 
 ```
-/loopier/clip/clips/togglenames
+/loopier/clip/togglenames
 ```
 
 #### shownames
@@ -702,7 +705,7 @@ Toggle clip names on private screen.
 Show clip names on private screen.
 
 ```
-/loopier/clip/clips/shownames
+/loopier/clip/shownames
 ```
 
 #### Hide clip names
@@ -710,7 +713,7 @@ Show clip names on private screen.
 Hide clip names on private screen.
 
 ```
-/loopier/clip/clips/hidenames
+/loopier/clip/hidenames
 ```
 
 

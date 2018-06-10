@@ -32,18 +32,20 @@ namespace loopier {
         void MessageMapper::setupAppCommandsMap()
         {
             // Application commands
-            messageMap["/loopier/clip/app/test"]       = &MessageMapper::test;
+            messageMap["/loopier/clip/test"]       = &MessageMapper::test;
             
             // Application commands
-            messageMap["/loopier/clip/app/quit"]        = &MessageMapper::quit;
-            messageMap["/loopier/clip/app/fullscreen"]  = &MessageMapper::fullscreen;
-            messageMap["/loopier/clip/app/move"]        = &MessageMapper::move;
+            messageMap["/loopier/clip/quit"]        = &MessageMapper::quit;
+            messageMap["/loopier/clip/fullscreen"]  = &MessageMapper::fullscreen;
+            messageMap["/loopier/clip/move"]        = &MessageMapper::move;
             
-            messageMap["/loopier/clip/app/loadresource"]        = &MessageMapper::loadResources;
-            messageMap["/loopier/clip/app/loadresources"]        = &MessageMapper::loadResources;
-            messageMap["/loopier/clip/app/clearresources"]       = &MessageMapper::clearResources;
+            messageMap["/loopier/clip/loadresource"]        = &MessageMapper::loadResources;
+            messageMap["/loopier/clip/loadresources"]        = &MessageMapper::loadResources;
+            messageMap["/loopier/clip/clearresources"]       = &MessageMapper::clearResources;
             
-            messageMap["/loopier/clip/app/loadkeymap"]       = &MessageMapper::loadKeymap;
+            messageMap["/loopier/clip/loadkeymap"]       = &MessageMapper::loadKeymap;
+            
+            messageMap["/loopier/clip/layers"]         = &MessageMapper::listLayers;
             
             messageMap["/loopier/clip/script/load"]     = &MessageMapper::loadScriptFile;
             messageMap["/loopier/clip/script/loadall"]  = &MessageMapper::loadAllScripts;
@@ -84,8 +86,6 @@ namespace loopier {
             messageMap["/loopier/clip/clip/background"]     = &MessageMapper::setBackgroundClip;
             messageMap["/loopier/clip/clip/public"]         = &MessageMapper::setPublicClip;
             messageMap["/loopier/clip/clip/private"]        = &MessageMapper::setPrivateClip;
-            // TODO: Move to ../app/.. or ../clips/..
-            messageMap["/loopier/clip/clip/layers"]         = &MessageMapper::listLayers;
             // Size
             messageMap["/loopier/clip/clip/scaleup"]            = &MessageMapper::scaleUpClip;
             messageMap["/loopier/clip/clip/scaledown"]          = &MessageMapper::scaleDownClip;
@@ -144,15 +144,15 @@ namespace loopier {
         {
             
             // Clip collection commands
-            messageMap["/loopier/clip/clips/loadlibrary"]   = &MessageMapper::loadClipLibrary;
-            messageMap["/loopier/clip/clips/clearall"]      = &MessageMapper::clearClips;
-            messageMap["/loopier/clip/clips/listnames"]     = &MessageMapper::listClipNames;
-            messageMap["/loopier/clip/clips/listresources"] = &MessageMapper::listResourceNames;
-            messageMap["/loopier/clip/clips/listlibraries"] = &MessageMapper::listClipLibraryNames;
-            messageMap["/loopier/clip/clips/listcameras"]   = &MessageMapper::listCameraNames;
-            messageMap["/loopier/clip/clips/togglenames"]   = &MessageMapper::toggleClipNames;
-            messageMap["/loopier/clip/clips/shownames"]     = &MessageMapper::showClipNames;
-            messageMap["/loopier/clip/clips/hidenames"]     = &MessageMapper::hideClipNames;
+            messageMap["/loopier/clip/clips/loadlibrary"]   = &MessageMapper::loadClipLibrary; // TODO: REMOVE
+            messageMap["/loopier/clip/clearallclips"]      = &MessageMapper::clearClips;
+            messageMap["/loopier/clip/listclips"]     = &MessageMapper::listClipNames;
+            messageMap["/loopier/clip/listresources"] = &MessageMapper::listResourceNames;
+            messageMap["/loopier/clip/clips/listlibraries"] = &MessageMapper::listClipLibraryNames;// TODO: REMOVE
+            messageMap["/loopier/clip/listcameras"]   = &MessageMapper::listCameraNames;
+            messageMap["/loopier/clip/togglenames"]   = &MessageMapper::toggleClipNames;
+            messageMap["/loopier/clip/shownames"]     = &MessageMapper::showClipNames;
+            messageMap["/loopier/clip/hidenames"]     = &MessageMapper::hideClipNames;
             
             messageMap["/loopier/clip/selection"] = &MessageMapper::listClipNames;
         }
@@ -870,6 +870,7 @@ namespace loopier {
         //---------------------------------------------------------
         void MessageMapper::listCameraNames(const Message & msg)
         {
+            resource::listCameras();
             sendCameraNames();
         }
         
@@ -1258,10 +1259,10 @@ namespace loopier {
             vector<string> names = loopier::clip::getNamesList();
             Message msg;
             
-            msg.setAddress("/loopier/clip/clips/clipnames");
+            msg.setAddress("/loopier/clip/clipnames");
             
             for (const auto &item : names) {
-                if (item == "cv" || item == "syphon") continue; // skip cv and syphon clips
+//                if (item == "cv" || item == "syphon") continue; // skip cv and syphon clips
                 msg.addStringArg(item);
             };
             
@@ -1275,7 +1276,7 @@ namespace loopier {
             vector<string> names = loopier::resource::getResourceNames();
             Message msg;
             
-            msg.setAddress("/loopier/clip/clips/resourcenames");
+            msg.setAddress("/loopier/clip/resourcenames");
             
             for (const auto &item : names) {  msg.addStringArg(item); };
             
@@ -1289,7 +1290,7 @@ namespace loopier {
             vector<string> names = loopier::resource::getCameraNames();
             Message msg;
             
-            msg.setAddress("/loopier/clip/clips/cameranames");
+            msg.setAddress("/loopier/clip/cameranames");
             
             for (const auto &item : names) {  msg.addStringArg(item); };
             

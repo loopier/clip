@@ -46,6 +46,7 @@ namespace loopier {
         void    setResourcePath(string path);
         string& getResourcePath();
         void    listAllResources();
+        void    listCameras();
         /// \brief  Load a resource
         void    loadResource(const string & namresourcename);
         /// \brief  Load a list of resources.  Load all if no list is provided

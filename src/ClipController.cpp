@@ -490,6 +490,15 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
+        void listCameras()
+        {
+            ofLogNotice() << "Number of cameras players loaded: " << cameraplayers.size();
+            for (const auto &item : cameraplayers) {
+                ofLogNotice() << "\t" << item.first << ": " << item.second->getName();
+            }
+        }
+        
+        //---------------------------------------------------------------------------
         vector<string> getResourceNames()
         {
             vector<string> names;
