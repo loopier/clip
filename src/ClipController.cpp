@@ -67,7 +67,11 @@ namespace {
             }
             
             loopier::CameraPlayerPtr cameraplayer(new loopier::CameraPlayer(width, height, i));
-            cameraplayers[name] = cameraplayer;
+            cameraplayer->setName(name);
+            // create a camera with the device name
+//            cameraplayers[name] = cameraplayer;
+            // create a duplicate with the name 'camN' for faster typing
+            cameraplayers["cam"+ofToString(i)] = cameraplayer;
         }
         
         ofLogVerbose() << "Inizialized " << cameraplayers.size() << " camera players";
@@ -472,11 +476,17 @@ namespace loopier {
         void listAllResources()
         {
             ofLogNotice() << "Number of frame lists loaded: " << frames.size();
-            for (const auto &item : frames) {   ofLogNotice() << "\t" << item.first; }
+            for (const auto &item : frames) {
+                ofLogNotice() << "\t" << item.first;
+            }
             ofLogNotice() << "Number of movies loaded: " << movies.size();
-            for (const auto &item : movies) {   ofLogNotice() << "\t" << item.first; }
+            for (const auto &item : movies) {
+                ofLogNotice() << "\t" << item.first;
+            }
             ofLogNotice() << "Number of cameras players loaded: " << cameraplayers.size();
-            for (const auto &item : cameraplayers) {  ofLogNotice() << "\t" << item.first; }
+            for (const auto &item : cameraplayers) {
+                ofLogNotice() << "\t" << item.first << ": " << item.second->getName();
+            }
         }
         
         //---------------------------------------------------------------------------
