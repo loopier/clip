@@ -6,7 +6,6 @@
 - `[CHANGE]` Add many clips when there are many blobs
 - `[NEW]` Make groups.  When adding a clip, automatically add it to a group with other clips using the same resource.
 - `[NEW]` Script GUI editor
-- `[CHANGE]` Prenthood.  A clip having a vector of children instead of a parent should be more efficient.  The parent would notice the children or change their parametres.
 - `[FIX]` Scale masked clips to mask dimensions
 - `[FIX]` When creating stop-motions, each clip must have it's own frames buffer.
 - `[FIX]` Move resource manager to it's own thread, and probably to its own class.

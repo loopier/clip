@@ -195,26 +195,40 @@ Logs and returns the clip parameters.
 /loopier/clip/clip/listinfo <clipname:STRING>
 ```
 
-- **Response** `/loopier/clip/clip/info <clipname:STRING> <resourcename:STRING> <isPlaying:BOOL> <speed:FLOAT> <loopType:STRING> <xCoordinate:FLOAT> <yCoordinate:FLOAT> <width:FLOAT> <height:FLOAT> <scale:FLOAT> <red:FLOAT> <green:FLOAT> <blue:FLOAT> <alpha:FLOAT> <depth:FLOAT> <visibility:BOOL> <fullscreen:BOOL> <flipV:BOOL> <flipH:BOOL> <parentName:STRING> <xOffset:FLOAT> <yOffset:FLOAT>`
+- **Response** `/loopier/clip/clip/info <clipname:STRING> <resourcename:STRING> <isPlaying:BOOL> <speed:FLOAT> <loopType:STRING> <xCoordinate:FLOAT> <yCoordinate:FLOAT> <width:FLOAT> <height:FLOAT> <scale:FLOAT> <red:FLOAT> <green:FLOAT> <blue:FLOAT> <alpha:FLOAT> <depth:FLOAT> <visibility:BOOL> <fullscreen:BOOL> <flipV:BOOL> <flipH:BOOL> <xOffset:FLOAT> <yOffset:FLOAT>`
 
 
 
-# Clip's parent commands
+# Clip's parenting commands
 
 
-#### Parent clip
+#### Add child
 
 Sets the parent clip.  It will copy parent's position.
 
 ```
-/loopier/clip/clip/parent <childname:STRING> <parentname:STRING>
+/loopier/clip/clip/addchild <parentname:STRING> <childname:STRING>
 ```
 
 
-#### Remove parent clip
+#### Remove child
 
 ```
-/loopier/clip/clip/removeparent <clipname:STRING>
+/loopier/clip/clip/removedchild <parentname:STRING> <childname:STRING>
+```
+
+
+#### Remove all children
+
+```
+/loopier/clip/clip/clearchildren <parentname:STRING>
+```
+- **Response** `/loopier/clip/clip/children [<child1:STRING>,... <childN:STRING>]`
+
+#### Get the list all children names
+
+```
+/loopier/clip/clip/listchildren <parentname:STRING>
 ```
 
 

@@ -928,27 +928,37 @@ namespace loopier {
         }
         
         //---------------------------------------------------------------------------
-        void setParentClip(const string childclip, const string parentclip)
+        void addClipChild(const string parentclip, const string childclip)
         {
             if (!exists(childclip) || !exists(parentclip) || childclip == parentclip) return;
-            getClip(childclip)->setParent(getClip(parentclip));
+            getClip(parentclip)->addChild(getClip(childclip));
             
         }
         
         //---------------------------------------------------------------------------
-        void removeParentClip(const string childclip)
+        void removeClipChild(const string parentclip, const string childclip)
         {
             if (!exists(childclip)) return;
-            getClip(childclip)->removeParent();
+            getClip(parentclip)->removeChild(getClip(childclip));
             
         }
         
         //---------------------------------------------------------------------------
-        void setOffsetToParentClip(const string childclip, const float xoffset, const float yoffset)
+        void clearClipChildren(const string clip)
         {
-            if (!exists(childclip)) return;
-            getClip(childclip)->setOffset(xoffset, yoffset);
-            
+            if (!exists(clip)) return;
+            getClip(clip)->clearChildren();
+        }
+        
+        //---------------------------------------------------------------------------
+        vector<string> getClipChildrenNames(const string clip)
+        {
+            if (!exists(clip)) return;
+            vector<string> names = getClip(clip)->getChildrenNames();
+            string namesstring = clip + "'s children:";
+            for (auto &name: names) namesstring += " " + namesstring;
+            ofLogVerbose() << namesstring;
+            return names;
         }
         
         //---------------------------------------------------------------------------
@@ -1398,7 +1408,7 @@ namespace loopier {
             yaml["clip"]["flipV"] = clip->isFlippedV();
             yaml["clip"]["flipH"] = clip->isFlippedH();
             yaml["clip"]["loop"] = static_cast<int>(clip->getLoopState());
-            yaml["clip"]["parent"] = clip->getParentName();
+//            yaml["clip"]["parent"] = clip->getParentName();
             yaml["clip"]["offset"]["x"] = clip->getOffset().x;
             yaml["clip"]["offset"]["y"] = clip->getOffset().y;
             
@@ -1467,7 +1477,7 @@ namespace loopier {
                     if (fullscreen) newclip->toggleFullscreen();
                     if (flipv) newclip->flipV();
                     if (fliph) newclip->flipH();
-                    if (clip["parent"] != ofxJSONElement::null)   newclip->setParent(getClip(parent));
+//                    if (clip["parent"] != ofxJSONElement::null)   newclip->setParent(getClip(parent));
                 }
             }
         }
@@ -1692,7 +1702,7 @@ namespace loopier {
             clips["cv"]->setAnchorPercent(clips[clipname]->getAnchor());
             clips["cv"]->setPosition(clips[clipname]->getPosition());
             clips["cv"]->setScale(clips[clipname]->getScale());
-            clips["cv"]->setParent(clips[clipname]);
+//            clips["cv"]->setParent(clips[clipname]);
         }
         
         //---------------------------------------------------------------------------

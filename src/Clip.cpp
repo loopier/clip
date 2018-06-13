@@ -69,7 +69,7 @@ void loopier::Clip::setup(PlayerPtr aplayer)
 //---------------------------------------------------------------------------
 void loopier::Clip::update()
 {
-    updateParent();
+    updateChildren();
     absolutePosition.x = position.x - (anchor.x * getWidth());
     absolutePosition.y = position.y - (anchor.y * getHeight());
     
@@ -530,15 +530,12 @@ void loopier::Clip::setMask(loopier::PlayerPtr mask)
 void loopier::Clip::maskOn()
 {
     bMask = true;
-//    setPosition(maskClip->getPosition());
-//    setParent(maskClip);
 }
 
 //---------------------------------------------------------------------------
 void loopier::Clip::maskOff()
 {
     bMask = false;
-    removeParent();
 }
 
 //---------------------------------------------------------------------------
@@ -676,35 +673,38 @@ int loopier::Clip::getDepth() const
 }
 
 //---------------------------------------------------------------------------
-void loopier::Clip::setParent(const ClipPtr clip)
+void loopier::Clip::addChild(const ClipPtr clip)
 {
-    parent = clip;
-    setOffset(getPosition() - parent->getPosition());
-//    setOffset(getPosition() - parent->getPosition() + getOffset());
+    children.push_back(clip);
+    clip->setOffset(clip->getPosition() - getPosition());
 }
 
 //---------------------------------------------------------------------------
-string loopier::Clip::getParentName()
+void loopier::Clip::removeChild(const ClipPtr clip)
 {
-    string parentname;
-    if (parent != NULL) return parent->getParentName();
-    else                return "";
+    children.erase(find(children.begin(), children.end(), clip));
 }
 
 //---------------------------------------------------------------------------
-void loopier::Clip::updateParent()
+void loopier::Clip::clearChildren()
 {
-    if (!parent) return;
-    if (parent->getName() == "") return;
-    setPosition(parent->getPosition()+offset);
-    setScale(parent->getScale());
+    children.clear();
 }
 
 //---------------------------------------------------------------------------
-void loopier::Clip::removeParent()
+void loopier::Clip::updateChildren()
 {
-    if (!parent) return;
-    if (parent->getName() == "") return;
-    setPosition(parent->getPosition() + getOffset());
-    parent = ClipPtr(new Clip);
+    for (auto &child: children) {
+        child->setPosition(getPosition() + child->getOffset());
+    }
+}
+
+//---------------------------------------------------------------------------
+vector<string> loopier::Clip::getChildrenNames()
+{
+    vector<string> names;
+    for (auto &child: children) {
+        names.push_back(child->getName());
+    }
+    return names;
 }

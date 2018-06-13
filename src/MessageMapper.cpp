@@ -74,9 +74,10 @@ namespace loopier {
             messageMap["/loopier/clip/clip/deselectall"]        = &MessageMapper::deselectAllClips;
             messageMap["/loopier/clip/clip/listinfo"]           = &MessageMapper::listClipInfo;
             // parent
-            messageMap["/loopier/clip/clip/parent"]         = &MessageMapper::setParent;
-            messageMap["/loopier/clip/clip/removeparent"]   = &MessageMapper::removeParent;
-            messageMap["/loopier/clip/clip/offset"]         = &MessageMapper::setOffset;
+            messageMap["/loopier/clip/clip/addchild"]           = &MessageMapper::addClipChild;
+            messageMap["/loopier/clip/clip/removechild"]        = &MessageMapper::removeClipChild;
+            messageMap["/loopier/clip/clip/clearchildren"]  = &MessageMapper::clearClipChildren;
+            messageMap["/loopier/clip/clip/listchildren"]       = &MessageMapper::listClipChildren;
             // Arrange
             messageMap["/loopier/clip/clip/depth"]          = &MessageMapper::setClipDrawOrder;
             messageMap["/loopier/clip/clip/front"]          = &MessageMapper::bringClipToFront;
@@ -476,21 +477,27 @@ namespace loopier {
         }
         
         //---------------------------------------------------------
-        void MessageMapper::setParent(const Message & msg)
+        void MessageMapper::addClipChild(const Message & msg)
         {
-            clip::setParentClip(msg.getArgAsString(0), msg.getArgAsString(1));
+            clip::addClipChild(msg.getArgAsString(0), msg.getArgAsString(1));
         }
         
         //---------------------------------------------------------
-        void MessageMapper::removeParent(const Message & msg)
+        void MessageMapper::removeClipChild(const Message & msg)
         {
-            clip::removeParentClip(msg.getArgAsString(0));
+            clip::removeClipChild(msg.getArgAsString(0), msg.getArgAsString(1));
         }
         
         //---------------------------------------------------------
-        void MessageMapper::setOffset(const Message & msg)
+        void MessageMapper::clearClipChildren(const Message & msg)
         {
-            clip::setOffsetToParentClip(msg.getArgAsString(0), msg.getArgAsFloat(1), msg.getArgAsFloat(2));
+            clip::clearClipChildren(msg.getArgAsString(0));
+        }
+        
+        //---------------------------------------------------------
+        void MessageMapper::listClipChildren(const Message & msg)
+        {
+            sendClipChildrenNames(msg.getArgAsString(0));
         }
         
         //---------------------------------------------------------
@@ -1354,7 +1361,7 @@ namespace loopier {
             msg.addBoolArg(clip->isFullscreen());
             msg.addBoolArg(clip->isFlippedV());
             msg.addBoolArg(clip->isFlippedH());
-            msg.addStringArg(clip->getParentName());
+//            msg.addStringArg(clip->getParentName());
             msg.addFloatArg(clip->getOffset().x);
             msg.addFloatArg(clip->getOffset().y);
             
@@ -1375,6 +1382,23 @@ namespace loopier {
             for (const auto &item : names) {
                 msg.addStringArg(item);
             };
+            
+            osc.sendMessage(msg);
+        }
+        
+        
+        //---------------------------------------------------------
+        void MessageMapper::sendClipChildrenNames(const string clipname)
+        {
+            vector<string> names = loopier::clip::getClipChildrenNames(clipname);
+            Message msg;
+            
+            msg.setAddress("/loopier/clip/clip/children");
+            
+            for (const auto &item : names) {
+                msg.addStringArg(item);
+            };
+            
             
             osc.sendMessage(msg);
         }

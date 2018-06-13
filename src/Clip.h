@@ -150,11 +150,12 @@ namespace loopier {
         void        setDepth(int order);
         int         getDepth() const;
         
-        /// \brief  Sets given clip as parent of this clip.  It will copy attributes from parent
-        void    setParent(const ClipPtr clip);
-        string  getParentName();
-        void    updateParent();
-        void    removeParent();
+        /// \brief  Adds the given as a child of this clip.
+        void    addChild(const ClipPtr clip);
+        void    removeChild(const ClipPtr clip);
+        void    clearChildren();
+        void    updateChildren();
+        vector<string> getChildrenNames();
         
     private:
         PlayerPtr   player;     // TODO: Should be a vector of players
@@ -194,6 +195,7 @@ namespace loopier {
         vector<int> sequenceOrder; ///< Each element is a movie index.  They'll be played in order.
         
         ClipPtr parent;
+        vector<ClipPtr> children;
         
         Clip(); // Disable default constructor.  All clips must have a name
         

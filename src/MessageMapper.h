@@ -84,9 +84,10 @@ namespace loopier {
             void deselectAllClips   (const Message & msg);
             void listClipInfo       (const Message & msg);
             // parent
-            void setParent            (const Message & msg);
-            void removeParent         (const Message & msg);
-            void setOffset            (const Message & msg);
+            void addClipChild           (const Message & msg);
+            void removeClipChild        (const Message & msg);
+            void clearClipChildren      (const Message & msg);
+            void listClipChildren       (const Message & msg);
             // arrange
             void setClipDrawOrder       (const Message & msg);
             void bringClipForward       (const Message & msg);
@@ -223,6 +224,7 @@ namespace loopier {
             void sendLibraryNames();
             void sendClipInfo(const string clipname);
             void sendScriptNames();
+            void sendClipChildrenNames(const string clipname);
             
             //------------------------------------------------------------------------------------------
             // COMMANDS FROM FILES
