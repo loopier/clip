@@ -6,6 +6,7 @@
 - `[CHANGE]` Add many clips when there are many blobs
 - `[NEW]` Make groups.  When adding a clip, automatically add it to a group with other clips using the same resource.
 - `[NEW]` Script GUI editor
+- `[FIX]` Child clip moves when parenting
 - `[FIX]` Scale masked clips to mask dimensions
 - `[FIX]` When creating stop-motions, each clip must have it's own frames buffer.
 - `[FIX]` Move resource manager to it's own thread, and probably to its own class.
