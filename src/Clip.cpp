@@ -438,6 +438,12 @@ ofRectangle loopier::Clip::getOriginRectangle() const
 }
 
 //---------------------------------------------------------------------------
+ofPoint loopier::Clip::getOrigin() const
+{
+    return getOriginRectangle().getCenter();
+}
+
+//---------------------------------------------------------------------------
 void loopier::Clip::toggleFullscreen()
 {
     bFullscreen = !bFullscreen;
@@ -674,6 +680,7 @@ void loopier::Clip::setParent(const ClipPtr clip)
 {
     parent = clip;
     setOffset(getPosition() - parent->getPosition());
+//    setOffset(getPosition() - parent->getPosition() + getOffset());
 }
 
 //---------------------------------------------------------------------------

@@ -44,8 +44,6 @@ namespace {
     map<string, loopier::CameraPlayerPtr>   cameraplayers;
     vector<string>                          frameclipslist;
     
-    
-    
     // * * * HELPER FUNCTIONS LOCAL TO THIS FILE * * * * * * * * * * * * * * * * * * * * *
     
     //---------------------------------------------------------------------------
@@ -296,10 +294,7 @@ namespace loopier {
             
             // move clips
             for (auto &clipname : selectedclips) {
-                ofPoint clippos = clips[clipname]->getPosition();
-                int newX = x - ofGetPreviousMouseX() + clippos.x;
-                int newY = y - ofGetPreviousMouseY() + clippos.y;
-                clips[clipname]->setPosition(newX, newY);
+                clips[clipname]->setPosition(x, y);
             }
         }
         
