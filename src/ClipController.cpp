@@ -691,8 +691,15 @@ namespace loopier {
             loopier::FramePlayerPtr frameplayer(new FramePlayer(frames[resourcename]));
             clip->setup(frameplayer);
             frameclipslist.push_back(clipname);
+            string name = resourcename;
+            float x = 0;
+            float y = 0;
+            float w = ofGetWidth();
+            float h = ofGetHeight();
+            
             // load YAML info from the file
             string filename = resourceFilesPath+"frames/"+resourcename+"/resource.yml";
+            if (!ofFile(filename).exists()) return clip;
             ofxYAML yaml;
             yaml.load(filename);
             frameplayer->setName(yaml["name"].as<string>());
@@ -706,11 +713,12 @@ namespace loopier {
         //---------------------------------------------------------------------------
         ClipPtr newEmptyFrameClip(string clipname, string resourcename)
         {
-            ClipPtr clip = getClip(clipname);
-            loopier::FramePlayerPtr frameplayer(new FramePlayer(frames["transparent"]));
-            clip->setup(frameplayer);
-            frameclipslist.push_back(clipname);
-            frameplayer->clear();
+            // Every new empty clip needs it's own independent list of frames. We need to create a
+            // new instance with its own pointer to the object and add it to as a new resource.
+            loopier::FrameListPtr framelist = make_shared<FrameList>(*frames["transparent"]);
+            frames[clipname] = framelist;
+            loopier::ClipPtr clip = newFrameClip(clipname, clipname);
+            clearFrames(clipname);
             return clip;
         }
         
