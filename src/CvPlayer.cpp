@@ -70,7 +70,7 @@ void loopier::CvPlayer::setup()
 void loopier::CvPlayer::update()
 {
     if (!inputPlayer)   return;
-    
+    if (inputPlayer->getPixels().size() <= 0) return;
     pixels = inputPlayer->getPixels();
     
     // TODO: draw contourFinder.minAreaRect like in https://github.com/kylemcdonald/ofxCv/blob/master/example-contours-advanced/src/ofApp.cpp
