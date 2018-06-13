@@ -224,6 +224,12 @@ ofTexture & loopier::CvPlayer::getHolesTexture()
 }
 
 //---------------------------------------------------------
+ofPoint loopier::CvPlayer::getPosition()
+{
+    return getCentroid();
+}
+
+//---------------------------------------------------------
 ofPoint loopier::CvPlayer::getCentroid()
 {
     if(selectedBlobs.size() < 1) return ofPoint();

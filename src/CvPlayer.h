@@ -42,6 +42,8 @@ namespace loopier {
             vector<ofPolyline> getPolylines();
             /// \brief  Returns a B & W image of the hole blobs
             ofTexture & getHolesTexture();
+            /// \brief  Returns the position
+            ofPoint getPosition();
             /// \brief  Returns the average center of the selected blobs
             ofPoint getCentroid();
             /// \brief  Returns the center of the bounding box of the given blob

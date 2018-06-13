@@ -363,7 +363,7 @@ void loopier::Clip::setPosition(const ofPoint& newPosition)
 //---------------------------------------------------------------------------
 ofPoint loopier::Clip::getPosition() const
 {
-    return position;
+    return position + player->getPosition();
 }
 
 //---------------------------------------------------------------------------

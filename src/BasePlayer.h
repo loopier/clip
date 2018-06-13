@@ -53,7 +53,7 @@ namespace loopier {
         //    bool				isInitialized() const{ return isLoaded(); }
         
         //should implement!
-        virtual     ofPoint &           getPosition();
+        virtual     ofPoint             getPosition();
         virtual     void 				setPosition(ofPoint & pos);
         virtual     void                setPosition(const float x, const float y);
         
