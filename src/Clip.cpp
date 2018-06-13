@@ -63,6 +63,7 @@ void loopier::Clip::setup(PlayerPtr aplayer)
     outputFbo.clear();
 //    outputFbo.allocate(player->getWidth(), player->getHeight());
     outputFbo.allocate(ofGetWidth(), ofGetHeight());
+    maskFbo.allocate(ofGetWidth(), ofGetHeight());
 }
 
 //---------------------------------------------------------------------------
@@ -76,25 +77,19 @@ void loopier::Clip::update()
     
     outputFbo.begin();
     ofClear(255,255,255,0);
-    float fx = absolutePosition.x;
-    float fy = absolutePosition.y;
-    int fscalex = scaleX;
-    int fscaley = scaleY;
-    if (bMask) {
-        fscalex = maskClip->getPlayer()->getWidth() / player->getWidth();
-        fscaley = maskClip->getPlayer()->getHeight() / player->getHeight();
-    }
-    ofSetColor(255);
-    ofDrawRectangle(fx, fy, fscalex, fscaley);
-    ofPushMatrix();
-    ofTranslate(fx, fy);
-    ofScale(fscalex, fscaley);
     player->draw();
     ofPopMatrix();
     outputFbo.end();
     
     if (bMask)  {
-        outputFbo.getTexture().setAlphaMask(maskPlayer->getTexture());
+        maskFbo.begin();
+        ofClear(0);
+        ofPushMatrix();
+        ofTranslate(absolutePosition.x * (-1), absolutePosition.y * (-1));
+        maskPlayer->getTexture().draw(0,0);
+        ofPopMatrix();
+        maskFbo.end();
+        outputFbo.getTexture().setAlphaMask(maskFbo.getTexture());
     } else {
         outputFbo.getTexture().disableAlphaMask();
     }
@@ -116,8 +111,9 @@ void loopier::Clip::draw()
         
         outputFbo.draw(fx, fy, fw, fh);
     } else {
-        
-        outputFbo.draw(0,0);
+        // I tried to scale the object to match the mask dimensions but it didn't work.
+        // See commit #1725f5c046fd95035f3bb97dd3eebdb549c427e4
+        outputFbo.draw(absolutePosition, outputFbo.getWidth() * scaleX, outputFbo.getHeight() * scaleY);
     }
     ofPopStyle();
 }
@@ -528,8 +524,8 @@ void loopier::Clip::setMask(loopier::PlayerPtr mask)
 void loopier::Clip::maskOn()
 {
     bMask = true;
-    setPosition(maskClip->getBoundingBox().getPosition());
-    setParent(maskClip);
+//    setPosition(maskClip->getPosition());
+//    setParent(maskClip);
 }
 
 //---------------------------------------------------------------------------

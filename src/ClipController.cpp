@@ -1157,7 +1157,7 @@ namespace loopier {
             if(!exists(clipname))       return;
             if(!exists(maskclipname))   return;
             clips[clipname]->setMask( clips[maskclipname] );
-            clips[maskclipname]->hide();
+//            clips[maskclipname]->hide();
         }
         
         //---------------------------------------------------------------------------

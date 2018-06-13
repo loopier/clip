@@ -158,6 +158,7 @@ namespace loopier {
         PlayerPtr   player;     // TODO: Should be a vector of players
         ClipPtr     maskClip;
         PlayerPtr   maskPlayer; // a player used as a mask
+        ofFbo       maskFbo;
         ofFbo       outputFbo; // final image to be drawn
         ofPixels    outputPixels;
         bool        bMask;  // turn mask on and off
