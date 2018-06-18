@@ -4,6 +4,7 @@ import logging
 import os
 import types
 import yaml
+import time
 from cliplang.oscsender import OscSender
 
 logging.basicConfig(format='%(levelname)s:%(funcName)s: %(message)s', level=logging.DEBUG)
@@ -25,36 +26,36 @@ class ClipApp:
 # cliptemplate = Clip("")
 # app = ClipApp()
 
-def boot():
-    log.info("Booting...")
-    global osc
-    # osc.setIp("localhost")
-    osc.setPort(12345)
-    osc.connect()
-    log.info("sending OSC test message...")
-    osc.send("/loopier/clip/test", [0, 0.1, "alo"])
-    global commands
-    commands = loadcommands()
-    global app
-    app = ClipApp()
+# def boot():
+#     log.info("Booting...")
+#     global osc
+#     # osc.setIp("localhost")
+#     osc.setPort(12345)
+#     osc.connect()
+#     log.info("sending OSC test message...")
+#     osc.send("/loopier/clip/test", [0, 0.1, "alo"])
+#     global commands
+#     commands = loadcommands()
+#     global app
+#     app = ClipApp()
 
 def loadcommands():
     path = os.getcwd() + "/../bin/data/commands.yml"
     log.debug("loading commands from: " + path)
     return yaml.load(open(path))
 
-def functionbuilder(command, name):
+def functionbuilder(list, command, name):
     def function(*args):
         oscargs = [name]
         for i in args:
             oscargs.append(i)
-        osc.send(commands['clip'][command], oscargs)
+        osc.send(list[command], oscargs)
         # print(command, name, oscargs)
     return function
 
 def setattributes(obj, list, instancename):
     for item in list:
-        setattr(obj, item, functionbuilder(item, instancename))
+        setattr(obj, item, functionbuilder(list, item, instancename))
 
 def printcommands(name=""):
     global commands
@@ -78,3 +79,16 @@ def getListAsString(header, list):
         for i in list:
             items += "\n- " + i
         return items
+
+
+log.info("Booting...")
+global osc
+# osc.setIp("localhost")
+osc.setPort(12345)
+osc.connect()
+log.info("sending OSC test message...")
+osc.send("/loopier/clip/test", [0, 0.1, "alo"])
+global commands
+commands = loadcommands()
+global app
+app = ClipApp()
