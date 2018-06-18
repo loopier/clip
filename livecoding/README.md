@@ -28,3 +28,12 @@ You should be all set.
 **`foo.new()`** To add the clip to the stage.  If there's a resource named *foo* in the resource folder, it will use that.  If there isn't it will create a new empty animation clip.
 
 **`foo.[command]([parameters])`** Tell **foo** to do something.  *[command]* should be substituted by any of the commands in the *clip* commands list.  For a list of possible commands see *listcommands("clip")*.  For closer details of each command see Clip server's documentation.
+
+Use **`time.sleep(seconds)`** in a loop to modify behaviour over time.
+```python
+x = 0
+while x < 400:
+    foo.moveto(((x%4)+1)/4, 0.5)
+    time.sleep(0.1)
+    x += 1
+```
