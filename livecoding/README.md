@@ -10,14 +10,17 @@ Install Atom.
 
 Install Hydrogen and Hydrodgen-Python packages.
 
+## Usage
+
+### Starting a new session
+
 Create a new file.
 
 Add `from cliplang.cliplang import *` to the top and execute with `Cmd-Enter`
 
-You should be all set.
+That's it!
 
-## Usage
-
+### Basic methods
 
 **`listcommands()`** To view all available commands.
 
@@ -26,6 +29,8 @@ You should be all set.
 **`foo = Clip("foo")`** To create a new clip instance named ***foo***.
 
 **`foo.new()`** To add the clip to the stage.  If there's a resource named *foo* in the resource folder, it will use that.  If there isn't it will create a new empty animation clip.
+
+**`foo.new("bar")`** To add the clip to the stage using the resource *bar*.
 
 **`foo.[command]([parameters])`** Tell **foo** to do something.  *[command]* should be substituted by any of the commands in the *clip* commands list.  For a list of possible commands see *listcommands("clip")*.  For closer details of each command see Clip server's documentation.
 
