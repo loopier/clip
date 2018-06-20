@@ -17,6 +17,7 @@ class Clip:
     def __init__(self, name):
         self.name = name
         setattributes(self, commands['clip'], name)
+        self.new()
 
 class ClipApp:
     def __init__(self):
@@ -80,6 +81,8 @@ def getListAsString(header, list):
             items += "\n- " + i
         return items
 
+# def newclip(clipname):
+#     globals()[clipname] = Clip(clipname)
 
 log.info("Booting...")
 global osc
@@ -88,7 +91,5 @@ osc.setPort(12345)
 osc.connect()
 log.info("sending OSC test message...")
 osc.send("/loopier/clip/test", [0, 0.1, "alo"])
-global commands
 commands = loadcommands()
-global app
 app = ClipApp()
