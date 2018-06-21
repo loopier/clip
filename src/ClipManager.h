@@ -4,7 +4,10 @@
 //
 //  Created by roger on 21/06/2018.
 //
+//  Manage clips.
 //
+//  WARNING:    This is a singleton class, you should instantiate with ClipManager::getInstance(), not
+//              with a call to the constructor ClipManager().
 
 #ifndef ClipManager_h
 #define ClipManager_h
@@ -15,6 +18,12 @@
 
 namespace loopier {
     class ClipManager {
+    public:
+        static ClipManager & getInstance() {
+            static ClipManager instance;
+            return instance;
+        };
+        
         /// \brief   Creates a clip named after a resource -- or an empty FramePlayer clip
         ClipPtr newClip(string clipname);
         /// \brief   Creates a clip with the given resource
@@ -182,7 +191,6 @@ namespace loopier {
         //// \param  scale       Float   Signed and normalized -- positive or negative float -- 1 is default
         void setClipWidth(const string clipname, const float width);
         void setClipHeight(const string clipname, const float height);
-        void scaleClip(const string clipname, const float scale);
         void scaleUpClip(const string clipname, const float amount=0.1);
         void scaleDownClip(const string clipname, const float amount=0.1);
         void resetClipScale(const string clipname);
@@ -197,13 +205,24 @@ namespace loopier {
         // tint
         void setClipColor(const string clipname, const float & grayscale);
         void setClipColor(const string clipname, const ofColor & color);
-        void setClipColor(const string clipname, const float & grayscale);
         void setClipColor(const string clipname, const float & grayscale, const float & alpha);
         void setClipColor(const string clipname, const float & r, const float & g, const float & b );
         void setClipColor(const string clipname, const float & r, const float & g, const float & b, const float & a );
         // transparency
         void setClipAlpha(const string clipname, const float alpha);
         // reset attributes -- factory defaults
+        
+    private:
+        ClipManager() {};
+        ClipManager(ClipManager const&);
+        void operator=(ClipManager const&);
+        
+        ClipMap clips;
+        vector<string>  selectedclips;
+        vector<string>  frameclipslist;
+        
+        vector<string>  publicLayers;      // used to control drawing order (depth)
+        vector<string>  privateLayers;      // rendered only in private screen
     };
 }
 
