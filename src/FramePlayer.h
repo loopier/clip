@@ -16,10 +16,6 @@
 
 namespace loopier {
     
-    typedef vector<ofImage>             FrameList;
-    typedef shared_ptr<FrameList>       FrameListPtr;
-    typedef map<string, FrameListPtr>   FrameListMap;
-    
     extern FrameListMap frameLists; // list of all available frame image files
     
     class FramePlayer: public BasePlayer{

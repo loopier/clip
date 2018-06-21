@@ -15,10 +15,6 @@
 
 namespace loopier {
     
-    typedef ofVideoPlayer           Movie;
-    typedef shared_ptr<Movie>       MoviePtr;
-    typedef map<string, MoviePtr>   MovieMap;
-    
     extern MovieMap     moviemap;     // list of all available movie files
     
     class MoviePlayer: public BasePlayer{
