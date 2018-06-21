@@ -13,4 +13,4 @@ obj/osx/Release/src/CvPlayer.d
 obj/osx/Release/src/FramePlayer.d
 obj/osx/Release/src/main.d
 src/.stdafx.c++.pch
-livecoding/cliplang/__pycache__
+*__pycache__
