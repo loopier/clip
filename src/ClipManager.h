@@ -19,10 +19,8 @@
 namespace loopier {
     class ClipManager {
     public:
-        static ClipManager & getInstance() {
-            static ClipManager instance;
-            return instance;
-        };
+        static ClipManager * getInstance() ;
+        ~ClipManager(){ if (!instance) delete instance;};
         
         /// \brief   Creates a clip named after a resource -- or an empty FramePlayer clip
         ClipPtr newClip(string clipname);
@@ -216,6 +214,8 @@ namespace loopier {
         ClipManager() {};
         ClipManager(ClipManager const&);
         void operator=(ClipManager const&);
+        
+        static ClipManager * instance;
         
         ClipMap clips;
         vector<string>  selectedclips;

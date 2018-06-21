@@ -23,6 +23,7 @@
 #include "ConsoleUI.h"
 #include "Types.h"
 #include "Uvc.h"
+#include "ClipManager.h"
 
 namespace loopier {
     namespace osc {
@@ -237,6 +238,7 @@ namespace loopier {
             osc::OscManager         osc;
             
             ConsoleUI   console;
+            ClipManager* clipManager;
         };
     } // namespace osc
     

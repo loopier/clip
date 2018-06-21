@@ -8,6 +8,20 @@
 
 #include "ClipManager.h"
 
+loopier::ClipManager* loopier::ClipManager::instance = 0;
+loopier::ClipManager * loopier::ClipManager::getInstance()
+{
+    if(!instance) {
+        instance = new ClipManager();
+        ofLogVerbose() << __PRETTY_FUNCTION__ << ": First instance\n";
+        return instance;
+    }
+    else {
+        ofLogVerbose() << __PRETTY_FUNCTION__ << ": previous instance\n";
+        return instance;
+    }
+}
+
 //---------------------------------------------------------------------------
 loopier::ClipPtr loopier::ClipManager::newClip(string clipname)
 {
@@ -815,7 +829,7 @@ void loopier::ClipManager::saveFrames(const string clipname)
 
 //---------------------------------------------------------------------------
 // load the info of the frames into the clip
-void loadFrames(const string clipname, const string resourcename)
+void loopier::ClipManager::loadFrames(const string clipname, const string resourcename)
 {
     ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation.";
 //    if(!exists(clipname)) return;
