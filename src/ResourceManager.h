@@ -15,10 +15,7 @@
 namespace loopier {
     class ResourceManager {
     public:
-        static ResourceManager & getInstance() {
-            static ResourceManager instance;
-            return instance;
-        };
+        static ResourceManager * getInstance();
         /// \brief   Lists all available resources
         void    setResourcePath(string path);
         string& getResourcePath();
@@ -49,6 +46,8 @@ namespace loopier {
         ResourceManager() {};
         ResourceManager(ResourceManager const&);
         void operator=(ResourceManager const&);
+        
+        static ResourceManager * instance;
         
         string filesPath;
         MovieMap        movies;

@@ -8,12 +8,14 @@
 
 #include "ClipController.h"
 #include "ClipManager.h"
+#include "ResourceManager.h"
 
 namespace {
     // * * * UNNAMED NAMESPACE              * * * * * * * * * * * * * * * * * * * * * * * *
     // * * * VARIABLES LOCAL TO THIS FILE   * * * * * * * * * * * * * * * * * * * * * * * *
     
     loopier::ClipManager * clipManager = loopier::ClipManager::getInstance();
+    loopier::ResourceManager * resourceManager = loopier::ResourceManager::getInstance();
     
     
     // app settings
@@ -165,14 +167,14 @@ namespace loopier {
                 ofExit();
             }
             
-            resource::setResourcePath(applicationSupportPath);
+            resourceManager->setResourcePath(applicationSupportPath);
             clipManager->setClipLibraryPath(applicationSupportPath+"clips/");
             script::setScriptPath(applicationSupportPath+"scripts/");
             app::setKeymapPath(applicationSupportPath+"keymaps/");
             
-            resource::loadResources();
+            resourceManager->loadResources();
             initializeCameras(); // FIX: find a way to have them all on.
-            loopier::resource::listAllResources();
+            resourceManager->listAllResources();
             
             publicSyphonServer.setName("Public Screen");
             privateSyphonServer.setName("Private Screen");
@@ -356,181 +358,181 @@ namespace loopier {
     // !!!: resource namescape
     namespace resource {
         
-        //---------------------------------------------------------------------------
-        void setResourcePath(const string path)
-        {
-            resourceFilesPath = path + "resources/";
-            
-            ofDirectory dir(resourceFilesPath);
-            if (!dir.exists()) {
-                ofSystemAlertDialog(dir.getAbsolutePath() + " doesn't exist.");
-                ofExit();
-            }
-            ofLogVerbose() << "Resource files path: " << resourceFilesPath;
-        }
-        
-        //---------------------------------------------------------------------------
-        string & getResourcePath()
-        {
-            return resourceFilesPath;
-        }
-        
-        //---------------------------------------------------------------------------
-        void loadResource(const string & resourcename)
-        {
-            if (ofDirectory(resourceFilesPath+"frames/"+resourcename).exists()) {
-                loadFrameList(resourcename);
-            } else if (ofFile(resourceFilesPath+"movies/"+resourcename+".mov").exists()) {
-                loadMovie(resourcename);
-            }
-        }
-        
-        //---------------------------------------------------------------------------
-        void loadResources(const vector<string> resourcenames)
-        {
-            // load all if nothing is specified
-            
-            if (resourcenames.size() <= 0) {
-                loadAllResources();
-                return;
-            }
-            
-            for (auto &name: resourcenames) {
-                loadResource(name);
-            }
-        }
-        
-        //---------------------------------------------------------------------------
-        void loadAllResources()
-        {
-            // load frame lists
-            ofDirectory dir(resourceFilesPath+"frames/");
-            vector<ofFile> files = dir.getFiles();
-            for (auto &file : files) {
-                loadFrameList(file.getBaseName());
-            }
-            
-            // load movies
-            dir.open(resourceFilesPath+"movies/");
-            files = dir.getFiles();
-            for (auto &file : files) {
-                loadMovie(file.getBaseName());
-            }
-        }
-        
-        //---------------------------------------------------------------------------
-        void clearResourceList()
-        {
-            frames.clear();
-            movies.clear();
-        }
-        
-        //---------------------------------------------------------------------------
-        void loadFrameList(const string & name)
-        {
-            ofDirectory dir(resourceFilesPath+"frames/"+name);
-            dir.allowExt("png");
-            dir.allowExt("jpg");
-            dir.allowExt("gif");
-            
-            vector<ofFile> files = dir.getFiles();
-            
-            // skip empty folders
-            if (files.size() <= 0) {
-                ofLogWarning() << "'" << name << "' folder is empty.  Skipping";
-                return;
-            }
-            
-            loopier::FrameListPtr framelist(new loopier::FrameList);     // actual list of frames
-            
-            for (int i = 0; i < files.size(); i++) {
-                ofImage img;
-                img.load(files[i].getAbsolutePath());
-                framelist->push_back(img);
-            }
-            
-            frames[name] = framelist;
-            
-            ofLogVerbose() << "Loaded " << framelist->size() << " frames from " << name;
-        }
-        
-        //---------------------------------------------------------------------------
-        void loadMovie(const string & name)
-        {
-            ofLogVerbose() << "Loading movie files from: " << resourceFilesPath;
-            
-            ofFile file(resourceFilesPath+"movies/"+name+".mov");
-            if(!file.exists()) {
-                ofLogWarning() << "File not found: " << file.getBaseName();
-                return;
-            }
-            
-            loopier::MoviePtr movie(new loopier::Movie);
-            movie->load(file.getAbsolutePath());
-            movies[file.getBaseName()] = movie;
-            ofLogVerbose() << "Loaded " << file.getAbsolutePath();
-        }
-        
-        //---------------------------------------------------------------------------
-        void listAllResources()
-        {
-            ofLogNotice() << "Number of frame lists loaded: " << frames.size();
-            for (const auto &item : frames) {
-                ofLogNotice() << "\t" << item.first;
-            }
-            ofLogNotice() << "Number of movies loaded: " << movies.size();
-            for (const auto &item : movies) {
-                ofLogNotice() << "\t" << item.first;
-            }
-            ofLogNotice() << "Number of cameras players loaded: " << cameraplayers.size();
-            for (const auto &item : cameraplayers) {
-                ofLogNotice() << "\t" << item.first << ": " << item.second->getName();
-            }
-        }
-        
-        //---------------------------------------------------------------------------
-        void listCameras()
-        {
-            ofLogNotice() << "Number of cameras players loaded: " << cameraplayers.size();
-            for (const auto &item : cameraplayers) {
-                ofLogNotice() << "\t" << item.first << ": " << item.second->getName();
-            }
-        }
-        
-        //---------------------------------------------------------------------------
-        vector<string> getResourceNames()
-        {
-            vector<string> names;
-            for (const auto &item : frames) {   names.push_back(item.first); }
-            for (const auto &item : movies) {   names.push_back(item.first); }
-            for (const auto &item : cameraplayers) {  names.push_back(item.first); }
-            return names;
-        }
-        
-        //---------------------------------------------------------------------------
-        vector<string> getCameraNames()
-        {
-            vector<string> names;
-            for (const auto &item : cameraplayers) {   names.push_back(item.first); }
-            return names;
-        }
-        
-        //---------------------------------------------------------------------------
-        bool exists(string resourcename)
-        {
-            if (frames.count(resourcename) ||
-                movies.count(resourcename) ||
-                cameraplayers.count(resourcename)) return true;
-            else return false;
-        }
-        
-        //---------------------------------------------------------------------------
-        void setSyphonServerName(const string clipname, const string syphonservername, const string syphonserverapp)
-        {
-            if (!clipManager->exists(clipname)) return;
-            getPlayerAsSyphonPlayer(clipname)->setServerName(syphonservername, syphonserverapp);
-            
-        }
+//        //---------------------------------------------------------------------------
+//        void setResourcePath(const string path)
+//        {
+//            resourceFilesPath = path + "resources/";
+//            
+//            ofDirectory dir(resourceFilesPath);
+//            if (!dir.exists()) {
+//                ofSystemAlertDialog(dir.getAbsolutePath() + " doesn't exist.");
+//                ofExit();
+//            }
+//            ofLogVerbose() << "Resource files path: " << resourceFilesPath;
+//        }
+//        
+//        //---------------------------------------------------------------------------
+//        string & getResourcePath()
+//        {
+//            return resourceFilesPath;
+//        }
+//        
+//        //---------------------------------------------------------------------------
+//        void loadResource(const string & resourcename)
+//        {
+//            if (ofDirectory(resourceFilesPath+"frames/"+resourcename).exists()) {
+//                loadFrameList(resourcename);
+//            } else if (ofFile(resourceFilesPath+"movies/"+resourcename+".mov").exists()) {
+//                loadMovie(resourcename);
+//            }
+//        }
+//        
+//        //---------------------------------------------------------------------------
+//        void loadResources(const vector<string> resourcenames)
+//        {
+//            // load all if nothing is specified
+//            
+//            if (resourcenames.size() <= 0) {
+//                loadAllResources();
+//                return;
+//            }
+//            
+//            for (auto &name: resourcenames) {
+//                loadResource(name);
+//            }
+//        }
+//        
+//        //---------------------------------------------------------------------------
+//        void loadAllResources()
+//        {
+//            // load frame lists
+//            ofDirectory dir(resourceFilesPath+"frames/");
+//            vector<ofFile> files = dir.getFiles();
+//            for (auto &file : files) {
+//                loadFrameList(file.getBaseName());
+//            }
+//            
+//            // load movies
+//            dir.open(resourceFilesPath+"movies/");
+//            files = dir.getFiles();
+//            for (auto &file : files) {
+//                loadMovie(file.getBaseName());
+//            }
+//        }
+//        
+//        //---------------------------------------------------------------------------
+//        void clearResourceList()
+//        {
+//            frames.clear();
+//            movies.clear();
+//        }
+//        
+//        //---------------------------------------------------------------------------
+//        void loadFrameList(const string & name)
+//        {
+//            ofDirectory dir(resourceFilesPath+"frames/"+name);
+//            dir.allowExt("png");
+//            dir.allowExt("jpg");
+//            dir.allowExt("gif");
+//            
+//            vector<ofFile> files = dir.getFiles();
+//            
+//            // skip empty folders
+//            if (files.size() <= 0) {
+//                ofLogWarning() << "'" << name << "' folder is empty.  Skipping";
+//                return;
+//            }
+//            
+//            loopier::FrameListPtr framelist(new loopier::FrameList);     // actual list of frames
+//            
+//            for (int i = 0; i < files.size(); i++) {
+//                ofImage img;
+//                img.load(files[i].getAbsolutePath());
+//                framelist->push_back(img);
+//            }
+//            
+//            frames[name] = framelist;
+//            
+//            ofLogVerbose() << "Loaded " << framelist->size() << " frames from " << name;
+//        }
+//        
+//        //---------------------------------------------------------------------------
+//        void loadMovie(const string & name)
+//        {
+//            ofLogVerbose() << "Loading movie files from: " << resourceFilesPath;
+//            
+//            ofFile file(resourceFilesPath+"movies/"+name+".mov");
+//            if(!file.exists()) {
+//                ofLogWarning() << "File not found: " << file.getBaseName();
+//                return;
+//            }
+//            
+//            loopier::MoviePtr movie(new loopier::Movie);
+//            movie->load(file.getAbsolutePath());
+//            movies[file.getBaseName()] = movie;
+//            ofLogVerbose() << "Loaded " << file.getAbsolutePath();
+//        }
+//        
+//        //---------------------------------------------------------------------------
+//        void listAllResources()
+//        {
+//            ofLogNotice() << "Number of frame lists loaded: " << frames.size();
+//            for (const auto &item : frames) {
+//                ofLogNotice() << "\t" << item.first;
+//            }
+//            ofLogNotice() << "Number of movies loaded: " << movies.size();
+//            for (const auto &item : movies) {
+//                ofLogNotice() << "\t" << item.first;
+//            }
+//            ofLogNotice() << "Number of cameras players loaded: " << cameraplayers.size();
+//            for (const auto &item : cameraplayers) {
+//                ofLogNotice() << "\t" << item.first << ": " << item.second->getName();
+//            }
+//        }
+//        
+//        //---------------------------------------------------------------------------
+//        void listCameras()
+//        {
+//            ofLogNotice() << "Number of cameras players loaded: " << cameraplayers.size();
+//            for (const auto &item : cameraplayers) {
+//                ofLogNotice() << "\t" << item.first << ": " << item.second->getName();
+//            }
+//        }
+//        
+//        //---------------------------------------------------------------------------
+//        vector<string> getResourceNames()
+//        {
+//            vector<string> names;
+//            for (const auto &item : frames) {   names.push_back(item.first); }
+//            for (const auto &item : movies) {   names.push_back(item.first); }
+//            for (const auto &item : cameraplayers) {  names.push_back(item.first); }
+//            return names;
+//        }
+//        
+//        //---------------------------------------------------------------------------
+//        vector<string> getCameraNames()
+//        {
+//            vector<string> names;
+//            for (const auto &item : cameraplayers) {   names.push_back(item.first); }
+//            return names;
+//        }
+//        
+//        //---------------------------------------------------------------------------
+//        bool exists(string resourcename)
+//        {
+//            if (frames.count(resourcename) ||
+//                movies.count(resourcename) ||
+//                cameraplayers.count(resourcename)) return true;
+//            else return false;
+//        }
+//        
+//        //---------------------------------------------------------------------------
+//        void setSyphonServerName(const string clipname, const string syphonservername, const string syphonserverapp)
+//        {
+//            if (!clipManager->exists(clipname)) return;
+//            getPlayerAsSyphonPlayer(clipname)->setServerName(syphonservername, syphonserverapp);
+//            
+//        }
     }  // namesapce resource
     
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

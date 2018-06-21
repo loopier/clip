@@ -12,6 +12,7 @@
 void loopier::osc::MessageMapper::setup()
 {
     clipManager = ClipManager::getInstance();
+    resourceManager = ResourceManager::getInstance();
     osc.setup();
     ofAddListener(osc.newOscMessageEvent, this, &loopier::osc::MessageMapper::mapMessageToFunc);
     setupAppCommandsMap();
@@ -349,13 +350,13 @@ void loopier::osc::MessageMapper::loadResources(const Message & msg)
         resourcenames.push_back(msg.getArgAsString(i));
     }
     
-    resource::loadResources(resourcenames);
+    resourceManager->loadResources(resourcenames);
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::clearResources(const Message & msg)
 {
-    resource::clearResourceList();
+    resourceManager->clearResourceList();
 }
 
 //---------------------------------------------------------
@@ -868,14 +869,14 @@ void loopier::osc::MessageMapper::listClipNames(const Message & msg)
 void loopier::osc::MessageMapper::listResourceNames(const Message & msg)
 {
     //    listResourceNames();
-    resource::listAllResources();
+    resourceManager->listAllResources();
     sendResourceNames();
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::listCameraNames(const Message & msg)
 {
-    resource::listCameras();
+    resourceManager->listCameras();
     sendCameraNames();
 }
 
@@ -919,7 +920,7 @@ void loopier::osc::MessageMapper::hideClipNames(const Message & msg)
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setSyphonServerName(const Message & msg)
 {
-    resource::setSyphonServerName(msg.getArgAsString(0),
+    resourceManager->setSyphonServerName(msg.getArgAsString(0),
                                   msg.getArgAsString(1),
                                   msg.getArgAsString(2));
 }
@@ -1278,7 +1279,7 @@ void loopier::osc::MessageMapper::sendClipNames()
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::sendResourceNames()
 {
-    vector<string> names = loopier::resource::getResourceNames();
+    vector<string> names = resourceManager->getResourceNames();
     Message msg;
     
     msg.setAddress("/loopier/clip/resourcenames");
@@ -1292,7 +1293,7 @@ void loopier::osc::MessageMapper::sendResourceNames()
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::sendCameraNames()
 {
-    vector<string> names = loopier::resource::getCameraNames();
+    vector<string> names = resourceManager->getCameraNames();
     Message msg;
     
     msg.setAddress("/loopier/clip/cameranames");
