@@ -9,6 +9,7 @@
 #include "ClipController.h"
 #include "ClipManager.h"
 #include "ResourceManager.h"
+#include "PlayerManager.h"
 
 namespace {
     // * * * UNNAMED NAMESPACE              * * * * * * * * * * * * * * * * * * * * * * * *
