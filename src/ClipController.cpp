@@ -753,32 +753,18 @@ namespace loopier {
 //            ofLogNotice() << "Clip '" << clipname << "' has been removed.";
 //        }
 //        
-//        //---------------------------------------------------------------------------
-//        void selectClip(string clipname)
-//        {
-//            if (!exists(clipname)) return;
-//            // add only if clip is not already in the list
-//            if (std::find(selectedclips.begin(), selectedclips.end(), clipname) != selectedclips.end()) {
-//                ofLogError() << "You are trying to select a clip that's already selected";
-//            } else {
-//                selectedclips.push_back(clipname);
-//                clips[clipname]->select();
-//                ofLogVerbose() << __PRETTY_FUNCTION__ << " " << clipname;
-//            }
-//        }
-//        
-//        //---------------------------------------------------------------------------
-//        void deselectClip(string clipname)
-//        {
-//            if (!exists(clipname)) return;
-//            
-//            vector<string>::iterator it = std::find(selectedclips.begin(), selectedclips.end(), clipname);
-//            if (it != selectedclips.end()) {
-//                selectedclips.erase(it);
-//                clips[clipname]->deselect();
-//            }
-//        }
-//        
+        //---------------------------------------------------------------------------
+        void selectClip(string clipname)
+        {
+            clipManager->selectClip(clipname);
+        }
+        
+        //---------------------------------------------------------------------------
+        void deselectClip(string clipname)
+        {
+            clipManager->deselectClip(clipname);
+        }
+//
 //        //---------------------------------------------------------------------------
 //        void selectNextClip()
 //        {

@@ -17,10 +17,15 @@
 #include "Clip.h"
 
 namespace loopier {
+    typedef vector<string>          ClipGroup;
+    typedef map<string, ClipGroup > ClipGroupMap;
+    
     class ClipManager {
     public:
         static ClipManager * getInstance() ;
         ~ClipManager(){ if (!instance) delete instance;};
+        
+        void setup();
         
         /// \brief   Creates a clip named after a resource -- or an empty FramePlayer clip
         ClipPtr newClip(string clipname);
@@ -43,6 +48,11 @@ namespace loopier {
         ClipPtr newEmptyFrameClip(string clipname, string resourcename);
         
         void    removeClip(string clipname);
+        
+        /// \brief   Adds the clip to the given group
+        void    addClipToGroup(string clipname, string groupname);
+        /// \brief   Removes the clip from the given group
+        void    removeClipFromGroup(string clipname, string groupname);
         
         /// \brief   Adds the clip to the selected clips vector
         void    selectClip(string clipname);
@@ -211,18 +221,19 @@ namespace loopier {
         // reset attributes -- factory defaults
         
     private:
-        ClipManager() {};
+        ClipManager() {  setup(); };
         ClipManager(ClipManager const&);
         void operator=(ClipManager const&);
         
         static ClipManager * instance;
         
         ClipMap clips;
-        vector<string>  selectedclips;
-        vector<string>  frameclipslist;
-        
-        vector<string>  publicLayers;      // used to control drawing order (depth)
-        vector<string>  privateLayers;      // rendered only in private screen
+        ClipGroupMap   groups;
+//        vector<string>  selectedclips;
+//        vector<string>  frameclipslist;
+//        
+//        vector<string>  publicLayers;      // used to control drawing order (depth)
+//        vector<string>  privateLayers;      // rendered only in private screen
     };
 }
 

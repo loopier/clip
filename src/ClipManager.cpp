@@ -23,6 +23,16 @@ loopier::ClipManager * loopier::ClipManager::getInstance()
 }
 
 //---------------------------------------------------------------------------
+void loopier::ClipManager::setup()
+{
+    groups["publiclayer"];
+    groups["privatelayer"];
+    groups["selectedclips"];
+    groups["frameclips"];
+}
+
+
+//---------------------------------------------------------------------------
 loopier::ClipPtr loopier::ClipManager::newClip(string clipname)
 {
     return newClip(clipname, clipname);
@@ -166,6 +176,7 @@ loopier::ClipPtr loopier::ClipManager::newCvClip(string clipname, string resourc
 //---------------------------------------------------------------------------
 loopier::ClipPtr loopier::ClipManager::newCameraClip(string clipname, string resourcename)
 {
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
     ClipPtr clip = getClip(clipname);
 //    clip->setup(cameraplayers[resourcename]);
 //    clip->setWidth(ofGetWidth());
@@ -176,6 +187,7 @@ loopier::ClipPtr loopier::ClipManager::newCameraClip(string clipname, string res
 //---------------------------------------------------------------------------
 loopier::ClipPtr loopier::ClipManager::newFrameClip(string clipname, string resourcename)
 {
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
     ClipPtr clip = getClip(clipname);
 //    loopier::FramePlayerPtr frameplayer(new FramePlayer(frames[resourcename]));
 //    clip->setup(frameplayer);
@@ -202,6 +214,7 @@ loopier::ClipPtr loopier::ClipManager::newFrameClip(string clipname, string reso
 //---------------------------------------------------------------------------
 loopier::ClipPtr loopier::ClipManager::newEmptyFrameClip(string clipname, string resourcename)
 {
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
     // Every new empty clip needs it's own independent list of frames. We need to create a
     // new instance with its own pointer to the object and add it to as a new resource.
 //    loopier::FrameListPtr framelist = make_shared<FrameList>(*frames["transparent"]);
@@ -215,40 +228,64 @@ loopier::ClipPtr loopier::ClipManager::newEmptyFrameClip(string clipname, string
 //---------------------------------------------------------------------------
 void loopier::ClipManager::removeClip(string clipname)
 {
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
     // FIX: removing from map CRASHES APP
     if (!exists(clipname)) return;
     
-    vector<string>::iterator it;
-    // remove from frameclipslist vector
-    it = std::find(frameclipslist.begin(), frameclipslist.end(), clipname);
-    if (it != frameclipslist.end()) frameclipslist.erase(it);
-    // remove from public layers vector
-    it = std::find(publicLayers.begin(), publicLayers.end(), clipname);
-    if (it != publicLayers.end()) publicLayers.erase(it);
-    // remove from private layers vector
-    it = std::find(privateLayers.begin(), privateLayers.end(), clipname);
-    if (it != privateLayers.end()) privateLayers.erase(it);
-    // remove from private layers vector
-    it = std::find(selectedclips.begin(), selectedclips.end(), clipname);
-    if (it != selectedclips.end()) selectedclips.erase(it);
-    // remove clip
-    clips.erase(clipname);
+//    vector<string>::iterator it;
+//    // remove from frameclipslist vector
+//    it = std::find(frameclipslist.begin(), frameclipslist.end(), clipname);
+//    if (it != frameclipslist.end()) frameclipslist.erase(it);
+//    // remove from public layers vector
+//    it = std::find(publicLayers.begin(), publicLayers.end(), clipname);
+//    if (it != publicLayers.end()) publicLayers.erase(it);
+//    // remove from private layers vector
+//    it = std::find(privateLayers.begin(), privateLayers.end(), clipname);
+//    if (it != privateLayers.end()) privateLayers.erase(it);
+//    // remove from private layers vector
+//    it = std::find(selectedclips.begin(), selectedclips.end(), clipname);
+//    if (it != selectedclips.end()) selectedclips.erase(it);
+//    // remove clip
+//    clips.erase(clipname);
     
     ofLogNotice() << "Clip '" << clipname << "' has been removed.";
+}
+
+//---------------------------------------------------------------------------
+void loopier::ClipManager::addClipToGroup(string clipname, string groupname)
+{
+    // add only if clip is not already in the group
+    ClipGroup group = groups[groupname];
+    if (std::find(group.begin(), group.end(), clipname) != group.end()) {
+        ofLogError() << "You are trying to select a clip that's already selected";
+    } else {
+        group.push_back(clipname);
+        ofLogVerbose() << __PRETTY_FUNCTION__ << " " << clipname;
+    }
+}
+
+//---------------------------------------------------------------------------
+void loopier::ClipManager::removeClipFromGroup(string clipname, string groupname)
+{
+    if (!exists(clipname) || groups.count(groupname) <= 0) {
+        ofLogError() << "Cannot remove clip from group: Either "
+        << clipname << " or "
+        << groupname << " doesn't exist.";
+        return;
+    }
+    ClipGroup group = groups[groupname];
+        vector<string>::iterator it = std::find(group.begin(), group.end(), clipname);
+        if (it != group.end()) {
+            group.erase(it);
+        }
 }
 
 //---------------------------------------------------------------------------
 void loopier::ClipManager::selectClip(string clipname)
 {
     if (!exists(clipname)) return;
-    // add only if clip is not already in the list
-    if (std::find(selectedclips.begin(), selectedclips.end(), clipname) != selectedclips.end()) {
-        ofLogError() << "You are trying to select a clip that's already selected";
-    } else {
-        selectedclips.push_back(clipname);
-        clips[clipname]->select();
-        ofLogVerbose() << __PRETTY_FUNCTION__ << " " << clipname;
-    }
+    addClipToGroup(clipname, "selectedclips");
+    clips[clipname]->select();
 }
 
 //---------------------------------------------------------------------------
@@ -256,28 +293,26 @@ void loopier::ClipManager::deselectClip(string clipname)
 {
     if (!exists(clipname)) return;
     
-    vector<string>::iterator it = std::find(selectedclips.begin(), selectedclips.end(), clipname);
-    if (it != selectedclips.end()) {
-        selectedclips.erase(it);
-        clips[clipname]->deselect();
-    }
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+    clips[clipname]->deselect();
 }
 
 //---------------------------------------------------------------------------
 void loopier::ClipManager::selectNextClip()
 {
-    string nextClipName = "";
-    if (selectedclips.size() <= 0) {
-        nextClipName = clips.begin()->first;
-    } else {
-        // get last selected clip
-        ClipMap::iterator currentClip = clips.find(selectedclips.back());
-        ClipMap::iterator nextClip = next(currentClip, 1);
-        if (nextClip == clips.end())    nextClip = clips.begin();
-        nextClipName = nextClip->first;
-    }
-    deselectAllClips();
-    selectClip(nextClipName);
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//    string nextClipName = "";
+//    if (selectedclips.size() <= 0) {
+//        nextClipName = clips.begin()->first;
+//    } else {
+//        // get last selected clip
+//        ClipMap::iterator currentClip = clips.find(selectedclips.back());
+//        ClipMap::iterator nextClip = next(currentClip, 1);
+//        if (nextClip == clips.end())    nextClip = clips.begin();
+//        nextClipName = nextClip->first;
+//    }
+//    deselectAllClips();
+//    selectClip(nextClipName);
 }
 
 //---------------------------------------------------------------------------
@@ -301,17 +336,20 @@ void loopier::ClipManager::selectAllClips()
 //---------------------------------------------------------------------------
 void loopier::ClipManager::deselectAllClips()
 {
-    for (auto &clipname : selectedclips) {
-        clips[clipname]->deselect();
-    }
-    
-    selectedclips.clear();
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//    for (auto &clipname : selectedclips) {
+//        clips[clipname]->deselect();
+//    }
+//    
+//    selectedclips.clear();
 }
 
 //---------------------------------------------------------------------------
 vector<string> loopier::ClipManager::getSelectedClipnames()
 {
-    return selectedclips;
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//    return selectedclips;
+    return vector<string>();
 }
 
 
@@ -319,32 +357,33 @@ vector<string> loopier::ClipManager::getSelectedClipnames()
 void loopier::ClipManager::setClipDrawOrder(string clipname, int position)
 {
     if (!exists(clipname)) return;
-    vector<string>& layers = publicLayers;
-    // get current position in public list
-    vector<string>::iterator it = find(publicLayers.begin(), publicLayers.end(), clipname);
-    // if it's not there get current position in private list
-    if (it == publicLayers.end()) {
-        it = find(privateLayers.begin(), privateLayers.end(), clipname);
-        layers = privateLayers;
-    }
-    // it's not there at all -- quit
-    if (it == privateLayers.end()) {
-        ofLogWarning() << "Trying to arrange a clip that doesn't exist: " << clipname;
-        return;
-    }
-    
-    if (position >= layers.size()) position = layers.size()-1;
-    if (position < 0 ) position = 0;
-    
-    getClip(clipname)->setDepth(position);
-    
-    // remove from current position
-    layers.erase(std::remove(layers.begin(),
-                             layers.end(),
-                             clipname));
-    // add to new position
-    layers.insert(layers.end() - position, clipname);
-    listLayers();
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//    vector<string>& layers = publicLayers;
+//    // get current position in public list
+//    vector<string>::iterator it = find(publicLayers.begin(), publicLayers.end(), clipname);
+//    // if it's not there get current position in private list
+//    if (it == publicLayers.end()) {
+//        it = find(privateLayers.begin(), privateLayers.end(), clipname);
+//        layers = privateLayers;
+//    }
+//    // it's not there at all -- quit
+//    if (it == privateLayers.end()) {
+//        ofLogWarning() << "Trying to arrange a clip that doesn't exist: " << clipname;
+//        return;
+//    }
+//    
+//    if (position >= layers.size()) position = layers.size()-1;
+//    if (position < 0 ) position = 0;
+//    
+//    getClip(clipname)->setDepth(position);
+//    
+//    // remove from current position
+//    layers.erase(std::remove(layers.begin(),
+//                             layers.end(),
+//                             clipname));
+//    // add to new position
+//    layers.insert(layers.end() - position, clipname);
+//    listLayers();
 }
 
 //---------------------------------------------------------------------------
@@ -372,14 +411,16 @@ void loopier::ClipManager::sendClipBackward(string clipname)
 void loopier::ClipManager::sendClipToBack(string clipname)
 {
     if (!exists(clipname)) return;
-    setClipDrawOrder(clipname, publicLayers.size() - 2);
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//    setClipDrawOrder(clipname, publicLayers.size() - 2);
 }
 
 //---------------------------------------------------------------------------
 void loopier::ClipManager::setBackgroundClip(string clipname)
 {
     if (!exists(clipname)) return;
-    setClipDrawOrder(clipname, publicLayers.size() - 1);
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//    setClipDrawOrder(clipname, publicLayers.size() - 1);
 }
 
 //---------------------------------------------------------------------------
@@ -387,13 +428,14 @@ void loopier::ClipManager::setPublicClip(const string clipname)
 {
     if (!exists(clipname))  return;
     if (isPublic(clipname)) return;
-    if (isPrivate(clipname)) {
-        privateLayers.erase(std::remove(privateLayers.begin(),
-                                        privateLayers.end(),
-                                        clipname));
-    }
-    
-    publicLayers.push_back(clipname);
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//    if (isPrivate(clipname)) {
+//        privateLayers.erase(std::remove(privateLayers.begin(),
+//                                        privateLayers.end(),
+//                                        clipname));
+//    }
+//    
+//    publicLayers.push_back(clipname);
 }
 
 //---------------------------------------------------------------------------
@@ -401,28 +443,31 @@ void loopier::ClipManager::setPrivateClip(const string clipname)
 {
     if (!exists(clipname))      return;
     if (isPrivate(clipname))    return;
-    if (isPublic(clipname)) {
-        publicLayers.erase(std::remove(publicLayers.begin(),
-                                       publicLayers.end(),
-                                       clipname));
-    }
-    privateLayers.insert(privateLayers.begin(), clipname);
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//    if (isPublic(clipname)) {
+//        publicLayers.erase(std::remove(publicLayers.begin(),
+//                                       publicLayers.end(),
+//                                       clipname));
+//    }
+//    privateLayers.insert(privateLayers.begin(), clipname);
 }
 
 //---------------------------------------------------------------------------
 bool loopier::ClipManager::isPublic(const string clipname)
 {
     if (!exists(clipname)) return;
-    vector<string>::iterator it = find(publicLayers.begin(), publicLayers.end(), clipname);
-    return it != publicLayers.end();
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//    vector<string>::iterator it = find(publicLayers.begin(), publicLayers.end(), clipname);
+//    return it != publicLayers.end();
 }
 
 //---------------------------------------------------------------------------
 bool loopier::ClipManager::isPrivate(const string clipname)
 {
     if (!exists(clipname)) return;
-    vector<string>::iterator it = find(privateLayers.begin(), privateLayers.end(), clipname);
-    return it != privateLayers.end();
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//    vector<string>::iterator it = find(privateLayers.begin(), privateLayers.end(), clipname);
+//    return it != privateLayers.end();
 }
 
 //---------------------------------------------------------------------------
@@ -485,11 +530,12 @@ vector<string> loopier::ClipManager::getNamesList()
 //---------------------------------------------------------------------------
 void loopier::ClipManager::listLayers()
 {
+    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
     string msg = "";
-    for (const auto &item : publicLayers) {  msg += " : " + item; }
-    ofLogNotice() << "Public layers: " << msg;
-    msg = "";
-    for (const auto &item : privateLayers) {  msg += " : " + item; }
+//    for (const auto &item : publicLayers) {  msg += " : " + item; }
+//    ofLogNotice() << "Public layers: " << msg;
+//    msg = "";
+//    for (const auto &item : privateLayers) {  msg += " : " + item; }
     ofLogNotice() << "Private layers: " << msg;
 }
 
