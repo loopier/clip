@@ -11,8 +11,6 @@
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setup()
 {
-    clipManager = ClipManager::getInstance();
-    resourceManager = ResourceManager::getInstance();
     osc.setup();
     ofAddListener(osc.newOscMessageEvent, this, &loopier::osc::MessageMapper::mapMessageToFunc);
     setupAppCommandsMap();
@@ -261,7 +259,7 @@ void loopier::osc::MessageMapper::fromSelectionToClip(Message & msg)
     ofStringReplace(address, "selection", "clip");
     Message newMsg;
     // get names of selected clips
-    vector<string> clipnames = clipManager->getSelectedClipnames();
+    vector<string> clipnames = clip::getSelectedClipnames();
     // iterate clipnames
     for (auto &clipname: clipnames) {
         newMsg.clear();
@@ -304,7 +302,7 @@ void loopier::osc::MessageMapper::fromSelectionToClip(Message & msg)
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::test(const Message & msg)
 {
-    ClipPtr clip = clipManager->getClip(msg.getArgAsString(0));
+    ClipPtr clip = clip::getClip(msg.getArgAsString(0));
     
 }
 
@@ -350,13 +348,13 @@ void loopier::osc::MessageMapper::loadResources(const Message & msg)
         resourcenames.push_back(msg.getArgAsString(i));
     }
     
-    resourceManager->loadResources(resourcenames);
+    resource::loadResources(resourcenames);
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::clearResources(const Message & msg)
 {
-    resourceManager->clearResourceList();
+    resource::clearResourceList();
 }
 
 //---------------------------------------------------------
@@ -421,76 +419,76 @@ void loopier::osc::MessageMapper::listScriptNames(const Message & msg)
 void loopier::osc::MessageMapper::newClip(const Message & msg)
 {
     int n = msg.getNumArgs();
-    if      (n == 1)    clipManager->newClip(msg.getArgAsString(0));
-    else if (n == 2)    clipManager->newClip(msg.getArgAsString(0), msg.getArgAsString(1));
+    if      (n == 1)    clip::newClip(msg.getArgAsString(0));
+    else if (n == 2)    clip::newClip(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::newClipFromBlob(const Message & msg)
 {
     int n = msg.getNumArgs();
-    if      (n == 1)    clipManager->newClipFromBlob(msg.getArgAsString(0));
-    else if (n == 2)    clipManager->newClipFromBlob(msg.getArgAsString(0), msg.getArgAsString(1));
+    if      (n == 1)    clip::newClipFromBlob(msg.getArgAsString(0));
+    else if (n == 2)    clip::newClipFromBlob(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::removeClip(const Message & msg)
 {
-    clipManager->removeClip(msg.getArgAsString(0));
+    clip::removeClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::resetClip(const Message & msg)
 {
-    clipManager->resetClip(msg.getArgAsString(0));
+    clip::resetClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::selectClip(const Message & msg)
 {
-    clipManager->selectClip(msg.getArgAsString(0));
+    clip::selectClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::deselectClip(const Message & msg)
 {
-    clipManager->deselectClip(msg.getArgAsString(0));
+    clip::deselectClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::selectNextClip(const Message & msg)
 {
-    clipManager->selectNextClip();
+    clip::selectNextClip();
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::selectAllClips(const Message & msg)
 {
-    clipManager->selectAllClips();
+    clip::selectAllClips();
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::deselectAllClips(const Message & msg)
 {
-    clipManager->deselectAllClips();
+    clip::deselectAllClips();
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::addClipChild(const Message & msg)
 {
-    clipManager->addClipChild(msg.getArgAsString(0), msg.getArgAsString(1));
+    clip::addClipChild(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::removeClipChild(const Message & msg)
 {
-    clipManager->removeClipChild(msg.getArgAsString(0), msg.getArgAsString(1));
+    clip::removeClipChild(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::clearClipChildren(const Message & msg)
 {
-    clipManager->clearClipChildren(msg.getArgAsString(0));
+    clip::clearClipChildren(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
@@ -502,169 +500,169 @@ void loopier::osc::MessageMapper::listClipChildren(const Message & msg)
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setClipDrawOrder(const Message & msg)
 {
-    clipManager->setClipDrawOrder(msg.getArgAsString(0), msg.getArgAsInt(1));
+    clip::setClipDrawOrder(msg.getArgAsString(0), msg.getArgAsInt(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::bringClipToFront(const Message & msg)
 {
-    clipManager->bringClipToFront(msg.getArgAsString(0));
+    clip::bringClipToFront(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::bringClipForward(const Message & msg)
 {
-    clipManager->bringClipForward(msg.getArgAsString(0));
+    clip::bringClipForward(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::sendClipBackward(const Message & msg)
 {
-    clipManager->sendClipBackward(msg.getArgAsString(0));
+    clip::sendClipBackward(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::sendClipToBack(const Message & msg)
 {
-    clipManager->sendClipToBack(msg.getArgAsString(0));
+    clip::sendClipToBack(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setBackgroundClip(const Message & msg)
 {
-    clipManager->setBackgroundClip(msg.getArgAsString(0));
+    clip::setBackgroundClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setPublicClip(const Message & msg)
 {
-    clipManager->setPublicClip(msg.getArgAsString(0));
+    clip::setPublicClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setPrivateClip(const Message & msg)
 {
-    clipManager->setPrivateClip(msg.getArgAsString(0));
+    clip::setPrivateClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::listLayers(const Message & msg)
 {
-    clipManager->listLayers();
+    clip::listLayers();
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::scaleUpClip(const Message & msg)
 {
-    clipManager->scaleUpClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::scaleUpClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::scaleDownClip(const Message & msg)
 {
-    clipManager->scaleDownClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::scaleDownClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::scaleClip(const Message & msg)
 {
-    clipManager->scaleClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::scaleClip(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setClipWidth(const Message & msg)
 {
-    clipManager->setClipWidth(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::setClipWidth(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setClipHeight(const Message & msg)
 {
-    clipManager->setClipHeight(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::setClipHeight(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::resetClipScale(const Message & msg)
 {
-    clipManager->resetClipScale(msg.getArgAsString(0));
+    clip::resetClipScale(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setClipVFlip(const Message & msg)
 {
-    clipManager->setClipVFlip(msg.getArgAsString(0));
+    clip::setClipVFlip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setClipHFlip(const Message & msg)
 {
-    clipManager->setClipHFlip(msg.getArgAsString(0));
+    clip::setClipHFlip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::toggleFullscreenClip(const Message & msg)
 {
-    clipManager->toggleFullscreenClip(msg.getArgAsString(0));
+    clip::toggleFullscreenClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::toggleClipVisibility(const Message & msg)
 {
-    clipManager->toggleClipVisibility(msg.getArgAsString(0));
+    clip::toggleClipVisibility(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::showClip(const Message & msg)
 {
-    clipManager->showClip(msg.getArgAsString(0));
+    clip::showClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::hideClip(const Message & msg)
 {
-    clipManager->hideClip(msg.getArgAsString(0));
+    clip::hideClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::toggleClipName(const Message & msg)
 {
-    clipManager->toggleName(msg.getArgAsString(0));
+    clip::toggleName(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::showClipName(const Message & msg)
 {
-    clipManager->showName(msg.getArgAsString(0));
+    clip::showName(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::hideClipName(const Message & msg)
 {
-    clipManager->hideName(msg.getArgAsString(0));
+    clip::hideName(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setClipMask(const Message & msg)
 {
-    clipManager->setClipMask(msg.getArgAsString(0), msg.getArgAsString(1));
+    clip::setClipMask(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::enableClipMask(const Message & msg)
 {
-    clipManager->enableClipMask(msg.getArgAsString(0));
+    clip::enableClipMask(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::disableClipMask(const Message & msg)
 {
-    clipManager->disableClipMask(msg.getArgAsString(0));
+    clip::disableClipMask(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setClipHolesMask(const Message & msg)
 {
-    clipManager->setClipHolesMask(msg.getArgAsString(0));
+    clip::setClipHolesMask(msg.getArgAsString(0));
 }
 
 
@@ -672,19 +670,19 @@ void loopier::osc::MessageMapper::setClipHolesMask(const Message & msg)
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::playClip(const Message & msg)
 {
-    clipManager->playClip(msg.getArgAsString(0));
+    clip::playClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::stopClip(const Message & msg)
 {
-    clipManager->stopClip(msg.getArgAsString(0));
+    clip::stopClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::pauseClip(const Message & msg)
 {
-    clipManager->pauseClip(msg.getArgAsString(0));
+    clip::pauseClip(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
@@ -697,7 +695,7 @@ void loopier::osc::MessageMapper::setClipLoopState(const Message & msg)
     else if (arg == "none" )        looptype = LoopType::none;
     else if (arg == "once" )        looptype = LoopType::once;
     
-    clipManager->setClipLoopState(msg.getArgAsString(0), looptype);
+    clip::setClipLoopState(msg.getArgAsString(0), looptype);
 }
 
 //---------------------------------------------------------
@@ -708,13 +706,13 @@ void loopier::osc::MessageMapper::setClipPlayDirection(const Message & msg)
     
     if (arg == "reverse")   direction = PlayDirection::reverse;
     
-    clipManager->setClipPlayDirection(msg.getArgAsString(0), direction);
+    clip::setClipPlayDirection(msg.getArgAsString(0), direction);
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setClipSpeed(const Message & msg)
 {
-    clipManager->setClipSpeed(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::setClipSpeed(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 // EDIT
@@ -722,86 +720,86 @@ void loopier::osc::MessageMapper::setClipSpeed(const Message & msg)
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::addFrame(const Message & msg)
 {
-    clipManager->addFrame(msg.getArgAsString(0), msg.getArgAsString(1));
+    clip::addFrame(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::insertFrame(const Message & msg)
 {
-    clipManager->insertFrame(msg.getArgAsString(0), msg.getArgAsString(1));
+    clip::insertFrame(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::removeFrame(const Message & msg)
 {
-    clipManager->removeFrame(msg.getArgAsString(0));
+    clip::removeFrame(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::clearFrames(const Message & msg)
 {
-    clipManager->clearFrames(msg.getArgAsString(0));
+    clip::clearFrames(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::saveFrames(const Message & msg)
 {
-    clipManager->saveFrames(msg.getArgAsString(0));
+    clip::saveFrames(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::loadFrames(const Message & msg)
 {
-    clipManager->loadFrames(msg.getArgAsString(0), msg.getArgAsString(1));
+    clip::loadFrames(msg.getArgAsString(0), msg.getArgAsString(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::firstFrame(const Message & msg)
 {
-    clipManager->firstFrame(msg.getArgAsString(0));
+    clip::firstFrame(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::nextFrame(const Message & msg)
 {
-    clipManager->nextFrame(msg.getArgAsString(0));
+    clip::nextFrame(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::previousFrame(const Message & msg)
 {
-    clipManager->previousFrame(msg.getArgAsString(0));
+    clip::previousFrame(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::lastFrame(const Message & msg)
 {
-    clipManager->lastFrame(msg.getArgAsString(0));
+    clip::lastFrame(msg.getArgAsString(0));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::goToFrame(const Message & msg)
 {
-    clipManager->goToFrame(msg.getArgAsString(0), msg.getArgAsInt(1));
+    clip::goToFrame(msg.getArgAsString(0), msg.getArgAsInt(1));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::saveClip(const Message & msg)
 {
-    clipManager->saveClip(msg.getArgAsString(0));
+    clip::saveClip(msg.getArgAsString(0));
 }
 
 // MOVE
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::moveClipTo(const Message & msg)
 {
-    clipManager->moveClipTo(msg.getArgAsString(0), msg.getArgAsFloat(1), msg.getArgAsFloat(2));
+    clip::moveClipTo(msg.getArgAsString(0), msg.getArgAsFloat(1), msg.getArgAsFloat(2));
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::centerClip(const Message & msg)
 {
-    clipManager->centerClip(msg.getArgAsString(0));
+    clip::centerClip(msg.getArgAsString(0));
 }
 
 
@@ -810,16 +808,16 @@ void loopier::osc::MessageMapper::centerClip(const Message & msg)
 void loopier::osc::MessageMapper::setClipColor(const Message & msg)
 {
     //    ofColor color = loopier::osc::MessageMapper::getColorFromMessage(msg);
-    //    clipManager->setClipColor(msg.getArgAsString(0), color);
-    if (msg.getNumArgs() == 2) clipManager->setClipColor(msg.getArgAsString(0), msg.getArgAsFloat(1));
-    if (msg.getNumArgs() == 3) clipManager->setClipColor(msg.getArgAsString(0),
+    //    clip::setClipColor(msg.getArgAsString(0), color);
+    if (msg.getNumArgs() == 2) clip::setClipColor(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    if (msg.getNumArgs() == 3) clip::setClipColor(msg.getArgAsString(0),
                                                   msg.getArgAsFloat(1),
                                                   msg.getArgAsFloat(2));
-    if (msg.getNumArgs() == 4) clipManager->setClipColor(msg.getArgAsString(0),
+    if (msg.getNumArgs() == 4) clip::setClipColor(msg.getArgAsString(0),
                                                   msg.getArgAsFloat(1),
                                                   msg.getArgAsFloat(2),
                                                   msg.getArgAsFloat(3));
-    if (msg.getNumArgs() == 5) clipManager->setClipColor(msg.getArgAsString(0),
+    if (msg.getNumArgs() == 5) clip::setClipColor(msg.getArgAsString(0),
                                                   msg.getArgAsFloat(1),
                                                   msg.getArgAsFloat(2),
                                                   msg.getArgAsFloat(3),
@@ -829,7 +827,7 @@ void loopier::osc::MessageMapper::setClipColor(const Message & msg)
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setClipAlpha(const Message & msg)
 {
-    clipManager->setClipAlpha(msg.getArgAsString(0), msg.getArgAsFloat(1));
+    clip::setClipAlpha(msg.getArgAsString(0), msg.getArgAsFloat(1));
 }
 
 
@@ -848,20 +846,20 @@ void loopier::osc::MessageMapper::setClipAlpha(const Message & msg)
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::loadClipLibrary(const Message & msg)
 {
-    clipManager->loadClipLibrary(msg.getArgAsString(0));
+    clip::loadClipLibrary(msg.getArgAsString(0));
 }
 
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::clearClips(const Message & msg)
 {
-    clipManager->clearAll();
+    clip::clearAll();
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::listClipNames(const Message & msg)
 {
-    clipManager->listAll();
+    clip::listAll();
     sendClipNames();
 }
 
@@ -869,40 +867,40 @@ void loopier::osc::MessageMapper::listClipNames(const Message & msg)
 void loopier::osc::MessageMapper::listResourceNames(const Message & msg)
 {
     //    listResourceNames();
-    resourceManager->listAllResources();
+    resource::listAllResources();
     sendResourceNames();
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::listCameraNames(const Message & msg)
 {
-    resourceManager->listCameras();
+    resource::listCameras();
     sendCameraNames();
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::listClipLibraryNames(const Message & msg)
 {
-    clipManager->listClipLibraryNames();
+    clip::listClipLibraryNames();
     sendLibraryNames();
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::toggleClipNames(const Message & msg)
 {
-    clipManager->toggleNames();
+    clip::toggleNames();
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::showClipNames(const Message & msg)
 {
-    clipManager->showNames();
+    clip::showNames();
 }
 
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::hideClipNames(const Message & msg)
 {
-    clipManager->hideNames();
+    clip::hideNames();
 }
 
 
@@ -920,7 +918,7 @@ void loopier::osc::MessageMapper::hideClipNames(const Message & msg)
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::setSyphonServerName(const Message & msg)
 {
-    resourceManager->setSyphonServerName(msg.getArgAsString(0),
+    resource::setSyphonServerName(msg.getArgAsString(0),
                                   msg.getArgAsString(1),
                                   msg.getArgAsString(2));
 }
@@ -1262,7 +1260,7 @@ void loopier::osc::MessageMapper::setUvcSharpness(const Message & msg)
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::sendClipNames()
 {
-    vector<string> names = clipManager->getNamesList();
+    vector<string> names = clip::getNamesList();
     Message msg;
     
     msg.setAddress("/loopier/clip/clipnames");
@@ -1279,7 +1277,7 @@ void loopier::osc::MessageMapper::sendClipNames()
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::sendResourceNames()
 {
-    vector<string> names = resourceManager->getResourceNames();
+    vector<string> names = resource::getResourceNames();
     Message msg;
     
     msg.setAddress("/loopier/clip/resourcenames");
@@ -1293,7 +1291,7 @@ void loopier::osc::MessageMapper::sendResourceNames()
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::sendCameraNames()
 {
-    vector<string> names = resourceManager->getCameraNames();
+    vector<string> names = resource::getCameraNames();
     Message msg;
     
     msg.setAddress("/loopier/clip/cameranames");
@@ -1307,7 +1305,7 @@ void loopier::osc::MessageMapper::sendCameraNames()
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::sendLibraryNames()
 {
-    vector<string> names = clipManager->getClipLibraryNames();
+    vector<string> names = clip::getClipLibraryNames();
     Message msg;
     
     msg.setAddress("/loopier/clip/clips/librarynames");
@@ -1330,8 +1328,8 @@ void loopier::osc::MessageMapper::listClipInfo(const Message &msg)
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::sendClipInfo(const string clipname)
 {
-    if (!clipManager->exists(clipname)) return;
-    ClipPtr clip = clipManager->getClip(clipname);
+    if (!clip::exists(clipname)) return;
+    ClipPtr clip = clip::getClip(clipname);
     Message msg;
     
     msg.setAddress("/loopier/clip/clip/info");
@@ -1389,7 +1387,7 @@ void loopier::osc::MessageMapper::sendScriptNames()
 //---------------------------------------------------------
 void loopier::osc::MessageMapper::sendClipChildrenNames(const string clipname)
 {
-    vector<string> names = clipManager->getClipChildrenNames(clipname);
+    vector<string> names = clip::getClipChildrenNames(clipname);
     Message msg;
     
     msg.setAddress("/loopier/clip/clip/children");

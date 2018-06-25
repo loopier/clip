@@ -239,8 +239,6 @@ namespace loopier {
             osc::OscManager         osc;
             
             ConsoleUI   console;
-            ClipManager* clipManager;
-            ResourceManager* resourceManager;
         };
     } // namespace osc
     

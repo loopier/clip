@@ -45,14 +45,14 @@ loopier::ClipPtr loopier::ClipManager::newClip(string clipname, string resourcen
     
     // if clip exists, replace it instead of creating a new one
     loopier::ClipPtr clip;
-//    if (exists(clipname)) {
-//        clip = getClip(clipname);
-//        clip->setResourceName(resourcename);
-//    } else {
-//        clip = make_shared<loopier::Clip>(clipname, resourcename);
-//        centerClip(clipname);
-//    }
-//    
+    if (exists(clipname)) {
+        clip = getClip(clipname);
+        clip->setResourceName(resourcename);
+    } else {
+        clip = make_shared<loopier::Clip>(clipname, resourcename);
+        centerClip(clipname);
+    }
+//
 //    // !!!: Should change to something more kosher, like classes returning their types
 //    if (isFrameClip(clipname)) {
 //        frameclipslist.erase(std::remove(frameclipslist.begin(),
@@ -60,8 +60,8 @@ loopier::ClipPtr loopier::ClipManager::newClip(string clipname, string resourcen
 //                                         clipname));
 //    }
 //    
-//    string cliptype = "";
-//    
+    string cliptype = "";
+//
 //    // look for a resource with this name
 //    // if it doesn't exist, create a new Transparent FrameClip, so it can be saved later
 //    
@@ -101,13 +101,13 @@ loopier::ClipPtr loopier::ClipManager::newClip(string clipname, string resourcen
 //    }
 //    
 //    
-//    clips[clipname] = clip;
+    clips[clipname] = clip;
 //    clip->show();
 //    clip->getPlayer()->setName(resourcename);
 //    centerClip(clipname);
 //    if (!isPrivate(clipname)) setPublicClip(clipname);
 //    bringClipToFront(clipname);
-//    ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << clip->getResourceName() << "'";
+    ofLogVerbose() << "Created cilp: [" << cliptype << "]\t'" << clipname << "' using '" << clip->getResourceName() << "'";
     return clip;
     
 }
