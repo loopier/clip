@@ -7,7 +7,7 @@ import logging
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
 
-logging.basicConfig(format='%(levelname)s:%(funcName)s: %(message)s', level=logging.DEBUG)
+logging.basicConfig(format='[ %(levelname)s ] %(funcName)s: %(message)s', level=logging.DEBUG)
 log = logging.getLogger(__name__)
 
 class OscSender(object):
