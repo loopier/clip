@@ -1,0 +1,7 @@
+exit: "leave"
+# quit: "quit"
+speak: "change to language"
+clear: "i don't like it"
+reset: "start all over"
+shell: "tell the system to "
+print: "say"

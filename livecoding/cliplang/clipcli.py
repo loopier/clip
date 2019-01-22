@@ -20,6 +20,7 @@ import cmd
 import logging
 # from cliplang.cliplang import *
 from oscsender import OscSender
+from reader import Reader
 
 log = logging.getLogger(__name__)
 thismodule = sys.modules[__name__]
@@ -40,6 +41,7 @@ class ClipCli (cmd.Cmd):
                                                     "
     prompt = '. '
     file = None
+    reader = Reader()
 
     def do_loglevel(self, arg):
         """Sets the log level.
@@ -70,8 +72,13 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
 
     def parse_cmd(self, arg):
         """Parses the arguments to convert them to clip commands"""
-        args = arg.split()
-        log.debug(str(len(args))+" arguments: "+str(args))
+        # args = arg.split()
+        # log.debug(str(len(args))+" arguments: "+str(args))
+        # translate the words to commands
+        cmd = self.reader.translate(arg)
+        log.info(str(cmd))
+        # execute translation as if it had been typed
+        self.onecmd(str(cmd))
 
     def do_print(self, arg):
         """Usage: print <msg>"""
@@ -81,6 +88,9 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
         """Execute any shell command.  You may use ! instead.
 Usage: (shell | !) <command>"""
         os.system(arg)
+
+    def do_speak(self, arg):
+        self.reader.load(arg)
 
     def do_exit(self, arg):
         """Quits out of Interactive Mode."""
@@ -110,6 +120,7 @@ Usage: (shell | !) <command>"""
             return self.do_exit(arg)
         if arg == '!':
             return self.do_shell(arg)
+
 
         self.parse_cmd(arg)
         # print("Default: {}".format(arg))

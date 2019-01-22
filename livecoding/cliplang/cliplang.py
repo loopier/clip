@@ -1,1 +1,1 @@
-from cliplang import clipcli
+from clipcli import clipcli
