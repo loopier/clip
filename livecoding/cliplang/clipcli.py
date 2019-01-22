@@ -18,7 +18,12 @@ import os
 import sys
 import cmd
 import logging
-from cliplang.cliplang import *
+# from cliplang.cliplang import *
+from oscsender import OscSender
+
+log = logging.getLogger(__name__)
+thismodule = sys.modules[__name__]
+osc = OscSender()
 
 class ClipCli (cmd.Cmd):
     intro = " ▄▄▄▄▄▄▄▄▄▄▄  ▄            ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄ \n\
@@ -53,13 +58,20 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
             log.setLevel(logging.NOTSET)
 
 
-    # def preloop(self):
+    def preloop(self):
         # self.do_shell("clear")
+        log.info("Booting...")
+        global osc
+        # osc.setIp("localhost")
+        osc.setPort(12345)
+        osc.connect()
+        log.info("sending OSC test message...")
+        osc.send("/loopier/clip/test", [0, 0.1, "alo"])
 
     def parse_cmd(self, arg):
         """Parses the arguments to convert them to clip commands"""
-        log.info(arg)
-        print(str(len(arg.split()))+" arguments: "+arg)
+        args = arg.split()
+        log.debug(str(len(args))+" arguments: "+str(args))
 
     def do_print(self, arg):
         """Usage: print <msg>"""
