@@ -7,8 +7,8 @@ import yaml
 import time
 from cliplang.oscsender import OscSender
 
-logging.basicConfig(format='%(levelname)s:%(funcName)s: %(message)s', level=logging.DEBUG)
-log = logging.getLogger(__name__)
+# logging.basicConfig(format='[%(levelname)s] %(funcName)s: %(message)s', level=logging.DEBUG)
+# log = logging.getLogger(__name__)
 
 thismodule = sys.modules[__name__]
 osc = OscSender()
