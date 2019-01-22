@@ -17,11 +17,11 @@
 import os
 import sys
 import cmd
+import logging
 from cliplang.cliplang import *
 
-
 class ClipCli (cmd.Cmd):
-    intro = intro = " ▄▄▄▄▄▄▄▄▄▄▄  ▄            ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄ \n\
+    intro = " ▄▄▄▄▄▄▄▄▄▄▄  ▄            ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄ \n\
 ▐░░░░░░░░░░░▌▐░▌          ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌\n\
 ▐░█▀▀▀▀▀▀▀▀▀ ▐░▌           ▀▀▀▀█░█▀▀▀▀ ▐░█▀▀▀▀▀▀▀█░▌\n\
 ▐░▌          ▐░▌               ▐░▌     ▐░▌       ▐░▌\n\
@@ -36,12 +36,30 @@ class ClipCli (cmd.Cmd):
     prompt = '. '
     file = None
 
-    def preloop(self):
-        self.do_shell("clear")
+    def do_loglevel(self, arg):
+        """Sets the log level.
+Usage: loglevel <critical | error | warning | info | debug | none>"""
+        if arg == 'critical':
+            log.setLevel(logging.CRITICAL)
+        if arg == 'error':
+            log.setLevel(logging.ERROR)
+        if arg == 'warning':
+            log.setLevel(logging.WARNING)
+        if arg == 'info':
+            log.setLevel(logging.INFO)
+        if arg == 'debug':
+            log.setLevel(logging.DEBUG)
+        if arg == 'none':
+            log.setLevel(logging.NOTSET)
+
+
+    # def preloop(self):
+        # self.do_shell("clear")
 
     def parse_cmd(self, arg):
         """Parses the arguments to convert them to clip commands"""
-        print(arg)
+        log.info(arg)
+        print(str(len(arg.split()))+" arguments: "+arg)
 
     def do_print(self, arg):
         """Usage: print <msg>"""
@@ -62,6 +80,15 @@ Usage: (shell | !) <command>"""
         """Quits out of Interactive Mode."""
         self.do_exit(arg)
 
+    def do_clear(self, arg):
+        """Clears the screen"""
+        self.do_shell("clear")
+
+    def do_reset(self, arg):
+        """Clears the screen and prints the intro"""
+        self.do_clear(arg)
+        print(self.intro)
+
     de_EOF = do_exit # exit with Ctl-D
 
     # called every time a command is entered that does not correspond to
@@ -73,7 +100,7 @@ Usage: (shell | !) <command>"""
             return self.do_shell(arg)
 
         self.parse_cmd(arg)
-        print("Default: {}".format(arg))
+        # print("Default: {}".format(arg))
 
 ClipCli().cmdloop()
 
