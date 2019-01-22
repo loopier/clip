@@ -8,8 +8,6 @@
 
 #include "CameraPlayer.h"
 
-loopier::CameraMap loopier::cameramap;
-
 //---------------------------------------------------------
 loopier::CameraPlayer::CameraPlayer()
 {

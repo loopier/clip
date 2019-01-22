@@ -20,8 +20,6 @@ namespace loopier {
     typedef vector<CameraPtr>       CameraList;
     typedef map<string, CameraPtr> CameraMap;
     
-    extern CameraMap   cameramap; // global list of all cameras
-    
     class CameraPlayer: public BasePlayer{
         
     public:
