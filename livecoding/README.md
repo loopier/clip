@@ -1,44 +1,19 @@
 # ClipLang
 
-An python environment to live code video with Clip server.
-
-ClipLang is just Python with some extra functions.  It's optimal when used with Hydrogen on Atom.  But I guess you could also use it just with *IPython*.
+An live coding language written in python to interact with ClipServer.
 
 ## Installation
 
-Install Atom.
-
-Install Hydrogen and Hydrodgen-Python packages.
+//
 
 ## Usage
 
 ### Starting a new session
 
-Create a new file.
+//
 
-Add `from cliplang.cliplang import *` to the top and execute with `Cmd-Enter`
+### Creating a new language
 
-That's it!
+//
 
 ### Basic methods
-
-**`listcommands()`** To view all available commands.
-
-**`listcommands("clip")`** To view a list of clip commads.
-
-**`foo = Clip("foo")`** To create a new clip instance named ***foo***.
-
-**`foo.new()`** To add the clip to the stage.  If there's a resource named *foo* in the resource folder, it will use that.  If there isn't it will create a new empty animation clip.
-
-**`foo.new("bar")`** To add the clip to the stage using the resource *bar*.
-
-**`foo.[command]([parameters])`** Tell **foo** to do something.  *[command]* should be substituted by any of the commands in the *clip* commands list.  For a list of possible commands see *listcommands("clip")*.  For closer details of each command see Clip server's documentation.
-
-Use **`time.sleep(seconds)`** in a loop to modify behaviour over time.
-```python
-x = 0
-while x < 400:
-    foo.moveto(((x%4)+1)/4, 0.5)
-    time.sleep(0.1)
-    x += 1
-```
