@@ -43,24 +43,6 @@ class ClipCli (cmd.Cmd):
     file = None
     reader = Reader()
 
-    def do_loglevel(self, arg):
-        """Sets the log level.
-Usage: loglevel <critical | error | warning | info | debug | none>"""
-        log.debug(arg)
-        if arg == 'critical':
-            log.setLevel(logging.CRITICAL)
-        if arg == 'error':
-            log.setLevel(logging.ERROR)
-        if arg == 'warning':
-            log.setLevel(logging.WARNING)
-        if arg == 'info':
-            log.setLevel(logging.INFO)
-        if arg == 'debug':
-            log.setLevel(logging.DEBUG)
-        if arg == 'none':
-            log.setLevel(logging.NOTSET)
-        log.debug(log.getEffectiveLevel())
-
     def preloop(self):
         self.do_shell("clear")
         log.info("Booting...")
@@ -154,6 +136,24 @@ Usage: (shell | !) <command>"""
         """Print log to screen"""
         self.do_clear(arg)
         self.do_shell("cat *.log")
+
+    def do_loglevel(self, arg):
+        """Sets the log level.
+Usage: loglevel <critical | error | warning | info | debug | none>"""
+        log.debug(arg)
+        if arg == 'critical':
+            log.setLevel(logging.CRITICAL)
+        if arg == 'error':
+            log.setLevel(logging.ERROR)
+        if arg == 'warning':
+            log.setLevel(logging.WARNING)
+        if arg == 'info':
+            log.setLevel(logging.INFO)
+        if arg == 'debug':
+            log.setLevel(logging.DEBUG)
+        if arg == 'none':
+            log.setLevel(logging.NOTSET)
+        log.debug(log.getEffectiveLevel())
 
     # called every time a command is entered that does not correspond to
     # any of the do_* methods
