@@ -7,7 +7,7 @@ import logging
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
 
-logging.basicConfig(format='[ %(levelname)s ] %(funcName)s: %(message)s', level=logging.DEBUG)
+logging.basicConfig(format='[ %(levelname)s ] %(filename)s: %(funcName)s: %(message)s', level=logging.DEBUG)
 log = logging.getLogger(__name__)
 
 class OscSender(object):
@@ -40,12 +40,15 @@ class OscSender(object):
         # address = self.checkAddress(address)
         # self.connect()
         log.info("Sending OSC message: %s %s" % (address, str(args)))
+        return
         self.client.send_message(address, args)
 
     def testConnection(self):
-        for x in range(10):
-            self.client.send_message("/clip/test", [x, random.random(), ''.join(random.sample("string", len("string")))])
-            time.sleep(1)
+        # for x in range(10):
+        #     self.client.send_message("/clip/test", [x, random.random(), ''.join(random.sample("string", len("string")))])
+        #     time.sleep(1)
+        self.client.send_message("/clip/test",[1])
+
 
     # ------- HELPERS -----------
     def checkAddress(self, address):
