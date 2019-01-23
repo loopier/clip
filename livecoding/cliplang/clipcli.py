@@ -85,8 +85,7 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
         args = " ".join(args)
 
         osc.send(cmd, args)
-        # log.debug(msg)
-        # log.info(str(cmd))
+        
         # execute translation as if it had been typed
         # self.onecmd(str(cmd))
 
