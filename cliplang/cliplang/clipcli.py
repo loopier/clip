@@ -21,8 +21,8 @@ import logging
 # from cliplang.cliplang import *
 from oscsender import OscSender
 from reader import Reader
+from logger import *
 
-log = logging.getLogger(__name__)
 thismodule = sys.modules[__name__]
 osc = OscSender()
 
@@ -46,6 +46,7 @@ class ClipCli (cmd.Cmd):
     def do_loglevel(self, arg):
         """Sets the log level.
 Usage: loglevel <critical | error | warning | info | debug | none>"""
+        log.debug(arg)
         if arg == 'critical':
             log.setLevel(logging.CRITICAL)
         if arg == 'error':
@@ -58,7 +59,7 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
             log.setLevel(logging.DEBUG)
         if arg == 'none':
             log.setLevel(logging.NOTSET)
-
+        log.debug(log.getEffectiveLevel())
 
     def preloop(self):
         self.do_shell("clear")
@@ -69,6 +70,8 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
         osc.connect()
         log.info("sending OSC test message...")
         osc.send("/loopier/clip/test", [0, 0.1, "alo"])
+        self.do_loglevel("debug")
+
 
     def parseCmd(self, arg):
         """Parses the arguments to convert them to clip commands"""
@@ -88,11 +91,6 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
 
         # execute translation as if it had been typed
         # self.onecmd(str(cmd))
-
-    def do_t(self, arg):
-        """Tester for methods.  Just put anything you want to try by Just
-        just hitting 't'.
-        TODO: REMOVE!!!"""
 
     def do_server(self, arg):
         """Start ClipServer"""
@@ -137,6 +135,10 @@ Usage: (shell | !) <command>"""
         """Quits out of Interactive Mode."""
         self.do_exit(arg)
 
+    def do_q(self, arg):
+        """Quits out of Interactive Mode.  Same as 'quit'"""
+        self.do_exit(arg)
+
     def do_clear(self, arg):
         """Clears the screen"""
         self.do_shell("clear")
@@ -151,8 +153,6 @@ Usage: (shell | !) <command>"""
     # called every time a command is entered that does not correspond to
     # any of the do_* methods
     def default(self, arg):
-        if arg == 'q':
-            return self.do_exit(arg)
         if arg == '!':
             return self.do_shell(arg)
 

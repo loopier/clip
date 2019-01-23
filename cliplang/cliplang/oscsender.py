@@ -2,13 +2,10 @@ import argparse
 import random
 import time
 import re # regex
-import logging
 
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
-
-logging.basicConfig(format='[ %(levelname)s ] %(filename)s: %(funcName)s: %(message)s', level=logging.DEBUG)
-log = logging.getLogger(__name__)
+from logger import *
 
 class OscSender(object):
 

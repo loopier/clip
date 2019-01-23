@@ -5,7 +5,7 @@ import cmd
 import logging
 import yaml
 
-log = logging.getLogger(__name__)
+from logger import *
 
 def printableDictionary(dict, iter=0):
     """Returns a string representing the dictionary in a printable format
