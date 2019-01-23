@@ -84,8 +84,15 @@ class ClipCli (cmd.Cmd):
         # self.onecmd(str(cmd))
 
     def do_server(self, arg):
-        """Start ClipServer"""
+        """Control the server.
+        'server boot': boots the server
+        'server quit': stops the server
+        'server reboot': reboots the server"""
         exec("self."+arg+"Server()")
+
+    def do_s(self, arg):
+        """Control the server.  See 'server'"""
+        self.do_server(arg)
 
     def bootServer(self):
         """Boots Clip server.
@@ -105,17 +112,14 @@ class ClipCli (cmd.Cmd):
         self.quitServer()
         self.bootServer()
 
-    def do_print(self, arg):
-        """Usage: print <msg>"""
-        print(str(type(arg))+" "+arg)
+    # def do_print(self, arg):
+    #     """Usage: print <msg>"""
+    #     print(str(type(arg))+" "+arg)
 
     def do_shell(self, arg):
         """Execute any shell command.  You may use ! instead.
 Usage: (shell | !) <command>"""
         os.system(arg)
-
-    def do_speak(self, arg):
-        self.reader.load(arg)
 
     def do_exit(self, arg):
         """Quits out of Interactive Mode."""
@@ -134,6 +138,10 @@ Usage: (shell | !) <command>"""
     def do_clear(self, arg):
         """Clears the screen"""
         self.do_shell("clear")
+
+    def do_c(self, arg):
+        """Clears the screen. Same as 'clear'"""
+        self.do_clear(arg)
 
     def do_reset(self, arg):
         """Clears the screen and prints the intro"""
@@ -166,9 +174,12 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
         log.debug(log.getEffectiveLevel())
 
     def do_commands(self, arg):
-        """Prints the list of all commands"""
+        """Prints the list of all server commands"""
         print(printableList(self.reader.getCommandList()))
 
+    def do_h(self, arg):
+        """Show help.  See 'help help'"""
+        self.do_help(arg)
 
     # called every time a command is entered that does not correspond to
     # any of the do_* methods
