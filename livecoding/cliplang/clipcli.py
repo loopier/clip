@@ -61,7 +61,7 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
 
 
     def preloop(self):
-        # self.do_shell("clear")
+        self.do_shell("clear")
         log.info("Booting...")
         global osc
         # osc.setIp("localhost")
