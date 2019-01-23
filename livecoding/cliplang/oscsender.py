@@ -39,7 +39,7 @@ class OscSender(object):
         """Sends an OSC message"""
         # address = self.checkAddress(address)
         # self.connect()
-        log.info("Sending OSC message: %s" % (address + str(args)))
+        log.info("Sending OSC message: %s %s" % (address, str(args)))
         self.client.send_message(address, args)
 
     def testConnection(self):
