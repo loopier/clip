@@ -107,7 +107,13 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
 
     def quitServer(self):
         """Quits Clip server"""
+        log.info("Quit server")
         self.parseCmd("quit")
+
+    def rebootServer(self):
+        """Reboots the server"""
+        self.quitServer()
+        self.bootServer()
 
     def do_print(self, arg):
         """Usage: print <msg>"""
@@ -123,7 +129,7 @@ Usage: (shell | !) <command>"""
 
     def do_exit(self, arg):
         """Quits out of Interactive Mode."""
-
+        self.quitServer()
         print('Good Bye!')
         exit()
 
