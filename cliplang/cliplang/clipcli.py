@@ -150,6 +150,13 @@ Usage: (shell | !) <command>"""
 
     de_EOF = do_exit # exit with Ctl-D
 
+    def do_osc(self, arg):
+        """Send an OSC message"""
+        args = arg.split()
+        addr = args[0]
+        args.pop(0)
+        osc.send(addr, args)
+
     def do_log(self, arg):
         """Print log to screen"""
         self.do_clear(arg)
