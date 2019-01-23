@@ -40,6 +40,9 @@ class OscSender(object):
         # address = self.checkAddress(address)
         # self.connect()
         log.info("Sending OSC message: %s %s" % (address, str(args)))
+        # make sure args is list
+        if isinstance(args, str):
+            args = args.split()
         self.client.send_message(address, args)
 
     def testConnection(self):
