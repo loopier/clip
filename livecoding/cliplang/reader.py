@@ -7,17 +7,35 @@ import yaml
 
 log = logging.getLogger(__name__)
 
+def printableDictionary(dict, iter=0):
+    """Returns a string representing the dictionary in a printable format
+    with nested objects tabulated"""
+    s = "\n"
+    for k in dict:
+        i=0
+        while i < iter:
+            s += "\t"
+            i += 1
+        if type(dict[k]) == type(dict):
+            s += k + ":" + printableDictionary(dict[k], iter+1)
+        else:
+            s += k + ": " + dict[k] + "\n"
+    return s
+
+
 class Reader():
+    commands = {}
     language = "default"
     dictionary = {}
     inverseDictionary = {}
 
     def __init__(self):
         self.load()
+        self.commands = self.loadCommands(os.getcwd() + "/../../bin/data/commands.yml")
         log.info("Loaded dictionary: "+self.language)
 
     def load(self, name="default"):
-        """Loads a dictionary"""
+        """Loads a dictionary and sets the language"""
         path = os.getcwd() + "/dictionaries/" + name + ".yml"
         # path = os.getcwd() + "/../bin/data/commands.yml"
         log.debug("loading dictionary '"+name+"' from: " + path)
@@ -28,23 +46,64 @@ class Reader():
         self.language = name
         # return dict
 
+    def loadCommands(self, path):
+        """Loads a dictionary of commands to OSC messages"""
+        log.info("Loading commands from: "+path)
+        commands = yaml.load(open(path))
+        log.debug(printableDictionary(commands))
+        return commands
+
+    def getCommands(self):
+        return self.commands
+
     def invertDictionary(self, dict):
         """Returns the dictionary with keys as values and values as keys"""
         inverted = {v:k for  k, v in dict.items()}
         log.debug(inverted)
         return inverted
 
-    def translate(self, word, language=""):
-        """Translates a word from one dictionary to a command"""
-        if language != self.language and len(language) != 0:
-            self.load(language)
-            log.debug("Change language to: "+self.language)
+    def translate(self, words):
+        """Translates words from one dictionary to a command"""
+        # try different combinations of words to match a key in the dictionary
+        # split words into an array
+        wordarray = words.split()
+        commands = []
+        # iterate combinations
+        for w in wordarray:
+            cmd = self.getCommands(wordarray)
+            if cmd != None:
+                commands.append(cmd)
+            wordarray.remove(w)
+        log.debug(commands)
+
+    def getCommands(self, words):
+        """Iterates through the words looking for  commands"""
+        # !!! TODO: Check for  commands in combinations of words
+        # log.debug(str(len(words))+" - "+str(words))
+        cmd = self.getCommand(" ".join(words))
+        if cmd == None:
+            newwords = words.copy()
+            newwords.pop()
+            self.getCommands(newwords)
+        else:
+            return cmd
+
+    def getCommand(self, words):
+        """Checks if there's an entry for these words. Returns a command if
+        entry exists.  Returns 'None' otherwise"""
         cmd = None
         try:
-            word = word.lower()
-            cmd = self.inverseDictionary[word]
-            log.debug("'"+word+"' from "+self.language+" => "+cmd)
+            words = words.lower()
+            cmd = self.inverseDictionary[words]
+            log.debug("'"+words+"' from "+self.language+" => "+cmd)
         except:
-            log.error("'"+word+"' not found the dictionary '"+self.language+"'")
+            log.error("'"+words+"' not found the dictionary '"+self.language+"'")
 
         return cmd
+
+    def removePunctuationMarks(self, words):
+        """Removes punctuation marks suhc as commas, periods, ..."""
+        words = words.replace(",", " ")
+        words = words.replace(".", " ")
+        words = words.replace(";", " ")
+        return words
