@@ -6,21 +6,7 @@ import logging
 import yaml
 
 from logger import *
-
-def printableDictionary(dict, iter=0):
-    """Returns a string representing the dictionary in a printable format
-    with nested objects tabulated"""
-    s = "\n"
-    for k in dict:
-        i=0
-        while i < iter:
-            s += "\t"
-            i += 1
-        if type(dict[k]) == type(dict):
-            s += k + ":" + printableDictionary(dict[k], iter+1)
-        else:
-            s += k + ": " + dict[k] + "\n"
-    return s
+from utils import *
 
 
 class Reader():
@@ -72,3 +58,16 @@ class Reader():
                 if value != None:
                     break
         return value
+
+    def getCommandList(self):
+        """Returns all the keys in the command list"""
+        return self.getKeys(self.commands)
+
+    def getKeys(self, dictionary):
+        """Returns a recursive array of all the keys in the dictionary"""
+        keys = []
+        for k, v in dictionary.items():
+            keys.append(k)
+            if type(v) == dict:
+                keys.append(self.getKeys(v))
+        return keys

@@ -20,8 +20,9 @@ import cmd
 import logging
 # from cliplang.cliplang import *
 from oscsender import OscSender
-from reader import Reader
+from reader import *
 from logger import *
+from utils import *
 
 thismodule = sys.modules[__name__]
 osc = OscSender()
@@ -164,13 +165,16 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
             log.setLevel(logging.NOTSET)
         log.debug(log.getEffectiveLevel())
 
+    def do_commands(self, arg):
+        """Prints the list of all commands"""
+        print(printableList(self.reader.getCommandList()))
+
+
     # called every time a command is entered that does not correspond to
     # any of the do_* methods
     def default(self, arg):
         if arg == '!':
             return self.do_shell(arg)
-
-
         self.parseCmd(arg)
         # print("Default: {}".format(arg))
 
