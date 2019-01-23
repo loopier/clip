@@ -35,15 +35,42 @@ class OscSender(object):
         # self.client = udp_client.SimpleUDPClient(args.ip, args.port)
         self.client = udp_client.SimpleUDPClient(self.ip, self.port)
 
+    def printMsg(self, address, args):
+        """Print osc message in a readble format"""
+        argsstr = "" # for logging
+        for a in args:
+            if type(a) == int:
+                argsstr += " i:"
+            elif type(a) == float:
+                argsstr += " f:"
+            else:
+                argsstr += " s:"
+            argsstr += str(a)
+        log.info("Sending OSC message: %s %s" % (address, argsstr))
+
     def send(self, address, args):
         """Sends an OSC message"""
         # address = self.checkAddress(address)
         # self.connect()
-        log.info("Sending OSC message: %s %s" % (address, str(args)))
         # make sure args is list
+        # if isinstance(args, str):
+        #     args = args.split()
+        args = self.parseArgs(args)
+        self.printMsg(address, args)
+        self.client.send_message(address, args)
+
+    def parseArgs(self, args):
+        """Takes a string or a list and returns a list of different types"""
         if isinstance(args, str):
             args = args.split()
-        self.client.send_message(address, args)
+        newargs = []
+        for a in args:
+            try:
+                newargs.append(float(a))
+            except:
+                newargs.append(a)
+
+        return newargs
 
     def testConnection(self):
         # for x in range(10):
