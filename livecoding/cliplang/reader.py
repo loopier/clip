@@ -26,8 +26,6 @@ def printableDictionary(dict, iter=0):
 class Reader():
     commands = {}
     language = "default"
-    dictionary = {}
-    inverseDictionary = {}
 
     def __init__(self):
         self.load()
@@ -53,12 +51,37 @@ class Reader():
         log.debug(printableDictionary(commands))
         return commands
 
-    def getCommands(self):
+    def getCommandsList(self):
+        """Returns a dictionary  of commands"""
         return self.commands
 
-    def invertDictionary(self, dict):
-        """Returns the dictionary with keys as values and values as keys"""
-        inverted = {v:k for  k, v in dict.items()}
+    def getCommand(self, key):
+        """Returns the key corresponding to the value from the given dictionary"""
+        cmd = self.findValue(key, self.commands)
+        if cmd == None:
+            log.error("Command not found: '"+key+"'")
+        return cmd
+
+    def findValue(self, key, dictionary, parent="root"):
+        """Searches iteratively for 'key' in a nested dictionary"""
+        # log.debug("Searching '"+key+"' in "+parent)
+        value = None
+        if key in dictionary:
+            log.debug(key + " found in " + parent)
+            value = dictionary[key]
+        else:
+            # log.debug(key + " not found")
+            for k in dictionary:
+                if type(dictionary[k]) is dict:
+                    value = self.findValue(key, dictionary[k], parent+":"+k)
+                if value != None:
+                    break
+        return value
+
+    def invertDictionary(self, dictionary):
+        """Returns the dict with keys as values and values as keys"""
+        # inverted = {v:k for  k, v in dictionary.items()}
+        inverted = dictionary
         log.debug(inverted)
         return inverted
 
@@ -76,30 +99,30 @@ class Reader():
             wordarray.remove(w)
         log.debug(commands)
 
-    def getCommands(self, words):
-        """Iterates through the words looking for  commands"""
-        # !!! TODO: Check for  commands in combinations of words
-        # log.debug(str(len(words))+" - "+str(words))
-        cmd = self.getCommand(" ".join(words))
-        if cmd == None:
-            newwords = words.copy()
-            newwords.pop()
-            self.getCommands(newwords)
-        else:
-            return cmd
+    # def getCommands(self, words):
+    #     """Iterates through the words looking for  commands"""
+    #     # !!! TODO: Check for  commands in combinations of words
+    #     # log.debug(str(len(words))+" - "+str(words))
+    #     cmd = self.getCommand(" ".join(words))
+    #     if cmd == None:
+    #         newwords = words.copy()
+    #         newwords.pop()
+    #         self.getCommands(newwords)
+    #     else:
+    #         return cmd
 
-    def getCommand(self, words):
-        """Checks if there's an entry for these words. Returns a command if
-        entry exists.  Returns 'None' otherwise"""
-        cmd = None
-        try:
-            words = words.lower()
-            cmd = self.inverseDictionary[words]
-            log.debug("'"+words+"' from "+self.language+" => "+cmd)
-        except:
-            log.error("'"+words+"' not found the dictionary '"+self.language+"'")
-
-        return cmd
+    # def getCommand(self, words):
+    #     """Checks if there's an entry for these words. Returns a command if
+    #     entry exists.  Returns 'None' otherwise"""
+    #     cmd = None
+    #     try:
+    #         words = words.lower()
+    #         cmd = self.inverseDictionary[words]
+    #         log.debug("'"+words+"' from "+self.language+" => "+cmd)
+    #     except:
+    #         log.error("'"+words+"' not found the dictionary '"+self.language+"'")
+    #
+    #     return cmd
 
     def removePunctuationMarks(self, words):
         """Removes punctuation marks suhc as commas, periods, ..."""

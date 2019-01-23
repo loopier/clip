@@ -70,15 +70,33 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
         log.info("sending OSC test message...")
         osc.send("/loopier/clip/test", [0, 0.1, "alo"])
 
-    def parse_cmd(self, arg):
+    def parseCmd(self, arg):
         """Parses the arguments to convert them to clip commands"""
-        # args = arg.split()
-        # log.debug(str(len(args))+" arguments: "+str(args))
+        args = arg.split()
+        log.debug(str(len(args))+" arguments: "+str(args))
+
         # translate the words to commands
-        cmd = self.reader.translate(arg)
-        log.info(str(cmd))
+        # first argument is the command
+        cmd = self.reader.getCommand(args[0])
+        if cmd == None:
+            return
+        # the rest are parameters
+        args.pop(0)
+        args = " ".join(args)
+
+        osc.send(cmd, args)
+        # log.debug(msg)
+        # log.info(str(cmd))
         # execute translation as if it had been typed
-        self.onecmd(str(cmd))
+        # self.onecmd(str(cmd))
+
+    def do_t(self, arg):
+        """Tester for other classes
+        TODO: REMOVE!!!"""
+        if arg == "":
+            arg = "new mamma 1 2 3 "
+        log.debug("Running a test for: "+arg)
+        self.parseCmd(arg)
 
     def do_print(self, arg):
         """Usage: print <msg>"""
@@ -122,7 +140,7 @@ Usage: (shell | !) <command>"""
             return self.do_shell(arg)
 
 
-        self.parse_cmd(arg)
+        self.parseCmd(arg)
         # print("Default: {}".format(arg))
 
 ClipCli().cmdloop()
