@@ -70,7 +70,6 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
         osc.connect()
         log.info("sending OSC test message...")
         osc.send("/loopier/clip/test", [0, 0.1, "alo"])
-        self.do_loglevel("debug")
 
 
     def parseCmd(self, arg):
@@ -99,6 +98,7 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
     def bootServer(self):
         """Boots Clip server.
         Currently only for OSX"""
+        log.info("Boot server")
         # self.do_shell(os.getcwd() + "/../../bin/clipApp.command")
         # self.do_shell(os.getcwd() + "/../../bin/clip.app/Contents/MacOS/clip")
         self.do_shell("open -a Terminal '../../bin/clipApp.command'")
@@ -149,6 +149,11 @@ Usage: (shell | !) <command>"""
         print(self.intro)
 
     de_EOF = do_exit # exit with Ctl-D
+
+    def do_log(self, arg):
+        """Print log to screen"""
+        self.do_clear(arg)
+        self.do_shell("cat *.log")
 
     # called every time a command is entered that does not correspond to
     # any of the do_* methods
