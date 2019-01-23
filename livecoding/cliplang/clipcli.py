@@ -90,12 +90,9 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
         # self.onecmd(str(cmd))
 
     def do_t(self, arg):
-        """Tester for other classes
+        """Tester for methods.  Just put anything you want to try by Just
+        just hitting 't'.
         TODO: REMOVE!!!"""
-        if arg == "":
-            arg = "new mamma 1 2 3 "
-        log.debug("Running a test for: "+arg)
-        self.parseCmd(arg)
 
     def do_server(self, arg):
         """Start ClipServer"""
@@ -111,7 +108,6 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
     def quitServer(self):
         """Quits Clip server"""
         self.parseCmd("quit")
-
 
     def do_print(self, arg):
         """Usage: print <msg>"""
