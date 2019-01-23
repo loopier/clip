@@ -40,11 +40,21 @@ class Reader():
         """Returns a dictionary  of commands"""
         return self.commands
 
-    def getCommand(self, key):
+    def getCommand(self, key, target=None):
         """Returns the key corresponding to the value from the given dictionary"""
-        cmd = self.findValue(key, self.commands)
+        cmd = None
+        # first check if the target matches any of the  top nodes of
+        # the commands tree
+        if str(target) in self.commands:
+            cmd = self.findValue(key, self.commands[target], target)
+            log.debug(cmd)
+        elif cmd == None and target != None:
+            cmd = self.findValue(key, self.commands["clip"], "clip")
+        elif cmd == None:
+            cmd = self.findValue(key, self.commands)
         if cmd == None:
-            log.error("Command not found: '"+key+"'")
+            log.error("Command '"+key+"' not found for target '"+str(target)+"'")
+        # log.debug(cmd)
         return cmd
 
     def findValue(self, key, dictionary, parent="root"):

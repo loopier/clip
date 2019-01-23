@@ -24,6 +24,6 @@ Or, if you'd like to lower the log level to DEBUG, type:
 
 Te basic syntax must follow this format:
 
-`<action> [subject] [parameters]`
+`<action> [<target>] [parameters]`
 
-Where `<action>` is imperative, and both `subject` and `parameters` are optional, depending on what command you are using
+Where `action` is imperative, `target` may or may not be used depending on the command, and `parameters` are optional.

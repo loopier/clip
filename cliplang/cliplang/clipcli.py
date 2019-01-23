@@ -52,7 +52,7 @@ class ClipCli (cmd.Cmd):
         osc.connect()
         log.info("sending OSC test message...")
         osc.send("/loopier/clip/test", [0, 0.1, "alo"])
-        
+
         if sys.argv[1] == "-d":
             self.do_loglevel("debug")
 
@@ -64,7 +64,11 @@ class ClipCli (cmd.Cmd):
 
         # translate the words to commands
         # first argument is the command
-        cmd = self.reader.getCommand(args[0])
+        action = args[0]
+        target = None
+        if len(args) > 1:
+            target = args[1]
+        cmd = self.reader.getCommand(action, target)
         if cmd == None:
             return
         # the rest are parameters
