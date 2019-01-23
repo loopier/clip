@@ -53,8 +53,10 @@ class ClipCli (cmd.Cmd):
         log.info("sending OSC test message...")
         osc.send("/loopier/clip/test", [0, 0.1, "alo"])
 
-        if sys.argv[1] == "-d":
+        if "-d" in sys.argv:
             self.do_loglevel("debug")
+        if not("-b" in sys.argv):
+            self.bootServer()
 
 
     def parseCmd(self, arg):
