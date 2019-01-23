@@ -85,7 +85,7 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
         args = " ".join(args)
 
         osc.send(cmd, args)
-        
+
         # execute translation as if it had been typed
         # self.onecmd(str(cmd))
 
@@ -96,6 +96,22 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
             arg = "new mamma 1 2 3 "
         log.debug("Running a test for: "+arg)
         self.parseCmd(arg)
+
+    def do_server(self, arg):
+        """Start ClipServer"""
+        exec("self."+arg+"Server()")
+
+    def bootServer(self):
+        """Boots Clip server.
+        Currently only for OSX"""
+        # self.do_shell(os.getcwd() + "/../../bin/clipApp.command")
+        # self.do_shell(os.getcwd() + "/../../bin/clip.app/Contents/MacOS/clip")
+        self.do_shell("open -a Terminal '../../bin/clipApp.command'")
+
+    def quitServer(self):
+        """Quits Clip server"""
+        self.parseCmd("quit")
+
 
     def do_print(self, arg):
         """Usage: print <msg>"""
