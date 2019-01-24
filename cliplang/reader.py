@@ -31,11 +31,11 @@ class Reader():
         cmd = None
         # first check if the target matches any of the  top nodes of
         # the commands tree
-        if str(target) in self.commands:
-            cmd = self.findValue(key, self.commands[target], target)
+        if str(target) in self.getCommandsDict():
+            cmd = self.findValue(key, self.getCommandsDict()[target], target)
             log.debug(cmd)
         elif cmd == None:
-            cmd = self.findValue(key, self.commands)
+            cmd = self.findValue(key, self.getCommandsDict())
         if cmd == None:
             log.error("Command '"+key+"' not found for target '"+str(target)+"'")
         # log.debug(cmd)
@@ -72,7 +72,7 @@ class Reader():
 
     def getCommandList(self):
         """Returns all the keys in the command list"""
-        return self.getKeys(self.commands)
+        return self.getKeys(self.getCommandsDict())
 
     def getKeys(self, dictionary):
         """Returns a recursive array of all the keys in the dictionary"""
