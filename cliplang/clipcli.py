@@ -56,10 +56,14 @@ class ClipCli (cmd.Cmd):
         osc.send("/loopier/clip/test", [0, 0.1, "alo"])
 
         if "-d" in sys.argv:
+            print("Running DEBUG mode.  See log file for output.")
             self.do_loglevel("debug")
         if not("-b" in sys.argv):
             self.bAutoServer = True
             self.bootServer()
+        else:
+            print("Server not booted.  Type 'server boot' or run the app\n\
+without the '-b' flag.")
 
 
     def parseCmd(self, arg):
@@ -109,9 +113,7 @@ class ClipCli (cmd.Cmd):
         """Boots Clip server.
         Currently only for OSX"""
         log.info("Boot server")
-        # self.do_shell(os.getcwd() + "/../../bin/clipApp.command")
-        # self.do_shell(os.getcwd() + "/../../bin/clip.app/Contents/MacOS/clip")
-        self.do_shell("open -a Terminal '../../bin/clipApp.command'")
+        self.do_shell("open -a Terminal '../bin/clipServer.command'")
 
     def quitServer(self):
         """Quits Clip server"""
