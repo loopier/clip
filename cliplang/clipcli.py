@@ -172,9 +172,33 @@ Usage: (shell | !) <command>"""
         osc.send(addr, args)
 
     def do_log(self, arg):
-        """Print log to screen"""
+        """Print log to screen only once.  See 'logon' to see it always"""
         self.do_clear(arg)
         self.do_shell("cat *.log")
+
+    def do_logon(self, arg):
+        """Turn on logging"""
+        # log.info("Logging turned ON")
+        logToConsole(True)
+
+    def do_logoff(self, arg):
+        """Turn off logging"""
+        # log.info("Logging turned OFF")
+        logToConsole(False)
+
+    def do_verbose(self, arg):
+        """Turn logging on and off.
+Usage:
+        <verbose | v> [on | off]
+If no argument is given it defaults to on"""
+        if arg == "on" or arg == "":
+            self.do_logon(arg)
+        elif arg == "off":
+            self.do_logoff(arg)
+
+    def do_v(self, arg):
+        """Turn loggin on and off.  See as 'verbose'"""
+        self.do_verbose(arg)
 
     def do_loglevel(self, arg):
         """Sets the log level.
