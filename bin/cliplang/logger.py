@@ -1,16 +1,11 @@
 import logging
 import os
+import time
 
-logfile = "cliplang"
-#comment this if you don't want to clear the log every time
-open(logfile, "w").close()
+logpath = os.path.dirname(__file__)+"/logs"
+logfile = "cliplang-"+(time.strftime("%Y%m%dT%H%M%S", time.gmtime()))
 
-# logging.basicConfig(\
-# format='[ %(levelname)s ] [%(asctime)s] %(filename)s: %(funcName)s: %(message)s',\
-# level=logging.INFO,\
-# filename=logfile)
-# log = logging.getLogger(__name__)
-logFormatter = logging.Formatter('[ %(levelname)s ] [%(asctime)s] %(filename)s: %(funcName)s: %(message)s')
+logFormatter = logging.Formatter('[ %(levelname)s ] [%(asctime)s] %(filename)s: line %(lineno)s: %(message)s')
 log = logging.getLogger()
 
 logFileHandler = logging.FileHandler("{0}/{1}.log".format(os.path.dirname(__file__)+"/logs", logfile))
