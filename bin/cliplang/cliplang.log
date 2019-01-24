@@ -1,0 +1,59 @@
+[ DEBUG ] [2019-01-24 17:05:29,612] clipcli.py: do_loglevel: 10
+[ DEBUG ] [2019-01-24 17:06:32,879] clipcli.py: do_loglevel: 10
+[ DEBUG ] [2019-01-24 17:07:21,835] clipcli.py: do_loglevel: 10
+[ DEBUG ] [2019-01-24 17:07:59,705] clipcli.py: do_loglevel: 10
+[ DEBUG ] [2019-01-24 17:08:01,178] reader.py: getKeys: <class 'list'>
+[ DEBUG ] [2019-01-24 17:08:01,179] reader.py: getKeys: <class 'list'>
+[ DEBUG ] [2019-01-24 17:08:01,179] reader.py: getKeys: <class 'list'>
+[ DEBUG ] [2019-01-24 17:08:01,179] reader.py: getKeys: <class 'list'>
+[ DEBUG ] [2019-01-24 17:08:01,179] reader.py: getKeys: <class 'list'>
+[ DEBUG ] [2019-01-24 17:08:01,179] reader.py: getKeys: <class 'list'>
+[ DEBUG ] [2019-01-24 17:08:01,179] reader.py: getKeys: <class 'list'>
+[ DEBUG ] [2019-01-24 17:09:13,098] clipcli.py: do_loglevel: 10
+[ DEBUG ] [2019-01-24 17:09:17,642] clipcli.py: parseCmd: 2 arguments: ['clearallclips', 'app']
+[ DEBUG ] [2019-01-24 17:09:17,642] reader.py: isGroupCommand: app  True
+[ DEBUG ] [2019-01-24 17:09:17,642] reader.py: findValue: clearallclips found in app
+[ DEBUG ] [2019-01-24 17:09:17,643] reader.py: getCommand: /loopier/clip/clearallclips
+[ INFO ] [2019-01-24 17:09:17,643] oscsender.py: printMsg: Sending OSC message: /loopier/clip/clearallclips 
+[ DEBUG ] [2019-01-24 17:10:13,514] clipcli.py: do_loglevel: 10
+[ DEBUG ] [2019-01-24 17:12:12,457] clipcli.py: do_loglevel: 10
+[ DEBUG ] [2019-01-24 17:12:17,007] clipcli.py: parseCmd: 1 arguments: ['alo']
+[ DEBUG ] [2019-01-24 17:12:45,356] clipcli.py: do_loglevel: 10
+[ DEBUG ] [2019-01-24 17:13:02,221] clipcli.py: parseCmd: 1 arguments: ['alo']
+[ DEBUG ] [2019-01-24 17:13:06,174] clipcli.py: parseCmd: 2 arguments: ['new', 'mamma']
+[ DEBUG ] [2019-01-24 17:13:06,180] reader.py: isGroupCommand: mamma  False
+[ DEBUG ] [2019-01-24 17:13:06,180] reader.py: findValue: new found in clip
+[ DEBUG ] [2019-01-24 17:13:06,181] reader.py: getCommand: /loopier/clip/clip/new
+[ INFO ] [2019-01-24 17:13:06,181] oscsender.py: printMsg: Sending OSC message: /loopier/clip/clip/new  s:mamma
+[ DEBUG ] [2019-01-24 17:13:10,197] clipcli.py: parseCmd: 2 arguments: ['remove', 'mamma']
+[ DEBUG ] [2019-01-24 17:13:10,198] reader.py: isGroupCommand: mamma  False
+[ DEBUG ] [2019-01-24 17:13:10,198] reader.py: findValue: remove found in clip
+[ DEBUG ] [2019-01-24 17:13:10,199] reader.py: getCommand: /loopier/clip/clip/remove
+[ INFO ] [2019-01-24 17:13:10,199] oscsender.py: printMsg: Sending OSC message: /loopier/clip/clip/remove  s:mamma
+[ DEBUG ] [2019-01-24 17:13:16,664] clipcli.py: parseCmd: 2 arguments: ['listclips', 'app']
+[ DEBUG ] [2019-01-24 17:13:16,668] reader.py: isGroupCommand: app  True
+[ DEBUG ] [2019-01-24 17:13:16,668] reader.py: findValue: listclips found in app
+[ DEBUG ] [2019-01-24 17:13:16,668] reader.py: getCommand: /loopier/clip/listclips
+[ INFO ] [2019-01-24 17:13:16,669] oscsender.py: printMsg: Sending OSC message: /loopier/clip/listclips 
+[ DEBUG ] [2019-01-24 17:16:06,056] clipcli.py: do_loglevel: 10
+[ DEBUG ] [2019-01-24 17:16:54,444] clipcli.py: do_loglevel: 10
+[ DEBUG ] [2019-01-24 17:16:55,647] clipcli.py: do_commands: <class 'list'>
+[ DEBUG ] [2019-01-24 17:18:24,924] clipcli.py: do_loglevel: 10
+[ DEBUG ] [2019-01-24 17:33:03,057] clipcli.py: do_loglevel: 10
+[ INFO ] [2019-01-24 17:33:03,058] clipcli.py: bootServer: Boot server
+[ DEBUG ] [2019-01-24 17:33:13,971] clipcli.py: parseCmd: 2 arguments: ['new', 'mamma']
+[ DEBUG ] [2019-01-24 17:33:13,976] reader.py: isGroupCommand: mamma  False
+[ DEBUG ] [2019-01-24 17:33:13,976] reader.py: findValue: new found in clip
+[ DEBUG ] [2019-01-24 17:33:13,976] reader.py: getCommand: /loopier/clip/clip/new
+[ INFO ] [2019-01-24 17:33:13,977] oscsender.py: printMsg: Sending OSC message: /loopier/clip/clip/new  s:mamma
+[ DEBUG ] [2019-01-24 17:33:27,889] clipcli.py: parseCmd: 2 arguments: ['loadscript', 'cv-cam1']
+[ DEBUG ] [2019-01-24 17:33:27,889] reader.py: isGroupCommand: cv-cam1  False
+[ DEBUG ] [2019-01-24 17:33:27,889] reader.py: getCommand: None
+[ ERROR ] [2019-01-24 17:33:27,890] reader.py: getCommand: Command 'loadscript' not found for target 'clip'
+[ DEBUG ] [2019-01-24 17:33:39,284] clipcli.py: parseCmd: 3 arguments: ['run', 'script', 'cv-cam1']
+[ DEBUG ] [2019-01-24 17:33:39,288] reader.py: isGroupCommand: script  True
+[ DEBUG ] [2019-01-24 17:33:39,288] reader.py: findValue: run found in script
+[ DEBUG ] [2019-01-24 17:33:39,289] reader.py: getCommand: /loopier/clip/script/run
+[ INFO ] [2019-01-24 17:33:39,289] oscsender.py: printMsg: Sending OSC message: /loopier/clip/script/run  s:cv-cam1
+[ INFO ] [2019-01-24 17:33:42,536] clipcli.py: quitServer: Quit server
+[ DEBUG ] [2019-01-24 17:33:42,536] clipcli.py: parseCmd: 1 arguments: ['quit']

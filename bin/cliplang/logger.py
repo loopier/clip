@@ -13,7 +13,7 @@ open(logfile, "w").close()
 logFormatter = logging.Formatter('[ %(levelname)s ] [%(asctime)s] %(filename)s: %(funcName)s: %(message)s')
 log = logging.getLogger()
 
-logFileHandler = logging.FileHandler("{0}/{1}.log".format(os.getcwd(), logfile))
+logFileHandler = logging.FileHandler("{0}/{1}.log".format(os.path.dirname(__file__)+"/logs", logfile))
 logFileHandler.setFormatter(logFormatter)
 log.addHandler(logFileHandler)
 

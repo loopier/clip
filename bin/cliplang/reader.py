@@ -11,9 +11,11 @@ from utils import *
 
 class Reader():
     commands = {}
+    commandsFilePath = os.path.dirname(__file__)+"/../data/commands.yml"
+
 
     def __init__(self):
-        self.commands = self.loadCommands(os.getcwd() + "/../bin/data/commands.yml")
+        self.commands = self.loadCommands(self.commandsFilePath)
 
     def loadCommands(self, path):
         """Loads a dictionary of commands to OSC messages"""

@@ -44,6 +44,8 @@ class ClipCli (cmd.Cmd):
     file = None
     reader = Reader()
     bAutoServer = False # boots server on startup and shuts it down on exit
+    serverPath = os.path.dirname(__file__)+"/../clipserver.app"
+    serverExecutablePath = os.path.dirname(__file__)+"/../clipserver.app/Contents/MacOS/clipserver"
 
     def preloop(self):
         self.do_shell("clear")
@@ -113,7 +115,10 @@ without the '-b' flag.")
         """Boots Clip server.
         Currently only for OSX"""
         log.info("Boot server")
-        self.do_shell("open -a Terminal '../bin/clipServer.command'")
+        # self.do_shell("open -a Terminal " + self.serverPath)
+        self.do_shell("open -a Terminal " + self.serverExecutablePath)
+        self.do_shell("echo " + self.serverPath)
+        self.do_shell("ls " + os.path.dirname(__file__) + "/..")
 
     def quitServer(self):
         """Quits Clip server"""
