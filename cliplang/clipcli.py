@@ -213,6 +213,7 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
         if arg == 'info':
             log.setLevel(logging.INFO)
         if arg == 'debug':
+            logToConsole()
             log.setLevel(logging.DEBUG)
         if arg == 'none':
             log.setLevel(logging.NOTSET)

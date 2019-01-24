@@ -1,7 +1,7 @@
 import logging
 import os
 
-logfile = "cliplang.log"
+logfile = "cliplang"
 #comment this if you don't want to clear the log every time
 open(logfile, "w").close()
 
