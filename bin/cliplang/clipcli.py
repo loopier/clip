@@ -117,8 +117,6 @@ without the '-b' flag.")
         log.info("Boot server")
         # self.do_shell("open -a Terminal " + self.serverPath)
         self.do_shell("open -a Terminal " + self.serverExecutablePath)
-        self.do_shell("echo " + self.serverPath)
-        self.do_shell("ls " + os.path.dirname(__file__) + "/..")
 
     def quitServer(self):
         """Quits Clip server"""
