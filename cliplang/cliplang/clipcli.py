@@ -43,6 +43,7 @@ class ClipCli (cmd.Cmd):
     prompt = '. '
     file = None
     reader = Reader()
+    bAutoServer = False # boots server on startup and shuts it down on exit
 
     def preloop(self):
         self.do_shell("clear")
@@ -57,6 +58,7 @@ class ClipCli (cmd.Cmd):
         if "-d" in sys.argv:
             self.do_loglevel("debug")
         if not("-b" in sys.argv):
+            self.bAutoServer = True
             self.bootServer()
 
 
@@ -65,12 +67,21 @@ class ClipCli (cmd.Cmd):
         args = arg.split()
         log.debug(str(len(args))+" arguments: "+str(args))
 
+        # Skip one-word commands.
+        # They would be commands for this app and they should've been
+        # already handled.
+        if len(args) <= 1:
+            return
+
+        action = args[0]
+        target = "clip"
+
+        if self.reader.isGroupCommand(args[1]):
+            target = args[1]
+            args.pop(1)
+
         # translate the words to commands
         # first argument is the command
-        action = args[0]
-        target = None
-        if len(args) > 1:
-            target = args[1]
         cmd = self.reader.getCommand(action, target)
         if cmd == None:
             return
@@ -123,7 +134,8 @@ Usage: (shell | !) <command>"""
 
     def do_exit(self, arg):
         """Quits out of Interactive Mode."""
-        self.quitServer()
+        if self.bAutoServer:
+            self.quitServer()
         print('Good Bye!')
         exit()
 
@@ -193,6 +205,7 @@ Usage: loglevel <critical | error | warning | info | debug | none>"""
     def default(self, arg):
         if arg == '!':
             return self.do_shell(arg)
+
         self.parseCmd(arg)
         # print("Default: {}".format(arg))
 

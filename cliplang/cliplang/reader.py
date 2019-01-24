@@ -22,7 +22,7 @@ class Reader():
         log.debug(printableDictionary(commands))
         return commands
 
-    def getCommandsList(self):
+    def getCommandsDict(self):
         """Returns a dictionary  of commands"""
         return self.commands
 
@@ -34,8 +34,6 @@ class Reader():
         if str(target) in self.commands:
             cmd = self.findValue(key, self.commands[target], target)
             log.debug(cmd)
-        elif cmd == None and target != None:
-            cmd = self.findValue(key, self.commands["clip"], "clip")
         elif cmd == None:
             cmd = self.findValue(key, self.commands)
         if cmd == None:
@@ -59,6 +57,19 @@ class Reader():
                     break
         return value
 
+    def isNodeValue(self, key, dictionary):
+        """Searches iteratively for 'key' in a nested dictionary and
+        returns true if it has children"""
+        # log.debug("Searching '"+key+"' in "+parent)
+        isOrNot = False
+        for k, v in dictionary.items():
+            if k == key and type(v) == dict:
+                isOrNot = True
+                break
+            elif type(v) is dict:
+                isOrNot = self.isNodeValue(key, v)
+        return isOrNot
+
     def getCommandList(self):
         """Returns all the keys in the command list"""
         return self.getKeys(self.commands)
@@ -71,3 +82,11 @@ class Reader():
             if type(v) == dict:
                 keys.append(self.getKeys(v))
         return keys
+
+    def isGroupCommand(self, arg, commands=""):
+        """Checks if the given command is a group command"""
+        isOrNot = self.isNodeValue(arg, self.getCommandsDict())
+
+
+        log.debug(arg+"  "+str(isOrNot))
+        return isOrNot
