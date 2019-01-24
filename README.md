@@ -1,4 +1,4 @@
-# README
+# README
 
 CLIP is a live-animation application.  
 
@@ -11,6 +11,10 @@ It's a tool that provides some means to perform and improvise with animations an
 - Communicate with the app via OSC.
 - Define custom keymaps for controlling the app from a keyboard.
 - Bundle behaviours in script files.
+
+## Developers
+
+See README-DEV.md
 
 ## Installation
 
