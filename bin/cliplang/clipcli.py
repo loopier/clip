@@ -70,6 +70,10 @@ without the '-b' flag.")
 
     def parseCmd(self, arg):
         """Parses the arguments to convert them to clip commands"""
+        args = arg.split(';')
+        if len(args) > 1:
+            for a in args:
+                self.parseCmd(a)
         args = arg.split()
         log.debug(str(len(args))+" arguments: "+str(args))
 
