@@ -9,7 +9,7 @@ It's a tool that provides some means to perform and improvise with animations an
 - Use clips to mask other clips.
 - Load and save animations.
 - Communicate with the app via OSC.
-- Define custom keymaps for controlling the app from a keyboard.
+- Define custom keymaps to control the app from a keyboard.
 - Bundle behaviours in script files.
 
 ## Developers
