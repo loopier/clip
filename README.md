@@ -22,23 +22,80 @@ See README-DEV.md
 
 ### Creating a clip
 
-All clips use resources, usually movies or images.  When creating a new clip you can choose which resource it will use by specifying the resource name.  If no resource is provided, a new empty clip will be created.  This empty clip can be used to create a new animation (see below).
+
 
 ### Creating animations
 
-There are different ways to create animations.  Following is a description of how we suggest to do it.
+There are different ways to create animations.  Here's one:
 
-Create an empty clip.
+Create an empty clip named `palitus`.
 
-Create a new camera clip.  
+`/loopier/clip/clip/new palitus`
 
-Set the camera clip as input to the computer visione engine.
+Before adding frames to it, we need some kind of source to get new images.
+We'll be using a camera.  To see what cameras are available to you:
 
-Select a blob or group of blobs, or an area in the screen.
+`/loopier/clip/listcameras`
 
-Add new frames to the new clip, from the camera input the camera.
+In the log you may find something like this:
 
-Save frames to disk.
+```
+[notice ] Number of cameras players loaded: 2
+[notice ] 	cam0: Built-in iSight
+[notice ] 	cam1: HD Pro Webcam C920
+[notice ] Sent OSC:	/loopier/clip/cameranames 	s:cam0	s:cam1
+[notice ] OSC:	/loopier/clip/listcameras
+```
+
+This is my ouptut, yours will be different depending on what divices are plugged into your system.  For me, there are two cameras.  
+
+`cam0` and `cam1` are the names of the cameras in the application.
+`Built-in iSight` and `HD Pro Webcam C920` are the real device names, so you know
+which one's which.
+
+Create a new camera clip with the device of your choice.  I'll be using `cam1`.
+
+`/loopier/clip/clip/new cam cam1`
+
+`cam` is the name of the clip, just like we did  with `paliuts` above.
+`cam1` is the resource the clip is using.  Since we didn't provide a resource
+for `palitus`, the app is creating an empty *Frame* clip.  Frame clips are
+clips that play image sequences, animations.  More on this later.
+
+Now you should see the camera.
+
+To make things more interesting, we'll be using computer vision to mask the camera.
+For that, we need another clip named `cv` that will be managing all that.
+
+`/loopier/clip/clip/new cv`
+
+`cv` is a *reserved word*.  Any time you create a clip with that name it will create a computer vision clip.  But I don't know why you'd want more than one.
+
+Set the camera clip `cam` as input to the computer vision clip `cv`.
+
+`/loopier/clip/cv/setinput cam`
+
+To see only what we will be adding as frame, mask the camera clip with the cv's blobs:
+
+`/loopier/clip/clip/mask cam cv`
+
+If the CV lines bother you, hide them.
+
+`/loopier/clip/clip/hide cv`
+
+Select all the blobs.
+
+`/loopier/clip/cv/selectall`
+
+Add a new frame to `palitus` using the image from `cam`.
+
+`/loopier/clip/clip/addframe palitus cam`
+
+Repeat this last step as many times as you wish.
+
+When you're done, hide `cam` to admire your work of art.
+
+`/loopier/clip/clip/hide cam`
 
 ### Camera input
 ### Computer vision
