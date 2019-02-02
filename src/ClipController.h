@@ -35,7 +35,7 @@ namespace loopier {
         string  getPath();
         
         void setKeymapPath(const string & path);
-        string setKeymapPath();
+        string getKeymapPath();
         void loadKeymap(const string & keymapname);
         void mapKey(const string key, const string & commandOrScriptName);
         

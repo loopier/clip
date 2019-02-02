@@ -16,7 +16,10 @@
 #include "MoviePlayer.h"
 #include "CameraPlayer.h"
 #include "CvPlayer.h"
+
+#ifdef TARGET_OSX
 #include "SyphonPlayer.h"
+#endif
 
 namespace loopier {
     

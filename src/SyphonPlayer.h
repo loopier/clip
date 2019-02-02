@@ -6,7 +6,6 @@
 //  Copyright 2017 __MyCompanyName__. All rights reserved.
 //
 
-#ifdef TARGET_OSX
 #ifndef _SyphonPlayer
 #define _SyphonPlayer
 
@@ -41,4 +40,3 @@ namespace loopier {
 }
 
 #endif
-#endif // TARGET_OSX
