@@ -34,9 +34,9 @@ loopier::Clip::Clip(string& clipname, string& resourcename)
 , alpha(1.0)
 , depth(0)
 , bFullscreen(false)
-, bVisible(true)
 , bDrawName(false)
 , bSelected(false)
+, bVisible(true)
 , loopState(LoopType::normal)
 {
 //    setResource(resourcename);
@@ -113,7 +113,7 @@ void loopier::Clip::draw()
     } else {
         // I tried to scale the object to match the mask dimensions but it didn't work.
         // See commit #1725f5c046fd95035f3bb97dd3eebdb549c427e4
-        outputFbo.draw(absolutePosition, outputFbo.getWidth() * scaleX, outputFbo.getHeight() * scaleY);
+        outputFbo.draw(absolutePosition.x, absolutePosition.y, outputFbo.getWidth() * scaleX, outputFbo.getHeight() * scaleY);
     }
     ofPopStyle();
 }
@@ -253,9 +253,9 @@ void loopier::Clip::setPlayDirection(const loopier::PlayDirection direction)
 }
 
 //---------------------------------------------------------------------------
-loopier::PlayDirection & loopier::Clip::getPlayDirection()
+loopier::PlayDirection loopier::Clip::getPlayDirection() const
 {
-    player->getPlayDirection();
+    return player->getPlayDirection();
 }
 
 //---------------------------------------------------------------------------

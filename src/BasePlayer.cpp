@@ -256,7 +256,7 @@ loopier::LoopType   loopier::BasePlayer::getLoopState() const
 }
 
 //---------------------------------------------------------
-loopier::PlayDirection  loopier::BasePlayer::getPlayDirection() const
+loopier::PlayDirection loopier::BasePlayer::getPlayDirection() const
 {
     return playDirection;
 }

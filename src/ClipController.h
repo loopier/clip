@@ -13,7 +13,7 @@
 
 #include "ofMain.h"
 #include "Clip.h"
-#include "ofxYAML.h"
+//#include "ofxYAML.h"
 #include "ofxJSON.h"
 #include "ofxOscSender.h"
 
@@ -271,9 +271,9 @@ namespace loopier {
         void show();
         void hide();
         //// \brief  Returns a B&W texture of the blobs
-        ofTexture & getMask();
-        ofTexture & getMaskTexture();
-        ofPixels & getMaskPixels();
+//        ofTexture & getMask();
+//        ofTexture & getMaskTexture();
+//        ofPixels & getMaskPixels();
         //// \brief  Returns a B&W texture of the hole blobs
         ofTexture & getHolesMask();
         //// \brief  Sets the minimum size for blobs to be detected
@@ -342,8 +342,8 @@ namespace loopier {
         ofTexture   getMaskedTexture(ofTexture & texture, ofTexture & mask);
         
         /// \brief  Saves object to YAML file
-        void    saveYaml(const string filename, ofxYAML & yaml);
-        string    yamlToString(YAML::Node & yaml, const int tabulations = 0);
+//        void    saveYaml(const string filename, ofxYAML & yaml);
+//        string    yamlToString(YAML::Node & yaml, const int tabulations = 0);
         
         bool    isFloat(const string &);
         bool    isInt(const string &);

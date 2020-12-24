@@ -19,10 +19,10 @@
 #include "OscManager.h"
 #include "ClipController.h"
 #include "Clip.h"
-#include "Cv.h"
+//#include "Cv.h"
 #include "ConsoleUI.h"
 #include "Types.h"
-#include "Uvc.h"
+//#include "Uvc.h"
 
 namespace loopier {
     namespace osc {

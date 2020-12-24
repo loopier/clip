@@ -15,13 +15,13 @@ void ofApp::setup(){
     
 //    loopier::resource::setPath(applicationSupportPath + "resources/");
     loopier::app::init();
-    loopier::uvc::init();
+    //loopier::uvc::init();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     loopier::app::update();
-    loopier::uvc::update();
+    //loopier::uvc::update();
 }
 
 //--------------------------------------------------------------

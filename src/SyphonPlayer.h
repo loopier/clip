@@ -9,7 +9,6 @@
 #ifndef _SyphonPlayer
 #define _SyphonPlayer
 
-
 #include "ofMain.h"
 #include "ofxSyphon.h"
 #include "BasePlayer.h"

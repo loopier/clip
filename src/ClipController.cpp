@@ -51,18 +51,31 @@ namespace {
     {
         ofVideoGrabber vidGrabber;
         vector<ofVideoDevice> devices = vidGrabber.listDevices();
+
+        ofLogVerbose("Initializing Cameras...");
         
         for (int i = 0; i < devices.size(); i++) {
+            // on linux (at least on Manjaro) video devices are duplicated. The second
+            // device provides metadata about the video data from the first device.
+            // see explanation in:https://unix.stackexchange.com/questions/512759/multiple-dev-video-for-one-physical-device/539573#539573
+            // So for linux versions there's a need to skip every other device
+            if (i%2) {
+                ofLogWarning() << "Skipping device " << i;
+                ofLogWarning() << "on linux (at least on Manjaro) video devices are duplicated. The second device provides metadata about the video data from the first device.";
+                return;
+            }
             // create a player from this camera
             string name = devices[i].deviceName;
             float width = ofGetWidth();
             float height = ofGetHeight();
+#ifdef TARGET_OSX
             // !!!: Something's wrong when iSight is the same size as the other cameras and
             //      they are not set to 320x240
             if (devices[i].deviceName == "Built-in iSight") {
                 width = 320;
                 height = 240;
             }
+#endif
             
             loopier::CameraPlayerPtr cameraplayer(new loopier::CameraPlayer(width, height, i));
             cameraplayer->setName(name);
@@ -70,15 +83,17 @@ namespace {
             //            cameraplayers[name] = cameraplayer;
             // create a duplicate with the name 'camN' for faster typing
             cameraplayers["cam"+ofToString(i)] = cameraplayer;
+            ofLogVerbose() << "Initialized: " << cameraplayer->getName() << " w:" << width << " h:" << height << " index:" << i;
+            ofLogVerbose() << "Camera Players: " << cameraplayers.size();
         }
         
-        ofLogVerbose() << "Inizialized " << cameraplayers.size() << " camera players";
+        ofLogVerbose() << "Initialized " << cameraplayers.size() << " camera players";
     }
     
     //---------------------------------------------------------------------------
     loopier::ClipPtr initializeCv()
     {
-        if (cameraplayers.size() <= 0) return;    // needs to provide a camera to the cv player constructor
+//        if (cameraplayers.size() <= 0) return;    // needs to provide a camera to the cv player constructor
         
         // FIX: now sets first camera -- should set any camera.  Something like this:
         string cameraname = cameraplayers.begin()->first;
@@ -149,8 +164,13 @@ namespace {
 //---------------------------------------------------------------------------
 void loopier::app::init()
 {
+#ifdef TARGET_OSX
     applicationSupportPath = ofFilePath::getUserHomeDir() + "/Library/Application Support/Clip/";
-    
+#endif
+#ifdef TARGET_LINUX
+    applicationSupportPath = ofFilePath::getUserHomeDir() + "/.local/share/clip/";
+#endif
+
     ofDirectory dir(applicationSupportPath);
     if (!dir.exists()) {
         ofSystemAlertDialog(applicationSupportPath + " doesn't exist.");
@@ -329,12 +349,12 @@ void loopier::app::loadKeymap(const string & keymapname)
     
     ofLogVerbose() << "Load keymap: " << path;
     
-    ofxYAML yaml;
-    yaml.load(path);
-    ofxYAML::iterator it = yaml.begin();
-    for (it; it != yaml.end(); ++it) {
-        mapKey(it->first.as<string>(), it->second.as<string>());
-    }
+//    ofxYAML yaml;
+//    yaml.load(path);
+//    ofxYAML::iterator it = yaml.begin();
+//    for (it; it != yaml.end(); ++it) {
+//        mapKey(it->first.as<string>(), it->second.as<string>());
+//    }
 }
 
 //---------------------------------------------------------------------------
@@ -518,10 +538,10 @@ bool loopier::resource::exists(string resourcename)
 void loopier::resource::setSyphonServerName(const string clipname, const string syphonservername, const string syphonserverapp)
 {
     if (!clip::exists(clipname)) return;
+#ifdef TARGET_OSX
     getPlayerAsSyphonPlayer(clipname)->setServerName(syphonservername, syphonserverapp);
-    
+# endif
 }
-
 
 
 //---------------------------------------------------------------------------
@@ -609,7 +629,7 @@ loopier::ClipPtr loopier::clip::newClip(string clipname, string resourcename)
 //---------------------------------------------------------------------------
 loopier::ClipPtr loopier::clip::newClipFromBlob(string clipname, string resourcename)
 {
-    if (!exists("cv")) return;
+//    if (!exists("cv")) return;
     
     ClipPtr clip;
     if (exists(clipname)) {
@@ -693,12 +713,12 @@ loopier::ClipPtr loopier::clip::newFrameClip(string clipname, string resourcenam
     // load YAML info from the file
     string filename = resourceFilesPath+"frames/"+resourcename+"/resource.yml";
     if (!ofFile(filename).exists()) return clip;
-    ofxYAML yaml;
-    yaml.load(filename);
-    frameplayer->setName(yaml["name"].as<string>());
-    frameplayer->setPosition(yaml["rect"]["x"].as<float>(), yaml["rect"]["y"].as<float>());
-    frameplayer->setWidth(yaml["rect"]["width"].as<float>());
-    frameplayer->setHeight(yaml["rect"]["height"].as<float>());
+//    ofxYAML yaml;
+//    yaml.load(filename);
+//    frameplayer->setName(yaml["name"].as<string>());
+//    frameplayer->setPosition(yaml["rect"]["x"].as<float>(), yaml["rect"]["y"].as<float>());
+//    frameplayer->setWidth(yaml["rect"]["width"].as<float>());
+//    frameplayer->setHeight(yaml["rect"]["height"].as<float>());
     
     return clip;
 }
@@ -915,7 +935,7 @@ void loopier::clip::setPrivateClip(const string clipname)
 //---------------------------------------------------------------------------
 bool loopier::clip::isPublic(const string clipname)
 {
-    if (!exists(clipname)) return;
+    if (!exists(clipname)) return false;
     vector<string>::iterator it = find(publicLayers.begin(), publicLayers.end(), clipname);
     return it != publicLayers.end();
 }
@@ -923,7 +943,7 @@ bool loopier::clip::isPublic(const string clipname)
 //---------------------------------------------------------------------------
 bool loopier::clip::isPrivate(const string clipname)
 {
-    if (!exists(clipname)) return;
+    if (!exists(clipname)) return false;
     vector<string>::iterator it = find(privateLayers.begin(), privateLayers.end(), clipname);
     return it != privateLayers.end();
 }
@@ -954,7 +974,7 @@ void loopier::clip::clearClipChildren(const string clip)
 //---------------------------------------------------------------------------
 vector<string> loopier::clip::getClipChildrenNames(const string clip)
 {
-    if (!exists(clip)) return;
+//    if (!exists(clip)) return;
     vector<string> names = getClip(clip)->getChildrenNames();
     string namesstring = clip + "'s children:";
     for (auto &name: names) namesstring += " " + namesstring;
@@ -1284,16 +1304,16 @@ namespace { // anonymous namespace to keep this method private
             // creates a unique YAML file for storing frame information
     void saveFrameInfo(const string name, const ofRectangle & rect) {
         string filename = resourceFilesPath+"frames/"+name+"/resource.yml";
-        ofxYAML yaml;
-        yaml["name"] = name;
-        yaml["type"] = "frame";
-        yaml["comment"] =  "The following rectangle represents the bounging box of the largest blob in the first frame.  It is used to replace other camera blobs, or other clips.";
-        yaml["rect"]["x"] = rect.x;
-        yaml["rect"]["y"] = rect.y;
-        yaml["rect"]["width"] = ofToString(rect.width);
-        yaml["rect"]["height"] = ofToString(rect.height);
+//        ofxYAML yaml;
+//        yaml["name"] = name;
+//        yaml["type"] = "frame";
+//        yaml["comment"] =  "The following rectangle represents the bounging box of the largest blob in the first frame.  It is used to replace other camera blobs, or other clips.";
+//        yaml["rect"]["x"] = rect.x;
+//        yaml["rect"]["y"] = rect.y;
+//        yaml["rect"]["width"] = ofToString(rect.width);
+//        yaml["rect"]["height"] = ofToString(rect.height);
         
-        loopier::utils::saveYaml(filename, yaml);
+//        loopier::utils::saveYaml(filename, yaml);
     }
 }
 
@@ -1338,12 +1358,13 @@ ofRectangle loopier::clip::getResourceOriginalRectangle(const string resourcenam
 {
     string filename = resourceFilesPath + "frames/" + resourcename + "/resource.yml";
     if(!ofFile(filename).exists()) return ofRectangle(0,0,ofGetWidth(), ofGetHeight());
-    ofxYAML yaml;
-    yaml.load(filename);
-    return ofRectangle(yaml["rect"]["x"].as<float>(),
-                       yaml["rect"]["y"].as<float>(),
-                       yaml["rect"]["width"].as<float>(),
-                       yaml["rect"]["height"].as<float>());
+//    ofxYAML yaml;
+//    yaml.load(filename);
+//    return ofRectangle(yaml["rect"]["x"].as<float>(),
+//                       yaml["rect"]["y"].as<float>(),
+//                       yaml["rect"]["width"].as<float>(),
+//                       yaml["rect"]["height"].as<float>());
+    return ofRectangle(0,0,100,100);
 }
 
 //---------------------------------------------------------------------------
@@ -1391,29 +1412,29 @@ void loopier::clip::saveClip(const string clipname)
     
     ClipPtr clip = clips[clipname];
     
-    ofxYAML yaml;
-    yaml["clip"]["name"] = clip->getName();
-    yaml["clip"]["resource"] = clip->getResourceName();
-    yaml["clip"]["position"]["x"] = clip->getPosition().x * ofGetWidth();
-    yaml["clip"]["position"]["y"] = clip->getPosition().y * ofGetHeight();
-    yaml["clip"]["width"] = clip->getWidth();
-    yaml["clip"]["height"] = clip->getHeight();
-    yaml["clip"]["scale"] = clip->getScale();
-    yaml["clip"]["color"]["r"] = clip->getColor().r;
-    yaml["clip"]["color"]["g"] = clip->getColor().g;
-    yaml["clip"]["color"]["b"] = clip->getColor().b;
-    yaml["clip"]["color"]["a"] = clip->getColor().a;
-    yaml["clip"]["depth"] = clip->getDepth();
-    yaml["clip"]["fullscreen"] = clip->isFullscreen();
-    yaml["clip"]["visible"] = clip->isVisible();
-    yaml["clip"]["flipV"] = clip->isFlippedV();
-    yaml["clip"]["flipH"] = clip->isFlippedH();
-    yaml["clip"]["loop"] = static_cast<int>(clip->getLoopState());
-    //            yaml["clip"]["parent"] = clip->getParentName();
-    yaml["clip"]["offset"]["x"] = clip->getOffset().x;
-    yaml["clip"]["offset"]["y"] = clip->getOffset().y;
+//    ofxYAML yaml;
+//    yaml["clip"]["name"] = clip->getName();
+//    yaml["clip"]["resource"] = clip->getResourceName();
+//    yaml["clip"]["position"]["x"] = clip->getPosition().x * ofGetWidth();
+//    yaml["clip"]["position"]["y"] = clip->getPosition().y * ofGetHeight();
+//    yaml["clip"]["width"] = clip->getWidth();
+//    yaml["clip"]["height"] = clip->getHeight();
+//    yaml["clip"]["scale"] = clip->getScale();
+//    yaml["clip"]["color"]["r"] = clip->getColor().r;
+//    yaml["clip"]["color"]["g"] = clip->getColor().g;
+//    yaml["clip"]["color"]["b"] = clip->getColor().b;
+//    yaml["clip"]["color"]["a"] = clip->getColor().a;
+//    yaml["clip"]["depth"] = clip->getDepth();
+//    yaml["clip"]["fullscreen"] = clip->isFullscreen();
+//    yaml["clip"]["visible"] = clip->isVisible();
+//    yaml["clip"]["flipV"] = clip->isFlippedV();
+//    yaml["clip"]["flipH"] = clip->isFlippedH();
+//    yaml["clip"]["loop"] = static_cast<int>(clip->getLoopState());
+//    //            yaml["clip"]["parent"] = clip->getParentName();
+//    yaml["clip"]["offset"]["x"] = clip->getOffset().x;
+//    yaml["clip"]["offset"]["y"] = clip->getOffset().y;
     
-    loopier::utils::saveYaml(filename, yaml);
+//    loopier::utils::saveYaml(filename, yaml);
 }
 
 //---------------------------------------------------------------------------
@@ -1498,7 +1519,7 @@ void loopier::clip::listClipLibraryNames()
         ofLogVerbose() << name;
     }
     
-    return names;
+//    return names;
 }
 
 //---------------------------------------------------------------------------
@@ -1735,27 +1756,27 @@ void loopier::cv::hide()
 }
 
 //---------------------------------------------------------------------------
-ofTexture & loopier::cv::getMask()
-{
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-}
+//ofTexture & loopier::cv::getMask()
+//{
+//    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//}
 
 //---------------------------------------------------------------------------
-ofTexture & loopier::cv::getMaskTexture()
-{
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-}
+//ofTexture & loopier::cv::getMaskTexture()
+//{
+//    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//}
 
 //---------------------------------------------------------------------------
-ofPixels & loopier::cv::getMaskPixels()
-{
-    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-}
+//ofPixels & loopier::cv::getMaskPixels()
+//{
+//    ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
+//}
 
 //---------------------------------------------------------------------------
 ofTexture & loopier::cv::getHolesMask()
 {
-    if (!clip::exists("cv")) return;
+//    if (!clip::exists("cv")) return;
     return getPlayerAsCvPlayer("cv")->getHolesTexture();
 }
 
@@ -1816,7 +1837,7 @@ void loopier::cv::setDetectionArea(ofRectangle & rect)
 
 ofRectangle loopier::cv::getBoundingRect()
 {
-    if (!clip::exists("cv")) return;
+//    if (!clip::exists("cv")) return;
     CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
     return cv->getBoundingRect();
 }
@@ -1824,7 +1845,7 @@ ofRectangle loopier::cv::getBoundingRect()
 ofRectangle loopier::cv::getBoundingRect(ofImage & image)
 {
     ofLogVerbose() << __PRETTY_FUNCTION__ << " needs implementation";
-    if (!clip::exists("cv")) return;
+//    if (!clip::exists("cv")) return;
     CvPlayerPtr cv = getPlayerAsCvPlayer("cv");
     return cv->getBoundingRect(image);
 }
@@ -2080,41 +2101,41 @@ ofTexture loopier::utils::getMaskedTexture(ofTexture & texture, ofTexture & mask
 }
 
 //---------------------------------------------------------------------------
-void loopier::utils::saveYaml(const string filename, ofxYAML & yaml)
-{
-    string name = "Manolos";
-    ofRectangle rect(10,20,100,200);
-    ofFile file(filename, ofFile::WriteOnly);
+//void loopier::utils::saveYaml(const string filename, ofxYAML & yaml)
+//{
+//    string name = "Manolos";
+//    ofRectangle rect(10,20,100,200);
+//    ofFile file(filename, ofFile::WriteOnly);
     
-    string yamlstr = yamlToString(yaml);
-    ofLog() << "\n" << yamlstr;
+//    string yamlstr = yamlToString(yaml);
+//    ofLog() << "\n" << yamlstr;
     
-    file << yamlstr;
-    file.close();
-}
+//    file << yamlstr;
+//    file.close();
+//}
 
-string loopier::utils::yamlToString(YAML::Node & yaml, const int tabulations)
-{
-    string str = "";
+//string loopier::utils::yamlToString(YAML::Node & yaml, const int tabulations)
+//{
+//    string str = "";
     
-    ofxYAML::iterator it = yaml.begin();
-    for (it; it != yaml.end(); ++it) {
-        if (it->second.size() > 0){
-            str += ofToString(it->first) + ":\n";
-            str += yamlToString(it->second, tabulations+1);
-        } else {
-            // add tabulation if necessary
-            for (int i = 0; i < tabulations; i++) { str += "  "; };
-            if ((ofToString(it->first) == "comment")) {
-                str += ofToString("# ") + ofToString(it->second) + "\n";
-            } else {
-                str += ofToString(it->first) + ": " + ofToString(it->second) + "\n";
-            }
-        }
-    }
+//    ofxYAML::iterator it = yaml.begin();
+//    for (it; it != yaml.end(); ++it) {
+//        if (it->second.size() > 0){
+//            str += ofToString(it->first) + ":\n";
+//            str += yamlToString(it->second, tabulations+1);
+//        } else {
+//            // add tabulation if necessary
+//            for (int i = 0; i < tabulations; i++) { str += "  "; };
+//            if ((ofToString(it->first) == "comment")) {
+//                str += ofToString("# ") + ofToString(it->second) + "\n";
+//            } else {
+//                str += ofToString(it->first) + ": " + ofToString(it->second) + "\n";
+//            }
+//        }
+//    }
     
-    return str;
-}
+//    return str;
+//}
 
 bool loopier::utils::isFloat(const string & s)
 {

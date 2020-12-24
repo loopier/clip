@@ -118,35 +118,35 @@ void loopier::FramePlayer::stop()
 //---------------------------------------------------------
 float loopier::FramePlayer::getWidth() const
 {
-    if (frames->size() <= 0 || currentFrame >= frames->size()) return;
+//    if (frames->size() <= 0 || currentFrame >= frames->size()) return;
     return frames->at(currentFrame).getWidth();
 }
 
 //---------------------------------------------------------
 float loopier::FramePlayer::getHeight() const
 {
-    if (frames->size() <= 0 || currentFrame >= frames->size()) return;
+//    if (frames->size() <= 0 || currentFrame >= frames->size()) return;
     return frames->at(currentFrame).getHeight();
 }
 
 //---------------------------------------------------------
 ofTexture & loopier::FramePlayer::getTexture()
 {
-    if (frames->size() <= 0 || currentFrame >= frames->size()) return;
+//    if (frames->size() <= 0 || currentFrame >= frames->size()) return;
     return frames->at(currentFrame).getTexture();
 }
 
 //---------------------------------------------------------
 ofPixels & loopier::FramePlayer::getPixels()
 {
-    if (frames->size() <= 0 || currentFrame >= frames->size()) return;
+//    if (frames->size() <= 0 || currentFrame >= frames->size()) return;
     return frames->at(currentFrame).getPixels();
 }
 
 //---------------------------------------------------------
 ofImage & loopier::FramePlayer::getImage()
 {
-    if (frames->size() <= 0 || currentFrame >= frames->size()) return;
+//    if (frames->size() <= 0 || currentFrame >= frames->size()) return;
     return frames->at(currentFrame);
 }
 

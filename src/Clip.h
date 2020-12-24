@@ -61,7 +61,7 @@ namespace loopier {
         void        setLoopState(const LoopType state);
         LoopType &  getLoopState();
         void        setPlayDirection(const PlayDirection direction);
-        PlayDirection & getPlayDirection();
+        PlayDirection  getPlayDirection() const;
         void        changePlayDirection();
         void        setSpeed(const float newSpeed);
         float       getSpeed();

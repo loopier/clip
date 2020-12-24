@@ -203,7 +203,7 @@ bool loopier::loadMoviesDeprecated(string path)
 //    
 //    ofLogVerbose() << "Loaded " << loopier::movies.size() << " movie files";
 //    
-//    return true;
+    return true;
 }
 
 //---------------------------------------------------------

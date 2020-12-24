@@ -240,7 +240,7 @@ ofPoint loopier::CvPlayer::getCentroid()
 //---------------------------------------------------------
 ofPoint loopier::CvPlayer::getBlobCentroid(const int blobindex)
 {
-    if(blobs.size() < 1) return;
+//    if(blobs.size() < 1) return;
     ofPoint centroid(blobs.at(blobindex).getCentroid2D().x, blobs.at(blobindex).getCentroid2D().y);
     return centroid;
 }
@@ -270,7 +270,7 @@ ofRectangle loopier::CvPlayer::getBlobBoundingRect(int blobindex)
 //---------------------------------------------------------
 ofRectangle loopier::CvPlayer::getBoundingRect(ofPixels & pix)
 {
-    if(contourFinder.getPolylines().size() < 1) return;
+//    if(contourFinder.getPolylines().size() < 1) return;
     contourFinder.findContours(pix);
     return getBlobBoundingRect(0);
 }

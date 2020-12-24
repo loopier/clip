@@ -215,6 +215,7 @@ namespace loopier {
         //---------------------------------------------------------
         void MessageMapper::setupUvcCommandsMap()
         {
+            /*
             messageMap["/loopier/clip/uvc/add"]          = &MessageMapper::addUvcCamera;
             messageMap["/loopier/clip/uvc/use"]          = &MessageMapper::useUvcCamera;
             messageMap["/loopier/clip/uvc/autoexposure"] = &MessageMapper::setUvcAutoExposure;
@@ -228,6 +229,7 @@ namespace loopier {
             messageMap["/loopier/clip/uvc/contrast"]     = &MessageMapper::setUvcContrast;
             messageMap["/loopier/clip/uvc/saturation"]   = &MessageMapper::setUvcSaturation;
             messageMap["/loopier/clip/uvc/sharpness"]    = &MessageMapper::setUvcSharpness;
+            */
         }
         
         
@@ -1155,7 +1157,7 @@ namespace loopier {
         
         
         
-        
+        /*
         
         //---------------------------------------------------------
         
@@ -1248,7 +1250,7 @@ namespace loopier {
             uvc::setSharpness(msg.getArgAsFloat(0));
         }
         
-        
+        */
         
         
         
